@@ -1,0 +1,102 @@
+{
+  "revision": "b37b5bb33b78f2c1d6567d98e25ca818e3259219",
+  "roles": {
+    "ui_ux": {
+      "source": "design/design-ux-architect.md",
+      "source_sha256": "7d373da3fd204db3c830f28e03cdf85bcacd3858e38fbdad58489953f811c296",
+      "adapted": "integrations/agency-agents/ui_ux.md",
+      "adapted_sha256": "cf150f1ee5732617453c8b858888348c2d3308f79b50910cf91d04a4cb027eb7"
+    },
+    "ai_engineer": {
+      "source": "engineering/engineering-ai-engineer.md",
+      "source_sha256": "0c41987c2126110773ae5d0dec0e39bc94978b1575c7d7c187d9cb71190dc8f4",
+      "adapted": "integrations/agency-agents/ai_engineer.md",
+      "adapted_sha256": "e8919378e7c18a7ce7879fa961377f2cf679786556bdc6b00fe721b08f442049"
+    },
+    "backend": {
+      "source": "engineering/engineering-backend-architect.md",
+      "source_sha256": "45d94306c8f0f4c51efb76066008297fa4e87ce5b69f509cfede224084b74dfb",
+      "adapted": "integrations/agency-agents/backend.md",
+      "adapted_sha256": "e1557970c7a1fe2d461dd0419c4927c753b16ace9516317f50f646d97925f210"
+    },
+    "code_reviewer": {
+      "source": "engineering/engineering-code-reviewer.md",
+      "source_sha256": "7509fcc3ea1dda46511b2801996305bf3d4a125576f9655ff0b63df25602f446",
+      "adapted": "integrations/agency-agents/code_reviewer.md",
+      "adapted_sha256": "f59ee7357c3c277512441ff2ff8da6e17b1bcd366f6d5fd78458c04516808273"
+    },
+    "database": {
+      "source": "engineering/engineering-database-reliability-engineer.md",
+      "source_sha256": "0096dc3c1b31e33814c509fda43853cc77cef6252bb94da527b833be13b53a5a",
+      "adapted": "integrations/agency-agents/database.md",
+      "adapted_sha256": "6c0173491ab476d3eb72c76dedc810afee771dae2c98cf0c7b28b5b1a828d0b9"
+    },
+    "devops": {
+      "source": "engineering/engineering-devops-automator.md",
+      "source_sha256": "9bddbe8b3f87d0abc1bd75bb899b203143aff657ddb8e4efba2477897d7fd318",
+      "adapted": "integrations/agency-agents/devops.md",
+      "adapted_sha256": "401e9c5b09f4cb992d4ba13032cfd717de4948a406c8cc5572c1f4d0a0fffa35"
+    },
+    "frontend": {
+      "source": "engineering/engineering-frontend-developer.md",
+      "source_sha256": "82d977c05e652e01f5ab6a3f08b30c57a46225d03e3c9b42a3eb0eb33e4c3bea",
+      "adapted": "integrations/agency-agents/frontend.md",
+      "adapted_sha256": "fbeb388704ad0c8453537c3031139416eacf355fafa1ecae8315b1708c3c4db1"
+    },
+    "incident_response": {
+      "source": "engineering/engineering-incident-response-commander.md",
+      "source_sha256": "89b9c1294879dd24804c8b6d7805fde193e868a3c930a1ac515a36d527b8522a",
+      "adapted": "integrations/agency-agents/incident_response.md",
+      "adapted_sha256": "46dfeab5bac43d6447e0a124ccba523e0cdee3a0bcdf405975eebf655f58251e"
+    },
+    "minimal_change": {
+      "source": "engineering/engineering-minimal-change-engineer.md",
+      "source_sha256": "9999cc74e7b3936af892ef2c2793d105bb92f6c47789aa23db6df92bf68b45e5",
+      "adapted": "integrations/agency-agents/minimal_change.md",
+      "adapted_sha256": "58f43556091ef09028e450624dacd722a4a26386316890e5309928c2dc7d97cf"
+    },
+    "mobile": {
+      "source": "engineering/engineering-mobile-app-builder.md",
+      "source_sha256": "2e679b154cf4ff8e7a6a07cd73572c6873db835036a496e0f967d4273cc3acb4",
+      "adapted": "integrations/agency-agents/mobile.md",
+      "adapted_sha256": "c036238e0b1da154e401a4fd4828e93631afb92b215e62001fec09451fbca0dc"
+    },
+    "voice_ai": {
+      "source": "engineering/engineering-voice-ai-integration-engineer.md",
+      "source_sha256": "c6f3cc0829fc2b6c989f2aed10929e59365ec3bae89089205e27acbc57c17c7c",
+      "adapted": "integrations/agency-agents/voice_ai.md",
+      "adapted_sha256": "ff89f086e140bcc781718ed22161a2a9bb1da80e13ba7b9de81ffe20d29bd75c"
+    },
+    "project_manager": {
+      "source": "project-management/project-manager-senior.md",
+      "source_sha256": "70fb27cab174c97375293311211d5563c5ac257fba274450d1ca9c05b540ef2d",
+      "adapted": "integrations/agency-agents/project_manager.md",
+      "adapted_sha256": "331bfaaf8e3bc555e186f291f49d6b5a1fe4b50ea78f9f390faa4e62fabc727f"
+    },
+    "research": {
+      "source": "research/research-synthesist.md",
+      "source_sha256": "3618b4a2a73523147731ae38ac4096cea0e83a7de930f55ea9ea6c69e3c77f30",
+      "adapted": "integrations/agency-agents/research.md",
+      "adapted_sha256": "d029ddc23bf1673c7e3aacb0ac191626d507a39877a6c6f8ce77149368f93824"
+    },
+    "security_privacy": {
+      "source": "security/security-appsec-engineer.md",
+      "source_sha256": "d7653cffaffa90ac4ece226fb6063637fd09c5fe5870b2d3e16e6aba07de977b",
+      "adapted": "integrations/agency-agents/security_privacy.md",
+      "adapted_sha256": "fe5e1c69b67f59d79185a216e722c817e6aa8ffccc91593aa8dae2b275a9df60"
+    },
+    "testing": {
+      "source": "testing/testing-test-automation-engineer.md",
+      "source_sha256": "4299d038e88387546d645ccbe767b1dfdb7de10da55eba1ab103149972cd2b9b",
+      "adapted": "integrations/agency-agents/testing.md",
+      "adapted_sha256": "0e7c094483d6dcacdf90fdee6d7ab6682b07609b9890da0dfa848ae741210f7d"
+    }
+  },
+  "changes": [
+    "Added IGRIS constraints",
+    "Removed persona identity/memory and success-metric sections",
+    "Removed incident emergency-approval exemption",
+    "Retained copied technical methodology and illustrative examples",
+    "Normalized whitespace in adapted copies; original vendor definitions retained byte-for-byte."
+  ]
+}

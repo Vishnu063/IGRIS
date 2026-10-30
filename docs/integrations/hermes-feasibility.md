@@ -1,3 +1,5 @@
+> Reuse strategy updated by explicit user instruction; see docs/revisions/reuse-correction.md. Earlier decisions below are historical.
+
 # Hermes Agent feasibility assessment — Step 11
 
 Reviewed 30 October 2026 (Asia/Kolkata). Scope: static upstream documentation and

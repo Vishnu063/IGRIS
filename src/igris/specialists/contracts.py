@@ -11,6 +11,10 @@ class Specialist:
     permissions: tuple = ()
     mode: str = 'proposal_only'
 
+    def definition(self):
+        from ..reused_agents import specialist_definition
+        return specialist_definition(self.id)
+
     def __post_init__(self):
         if self.permissions or self.mode != 'proposal_only':
             raise ContractError('Specialists cannot grant tool authority.')

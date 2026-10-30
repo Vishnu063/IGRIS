@@ -1,6 +1,7 @@
 """One in-flight simulated batch; exact approval enforced inside Guardian."""
 from dataclasses import dataclass
 import json
+import hashlib
 from pathlib import Path
 from threading import BoundedSemaphore
 from uuid import uuid4
@@ -25,14 +26,17 @@ def validate_batch(raw):
     seen = set()
     normalized = []
     for item in tasks:
-        if type(item) is not dict or set(item) != {'role', 'task', 'context'}:
+        if type(item) is not dict or set(item) not in ({'role', 'task', 'context'}, {'role', 'task', 'context', 'definition_sha256'}):
             raise ContractError('Invalid specialist task schema.')
         spec = profile(item['role'])
         if spec.id in seen:
             raise ContractError('Duplicate specialist in batch.')
         seen.add(spec.id)
         context = validate_task(spec, raw['mission_id'], item['task'], item['context'])
-        normalized.append({'role': spec.id, 'task': spec.task, 'context': context})
+        definition_hash = hashlib.sha256(spec.definition().encode()).hexdigest()
+        if 'definition_sha256' in item and item['definition_sha256'] != definition_hash:
+            raise ContractError('Specialist definition changed after recommendation.')
+        normalized.append({'role': spec.id, 'task': spec.task, 'context': context, 'definition_sha256': definition_hash})
     return {'recommendation_id': raw['recommendation_id'], 'mission_id': raw['mission_id'], 'tasks': normalized}
 
 

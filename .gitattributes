@@ -1,0 +1,2 @@
+# Preserve upstream source formatting for provenance; security scanning still covers it.
+vendor/** -whitespace

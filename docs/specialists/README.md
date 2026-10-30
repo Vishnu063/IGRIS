@@ -1,3 +1,5 @@
+> Reuse strategy updated by explicit user instruction; see docs/revisions/reuse-correction.md. Earlier decisions below are historical.
+
 # Specialist capabilities
 
 Step 27 adds inert development role metadata and strict task/output contracts:

@@ -78,3 +78,8 @@ These are trusted development utilities; no real production deployment is enable
 The [15 specialist contracts](docs/specialists/README.md) have tested role boundaries
 and [approval-gated simulated scheduling](docs/specialists/scheduling.md). They
 are not connected live models; no separate Agent Builder is added.
+
+The user-authorized [reuse correction](docs/revisions/reuse-correction.md) copies
+and adapts Agency Agents definitions and Hermes backend source in this repo.
+Real runtime activation is still unverified; these source copies replace the
+earlier reference-only strategy. MIT notices and provenance manifests are retained.

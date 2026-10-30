@@ -1,3 +1,5 @@
+> Reuse strategy updated by explicit user instruction; see docs/revisions/reuse-correction.md. Earlier decisions below are historical.
+
 # Agency Agents compatibility and security assessment — Step 26
 
 Reviewed 30 October 2026 (Asia/Kolkata), upstream revision
