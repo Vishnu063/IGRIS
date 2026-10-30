@@ -69,3 +69,8 @@ Ops Pilot work through Step 20 includes a [read-only source audit](docs/integrat
 diagnosis and [proposal-only repair guidance](docs/integrations/repair-recommendations.md).
 [Approved recovery](docs/integrations/approved-recovery.md) is tested only with an
 explicit simulator; real Ops Pilot restarts remain blocked.
+
+Development through Step 25 includes [project scaffolding](docs/development/projects.md),
+a [reviewed sample application](docs/development/workflows.md), [local Git workflows](docs/development/git.md),
+[manual-only CI preparation](docs/development/ci.md) and [production approval controls](docs/development/deployment.md).
+These are trusted development utilities; no real production deployment is enabled.
