@@ -42,3 +42,7 @@ Tests use real local broker processes, files, symlinks/hardlinks, FIFO, fixed
 subprocess and OS-limit inspection. Timeout handling alone uses a process test
 double; this does not measure real timeout behavior or provider performance.
 Inherited Python environment poisoning is tested with synthetic startup code.
+
+Step 20 adds ops.recovery.fixture, an approval-gated local state simulator with
+a fixed fixture path, lock and strict schema; it never executes Docker commands
+or provider requests. See ../integrations/approved-recovery.md for limits.

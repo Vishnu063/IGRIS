@@ -63,3 +63,9 @@ in-memory library. No real reasoning service or autonomous assistant is active.
 [Simulated orchestration](docs/integrations/orchestration.md) connects tested
 controller and Guardian code to explicit Hermes/Ops Pilot mocks and a local n8n
 contract fixture. Real service connections remain unverified and disabled.
+
+Ops Pilot work through Step 20 includes a [read-only source audit](docs/integrations/ops-pilot-audit.md),
+[monitoring export mapping](docs/integrations/ops-monitoring.md), evidence-linked
+diagnosis and [proposal-only repair guidance](docs/integrations/repair-recommendations.md).
+[Approved recovery](docs/integrations/approved-recovery.md) is tested only with an
+explicit simulator; real Ops Pilot restarts remain blocked.

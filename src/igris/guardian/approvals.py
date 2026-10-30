@@ -22,6 +22,7 @@ RISK_CATEGORIES = MappingProxyType({
     'financial.transaction': 'financial_transaction',
     'scope.external_change': 'outside_scope',
     'file.create': 'file_creation',
+    'ops.recovery.fixture': 'recovery_simulation',
 })
 
 

@@ -90,7 +90,7 @@ class ApprovalTests(unittest.TestCase):
 
     def test_all_required_risk_categories_can_request_approval_but_unsupported_actions_stay_blocked(self):
         for operation in RISK_CATEGORIES:
-            if operation == 'file.create':
+            if operation in ('file.create', 'ops.recovery.fixture'):
                 continue
             action = {'operation': operation, 'arguments': {'target': 'synthetic-fixture', 'amount_inr': 0}}
             with self.subTest(operation=operation):

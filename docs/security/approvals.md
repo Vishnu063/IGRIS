@@ -88,3 +88,7 @@ Review fixes: expiry is checked after lock acquisition, risk categories are
 immutable, and prefixed secret-label regression cases pass. The test clock and
 database-access delay wrapper are synthetic; concurrent store/broker operations
 use real SQLite and child processes.
+
+Step 20 additionally gates the explicitly named ops.recovery.fixture simulator.
+It requires both a synthetic provider decision and exact Guardian approval.
+No live provider mutation handler is added.

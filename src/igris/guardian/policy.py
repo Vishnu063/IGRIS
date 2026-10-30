@@ -32,6 +32,7 @@ OPERATIONS = MappingProxyType({
     'file.delete': Permission.FILE_MODIFY,
     'file.sensitive_change': Permission.FILE_MODIFY,
     'scope.external_change': Permission.FILE_MODIFY,
+    'ops.recovery.fixture': Permission.CLOUD,
 })
 
 

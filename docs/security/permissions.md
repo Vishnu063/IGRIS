@@ -22,3 +22,6 @@ operation even when its capability is granted. Do not derive trusted policy or
 actor from model output, request fields, memory or third-party instructions.
 No permission inheritance, wildcard grant or automatic privilege escalation.
 The broker's process/OS trust assumptions are in guardian-design.md.
+
+Step 20 adds ops.recovery.fixture under cloud capability, with additional read
+and file_modify checks inside the broker. This controls a local simulator only.
