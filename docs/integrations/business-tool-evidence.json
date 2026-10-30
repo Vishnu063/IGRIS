@@ -1,0 +1,282 @@
+[
+  {
+    "repository": "n8n-io/n8n",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/n8n-io/n8n/blob/master/LICENSE.md",
+      "git_blob": "f85f59baa906530c26cee26e0c9ddd6bd5f86dbd",
+      "excerpt": "# License\n\nPortions of this software are licensed as follows:\n\n- Content of branches other than the main branch (i.e. \"master\") are not licensed.\n- Source code files that contain \".ee.\" in their filename or \".ee\" in their dirname are NOT licensed under\n  the Sustainable Use License.\n  To use source code files that contain \".ee.\" in their filename or \".ee\" in their dirname you must hold a\n\tvalid n8n Enterprise License specifically allowing you access to such source code files and as defined\n\tin \"LICENSE_EE.md\".\n- All third party components incorporated into the n8n Software are licensed under the original license\n  provided by the owner of the applicable component.\n- Content outside of the above mentioned files or restrictions is available under the \"Sustainable Use\n  License\" as defined below.\n\n## Sustainable Use License\n\nVersion 1.0\n\n### Acceptance\n\nBy using the software, you agree to all of the terms and conditions below.\n\n### Copyright License\n\nThe licensor grants you a non-exclusive, royalty-free, worldwide, non-sublicensable, non-transferable license\nto use, copy, distribute, make available, and prepare derivative works of the software, in each case subject\nto the limitations below.\n\n### Limitations\n\nYou may use or modify the software only for your own internal business purposes or for non-commercial or\npersonal use. You may distribute the software or provide it to others only if you do so free of charge for\nnon-commercial purposes. You may not alter, remove, or obscure any licensing, copyright, or other notices of\nthe licensor in the software. Any use of the licensor’s trademarks is subject to applicable law.\n\n### Patents\n\nThe licensor grants you a license, under any patent claims the licensor can license, or becomes able to\nlicense, to make, have made, use, sell, offer for sale, import and have imported the software, in each case\nsubject to the limitations and conditions in this license. This license does not cover any patent claims that\nyou cause to be infringed by modifications or additions to the software. If you or your company make any\nwritten claim that the software infringes or contributes to infringement of any patent, your patent license\nfor the "
+    },
+    "readme": {
+      "url": "https://github.com/n8n-io/n8n/blob/master/README.md",
+      "git_blob": "567d03f771487fd0be47cb5ac764d359cb281d2a"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "activepieces/activepieces",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/activepieces/activepieces/blob/main/LICENSE",
+      "git_blob": "73e0a2f7acf13c780655de40183b06a0a93e091b",
+      "excerpt": "Copyright (c) 2020-2024 Activepieces Inc.\n\nPortions of this software are licensed as follows:\n\n* All content that resides under the \"packages/ee/\" and \"packages/server/api/src/app/ee\" directory of this repository, if that directory exists, is licensed under the license defined in packages/ee/LICENSE\n* All third party components incorporated into the Activepieces Inc Software are licensed under the original license provided by the owner of the applicable component.\n* Content outside of the above mentioned directories or restrictions above is available under the \"MIT Expat\" license as defined below.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+    },
+    "readme": {
+      "url": "https://github.com/activepieces/activepieces/blob/main/README.md",
+      "git_blob": "a0b8adff34d2909d02480a2ed61a13b4e87a2ce4"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "chatwoot/chatwoot",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/chatwoot/chatwoot/blob/develop/LICENSE",
+      "git_blob": "d0425a707ab6f0cf06c9aa3c08e8edf5c64adc61",
+      "excerpt": "Copyright (c) 2017-2026 Chatwoot Inc.\n\nPortions of this software are licensed as follows:\n\n* All content that resides under the \"enterprise/\" directory of this repository, if that directory exists, is licensed under the license defined in \"enterprise/LICENSE\".\n* All third party components incorporated into the Chatwoot Software are licensed under the original license provided by the owner of the applicable component.\n* Content outside of the above mentioned directories or restrictions above is available under the \"MIT Expat\" license as defined below.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.\n"
+    },
+    "readme": {
+      "url": "https://github.com/chatwoot/chatwoot/blob/develop/README.md",
+      "git_blob": "d8b8ae7a2331ba9eb4002ea7d2911a4ae36bf297"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "twentyhq/twenty",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/twentyhq/twenty/blob/main/LICENSE",
+      "git_blob": "7f79939e3b656404b49a480db698955b93c7cf37",
+      "excerpt": "\nThis project is mostly licensed under the GNU Affero General Public License v3.0 (AGPLv3) as described below, with two qualifications:\n\n1. Certain files are licensed under a commercial license. These files are clearly marked with the following comment at the top of the file: /* @license Enterprise */\nFiles with this comment are not licensed under the AGPLv3, but instead are subject to the commercial license terms defined at the end of this file.\n\n2. Certain packages are licensed under the MIT license instead of the AGPLv3, as indicated by the license field of their package.json and the LICENSE file at the package root. This currently includes the application development toolkit (the twenty CLI, twenty-sdk, twenty-client-sdk, create-twenty-app, twenty-shared), the twenty-ui component library, and the applications under packages/twenty-apps.\n\nThe AGPLv3 applies to the rest of the project, with the following additional permission:\n\n---------------------------------------------------------------------------\n\n              ADDITIONAL PERMISSION UNDER AGPLv3 SECTION 7\n                     (Twenty Application Exception)\n\nAs an additional permission under section 7 of the GNU Affero General\nPublic License v3.0, the copyright holders of Twenty grant you the\nfollowing rights:\n\n1. Definitions.\n\n   \"Twenty\" means the software made available in this repository under\n   the AGPLv3.\n\n   \"Application Interfaces\" means the interfaces Twenty exposes for\n   building applications: the published HTTP APIs (REST and GraphQL) and\n   webhooks; the application manifest and configuration formats consumed\n   by the Twenty application platform; logic functions executed by the\n   platform's function runtime; front components rendered by the\n   platform's component renderer; and the published Twenty SDKs.\n\n   \"Application\" means a work that interacts with Twenty through the\n   Application Interfaces and that does not otherwise incorporate or\n   modify the source code of Twenty.\n\n2. Permission. Developing an Application, conveying it, or making it\n   available for interaction over a network does not, by itself, cause\n   the Application to be governed by the AGPLv3. You may license your\n   Ap"
+    },
+    "readme": {
+      "url": "https://github.com/twentyhq/twenty/blob/main/README.md",
+      "git_blob": "4ae7858d549ee44177ca4f23d3a3ce357c2cd541"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "medusajs/medusa",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/medusajs/medusa/blob/develop/LICENSE",
+      "git_blob": "2bc747bf4b0a88864584b033fdeab86012a44c79",
+      "excerpt": "Except for the Enterprise Edition materials identified in\nENTERPRISE-LICENSE.md, the repository is licensed under the MIT License below.\nThe Enterprise Edition materials are not licensed under the MIT License and\nare governed by ENTERPRISE-LICENSE.md and, where applicable, a separate\ncommercial agreement with MedusaJS, Inc.\n\nThe MIT License (MIT)\n\nCopyright (c) 2021 Medusajs\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+    },
+    "readme": {
+      "url": "https://github.com/medusajs/medusa/blob/develop/README.md",
+      "git_blob": "75d40ef5f05566ccd7f58d9794e64181aa0125a4"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "bagisto/bagisto",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/bagisto/bagisto/blob/2.5/LICENSE",
+      "git_blob": "aa358e891824a51cee018218e17165bdc7190441",
+      "excerpt": "MIT License\n\nCopyright 2010-2025, Webkul Software\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is furnished\nto do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,\nINCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A \nPARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT \nHOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION \nOF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE \nSOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n"
+    },
+    "readme": {
+      "url": "https://github.com/bagisto/bagisto/blob/2.5/README.md",
+      "git_blob": "fa813ced8ca8a7285eeaf052f54bf100fd2242cf"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "saleor/saleor",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/saleor/saleor/blob/main/LICENSE",
+      "git_blob": "715b42cd6fe5d7073984ff7004b49dc8304adbcc",
+      "excerpt": "BSD 3-Clause License\n\nCopyright (c) 2020-2023, Saleor Commerce\nCopyright (c) 2010-2020, Mirumee Software\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n* Redistributions of source code must retain the above copyright notice, this\n  list of conditions and the following disclaimer.\n\n* Redistributions in binary form must reproduce the above copyright notice,\n  this list of conditions and the following disclaimer in the documentation\n  and/or other materials provided with the distribution.\n\n* Neither the name of the copyright holder nor the names of its\n  contributors may be used to endorse or promote products derived from\n  this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\nAND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\nIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n"
+    },
+    "readme": {
+      "url": "https://github.com/saleor/saleor/blob/main/README.md",
+      "git_blob": "c713c69282671a8cd254fe3607e647e7a1b9a463"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "coollabsio/coolify",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/coollabsio/coolify/blob/main/LICENSE",
+      "git_blob": "e3cc59461d6f83676efd1eb85ae82384a10de2a5",
+      "excerpt": "                                Apache License\n                           Version 2.0, January 2004\n                        http://www.apache.org/licenses/\n\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n   1. Definitions.\n\n      \"License\" shall mean the terms and conditions for use, reproduction,\n      and distribution as defined by Sections 1 through 9 of this document.\n\n      \"Licensor\" shall mean the copyright owner or entity authorized by\n      the copyright owner that is granting the License.\n\n      \"Legal Entity\" shall mean the union of the acting entity and all\n      other entities that control, are controlled by, or are under common\n      control with that entity. For the purposes of this definition,\n      \"control\" means (i) the power, direct or indirect, to cause the\n      direction or management of such entity, whether by contract or\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\n      outstanding shares, or (iii) beneficial ownership of such entity.\n\n      \"You\" (or \"Your\") shall mean an individual or Legal Entity\n      exercising permissions granted by this License.\n\n      \"Source\" form shall mean the preferred form for making modifications,\n      including but not limited to software source code, documentation\n      source, and configuration files.\n\n      \"Object\" form shall mean any form resulting from mechanical\n      transformation or translation of a Source form, including but\n      not limited to compiled object code, generated documentation,\n      and conversions to other media types.\n\n      \"Work\" shall mean the work of authorship, whether in Source or\n      Object form, made available under the License, as indicated by a\n      copyright notice that is included in or attached to the work\n      (an example is provided in the Appendix below).\n\n      \"Derivative Works\" shall mean any work, whether in Source or Object\n      form, that is based on (or derived from) the Work and for which the\n      editorial revisions, annotations, elaborations, or other modifications\n      represent, as a whole, an original work of authorship. For the purposes\n      of this License, Derivative Works shall not include w"
+    },
+    "readme": {
+      "url": "https://github.com/coollabsio/coolify/blob/main/README.md",
+      "git_blob": "de6b80ab95c95b1348543ac616983ba99ce1566f"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "appsmithorg/appsmith",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/appsmithorg/appsmith/blob/release/LICENSE",
+      "git_blob": "572020df3c930ed2d64aa0a6541cf538fe62a06b",
+      "excerpt": "Apache License\n                           Version 2.0, January 2004\n                        http://www.apache.org/licenses/\n\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n   1. Definitions.\n\n      \"License\" shall mean the terms and conditions for use, reproduction,\n      and distribution as defined by Sections 1 through 9 of this document.\n\n      \"Licensor\" shall mean the copyright owner or entity authorized by\n      the copyright owner that is granting the License.\n\n      \"Legal Entity\" shall mean the union of the acting entity and all\n      other entities that control, are controlled by, or are under common\n      control with that entity. For the purposes of this definition,\n      \"control\" means (i) the power, direct or indirect, to cause the\n      direction or management of such entity, whether by contract or\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\n      outstanding shares, or (iii) beneficial ownership of such entity.\n\n      \"You\" (or \"Your\") shall mean an individual or Legal Entity\n      exercising permissions granted by this License.\n\n      \"Source\" form shall mean the preferred form for making modifications,\n      including but not limited to software source code, documentation\n      source, and configuration files.\n\n      \"Object\" form shall mean any form resulting from mechanical\n      transformation or translation of a Source form, including but\n      not limited to compiled object code, generated documentation,\n      and conversions to other media types.\n\n      \"Work\" shall mean the work of authorship, whether in Source or\n      Object form, made available under the License, as indicated by a\n      copyright notice that is included in or attached to the work\n      (an example is provided in the Appendix below).\n\n      \"Derivative Works\" shall mean any work, whether in Source or Object\n      form, that is based on (or derived from) the Work and for which the\n      editorial revisions, annotations, elaborations, or other modifications\n      represent, as a whole, an original work of authorship. For the purposes\n      of this License, Derivative Works shall not include works that remain\n      separable"
+    },
+    "readme": {
+      "url": "https://github.com/appsmithorg/appsmith/blob/release/README.md",
+      "git_blob": "f41c75cb84fe8c96d806c370eed4d6589f29079d"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "Budibase/budibase",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/Budibase/budibase/blob/master/LICENSE",
+      "git_blob": "3ba5c5a490dc6b45f7fc98c5a02b72e75e9562d8",
+      "excerpt": "# Licensing guidelines\n\nEach Budibase package has its own license, please check the license file in each package.\n\nYou can consider Budibase to be GPLv3 licensed overall.\n\nThe apps that you build with Budibase do not package any GPLv3 licensed code, thus do not fall under those restrictions.\n\nBudibase ships with Structured Query Server, by The Neighbourhoodie Software GmbH. This license for this can be found at ./SQS_LICENSE\n\n## Choosing a license\n\nThese guidelines explain which licence to use when creating a new package in the Budibase monorepo.\n\n### 1. Is this a paid feature?\n\nIf **yes**, license the package under **BSL**.\n\nPaid features should live in `/packages/pro`.\n\nThe Business Source License (BSL) allows people to view and modify the source code, but it does **not** allow them to use modified code in production to bypass Budibase's licensing restrictions. Removing licence checks and running that version in production would violate the licence.\n\nThe BSL includes specific exceptions. See `/packages/pro/LICENSE.md` for details.\n\n---\n\n### 2. Will this package ship as part of a Budibase app?\n\nIf **yes**, use **MPL 2.0**.\n\nBudibase itself is licensed under **GPLv3**. Code that is incorporated into a GPLv3 project is generally subject to GPL's copyleft requirements.\n\nHowever, we do **not** require applications built with the Budibase builder to be open source.\n\nPackages that become part of a generated Budibase application should therefore use **MPL 2.0**. MPL 2.0 is compatible with GPLv3 while allowing Budibase apps to remain under any licence. It provides file-level copyleft, so changes to MPL-licensed files must remain open, without requiring the entire application to be GPL.\n\n---\n\n### 3. Everything else\n\nUse **GPLv3**.\n\nGPLv3 is the default licence for Budibase packages that are not paid features and are not distributed as part of generated Budibase applications.\n\n\n"
+    },
+    "readme": {
+      "url": "https://github.com/Budibase/budibase/blob/master/README.md",
+      "git_blob": "2363e3ee8e5e3ecd6dcd69fcd55255de3c9bd1e5"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "nocodb/nocodb",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/nocodb/nocodb/blob/develop/LICENSE.md",
+      "git_blob": "7b4a702703b5029737224d4000390d0aebec13b0",
+      "excerpt": "# License\n\n**Updated on: January 29, 2026**\n\nPortions of this software are licensed as follows:\n\n* All third party components incorporated into the NocoDB Software are licensed under the original license provided by the owner of the applicable component.\n* Content in the \"master\" branch is available under the \"Sustainable Use License\" as defined below.\n* Content in the \"develop\" branch is available under the \"Sustainable Use License\" as defined below.\n* Content of branches other than \"master\" and \"develop\" are not licensed.\n\n\n## Sustainable Use License\n\nVersion 1.0\n\n### Acceptance\n\nBy using the software, you agree to all of the terms and conditions below.\n\n### Copyright License\n\nThe licensor grants you a non-exclusive, royalty-free, worldwide, non-sub-licensable, non-transferable license to use, copy, distribute, make available, and prepare derivative works of the software, in each case subject to the limitations below.\n\n### Limitations\n\nYou may use or modify the software only for your own internal business purposes or for non-commercial or personal use. You may distribute the software or provide it to others only if you do so free of charge for non-commercial purposes. You may not alter, remove, or obscure any licensing, copyright, or other notices of the licensor in the software. Any use of the licensor’s trademarks is subject to applicable law.\n\n### Patents\n\nThe licensor grants you a license, under any patent claims the licensor can license, or becomes able to license, to make, have made, use, sell, offer for sale, import and have imported the software, in each case subject to the limitations and conditions in this license. This license does not cover any patent claims that you cause to be infringed by modifications or additions to the software. If you or your company make any written claim that the software infringes or contributes to infringement of any patent, your patent license for the software granted under these terms ends immediately. If your company makes such a claim, your patent license ends immediately for work on behalf of your company.\n\n### Notices\n\nYou must ensure that anyone who gets a copy of any part of the software from you also gets a copy"
+    },
+    "readme": {
+      "url": "https://github.com/nocodb/nocodb/blob/develop/README.md",
+      "git_blob": "9f14e0e8252e3f7f60dd47ad2575907d5cd74045"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "directus/directus",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/directus/directus/blob/main/license",
+      "git_blob": "7b0f6c55a4fc66494f7d7e4a4d8db7d073d7e64e",
+      "excerpt": "# Monospace Sustainable Core License, Version 1.0\n\n## Abbreviation\n\nMSCL-1.0-GPL\n\n## Notice\n\nCopyright 2026 Monospace Inc.\n\n## Terms and Conditions\n\n### Licensor (\"We\")\n\nThe party offering the Software under these Terms and Conditions.\n\n### The Software\n\nThe \"Software\" is each version of the software that we make available under\nthese Terms and Conditions, as indicated by our inclusion of these Terms and\nConditions with the Software.\n\n### License Grant\n\nSubject to your compliance with this License Grant and the Limitations, Patents,\nRedistribution, Disclaimer and Trademark clauses below, we hereby grant you the\nright to use, copy, modify, create derivative works, publicly perform, publicly\ndisplay and redistribute the Software for any Permitted Purpose identified\nbelow.\n\n### Permitted Purpose\n\nA Permitted Purpose is any purpose other than a Competing Use.\n\nA Competing Use means making the Software available to any party (on a stand\nalone basis or together with your products or services) that competes with the\nLicensor's commercial offerings of the Software itself, where Licensor imposes a\nlicense fee, royalty, or other charge for exercise of any rights to the\nSoftware.\n\nPermitted Purposes specifically include using the Software, subject to the\nLimitations below:\n\n1. for your internal use and access;\n2. for non-commercial education;\n3. for non-commercial research; and\n4. in connection with professional services that you provide to a licensee using\n   the Software in accordance with these Terms and Conditions, including\n   professional services to deploy the Software or host the Software for the\n   licensee.\n\n### Limitations\n\nYou must not move, change, disable or circumvent the license key functionality\nof the Software or modify any portion of the Software protected by the license\nkey to:\n\n- enable access to the protected functionality without a valid license key or\n- remove the protected functionality.\n\n### Patents\n\nTo the extent your use for a Permitted Purpose would necessarily infringe our\npatents, the license grant above includes a license under our patents. If you\nmake a claim against any party that the Software infringes or contributes to the\ninfringement o"
+    },
+    "readme": {
+      "url": "https://github.com/directus/directus/blob/main/readme.md",
+      "git_blob": "f3389ceb72c380982aa68c30140a1848fa5a309d"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "strapi/strapi",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/strapi/strapi/blob/develop/LICENSE",
+      "git_blob": "f63cf15b91b4878a1d3afe0f7c59d28fc7564ebe",
+      "excerpt": "Copyright (c) 2015-present Strapi Solutions SAS\n \nPortions of the Strapi software are licensed as follows:\n \n* If you are accessing or using any component of the software that resides under an \"ee/\" directory, then you are deemed to be using our “Enterprise Edition” of the software and you understand and agree that the software is not licensed under the \"MIT Expat\" license as set forth below but instead, all the software you access is licensed under the license defined in \"strapi/packages/core/admin/ee/LICENSE\" and located at https://github.com/strapi/strapi/blob/a76b557047e9ef1c168dbf1b6cf879bcc3022de6/packages/core/admin/ee/LICENSE, unless (a) you or the company you represent has signed an alternative agreement referencing this code, then such signed agreement applies or (b) you are using the software in connection with a subscription to our cloud offering, then the terms of the agreement relevant to the cloud offering which you have assented to apply and the software licenses included in that agreement shall apply.\n \n* If (a) you are not accessing or using the software that resides under an “ee/” directory and therefore you are only accessing or using our “Community Edition” of the Software and (b) you have no registered account on our cloud offering, then we are providing you the software under the \"MIT Expat\" license as set forth below.\n \nMIT Expat License\n \nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n \nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n \nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDE"
+    },
+    "readme": {
+      "url": "https://github.com/strapi/strapi/blob/develop/README.md",
+      "git_blob": "421efc02367efeb7ca69fd5dc7afece91cbe9433"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "frappe/erpnext",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/frappe/erpnext/blob/develop/license.txt",
+      "git_blob": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+      "excerpt": "                    GNU GENERAL PUBLIC LICENSE\n                       Version 3, 29 June 2007\n\n Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>\n Everyone is permitted to copy and distribute verbatim copies\n of this license document, but changing it is not allowed.\n\n                            Preamble\n\n  The GNU General Public License is a free, copyleft license for\nsoftware and other kinds of works.\n\n  The licenses for most software and other practical works are designed\nto take away your freedom to share and change the works.  By contrast,\nthe GNU General Public License is intended to guarantee your freedom to\nshare and change all versions of a program--to make sure it remains free\nsoftware for all its users.  We, the Free Software Foundation, use the\nGNU General Public License for most of our software; it applies also to\nany other work released this way by its authors.  You can apply it to\nyour programs, too.\n\n  When we speak of free software, we are referring to freedom, not\nprice.  Our General Public Licenses are designed to make sure that you\nhave the freedom to distribute copies of free software (and charge for\nthem if you wish), that you receive source code or can get it if you\nwant it, that you can change the software or use pieces of it in new\nfree programs, and that you know you can do these things.\n\n  To protect your rights, we need to prevent others from denying you\nthese rights or asking you to surrender the rights.  Therefore, you have\ncertain responsibilities if you distribute copies of the software, or if\nyou modify it: responsibilities to respect the freedom of others.\n\n  For example, if you distribute copies of such a program, whether\ngratis or for a fee, you must pass on to the recipients the same\nfreedoms that you received.  You must make sure that they, too, receive\nor can get the source code.  And you must show them these terms so they\nknow their rights.\n\n  Developers that use the GNU GPL protect your rights with two steps:\n(1) assert copyright on the software, and (2) offer you this License\ngiving you legal permission to copy, distribute and/or modify it.\n\n  For the developers' and authors' protection, the GPL clearly"
+    },
+    "readme": {
+      "url": "https://github.com/frappe/erpnext/blob/develop/README.md",
+      "git_blob": "bb7a8bc2c33033e506dc5c15469aaacfe31ceee5"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "odoo/odoo",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/odoo/odoo/blob/20.0/LICENSE",
+      "git_blob": "12334e0fdd8d3412d5e1deed72220fcc03431ff2",
+      "excerpt": "\nFor copyright information, please see the COPYRIGHT file.\n\nOdoo is published under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3\n(LGPLv3), as included below. Since the LGPL is a set of additional\npermissions on top of the GPL, the text of the GPL is included at the\nbottom as well.\n\nSome external libraries and contributions bundled with Odoo may be published\nunder other GPL-compatible licenses. For these, please refer to the relevant\nsource files and/or license files, in the source code tree.\n\n**************************************************************************\n\n                   GNU LESSER GENERAL PUBLIC LICENSE\n                       Version 3, 29 June 2007\n\n Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>\n Everyone is permitted to copy and distribute verbatim copies\n of this license document, but changing it is not allowed.\n\n\n  This version of the GNU Lesser General Public License incorporates\nthe terms and conditions of version 3 of the GNU General Public\nLicense, supplemented by the additional permissions listed below.\n\n  0. Additional Definitions.\n\n  As used herein, \"this License\" refers to version 3 of the GNU Lesser\nGeneral Public License, and the \"GNU GPL\" refers to version 3 of the GNU\nGeneral Public License.\n\n  \"The Library\" refers to a covered work governed by this License,\nother than an Application or a Combined Work as defined below.\n\n  An \"Application\" is any work that makes use of an interface provided\nby the Library, but which is not otherwise based on the Library.\nDefining a subclass of a class defined by the Library is deemed a mode\nof using an interface provided by the Library.\n\n  A \"Combined Work\" is a work produced by combining or linking an\nApplication with the Library.  The particular version of the Library\nwith which the Combined Work was made is also called the \"Linked\nVersion\".\n\n  The \"Minimal Corresponding Source\" for a Combined Work means the\nCorresponding Source for the Combined Work, excluding any source code\nfor portions of the Combined Work that, considered in isolation, are\nbased on the Application, and not on the Linked Version.\n\n  The \"Corresponding Application Code\" for a Combined Work means the\n"
+    },
+    "readme": {
+      "url": "https://github.com/odoo/odoo/blob/20.0/README.md",
+      "git_blob": "ac3c04c8f4c53e75a25ec330143f870d2af9ae8b"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "formbricks/formbricks",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/formbricks/formbricks/blob/main/LICENSE",
+      "git_blob": "b8f5f04b6d5369cd84a8a2d5fad09e3b465963f9",
+      "excerpt": "Copyright (c) 2024 Formbricks GmbH\n\nPortions of this software are licensed as follows:\n\n- All content that resides under the \"apps/web/modules/ee\" directory of this repository, if these directories exist, is licensed under the license defined in \"apps/web/modules/ee/LICENSE\".\n- All content that resides under the \"packages/js/\", \"packages/android/\", \"packages/ios/\", \"packages/api/\", \"packages/surveys/\" and \"packages/survey-ui/\" directories of this repository, if that directories exist, is licensed under the \"MIT\" license as declared in the \"package.json\" files of these packages.\n- All third party components incorporated into the Formbricks Software are licensed under the original license provided by the owner of the applicable component.\n- Content outside of the above mentioned directories or restrictions above is available under the \"AGPLv3\" license as defined below.\n\n                    GNU AFFERO GENERAL PUBLIC LICENSE\n                       Version 3, 19 November 2007\n\nCopyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>\nEveryone is permitted to copy and distribute verbatim copies\nof this license document, but changing it is not allowed.\n\n                            Preamble\n\nThe GNU Affero General Public License is a free, copyleft license for\nsoftware and other kinds of works, specifically designed to ensure\ncooperation with the community in the case of network server software.\n\nThe licenses for most software and other practical works are designed\nto take away your freedom to share and change the works. By contrast,\nour General Public Licenses are intended to guarantee your freedom to\nshare and change all versions of a program--to make sure it remains free\nsoftware for all its users.\n\nWhen we speak of free software, we are referring to freedom, not\nprice. Our General Public Licenses are designed to make sure that you\nhave the freedom to distribute copies of free software (and charge for\nthem if you wish), that you receive source code or can get it if you\nwant it, that you can change the software or use pieces of it in new\nfree programs, and that you know you can do these things.\n\nDevelopers that use our General Public Licenses protect your r"
+    },
+    "readme": {
+      "url": "https://github.com/formbricks/formbricks/blob/main/README.md",
+      "git_blob": "251685c7bff8f3325e9056b8ffdd7f824034ea7c"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "mautic/mautic",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/mautic/mautic/blob/7.x/LICENSE.txt",
+      "git_blob": "86c32482c2f36e32fce4969f33193d58a47fdbdb",
+      "excerpt": "Mautic - Open source marketing automation software\n\nCopyright 2014 by the contributors\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see <http://www.gnu.org/licenses/>.\n\nMautic is released under the GPL v3.\n\nMautic is a trademark of the Mautic project of the Open Source Collective.\n\nMautic includes works under other copyright notices and distributed\naccording to the terms of the GNU General Public License or a compatible\nlicense, including:\n\nGraphics\n\n    Carbon Design System Pictograms - Apache License 2.0 - Copyright 2015 IBM Corp.\n\nJavascript\n\n    Bootstrap - MIT - Copyright (c) 2011-2014 Twitter, Inc\n\n    Chart.js - MIT - Copyright 2014 Nick Downie\n\n    Chosen - MIT - Copyright (c) 2011-2014 Harvest http://getharvest.com\n\n    jsPlumb - MIT - Copyright (c) 2010 - 2013 Simon Porritt (simon.porritt@gmail.com)\n\n    jQuery - MIT - Copyright 2005, 2014 jQuery Foundation, Inc. and other contributors\n\n    jQuery DateTimePicker Plugin - MIT - (c) 2014, Chupurnov Valeriy\n\n    jQuery Form Plugin - MIT & GPL - Copyright (c) 2014 M. Alsup\n\n    jQuery UI - MIT - Copyright 2014 jQuery Foundation and other contributors\n\n    jQuery UI Touchpoint - MIT & GPLv2 - Copyright 2011–2014, Dave Furfero\n\n    JQVMap - MIT - Copyright 2012, Peter Schmalfeldt; Copyright 2011-2012, Kirill Lebedev\n\n    Moment.js - MIT - Tim Wood, Iskren Chernev, Moment.js contributors\n\n    Mousetrap - Apache License, Version 2.0 - Copyright 2013 Craig Campbell\n\n    Pick-a-Color - MIT - Copyright 2013 Lauren Sperber and Broadstreet Ads\n\n    Shuffle.js - MIT - by @Vestride\n\n    Tinycolor.js - MIT - 2013-07-04, Brian Grinstead\n\n    Typeahead.js - MIT - Copyright 2013-2014 Twitter, Inc. a"
+    },
+    "readme": {
+      "url": "https://github.com/mautic/mautic/blob/7.x/README.md",
+      "git_blob": "d8bb738fcaf6ae02ccdb38a20c35007f160abaf8"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "plausible/analytics",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/plausible/analytics/blob/master/LICENSE.md",
+      "git_blob": "0ad25db4bd1d86c452db3f9602ccdbe172438f52",
+      "excerpt": "                    GNU AFFERO GENERAL PUBLIC LICENSE\n                       Version 3, 19 November 2007\n\n Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>\n Everyone is permitted to copy and distribute verbatim copies\n of this license document, but changing it is not allowed.\n\n                            Preamble\n\n  The GNU Affero General Public License is a free, copyleft license for\nsoftware and other kinds of works, specifically designed to ensure\ncooperation with the community in the case of network server software.\n\n  The licenses for most software and other practical works are designed\nto take away your freedom to share and change the works.  By contrast,\nour General Public Licenses are intended to guarantee your freedom to\nshare and change all versions of a program--to make sure it remains free\nsoftware for all its users.\n\n  When we speak of free software, we are referring to freedom, not\nprice.  Our General Public Licenses are designed to make sure that you\nhave the freedom to distribute copies of free software (and charge for\nthem if you wish), that you receive source code or can get it if you\nwant it, that you can change the software or use pieces of it in new\nfree programs, and that you know you can do these things.\n\n  Developers that use our General Public Licenses protect your rights\nwith two steps: (1) assert copyright on the software, and (2) offer\nyou this License which gives you legal permission to copy, distribute\nand/or modify the software.\n\n  A secondary benefit of defending all users' freedom is that\nimprovements made in alternate versions of the program, if they\nreceive widespread use, become available for other developers to\nincorporate.  Many developers of free software are heartened and\nencouraged by the resulting cooperation.  However, in the case of\nsoftware used on network servers, this result may fail to come about.\nThe GNU General Public License permits making a modified version and\nletting the public access it on a server without ever releasing its\nsource code to the public.\n\n  The GNU Affero General Public License is designed specifically to\nensure that, in such cases, the modified source code becomes available"
+    },
+    "readme": {
+      "url": "https://github.com/plausible/analytics/blob/master/README.md",
+      "git_blob": "6320d91e4b69b40da0c6a5433a258bf23e0f51ce"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "akaunting/akaunting",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/akaunting/akaunting/blob/master/LICENSE.txt",
+      "git_blob": "5ae8f60a6f51a8add7865c896d4a960afe005095",
+      "excerpt": "License text copyright (c) 2020 MariaDB Corporation Ab, All Rights Reserved.\n“Business Source License” is a trademark of MariaDB Corporation Ab.\n\nParameters\n\nLicensor:             Akaunting, Inc.\n\nLicensed Work:        Akaunting\n\nAdditional Use Grant: You may make production use of the Licensed Work, provided\n                      you do not use it in any of the following ways:\n\n                      (1) Use the Licensed Work with a total of more than two users or\n                      one company or one thousand invoices.\n\n                      (2) Remove the name, logo, copyright, or other branding material\n                      from the Licensed Work to create a \"rebranded\" or \"white labeled\"\n                      version to distribute as part of any commercial or non-profit\n                      product or service.\n\n                      (3) Use the Licensed Work for an Accounting Service. An\n                      \"Accounting Service\" is a commercial offering that allows third\n                      parties (other than your employees and contractors) to access\n                      the functionality of the Licensed Work so that such third\n                      parties directly benefit from the accounting or invoicing\n                      features of the Licensed Work.\n\nChange Date:          Four years from the date the Licensed Work is published.\n\nChange License:       GPLv3\n\nFor information about alternative licensing arrangements for the Licensed Work,\nplease visit: https://akaunting.com/plans-on-premise\n\nNotice\n\nBusiness Source License 1.1\n\nTerms\n\nThe Licensor hereby grants you the right to copy, modify, create derivative\nworks, redistribute, and make non-production use of the Licensed Work. The\nLicensor may make an Additional Use Grant, above, permitting limited production use.\n\nEffective on the Change Date, or the fourth anniversary of the first publicly\navailable distribution of a specific version of the Licensed Work under this\nLicense, whichever comes first, the Licensor hereby grants you rights under\nthe terms of the Change License, and the rights granted in the paragraph\nabove terminate.\n\nIf your use of the Licensed Work does not comply with the re"
+    },
+    "readme": {
+      "url": "https://github.com/akaunting/akaunting/blob/master/README.md",
+      "git_blob": "8ef5f14fec9c22682a5df5353be55a02b9f5e49c"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  },
+  {
+    "repository": "InvoicePlane/InvoicePlane",
+    "reviewed": "2026-10-30",
+    "license": {
+      "url": "https://github.com/InvoicePlane/InvoicePlane/blob/develop/LICENSE.txt",
+      "git_blob": "c9b9d7cf0e317b3a8cd504fe5a5724fc7d1f2b40",
+      "excerpt": "================================================================================\nCopyright Notice for the InvoicePlane trademark\n================================================================================\nThe name 'InvoicePlane' and the InvoicePlane logo are original copyright\nof InvoicePlane.com / Kovah.de and the following restrictions apply to\nboth of them:\n\nYou are allowed to:\n- use the name 'InvoicePlane' or the InvoicePlane logo in any context directly\n    related to the application or the project. This includes the application\n    itself, local communities and news or blog posts about InvoicePlane or\n- use the name 'InvoicePlane' or the InvoicePlane logo to provide professional\n    support or hosting for the InvoicePlane application.\n\nYou are NOT allowed to:\n- use the name 'InvoicePlane' or the InvoicePlane logo in any context that is\n    NOT related to the project,\n- alter the name 'InvoicePlane' or the InvoicePlane logo in any way or\n- sell or redistribute the application under the name 'InvoicePlane' and the\n    InvoicePlane logo.\n\nPlease contact us for more information or permission for exceptional cases.\n\n================================================================================\nLicense for InvoicePlane\n================================================================================\nCopyright (c) 2012-2014 InvoicePlane.com\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of \nthis software and associated documentation files (the \"Software\"), to deal in \nthe Software without restriction, including without limitation the rights to \nuse, copy, modify, merge, publish, distribute, sublicense, and/or sell copies \nof the Software, and to permit persons to whom the Software is furnished to do \nso, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all \ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR \nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, \nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE \nAUTHORS OR COPYRIGHT HOLDERS BE LIAB"
+    },
+    "readme": {
+      "url": "https://github.com/InvoicePlane/InvoicePlane/blob/develop/README.md",
+      "git_blob": "99f153fa84f619c7a3a224d2ec5892933eb8534e"
+    },
+    "scope": "Root license and first 75 README lines only; no installation, runtime or complete edition audit."
+  }
+]
