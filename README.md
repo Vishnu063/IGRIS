@@ -5,7 +5,8 @@ and DevOps operations with independent security enforcement.
 
 ## Actual implementation state
 
-Foundation only, with tested configuration loading. No assistant, Guardian, adapters, dashboard, voice service, or
+Foundation only, with tested configuration, Guardian policy and a restricted
+local execution broker. No assistant, adapters, dashboard, voice service or
 business automation is implemented. No real integration has been verified.
 
 The authorized repository is `Vishnu063/IGRIS`; it is retained rather than
@@ -45,3 +46,6 @@ in [hardware and budget constraints](docs/architecture/hardware-budget.md).
 
 [Guardian security design](docs/security/guardian-design.md) records the threat
 model and required deployment isolation. Design alone does not enforce security.
+
+[Restricted execution](docs/security/execution.md) documents the narrow tested
+broker interface and its deployment limitations.
