@@ -15,7 +15,8 @@ Step 8: see step-08.md.
 Step 9: see step-09.md.
 Step 10: see step-10.md.
 Step 11: see step-11.md.
-Steps 12–50: not started.
+Step 12: see step-12.md.
+Steps 13–50: not started.
 
 Commit references for reports in the same commit use the commit containing the
 report; the user-facing report supplies its exact SHA after commit creation.

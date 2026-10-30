@@ -56,3 +56,6 @@ local source/index credential scanner, including detection limits.
 [Approval controls](docs/security/approvals.md) bind a reviewed exact action to a
 single-use expiring approval. Only new text artifacts have a mutation handler;
 production, spending and external communications remain unavailable.
+
+The [core controller](docs/architecture/controller.md) is a tested synchronous
+in-memory library. No real reasoning service or autonomous assistant is active.
