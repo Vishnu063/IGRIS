@@ -11,6 +11,7 @@ import sys
 # -I -S removes cwd/site imports. Only trusted application code is added.
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from igris.guardian.policy import Denied, Permission, Policy
+from igris.guardian.secrets import prompt_text
 
 MAX_FILE = 8192
 
@@ -76,7 +77,7 @@ def run_action(policy, root, request):
     if operation == 'file.read':
         if set(args) != {'path'}:
             raise Denied('Invalid arguments.')
-        return {'text': read_text(root, args['path'])}
+        return {'text': prompt_text(read_text(root, args['path']))}
     if operation == 'python.version':
         if args:
             raise Denied('Arguments are not allowed.')

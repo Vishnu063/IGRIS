@@ -42,9 +42,10 @@ the `igris` namespace, with console output, no propagation to the root logger,
 and no file creation. It does not apply logging settings automatically, disable
 existing application loggers, or instantiate arbitrary classes from JSON.
 Supported levels are INFO, WARNING, ERROR and CRITICAL; DEBUG is disabled here.
-Test logging uses WARNING by default. Messages/exceptions are not redacted yet:
-never log request bodies, configuration dictionaries, tokens or customer data.
-Step 9 must implement and test redaction before integrating sensitive inputs.
+Test logging uses WARNING by default. Step 9 adds post-format redaction for
+configured patterns, sensitive labels and recognizable email/phone data. Never
+log request bodies, configuration dictionaries, tokens or customer data:
+pattern matching cannot recognize every secret or personal detail.
 Other application loggers and provider SDKs require separate review.
 
 ## Secrets management

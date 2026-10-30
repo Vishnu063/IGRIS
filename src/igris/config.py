@@ -34,7 +34,7 @@ class Settings:
         return {
             'version': 1,
             'disable_existing_loggers': False,
-            'formatters': {'standard': {'format': '%(levelname)s %(name)s %(message)s'}},
+            'formatters': {'standard': {'()': 'igris.guardian.secrets.RedactingFormatter', 'format': '%(levelname)s %(name)s %(message)s'}},
             'handlers': {'console': {
                 'class': 'logging.StreamHandler', 'level': self.log_level,
                 'formatter': 'standard', 'stream': 'ext://sys.stderr'}},

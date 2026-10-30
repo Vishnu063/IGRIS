@@ -49,3 +49,6 @@ model and required deployment isolation. Design alone does not enforce security.
 
 [Restricted execution](docs/security/execution.md) documents the narrow tested
 broker interface and its deployment limitations.
+
+[Secrets protection](docs/security/secrets.md) describes tested redaction and the
+local source/index credential scanner, including detection limits.

@@ -17,8 +17,9 @@ extensions. Paths are relative, ASCII, depth/length constrained; dot-prefixed
 components and sensitive-name paths are denied. Descriptor-based O_NOFOLLOW
 traversal and final-file validation reject symlinks, hardlinks, devices and FIFOs.
 These rules reduce access, but are not general secret detection: safe-looking
-files can contain secrets. Do not use this interface on sensitive live data until
-Step 9 protections and the required deployment isolation are in place.
+files can contain secrets. Step 9 adds output sanitization, but patterns cannot identify every secret.
+Do not use this interface on sensitive live data without the required deployment
+isolation and a data-specific security review.
 
 Subprocesses use fixed argv, `shell=False`, Python isolated/no-site mode, scrubbed
 environments and a trusted workspace. The parent applies a 3-second wall timeout
