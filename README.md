@@ -18,6 +18,7 @@ The initial spending allowance is ₹0.
 
 - `src/igris/`: reserved for future application source.
 - `tests/`: foundation verification.
+- `docs/architecture/`: proposed component boundaries and data flows.
 - `docs/governance/`: development and branch protection recommendations.
 - `docs/execution/`: numbered execution evidence and status.
 
@@ -32,3 +33,8 @@ $ git diff --check
 
 These checks verify the repository foundation only, not assistant functionality.
 Future architecture, configuration, and implementation belong to later steps.
+
+## Architecture
+
+See [the proposed architecture](docs/architecture/overview.md). This design is
+not evidence that its components or security controls are implemented.
