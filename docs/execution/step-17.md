@@ -18,17 +18,17 @@ Files changed:
 Commands executed:
 $ git status --short --branch
 $ python3 (source/documentation creation and review corrections)
-$ python3 -m unittest discover -s tests -v
+$ python3 -m unittest discover -s tests -q
 $ git diff --check
 $ python3 /tmp/igris_record_step.py (record current step)
 $ git add README.md docs src tests
 $ git diff --cached --check
-$ git diff --cached
+$ git diff --cached --stat
 $ git commit (step-specific message)
 - Publication commands and exact commit ID recorded in user-facing report.
 
 Tests executed:
-$ python3 -m unittest discover -s tests -v
+$ python3 -m unittest discover -s tests -q
 $ git diff --check
 $ git diff --cached --check
 
