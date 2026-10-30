@@ -38,3 +38,6 @@ Future architecture, configuration, and implementation belong to later steps.
 
 See [the proposed architecture](docs/architecture/overview.md). This design is
 not evidence that its components or security controls are implemented.
+
+Hardware targets, unverified resource estimates and the ₹0 policy are documented
+in [hardware and budget constraints](docs/architecture/hardware-budget.md).
