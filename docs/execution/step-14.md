@@ -25,7 +25,7 @@ $ git diff --check
 $ python3 /tmp/igris_record_step.py (record current step)
 $ git add README.md docs src tests workflows
 $ git diff --cached --check
-$ git diff --cached
+$ git diff --cached --stat
 $ git commit (step-specific message)
 - Publication commands and exact commit ID recorded in user-facing report.
 
@@ -43,6 +43,7 @@ Test results:
 - Not tested: Hostile same-OS-user containment, real credentials, real provider access, Mac compatibility.
 
 Security review:
+- Record clarification in Step 15: review used source inspection and staged diff statistics; the command entry now accurately names --stat.
 - Implemented an explicit loopback-only authenticated read-only workflow contract, strict request/response validation, per-socket timeouts, bounded retries, stable idempotency keys and minimal audit events. Added an inactive HeaderAuth workflow template; its validation JS runs in Node tests.
 - No real credentials, dependencies, spending, deployments or Mac operations.
 - Self-review only; not an independent security audit.

@@ -6,7 +6,7 @@ and DevOps operations with independent security enforcement.
 ## Actual implementation state
 
 Foundation only, with tested configuration, Guardian policy and a restricted
-local execution broker. No assistant, adapters, dashboard, voice service or
+local execution broker. No live integrated assistant, dashboard, voice service or
 business automation is implemented. No real integration has been verified.
 
 The authorized repository is `Vishnu063/IGRIS`; it is retained rather than
@@ -59,3 +59,7 @@ production, spending and external communications remain unavailable.
 
 The [core controller](docs/architecture/controller.md) is a tested synchronous
 in-memory library. No real reasoning service or autonomous assistant is active.
+
+[Simulated orchestration](docs/integrations/orchestration.md) connects tested
+controller and Guardian code to explicit Hermes/Ops Pilot mocks and a local n8n
+contract fixture. Real service connections remain unverified and disabled.

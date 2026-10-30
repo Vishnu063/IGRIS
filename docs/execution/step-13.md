@@ -25,7 +25,7 @@ $ git diff --check
 $ python3 /tmp/igris_record_step.py (record current step)
 $ git add README.md docs src tests
 $ git diff --cached --check
-$ git diff --cached
+$ git diff --cached --stat
 $ git commit (step-specific message)
 - Publication commands and exact commit ID recorded in user-facing report.
 
@@ -42,6 +42,7 @@ Test results:
 - Not tested: Hostile same-OS-user containment, real credentials, real provider access, Mac compatibility.
 
 Security review:
+- Record clarification in Step 15: review used source inspection and staged diff statistics; the command entry now accurately names --stat.
 - Implemented a typed IGRIS-owned planner protocol, explicit deterministic mock, strict proposal validation, sanitization and a default unavailable live adapter. No silent simulation fallback.
 - No real credentials, dependencies, spending, deployments or Mac operations.
 - Self-review only; not an independent security audit.
