@@ -1,0 +1,78 @@
+{
+  "name": "IGRIS read-only fixture contract (inactive template)",
+  "active": false,
+  "nodes": [
+    {
+      "id": "igris-webhook",
+      "name": "Authenticated fixture webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "igris-readonly",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "igris-validate",
+      "name": "Validate fixture contract",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const b = $json.body;\nconst keys = (o, expected) => o && typeof o === 'object' && !Array.isArray(o) && Object.keys(o).sort().join(',') === expected.sort().join(',');\nif (!keys(b, ['schema_version','mission_id','workflow','input']) || b.schema_version !== 1 || !/^[a-f0-9]{32}$/.test(b.mission_id) || b.workflow !== 'inspect_fixture' || !keys(b.input, ['application']) || typeof b.input.application !== 'string' || !/^[a-z][a-z0-9-]{0,39}$/.test(b.input.application)) throw new Error('Invalid IGRIS fixture contract');\nreturn [{json: {schema_version:1, mission_id:b.mission_id, workflow:'inspect_fixture', status:'completed', output:{summary:'Simulated workflow: inspected fixture ' + b.input.application}}}];"
+      }
+    },
+    {
+      "id": "igris-response",
+      "name": "Return simulated evidence",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Authenticated fixture webhook": {
+      "main": [
+        [
+          {
+            "node": "Validate fixture contract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate fixture contract": {
+      "main": [
+        [
+          {
+            "node": "Return simulated evidence",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
