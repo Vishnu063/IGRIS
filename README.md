@@ -5,7 +5,7 @@ and DevOps operations with independent security enforcement.
 
 ## Actual implementation state
 
-Foundation only. No assistant, Guardian, adapters, dashboard, voice service, or
+Foundation only, with tested configuration loading. No assistant, Guardian, adapters, dashboard, voice service, or
 business automation is implemented. No real integration has been verified.
 
 The authorized repository is `Vishnu063/IGRIS`; it is retained rather than
@@ -16,8 +16,8 @@ The initial spending allowance is ₹0.
 
 ## Structure
 
-- `src/igris/`: reserved for future application source.
-- `tests/`: foundation verification.
+- `src/igris/`: strict configuration loader; assistant runtime remains future work.
+- `tests/`: foundation and configuration verification.
 - `docs/architecture/`: proposed component boundaries and data flows.
 - `docs/governance/`: development and branch protection recommendations.
 - `docs/execution/`: numbered execution evidence and status.
@@ -31,8 +31,9 @@ $ python3 -m unittest discover -s tests -v
 $ git diff --check
 ```
 
-These checks verify the repository foundation only, not assistant functionality.
-Future architecture, configuration, and implementation belong to later steps.
+These checks verify the repository foundation and configuration, not assistant
+functionality. See [configuration and secrets guidance](docs/configuration/README.md).
+Integration and security enforcement implementation belong to later steps.
 
 ## Architecture
 
