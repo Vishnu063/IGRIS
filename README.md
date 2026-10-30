@@ -42,3 +42,6 @@ not evidence that its components or security controls are implemented.
 
 Hardware targets, unverified resource estimates and the ₹0 policy are documented
 in [hardware and budget constraints](docs/architecture/hardware-budget.md).
+
+[Guardian security design](docs/security/guardian-design.md) records the threat
+model and required deployment isolation. Design alone does not enforce security.
