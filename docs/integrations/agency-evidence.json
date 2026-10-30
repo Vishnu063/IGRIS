@@ -1,0 +1,83 @@
+{
+  "repository": "msitarzewski/agency-agents",
+  "revision": "b37b5bb33b78f2c1d6567d98e25ca818e3259219",
+  "files": [
+    {
+      "path": "LICENSE",
+      "blob_sha": "523078c01624b9b1b1c551e75054b9d3a9f953ab"
+    },
+    {
+      "path": "README.md",
+      "blob_sha": "5c59c078e3388ec5af5b134ff2137aca42cd7555"
+    },
+    {
+      "path": "SECURITY.md",
+      "blob_sha": "963c58be8b7a65e3680ad348942375bafa74a05e"
+    },
+    {
+      "path": "design/design-ux-architect.md",
+      "blob_sha": "27a951fd63ef3981f54a3e35c64666e86ea901db"
+    },
+    {
+      "path": "engineering/engineering-ai-engineer.md",
+      "blob_sha": "a4a8f6d548894bafaf1dfe651f44f3e7179bf569"
+    },
+    {
+      "path": "engineering/engineering-backend-architect.md",
+      "blob_sha": "f3731dd50da10c71d2c40a5ff319d7984afe7efd"
+    },
+    {
+      "path": "engineering/engineering-code-reviewer.md",
+      "blob_sha": "fb93291f4b94a8d5687aa1cc0d05741c3352dd22"
+    },
+    {
+      "path": "engineering/engineering-database-reliability-engineer.md",
+      "blob_sha": "1025d7626f716091cff18f982bec4758ad59a849"
+    },
+    {
+      "path": "engineering/engineering-devops-automator.md",
+      "blob_sha": "7fc31412e10eb5985e79cc3581ee1e42b5b6a7de"
+    },
+    {
+      "path": "engineering/engineering-frontend-developer.md",
+      "blob_sha": "ef135b7b937c985449cb93115f8461ee7353b9f6"
+    },
+    {
+      "path": "engineering/engineering-incident-response-commander.md",
+      "blob_sha": "6a0f82fea31cc5704eb54bb756303874b55b2c40"
+    },
+    {
+      "path": "engineering/engineering-minimal-change-engineer.md",
+      "blob_sha": "11d7660010fb70c5fcd4c36e2239afe357ecd335"
+    },
+    {
+      "path": "engineering/engineering-mobile-app-builder.md",
+      "blob_sha": "71cc10024f07a0c6a19aed9f7e495284f7ce5e6a"
+    },
+    {
+      "path": "engineering/engineering-voice-ai-integration-engineer.md",
+      "blob_sha": "1f824a80f8fc3a6e3fb7ae75577e048adfb16f35"
+    },
+    {
+      "path": "integrations/codex/README.md",
+      "blob_sha": "8b44d468c855cd41bd8bbed6254d5c3b569d9bee"
+    },
+    {
+      "path": "project-management/project-manager-senior.md",
+      "blob_sha": "52bb3a7012fb249e30a2d2f6ae3ed3287e6024d1"
+    },
+    {
+      "path": "research/research-synthesist.md",
+      "blob_sha": "ff5741421e8cdbc953a930f9b54aff78f3715677"
+    },
+    {
+      "path": "security/security-appsec-engineer.md",
+      "blob_sha": "f7b2d4dece5d32a84137411f2b8a9b7f7e962aad"
+    },
+    {
+      "path": "testing/testing-test-automation-engineer.md",
+      "blob_sha": "59650291b60ed280f8f5d5da69f15fec2aea3dca"
+    }
+  ],
+  "review_scope": "Selected definitions, metadata, integration documentation; not installer execution or full repository audit."
+}
