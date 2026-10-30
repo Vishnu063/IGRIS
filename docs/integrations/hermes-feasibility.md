@@ -19,7 +19,7 @@ Every path below is relative to the
 | SECURITY.md | cea2a9a2e8869ac7a4b7307332b974a27e9fd27a | OS isolation is the adversarial boundary; plugins run with agent privileges |
 | website/docs/getting-started/installation.md | bd1a6539237d9daa6924369790b2b4873329c661 | Managed Python 3.14, PM tool preparation, Apple Silicon macOS support claimed upstream |
 | website/docs/developer-guide/architecture.md | 4d92e5c5668dc069c3fc904d4443373e1409ff2c | AIAgent in run_agent.py; Python library and API entry points documented |
-| gateway/platforms/api_server.py | 90b020e8c5bfa21f8ad254f94dea19b6a9c53122 | Real API routes and Bearer authentication implementation inspected |
+| gateway/platforms/api_server.py | 90b020e8c5bfa21f8ad254f94dea19b6a9c53122 | Real API routes and authentication implementation inspected |
 | website/docs/reference/cli-commands.md | baf1febbc5075d673e9b0d4de789ce5572a9d688 | One-shot/query-file CLI and headless serve commands documented |
 
 Evidence fetched read-only with the GitHub connector. An oversized recursive-tree

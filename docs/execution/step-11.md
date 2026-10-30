@@ -26,6 +26,7 @@ $ git commit (step-specific message)
 - Publication commands and exact commit ID recorded in user-facing report.
 
 Tests executed:
+$ PYTHONPATH=src python3 -m igris.guardian.scan
 $ python3 -m unittest discover -s tests -v
 $ git diff --check
 $ git diff --cached --check
@@ -46,7 +47,7 @@ Git commit:
 - Commit containing this record; exact SHA reported after creation.
 
 Known limitations:
-- Static feasibility only; real Hermes connectivity and M1 compatibility remain PENDING_EXTERNAL_VERIFICATION. Python 3.14 is current upstream runtime support; this workspace has 3.12.14. No upstream code executed or installed.
+- Review note: scanner flagged descriptive prose as a token pattern; wording corrected without changing detection. Initial shell batch continued after the scanner failure and produced a commit; corrected within Step 11 before starting Step 12. Subsequent commands use fail-fast shell mode. Static feasibility only; real Hermes connectivity and M1 compatibility remain PENDING_EXTERNAL_VERIFICATION. Python 3.14 is current upstream runtime support; this workspace has 3.12.14. No upstream code executed or installed.
 - Same-user development process tests do not establish OS isolation. No untrusted agent or sensitive live integration enabled.
 
 Next step:
