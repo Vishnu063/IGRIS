@@ -16,3 +16,8 @@ not an unapproved live agent API. General execution permissions remain Guardian'
 Step 28 adds security/privacy, testing, code reviewer, UI/UX and database roles.
 All retain zero permissions and proposal-only outputs; neither security review
 nor database role choice authorizes audits against live systems or migrations.
+
+Step 29 completes the 15-role registry with research, project manager, incident
+response, voice AI and minimal-change engineering. Tests inspect all metadata
+and exercise fixtures sequentially; no model fleet or persistent memory is loaded.
+Voice and incident roles cannot activate microphones or bypass approvals.

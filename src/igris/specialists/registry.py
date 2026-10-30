@@ -10,6 +10,9 @@ CATALOG = MappingProxyType({
     'security_privacy': ('quality', 'security_review'), 'testing': ('quality', 'test_plan'),
     'code_reviewer': ('quality', 'code_review'), 'ui_ux': ('quality', 'ux_plan'),
     'database': ('quality', 'database_plan'),
+    'research': ('operations', 'research_plan'), 'project_manager': ('operations', 'project_plan'),
+    'incident_response': ('operations', 'incident_plan'), 'voice_ai': ('operations', 'voice_plan'),
+    'minimal_change': ('operations', 'minimal_change_plan'),
 })
 
 
