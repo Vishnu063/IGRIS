@@ -12,3 +12,7 @@ Output schemas reject commands, permission fields and unrecognized keys.
 Real specialist competence and model connections remain unverified. Step 30 will
 add an approval-gated fixture execution boundary; current fixtures are test data,
 not an unapproved live agent API. General execution permissions remain Guardian's.
+
+Step 28 adds security/privacy, testing, code reviewer, UI/UX and database roles.
+All retain zero permissions and proposal-only outputs; neither security review
+nor database role choice authorizes audits against live systems or migrations.
