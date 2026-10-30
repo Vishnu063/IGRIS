@@ -101,6 +101,9 @@ def run_action(policy, root, request, approval_path='-', environment='developmen
     policy.require(operation)
     if type(args) is not dict:
         raise Denied('Invalid arguments.')
+    if operation == 'specialists.fixture':
+        from igris.guardian.specialist_fixture import run
+        return run(policy, root, request, approval_path, environment)
     if operation == 'ops.recovery.fixture':
         from igris.guardian.fixture_recovery import recover
         return recover(policy, root, request, Path(approval_path), environment)

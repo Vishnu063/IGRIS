@@ -17,6 +17,7 @@ class Permission(str, Enum):
     DEPLOY = 'deploy'
     FINANCIAL = 'financial'
     COMMUNICATE = 'communicate'
+    SPECIALIST = 'specialist'
 
 
 OPERATIONS = MappingProxyType({
@@ -33,6 +34,7 @@ OPERATIONS = MappingProxyType({
     'file.sensitive_change': Permission.FILE_MODIFY,
     'scope.external_change': Permission.FILE_MODIFY,
     'ops.recovery.fixture': Permission.CLOUD,
+    'specialists.fixture': Permission.SPECIALIST,
 })
 
 

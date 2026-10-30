@@ -92,3 +92,6 @@ use real SQLite and child processes.
 Step 20 additionally gates the explicitly named ops.recovery.fixture simulator.
 It requires both a synthetic provider decision and exact Guardian approval.
 No live provider mutation handler is added.
+
+Step 30 gates specialists.fixture batches of one or two explicitly recommended
+roles at the broker boundary. This enables no live model or tool activation.

@@ -21,3 +21,6 @@ Step 29 completes the 15-role registry with research, project manager, incident
 response, voice AI and minimal-change engineering. Tests inspect all metadata
 and exercise fixtures sequentially; no model fleet or persistent memory is loaded.
 Voice and incident roles cannot activate microphones or bypass approvals.
+
+[Step 30 scheduling](scheduling.md) adds explicit approval-gated fixture batches.
+No live specialists or model providers are activated.

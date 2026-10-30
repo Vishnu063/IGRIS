@@ -74,3 +74,7 @@ Development through Step 25 includes [project scaffolding](docs/development/proj
 a [reviewed sample application](docs/development/workflows.md), [local Git workflows](docs/development/git.md),
 [manual-only CI preparation](docs/development/ci.md) and [production approval controls](docs/development/deployment.md).
 These are trusted development utilities; no real production deployment is enabled.
+
+The [15 specialist contracts](docs/specialists/README.md) have tested role boundaries
+and [approval-gated simulated scheduling](docs/specialists/scheduling.md). They
+are not connected live models; no separate Agent Builder is added.

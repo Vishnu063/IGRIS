@@ -25,3 +25,6 @@ The broker's process/OS trust assumptions are in guardian-design.md.
 
 Step 20 adds ops.recovery.fixture under cloud capability, with additional read
 and file_modify checks inside the broker. This controls a local simulator only.
+
+Step 30 adds a dedicated specialist permission for specialists.fixture. It grants
+only approved simulated checklist production and no general tool access.

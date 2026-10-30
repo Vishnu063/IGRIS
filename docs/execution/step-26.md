@@ -32,7 +32,7 @@ $ git diff --check
 $ git diff --cached --check
 
 Test results:
-- Passed: static source assessment; prior 107 tests unchanged automated tests; staged whitespace checks; source/design self-review.
+- Passed: static source assessment, CI-definition/dependency checker, credential-pattern scanner and staged whitespace checks. Existing 107 tests were unchanged and not rerun for this documentation-only step.
 - Failed: No unresolved test failures. See review notes for resolved issues.
 - Skipped: Later steps and real provider/production/Mac operations.
 - Mocked: Test doubles where explicitly described in test source; no mock proves service connectivity.
