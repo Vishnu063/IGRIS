@@ -1,0 +1,39 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.aws/
+.secrets/
+secrets/
+
+# Python and tooling
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Build products and dependencies
+node_modules/
+build/
+dist/
+*.egg-info/
+
+# Runtime and private state
+*.log
+*.sqlite
+*.sqlite3
+*.db
+runtime/
+backups/
+
+# Editor and OS metadata
+.DS_Store
+.idea/
+.vscode/

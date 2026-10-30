@@ -1,0 +1,12 @@
+# Execution records
+
+Every numbered step uses the mandated IGRIS EXECUTION REPORT fields. Statuses:
+PASS, FAIL, BLOCKED, PENDING_EXTERNAL_VERIFICATION. A passing local test does not
+verify an external service. Record simulated and real evidence separately.
+
+Step 1: PASS — cloud inspection and empty repository checkout verified.
+Step 2: see step-02.md.
+Steps 3–50: not started.
+
+Commit references for reports in the same commit use the commit containing the
+report; the user-facing report supplies its exact SHA after commit creation.
