@@ -12,6 +12,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from igris.guardian.policy import Denied, Permission, Policy
 from igris.guardian.secrets import prompt_text
+from igris.guardian.approvals import ApprovalStore
 
 MAX_FILE = 8192
 
@@ -67,13 +68,57 @@ def read_text(root, path):
         os.close(parent)
 
 
-def run_action(policy, root, request):
-    if type(request) is not dict or set(request) != {'operation', 'arguments'}:
+def create_parts(args):
+    if set(args) != {'path', 'text'}:
+        raise Denied('Invalid file creation arguments.')
+    parts = path_parts(args['path'])
+    if parts[0] != 'artifacts' or len(parts) < 2 or Path(parts[-1]).suffix not in {'.txt', '.md'}:
+        raise Denied('Only new text artifacts are supported.')
+    text = args['text']
+    if type(text) is not str or len(text.encode('utf-8')) > MAX_FILE or prompt_text(text) != text:
+        raise Denied('Unsafe artifact content.')
+    return parts
+
+
+def create_text(root, parts, text):
+    parent = open_parent(root, parts)
+    try:
+        fd = os.open(parts[-1], os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+                     0o600, dir_fd=parent)
+        with os.fdopen(fd, 'wb') as handle:
+            handle.write(text.encode('utf-8'))
+            handle.flush()
+            os.fsync(handle.fileno())
+    finally:
+        os.close(parent)
+
+
+def run_action(policy, root, request, approval_path='-', environment='development'):
+    if (type(request) is not dict or set(request) not in
+            ({'operation', 'arguments'}, {'operation', 'arguments', 'approval_id'})):
         raise Denied('Invalid request schema.')
     operation, args = request['operation'], request['arguments']
     policy.require(operation)
     if type(args) is not dict:
         raise Denied('Invalid arguments.')
+    if operation == 'file.create':
+        parts = create_parts(args)
+        if approval_path == '-':
+            raise Denied('Approval required.')
+        location = Path(approval_path).resolve(strict=True)
+        if location.is_relative_to(root.resolve()):
+            raise Denied('Approval store must be outside workspace.')
+        store = ApprovalStore(location)
+        action = {'operation': operation, 'arguments': args}
+        identifier = request.get('approval_id')
+        digest = store.consume(identifier, policy, root, action, environment=environment)
+        try:
+            create_text(root, parts, args['text'])
+        except Exception:
+            store.outcome(identifier, policy, operation, digest, succeeded=False)
+            raise
+        store.outcome(identifier, policy, operation, digest, succeeded=True)
+        return {'created': args['path']}
     if operation == 'file.read':
         if set(args) != {'path'}:
             raise Denied('Invalid arguments.')
@@ -100,15 +145,17 @@ def _object(pairs):
 def main():
     try:
         apply_limits()
-        if len(sys.argv) != 4:
+        if len(sys.argv) != 6:
             raise Denied('Invalid trusted startup.')
         root = Path(sys.argv[1])
         policy = Policy(sys.argv[2], frozenset(Permission(p) for p in sys.argv[3].split(',') if p))
+        if sys.argv[5] not in ('development', 'test'):
+            raise Denied('Live production execution is unavailable.')
         raw = sys.stdin.buffer.read(16385)
         if len(raw) > 16384:
             raise Denied('Request too large.')
         request = json.loads(raw, object_pairs_hook=_object)
-        response = {'ok': True, 'result': run_action(policy, root, request)}
+        response = {'ok': True, 'result': run_action(policy, root, request, sys.argv[4], sys.argv[5])}
     except Denied as exc:
         response = {'ok': False, 'reason': str(exc)}
     except Exception:

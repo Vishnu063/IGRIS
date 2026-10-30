@@ -12,7 +12,7 @@ PATTERNS = (
     ('credential-url', re.compile(r'[A-Za-z][A-Za-z0-9+.-]*://[^\s/:@]+:[^\s/@]+@[^\s]+')),
     ('bearer-token', re.compile(r'(?i)\bBearer\s+[A-Za-z0-9._~+/=-]{8,}')),
 )
-LABEL = re.compile(r'''(?ix)["']?\b(?:api[_-]?key|access[_-]?key|secret[_-]?key|aws[_-]?secret[_-]?access[_-]?key|github[_-]?token|auth(?:entication|orization)?[_-]?token|token|password|passwd|client[_-]?secret|customer[_-]?(?:info|name|data)|email|phone|address)["']?\s*[:=]''')
+LABEL = re.compile(r'''(?ix)["']?(?<![A-Za-z0-9])(?:api[_-]?key|access[_-]?key|secret[_-]?key|aws[_-]?secret[_-]?access[_-]?key|github[_-]?token|auth(?:entication|orization)?[_-]?token|token|password|passwd|client[_-]?secret|customer[_-]?(?:info|name|data)|email|phone|address)["']?\s*[:=]''')
 EMAIL = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b')
 PHONE = re.compile(r'(?<!\w)\+?\d[\d ()-]{8,}\d(?!\w)')
 

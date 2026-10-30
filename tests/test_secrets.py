@@ -30,7 +30,7 @@ class SecretTests(unittest.TestCase):
                 self.assertNotIn(value, repr(findings(value)))
 
     def test_labels_customer_data_and_known_secret(self):
-        for key in ('api_key', 'AWS_SECRET_ACCESS_KEY', 'password', 'token', 'customer_name', 'address'):
+        for key in ('api_key', 'AWS_SECRET_ACCESS_KEY', 'DB_PASSWORD', 'OPENAI_API_KEY', 'password', 'token', 'customer_name', 'address'):
             self.assertNotIn('synthetic value tail', redact(f'{key}: "synthetic value tail"'))
         self.assertNotIn('test@example.invalid', prompt_text('test@example.invalid'))
         self.assertNotIn('+91 98765 43210', redact('+91 98765 43210'))

@@ -52,3 +52,7 @@ broker interface and its deployment limitations.
 
 [Secrets protection](docs/security/secrets.md) describes tested redaction and the
 local source/index credential scanner, including detection limits.
+
+[Approval controls](docs/security/approvals.md) bind a reviewed exact action to a
+single-use expiring approval. Only new text artifacts have a mutation handler;
+production, spending and external communications remain unavailable.

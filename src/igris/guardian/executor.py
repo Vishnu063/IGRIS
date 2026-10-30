@@ -15,7 +15,8 @@ MAX_REQUEST = 16384
 WALL_TIMEOUT = 3
 
 
-def execute(policy: Policy, workspace: Path, request: dict) -> dict:
+def execute(policy: Policy, workspace: Path, request: dict, *, approval_store: Path | None = None,
+            environment='development') -> dict:
     """Trusted caller supplies policy/workspace; only request is untrusted."""
     try:
         payload = json.dumps(request, allow_nan=False).encode()
@@ -24,9 +25,17 @@ def execute(policy: Policy, workspace: Path, request: dict) -> dict:
         root = Path(workspace).resolve(strict=True)
         if not root.is_dir() or root == Path('/'):
             raise Denied('Invalid workspace.')
+        if environment not in ('development', 'test'):
+            raise Denied('Live production execution is unavailable.')
+        store = '-'
+        if approval_store is not None:
+            location = Path(approval_store).resolve(strict=True)
+            if location.is_relative_to(root):
+                raise Denied('Approval store must be outside workspace.')
+            store = str(location)
         broker = Path(__file__).with_name('broker.py').resolve()
         command = [sys.executable, '-I', '-S', str(broker), str(root), policy.actor,
-                   ','.join(sorted(p.value for p in policy.permissions))]
+                   ','.join(sorted(p.value for p in policy.permissions)), store, environment]
         proc = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                 stderr=subprocess.DEVNULL, cwd=root, env={'LANG': 'C.UTF-8'},
                                 start_new_session=True)

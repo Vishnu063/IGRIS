@@ -4,12 +4,14 @@ Step 8 implements `guardian.executor.execute(policy, workspace, request)` as a
 trusted launcher and `broker.py` as a short-lived independent process. Only the
 request dictionary is untrusted. An agent MUST NOT control launcher policy,
 workspace, Python executable, broker source or approval-store configuration.
-A request must contain exactly `operation` and `arguments`. No network listener.
+A request contains `operation` and `arguments`; Step 10 additionally accepts
+an optional `approval_id`. No other fields are accepted. No network listener.
 
 The broker checks policy inside the process immediately before its fixed handler.
-Only `file.read` (one `path`) and `python.version` (no arguments) are implemented
-at this step. No arbitrary argv, shell, command strings, arbitrary Python, Git,
-cloud, deployment, financial, communication or mutation execution is exposed.
+At Step 8, only `file.read` (one `path`) and `python.version` (no arguments) were
+implemented. Step 10 adds approval-gated `file.create` for new text artifacts;
+see approvals.md for current restrictions. No arbitrary argv, shell, command strings, arbitrary Python, Git,
+cloud, deployment, financial, communication or unrestricted mutation execution is exposed.
 Registered policy names alone do not enable handlers.
 
 Reads are limited to 8192 bytes and ordinary UTF-8 text files with allowed
