@@ -1,0 +1,67 @@
+{
+  "broker_read": {
+    "max_seconds": 0.0858444569985295,
+    "median_seconds": 0.072626928000318,
+    "min_seconds": 0.0675134880002588,
+    "trials": 5
+  },
+  "denial_then_valid_request": {
+    "max_seconds": 0.20919771999979275,
+    "median_seconds": 0.1585285320015828,
+    "min_seconds": 0.1490382669999235,
+    "trials": 5
+  },
+  "environment": {
+    "machine": "x86_64",
+    "python": "3.12.14",
+    "system": "Linux",
+    "visible_cpus": 3
+  },
+  "logging_1000_events_plain": {
+    "max_seconds": 0.00838420600121026,
+    "median_seconds": 0.0070690820011805044,
+    "min_seconds": 0.0065092810000351164,
+    "trials": 5
+  },
+  "logging_1000_events_redacted": {
+    "max_seconds": 0.033137341000838205,
+    "median_seconds": 0.012640372000532807,
+    "min_seconds": 0.010701139999582665,
+    "trials": 5
+  },
+  "mac_m1_verified": false,
+  "mission_execution": {
+    "max_seconds": 0.0001505050004197983,
+    "median_seconds": 4.9625001338426955e-05,
+    "min_seconds": 2.9897000786149874e-05,
+    "trials": 5
+  },
+  "reliability_assertions": {
+    "broker_read": true,
+    "denial_does_not_poison_next_valid_request": true,
+    "mission_success": true,
+    "redaction_retained": true,
+    "replays_denied": true,
+    "two_concurrent_simulations": true
+  },
+  "resources": {
+    "completed_children_cpu_seconds": 2.8976,
+    "largest_completed_child_peak_rss_kib": 16348,
+    "parent_cpu_seconds": 0.173277,
+    "parent_peak_rss_kib": 15616,
+    "src_bytes": 153417
+  },
+  "scope": "Linux cloud local logic and simulated specialist fixtures only",
+  "startup_imports": {
+    "max_seconds": 0.1314470240013179,
+    "median_seconds": 0.11673203499958618,
+    "min_seconds": 0.10011071799999627,
+    "trials": 5
+  },
+  "two_concurrent_fixture_brokers_with_replay_denials": {
+    "max_seconds": 0.28794740899866156,
+    "median_seconds": 0.2827560360001371,
+    "min_seconds": 0.27723970799888775,
+    "trials": 3
+  }
+}
