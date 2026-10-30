@@ -47,7 +47,8 @@ Step 40: see step-40.md.
 Step 41: see step-41.md.
 Step 42: see step-42.md.
 Step 43: see step-43.md.
-Steps 44–50: not started.
+Step 44: see step-44.md.
+Steps 45–50: not started.
 
 Commit references for reports in the same commit use the commit containing the
 report; the user-facing report supplies its exact SHA after commit creation.
