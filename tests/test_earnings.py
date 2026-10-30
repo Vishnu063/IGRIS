@@ -38,3 +38,14 @@ class EarningsTests(unittest.TestCase):
         self.e.expense('owner', 100, reference='sample', evidence_ref='Synthetic', confirmed=True)
         with self.assertRaises(ValueError): self.e.expense('owner', 100, reference='sample', evidence_ref='Synthetic', confirmed=True)
         self.assertEqual(self.e.report('owner')['actual_profit_paise'], -100)
+
+    def test_duplicate_overpayment_and_unconfirmed_receipts_rejected(self):
+        deal = self.e.opportunity('owner', 'Synthetic project')
+        for target in ('proposal_submitted', 'client_acquired', 'project_completed'):
+            self.e.advance('owner', deal, target, evidence_ref='Synthetic event')
+        invoice = self.e.invoice('owner', deal, 100)
+        with self.assertRaises(ValueError): self.e.payment('owner', invoice, 50, reference='sample', evidence_ref='Synthetic')
+        self.e.payment('owner', invoice, 50, reference='sample', evidence_ref='Synthetic', confirmed=True)
+        with self.assertRaises(ValueError): self.e.payment('owner', invoice, 50, reference='sample', evidence_ref='Synthetic', confirmed=True)
+        with self.assertRaises(ValueError): self.e.payment('owner', invoice, 51, reference='excess', evidence_ref='Synthetic', confirmed=True)
+        self.assertEqual(self.e.report('owner')['confirmed_payments_paise'], 50)

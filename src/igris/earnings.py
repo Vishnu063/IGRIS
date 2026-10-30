@@ -36,11 +36,18 @@ class Earnings:
     def _authorize(self, actor):
         if actor != self.owner: raise Denied('Ledger access denied.')
 
+    @staticmethod
+    def _capacity(db, table):
+        # Table names are fixed internal constants, never request text.
+        queries = {'deals': 'SELECT COUNT(*) FROM deals', 'invoices': 'SELECT COUNT(*) FROM invoices',
+                   'payments': 'SELECT COUNT(*) FROM payments', 'expenses': 'SELECT COUNT(*) FROM expenses'}
+        if db.execute(queries[table]).fetchone()[0] >= 10000: raise ValueError('Ledger capacity reached.')
+
     def opportunity(self, actor, title, estimated_revenue_paise=0):
         self._authorize(actor); knowledge_text(title, 512); nonnegative_int(estimated_revenue_paise)
         ident = uuid4().hex
         with self._db() as db:
-            if db.execute('SELECT COUNT(*) FROM deals').fetchone()[0] >= 10000: raise ValueError('Ledger capacity reached.')
+            db.execute('BEGIN IMMEDIATE'); self._capacity(db, 'deals')
             db.execute('INSERT INTO deals VALUES (?,?,?,?,?)', (ident, title, estimated_revenue_paise, 'found', ''))
         return ident
 
@@ -58,6 +65,7 @@ class Earnings:
         if not nonnegative_int(amount_paise): raise ValueError('Positive invoice amount required.')
         ident = uuid4().hex
         with self._db() as db:
+            db.execute('BEGIN IMMEDIATE'); self._capacity(db, 'invoices')
             row = db.execute('SELECT state FROM deals WHERE id=?', (deal,)).fetchone()
             if not row or row[0] != 'project_completed': raise ValueError('Completed project required before invoicing.')
             db.execute('INSERT INTO invoices VALUES (?,?,?)', (ident, deal, amount_paise))
@@ -68,6 +76,7 @@ class Earnings:
         if confirmed is not True or not nonnegative_int(amount_paise): raise ValueError('Owner-confirmed positive payment required.')
         with self._db() as db:
             db.execute('BEGIN IMMEDIATE')
+            self._capacity(db, 'payments')
             row = db.execute('SELECT amount FROM invoices WHERE id=?', (invoice,)).fetchone()
             paid = db.execute('SELECT COALESCE(SUM(amount),0) FROM payments WHERE invoice=?', (invoice,)).fetchone()[0]
             if not row or paid + amount_paise > row[0]: raise ValueError('Invalid invoice or excess payment.')
@@ -76,7 +85,9 @@ class Earnings:
     def expense(self, actor, amount_paise, *, reference, evidence_ref, confirmed=False):
         self._authorize(actor); knowledge_text(reference, 128); knowledge_text(evidence_ref, 256)
         if confirmed is not True or not nonnegative_int(amount_paise): raise ValueError('Owner-confirmed positive expense required.')
-        with self._db() as db: db.execute('INSERT INTO expenses VALUES (?,?,?)', (reference, amount_paise, evidence_ref))
+        with self._db() as db:
+            db.execute('BEGIN IMMEDIATE'); self._capacity(db, 'expenses')
+            db.execute('INSERT INTO expenses VALUES (?,?,?)', (reference, amount_paise, evidence_ref))
 
     def invoice_status(self, actor, identifier):
         self._authorize(actor)

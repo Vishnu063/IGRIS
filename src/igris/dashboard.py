@@ -51,6 +51,10 @@ def make_server(accounts, snapshot_provider):
         server_version = 'IGRIS'
         sys_version = ''
 
+        def setup(self):
+            super().setup()
+            self.connection.settimeout(2)
+
         def log_message(self, *args): pass  # Never log headers, paths or credentials.
 
         def reply(self, status, payload, content_type='text/plain; charset=utf-8'):

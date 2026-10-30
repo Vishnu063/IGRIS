@@ -1,8 +1,9 @@
 # IGRIS architecture
 
-Status: proposed design, reviewed in Step 3. Only the repository foundation
-exists. Every service, interface, and control below is planned, not operational.
-No external API, license, authentication method, or real connectivity is assumed.
+Status: original target design reviewed in Step 3; updated during final review.
+Many local libraries now exist, but the complete service flow below is still a
+target architecture. See `docs/validation/integration-matrix.md` for actual local,
+simulated and unavailable boundaries. No external connectivity is established.
 
 ## Mission and deployment intent
 

@@ -12,7 +12,6 @@ import zipfile
 
 from .config import Settings
 from .guardian.policy import Denied
-from .guardian.secrets import redact
 from .memory import CATEGORIES, Memory, knowledge_text, private_file
 
 NAMES = frozenset({'configuration.json', 'project-state.json', 'memory.db'})

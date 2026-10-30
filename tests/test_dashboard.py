@@ -43,3 +43,13 @@ class DashboardTests(unittest.TestCase):
             self.assertIn('&lt;script&gt;', body)
             self.assertEqual(response.headers['Cache-Control'], 'no-store')
         self.assertTrue(all('Not verified' in values[0] for values in Snapshot().view('owner').values()))
+
+    def test_malformed_credentials_host_spoofing_and_source_failure(self):
+        for headers, status in (({'Authorization': 'Basic !!!'}, 401),
+                                ({'Host': 'untrusted.invalid'}, 403)):
+            with self.assertRaises(HTTPError) as denied:
+                urlopen(Request(self.url+'/', headers=headers), timeout=2)
+            self.assertEqual(denied.exception.code, status)
+        self.snapshot = None
+        with self.assertRaises(HTTPError) as denied: self.request('/api/state', 'owner')
+        self.assertEqual(denied.exception.code, 503)

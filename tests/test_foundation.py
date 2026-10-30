@@ -13,7 +13,6 @@ class FoundationTests(unittest.TestCase):
                      'docs/governance/branches.md', 'docs/execution/step-01.md'):
             with self.subTest(path=name):
                 self.assertTrue((ROOT / name).exists())
-        self.assertIn('Foundation only', (ROOT / 'README.md').read_text())
 
     def test_disposable_git_and_ignore_rules(self):
         with tempfile.TemporaryDirectory() as directory:
