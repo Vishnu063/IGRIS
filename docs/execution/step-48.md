@@ -49,3 +49,32 @@ Next step:
 
 Approval required:
 - No.
+
+Revalidation after remote changes — 2026-10-31:
+- Remote commits 9f87ded and 8609ac0 added three actual-memory reliability tests
+  and recorded an earlier DNS/clone blocker in a different session. Preserved
+  both commits by merging; no forced push or history replacement.
+- Preserved the exact historical BLOCKED report separately at
+  docs/execution/history/step-48-8609ac0.md. This canonical report retains the
+  already measured cloud benchmark and records the newly available test evidence.
+- Added files: tests/test_reliability_performance.py and the historical report.
+- Tests: 3 passed in 0.035s. Actual SQLite 100 writes/100 reads/reopen took 0.029s
+  in this resumed cloud session; repeated unauthorized reads were denied and a
+  real backup retained the synthetic solution. No speed threshold or Mac claim.
+- Source review: standard library, temporary synthetic data, no network,
+  credentials, production action or installation. Earlier clone blocker is
+  resolved by the current authorized checkout and working GitHub fetch.
+
+Additional commands executed:
+$ git fetch origin develop
+$ git stash push --include-untracked (Step 50 drafts preserved)
+$ git merge --no-commit --no-ff origin/develop
+$ python3 -m unittest discover -s tests -p test_reliability_performance.py -v
+$ git diff --check
+$ python3 (credential-pattern checks for reconciled files)
+$ git add docs/execution tests/test_reliability_performance.py
+$ git diff --cached --check
+$ git commit (preserving both histories)
+
+Next step after revalidation:
+- Revalidate Step 49 against the merged tests, then resume the saved Step 50 drafts.
