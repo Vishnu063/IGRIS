@@ -39,3 +39,13 @@ unencrypted private state/backups; no persistent core mission engine or automati
 all-service UI wiring; no physical voice/M1 test. See security/validation.md and
 the integration matrix. The intended fully operational assistant is not delivered
 merely because numbered local scope records pass.
+
+## Revalidation on 2026-10-31
+
+Remote commits 9f87ded/8609ac0 were preserved in merge 739a167. Their extra three
+reliability tests are now executed; the earlier DNS/clone blocker is historical
+and retained under docs/execution/history. Source/config/CI/workflow/security
+notices are byte-identical to reviewed commit 50435ca. Complete merged suite:
+**166 tests passed in 20.361s**; workflow/import and whitespace checks passed.
+This supersedes the 163-test total for final delivery, not the historical results.
+No code/security changes were discarded to accommodate the remote commits.
