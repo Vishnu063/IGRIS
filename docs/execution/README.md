@@ -53,7 +53,9 @@ Step 46: see step-46.md.
 Step 47: see step-47.md.
 Step 48: see step-48.md.
 Step 49: see step-49.md.
-Steps 50–50: not started.
+Step 50: see step-50.md.
+All numbered records exist; scoped PASS records do not prove live capabilities.
+Overall operational status: PENDING_EXTERNAL_VERIFICATION. See ../delivery/final-report.md.
 
 Commit references for reports in the same commit use the commit containing the
 report; the user-facing report supplies its exact SHA after commit creation.

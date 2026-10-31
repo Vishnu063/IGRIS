@@ -23,6 +23,11 @@ Development takes place on `develop`. This cloud-first project must not install
 software on the owner's Mac, activate paid services, or deploy to production.
 The initial spending allowance is ₹0.
 
+Delivery: [consolidated report](docs/delivery/final-report.md),
+[cloud setup](docs/delivery/setup.md), [exact capability status](docs/delivery/status.json)
+and [later Mac plan](docs/delivery/mac-plan.md). All 50 numbered records describe
+scoped local work; live activation and hardware checks remain pending.
+
 ## Structure
 
 - `src/igris/`: lightweight standard-library implementations and disabled adapters.

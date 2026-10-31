@@ -1,6 +1,17 @@
 > Reuse strategy updated by explicit user instruction; see docs/revisions/reuse-correction.md. Earlier decisions below are historical.
 
-# Specialist capabilities
+# Specialist capabilities — current state
+
+All 15 roles load copied and adapted Agency Agents methodology from
+`integrations/agency-agents`, with verbatim originals and MIT notice retained in
+`vendor/agency-agents`. The manifest binds original/adapted hashes; approved
+fixture requests bind adapted definition hashes. See the reuse correction for
+the pinned source, modifications and limits. The real Hermes foundation is a
+copied backend subset; full runtime/model activation remains unavailable.
+
+The following paragraphs retain the earlier numbered-step implementation
+history. Their reference-only/minimal-definition decisions were superseded by
+C01; the contract fixtures still do not represent live specialist competence.
 
 Step 27 adds inert development role metadata and strict task/output contracts:
 frontend, backend, mobile, AI and DevOps. They are IGRIS-owned minimal definitions,
