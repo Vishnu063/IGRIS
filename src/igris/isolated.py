@@ -31,11 +31,12 @@ class IsolatedWorker:
         self.cancel=cancel if cancel is not None else threading.Event()
         self.name=None
 
-    def run(self,image,program,mounts,*,component,timeout=180,memory='2g',payload=b''):
+    def run(self,image,program,mounts,*,component,timeout=180,memory='2g',payload=b'',output_limit=131072):
         """All selectors are trusted startup values; only payload/input files are data."""
         if not re.fullmatch('sha256:[a-f0-9]{64}',image or ''):raise ContractError('Pinned installed worker image required.')
         if not re.fullmatch('[a-z][a-z0-9-]{0,20}',component) or memory not in ('1g','2g','3g') or not 0<timeout<=300:
             raise ContractError('Invalid trusted worker limits.')
+        if output_limit not in (131072,2097152):raise ContractError('Invalid fixed output limit.')
         if type(payload) is not bytes or len(payload)>32768:raise ContractError('Bounded worker request required.')
         base=docker_command();env=docker_environment()
         # Reuse the existing cross-process heavy-inference slot and orphan label.
@@ -78,7 +79,7 @@ class IsolatedWorker:
                                 chunk=os.read(pipe.fileno(),8192)
                                 if not chunk:events.unregister(pipe);pipe.close();continue
                                 total+=len(chunk)
-                                if total>131072:raise ContractError('Worker output exceeds limit.')
+                                if total>output_limit:raise ContractError('Worker output exceeds limit.')
                                 if pipe is process.stdout:output.extend(chunk)
                 code=process.wait(timeout=5)
                 if code:raise AdapterUnavailable('Isolated worker failed; private output not published.')

@@ -79,7 +79,8 @@ $ PYTHONPATH=src python3 scripts/test_isolated_worker_live.py
 $ PYTHONPATH=src python3 -m igris.guardian.scan
 $ python3 scripts/check_ci.py
 $ git diff --check
-$ GitHub app: create tree/commit, expected-head fast-forward develop, then fetch branch to verify exact SHA (Git CLI authentication unavailable).
+
+Git delivery: Connected GitHub App, exact staged tree and normal expected-head fast-forward; remote SHA verified. Git CLI authentication was unavailable.
 
 Git commit:
 

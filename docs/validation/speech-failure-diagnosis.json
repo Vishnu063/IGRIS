@@ -1,0 +1,13 @@
+{
+  "debug_image": "sha256:f1c5b09ce018711efb4c003bd1ec81eadaa05e3bf9b54404968afe635f9e2262",
+  "returncode": -25,
+  "relevant_trace": [
+    "10    memfd_create(\"pulseaudio\", MFD_ALLOW_SEALING) = 5",
+    "10    ftruncate(5, 67108864)            = -1 EFBIG (File too large)",
+    "10    --- SIGXFSZ {si_signo=SIGXFSZ, si_code=SI_USER, si_pid=10, si_uid=1000} ---",
+    "11    +++ killed by SIGXFSZ +++",
+    "10    +++ killed by SIGXFSZ +++"
+  ],
+  "extra_privileges": false,
+  "fix": "Explicit private Pulse client config disables autospawn and shared memory; original file limit retained."
+}

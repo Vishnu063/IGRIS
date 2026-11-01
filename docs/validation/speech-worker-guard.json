@@ -1,0 +1,35 @@
+{
+  "cases": [
+    {
+      "case": "success",
+      "status": "PASS",
+      "seconds": 2.1442406050045975,
+      "cleanup_verified": true
+    },
+    {
+      "case": "timeout",
+      "status": "PASS",
+      "seconds": 2.757804755005054,
+      "cleanup_verified": true
+    },
+    {
+      "case": "failure",
+      "status": "PASS",
+      "seconds": 1.8505391079961555,
+      "cleanup_verified": true
+    },
+    {
+      "case": "output_limit",
+      "status": "PASS",
+      "seconds": 2.5009460450091865,
+      "cleanup_verified": true
+    },
+    {
+      "case": "cancellation",
+      "status": "PASS",
+      "cleanup_verified": true
+    }
+  ],
+  "source_sha256": "640d74b72090bd8442439a49fc539749b0d6e2f3e10d33e29e52979c335f48f4",
+  "scope": "Final Task 3 shared transport; actual offline worker execution, timeout, output limit and cancellation, not mocks."
+}

@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "enabled_by_default": false,
+  "image": "sha256:611c39a15f3462a35979cef6eee9a1db49d708d86be2d4f0bc5726116cdcaca0",
+  "engine": "espeak-ng",
+  "license": "GPL-3.0-or-later; formant synthesis, no actor cloning",
+  "languages": ["en", "hi", "mr"],
+  "speed": 150,
+  "pitch": 35,
+  "maximum_text_characters": 240,
+  "maximum_seconds": 30,
+  "physical_playback_verified": false,
+  "mac_verified": false
+}

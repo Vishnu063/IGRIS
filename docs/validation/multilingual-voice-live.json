@@ -1,0 +1,66 @@
+{
+  "status": "PASS_AVAILABLE_MECHANICS",
+  "verified_at": "2026-11-01T20:09:24.143618+05:30",
+  "task_acceptance": "BLOCKED",
+  "observations": [
+    {
+      "language": "en",
+      "speech": {
+        "language": "en",
+        "sha256": "0f0f12a9080c78eccc434ce2eb3b40e3620b1a0cddc6e5e7758fa018e4570e0b",
+        "seconds": 1.3145124716553287,
+        "synthesis_seconds": 0.016157482998096384,
+        "origin": "real_espeak_ng"
+      },
+      "speech_wall_seconds": 2.3707623969967244,
+      "wav_bytes": 58014,
+      "text_prompt": "Reply in one short English sentence: greet the user.",
+      "real_hermes_reply": "Hello.",
+      "hermes_wall_seconds": 47.949147534003714,
+      "recognition": "NOT_TESTED: language human audio unavailable in reviewed fixtures and cloud Handy disk requirement exceeds current free disk",
+      "quality": "NOT_VERIFIED: no native-speaker listening review or physical playback; script check is not fluency proof"
+    },
+    {
+      "language": "hi",
+      "speech": {
+        "language": "hi",
+        "sha256": "97ccb6c98b509fdf95c344fc7d0cc687cbfd8500b0815a5212f03e51e86345ed",
+        "seconds": 3.7012244897959183,
+        "synthesis_seconds": 0.017017845006193966,
+        "origin": "real_espeak_ng"
+      },
+      "speech_wall_seconds": 3.3801581139996415,
+      "wav_bytes": 163268,
+      "text_prompt": "हिंदी में एक छोटे वाक्य में नमस्ते कहें।",
+      "real_hermes_reply": "नमस्ते।",
+      "hermes_wall_seconds": 54.315167671011295,
+      "recognition": "NOT_TESTED: language human audio unavailable in reviewed fixtures and cloud Handy disk requirement exceeds current free disk",
+      "quality": "NOT_VERIFIED: no native-speaker listening review or physical playback; script check is not fluency proof"
+    },
+    {
+      "language": "mr",
+      "speech": {
+        "language": "mr",
+        "sha256": "564caf8da937fca1d8cd1589c92b9ad00fc31bae5e70a1256e62a8488f6a921d",
+        "seconds": 3.786485260770975,
+        "synthesis_seconds": 0.01655939499323722,
+        "origin": "real_espeak_ng"
+      },
+      "speech_wall_seconds": 2.4504543410002952,
+      "wav_bytes": 167028,
+      "text_prompt": "मराठीमध्ये एका छोट्या वाक्यात नमस्कार म्हणा.",
+      "real_hermes_reply": "नमस्कार.",
+      "hermes_wall_seconds": 40.50464416599425,
+      "recognition": "NOT_TESTED: language human audio unavailable in reviewed fixtures and cloud Handy disk requirement exceeds current free disk",
+      "quality": "NOT_VERIFIED: no native-speaker listening review or physical playback; script check is not fluency proof"
+    }
+  ],
+  "mac_and_mic": "BLOCKED: authorized hardware unavailable",
+  "source_sha256": {
+    "src/igris/isolated.py": "640d74b72090bd8442439a49fc539749b0d6e2f3e10d33e29e52979c335f48f4",
+    "src/igris/voice/speech.py": "4bb1bac1f81f2ced8b45fa21a7f510b0e43b763b3c55daf4f629ad55f2904bf9",
+    "integrations/speech/worker.py": "71ae80876ad2bdcbb84d6c5d04de555ca3e57b7dd6b5b0d951bb6638f73028be",
+    "integrations/speech/profile.json": "0847385d6e71e61a84496ddd7615bb243b4414c0a328bf58161215ea4d468aa9",
+    "scripts/test_speech_live.py": "9a73397a2a372ad968b2b407b5ef89298d73c9f567bc96c9a77a8cf63973d1cb"
+  }
+}

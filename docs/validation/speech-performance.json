@@ -1,0 +1,33 @@
+{
+  "observations": [
+    {
+      "language": "en",
+      "sha256": "0f0f12a9080c78eccc434ce2eb3b40e3620b1a0cddc6e5e7758fa018e4570e0b",
+      "seconds": 1.3145124716553287,
+      "synthesis_seconds": 0.016427635011496022,
+      "origin": "real_espeak_ng",
+      "espeak_peak_rss_kib": 21672,
+      "python_peak_rss_kib": 21672
+    },
+    {
+      "language": "hi",
+      "sha256": "40f16d8fd84e271ad95d8eab9e3364a80e4a5eee6b0ac3446a9296f9908c7d64",
+      "seconds": 2.224716553287982,
+      "synthesis_seconds": 0.016601129987975582,
+      "origin": "real_espeak_ng",
+      "espeak_peak_rss_kib": 21644,
+      "python_peak_rss_kib": 21644
+    },
+    {
+      "language": "mr",
+      "sha256": "fc9570c36c31d3569be7a19ebb5ee49eb53a1a88a738eba8db2c5ba5abfafe89",
+      "seconds": 2.3323809523809524,
+      "synthesis_seconds": 0.03270171101030428,
+      "origin": "real_espeak_ng",
+      "espeak_peak_rss_kib": 21592,
+      "python_peak_rss_kib": 21592
+    }
+  ],
+  "platform": "Linux x86_64; no Mac measurement",
+  "worker_sha256": "71ae80876ad2bdcbb84d6c5d04de555ca3e57b7dd6b5b0d951bb6638f73028be"
+}

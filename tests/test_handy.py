@@ -53,7 +53,11 @@ class HandyTests(unittest.TestCase):
         capture.start(permission_granted=True);self.assertEqual(capture.state,'recording')
         path=capture.save();self.assertTrue(streams[0].closed)
         self.assertEqual(read_clip(self.root,path.name).seconds,30)
-        capture.start(permission_granted=True);capture.cancel()
+        capture.start(permission_granted=True);capture.mute()
+        self.assertTrue(capture.muted)
+        with self.assertRaises(PermissionError):capture.start(permission_granted=True)
+        capture.mute(False);self.assertEqual(capture.state,'idle')
+        capture.cancel()
         with self.assertRaises(ValueError):capture.save()
     def test_unavailable_microphone_fails_closed(self):
         def unavailable(**kw):raise OSError('fixture: no device')

@@ -1,0 +1,17 @@
+[
+  {
+    "language": "en_us",
+    "http": 501,
+    "url": "https://datasets-server.huggingface.co/first-rows?dataset=google%2Ffleurs&config=en_us&split=test"
+  },
+  {
+    "language": "hi_in",
+    "http": 501,
+    "url": "https://datasets-server.huggingface.co/first-rows?dataset=google%2Ffleurs&config=hi_in&split=test"
+  },
+  {
+    "language": "mr_in",
+    "http": 501,
+    "url": "https://datasets-server.huggingface.co/first-rows?dataset=google%2Ffleurs&config=mr_in&split=test"
+  }
+]

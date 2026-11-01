@@ -13,10 +13,12 @@ class ManualCapture:
     def __init__(self,workspace,*,stream_factory=None):
         self.workspace=Path(workspace).absolute()
         self.stream_factory=stream_factory
+        self.muted=False
         self.state='idle';self._stream=None;self._timer=None
         self._frames=[];self._bytes=0;self._lock=threading.Lock()
 
     def start(self,*,permission_granted=False):
+        if self.muted:raise PermissionError('Microphone is muted; unmute explicitly before manual start.')
         if permission_granted is not True:raise PermissionError('Explicit microphone request and OS permission required.')
         if self.state!='idle':raise RuntimeError('Recording already active or uncertain.')
         factory=self.stream_factory
@@ -29,6 +31,7 @@ class ManualCapture:
         self._frames=[];self._bytes=0
         def receive(data,frames,timing,status):
             with self._lock:
+                if self.muted:return
                 # Hard bound even if a device ignores requested callback block size.
                 piece=bytes(data)[:max(0,960000-self._bytes)]
                 self._frames.append(piece);self._bytes+=len(piece)
@@ -61,6 +64,11 @@ class ManualCapture:
         with wave.open(str(path),'wb') as output:
             output.setnchannels(1);output.setsampwidth(2);output.setframerate(16000);output.writeframes(data)
         return path
+
+    def mute(self,value=True):
+        if type(value) is not bool:raise ValueError('Explicit microphone mute required.')
+        self.muted=value
+        if value:self.cancel()
 
     def cancel(self):
         self.stop()
