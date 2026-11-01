@@ -1,0 +1,89 @@
+{
+  "status": "PASS",
+  "verified_at": "2026-11-01T16:32:49.203736+05:30",
+  "observations": [
+    {
+      "decision_fixture": "approve",
+      "origin": "real_Hermes_CLI_PTY_Guardian",
+      "action_reviewed": {
+        "operation": "get_current_time",
+        "arguments": {},
+        "risk": "read_only"
+      },
+      "no_execution_before_decision": true,
+      "approval_state": [
+        "approved",
+        1
+      ],
+      "approval_events": [
+        "requested",
+        "approved",
+        "consumed"
+      ],
+      "tool_events": [
+        "prepared",
+        "authorized",
+        "completed"
+      ],
+      "exchange": [
+        "completed",
+        "real_local_inference",
+        "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        1
+      ],
+      "post_decision_seconds": 0.08569974100100808,
+      "end_to_end_seconds": 51.03713634899759
+    },
+    {
+      "decision_fixture": "reject",
+      "origin": "real_Hermes_CLI_PTY_Guardian",
+      "action_reviewed": {
+        "operation": "get_current_time",
+        "arguments": {},
+        "risk": "read_only"
+      },
+      "no_execution_before_decision": true,
+      "approval_state": [
+        "denied",
+        0
+      ],
+      "approval_events": [
+        "requested",
+        "denied"
+      ],
+      "tool_events": [
+        "prepared"
+      ],
+      "exchange": [
+        "failed",
+        "unverified",
+        null,
+        null
+      ],
+      "post_decision_seconds": 0.005430445999081712,
+      "end_to_end_seconds": 51.234657290006
+    }
+  ],
+  "owner_inputs": "synthetic PTY owner decisions; not real human ergonomic testing",
+  "mocked_inference_or_tools": false,
+  "source_sha256": {
+    "scripts/test_interactive_approvals_live.py": "8e40c87a800a0a94730ed560097cf1cc905dd0b3652180dfe12aff6b8c5c8b76",
+    "src/igris/chat.py": "0b176568f1eb94957e01fe79a5c74c1ddc2cf2349624e4eb9a1d43c8a4243882",
+    "src/igris/controller.py": "134bda2e79c6cbff6b618dfafc98247ac79da87ae9c6d19857040c178265a64b",
+    "src/igris/conversations.py": "12e19352a6556dfa40c155f73a2d6f4c5a32535bd1751970307d901f22e2096c",
+    "src/igris/guardian/__init__.py": "9b79d2f1dc746e51ab153970eba1b8e3563f7b94d84b920251c7ecb16bb0837b",
+    "src/igris/guardian/approvals.py": "b62aa1da94421454c025bb66702219cd146b06137b478eff668c17095848c0f8",
+    "src/igris/guardian/broker.py": "19dd09a793984a43cd6d7ac0450d1a386b2f015da87da156e500e5af183478b4",
+    "src/igris/guardian/executor.py": "e974eb03c580ac62794d5db4075bb619a73adc67d83522301467386730e6c3e3",
+    "src/igris/guardian/fixture_recovery.py": "c195bb22182358dc5ca0a5c29422d2cc53275e0312690e4498206c4f4e85c90f",
+    "src/igris/guardian/kernel.py": "ba02af3ace50093badb6a1217518b426e7e94255c97fe069c836cf0478a6f43b",
+    "src/igris/guardian/policy.py": "641a3defb7e207b62a78a2f376e4ad546547357b4f565682c5c98d3754853a97",
+    "src/igris/guardian/readonly.py": "cc2998e4bbc26289367a9815402f7ebf3d10d5b19e8921c59900d90b94b7b0aa",
+    "src/igris/guardian/review.py": "1e87dc0afded2530e133bc1f8c0259f3b5e0ce7d443fb0802b9b9d8a90722bc1",
+    "src/igris/guardian/scan.py": "b7af72f5e6257a675751504ab9ddc9dd1ce21443930fcdd5b5deaf0079ba4ac6",
+    "src/igris/guardian/secrets.py": "95d23b4dcb834d8658c769e01d63cbc207f6a8d2e426186f8e5d7d9b57b13ef4",
+    "src/igris/guardian/specialist_fixture.py": "5062072612fd6533f65edf764159e063366cf3e99b0b022b62c6c3edd3884ede",
+    "src/igris/guardian/terminal.py": "1eb4f65ce4e49781f214d87006ff7a289b7894c15cd4b1adb9fada48e9ce1d34",
+    "src/igris/guardian/tools.py": "c15bfbb64b1d58016f35004a04ca32f93a47293fb4ca2262dda3f677b39dd238"
+  }
+}

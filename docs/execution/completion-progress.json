@@ -1,0 +1,121 @@
+{
+  "baseline_commit": "c4a46851a1f42b47327864a2e29f501622c6e9bc",
+  "branch": "develop",
+  "tasks": [
+    {
+      "number": 1,
+      "title": "Interactive Guardian approvals",
+      "status": "PENDING",
+      "implementation_commit": null,
+      "capabilities": [],
+      "external_requirements": []
+    },
+    {
+      "number": 2,
+      "title": "Handy voice input",
+      "status": "PENDING",
+      "implementation_commit": null,
+      "capabilities": [],
+      "external_requirements": []
+    },
+    {
+      "number": 3,
+      "title": "Multilingual voice responses",
+      "status": "PENDING",
+      "implementation_commit": null,
+      "capabilities": [],
+      "external_requirements": []
+    },
+    {
+      "number": 4,
+      "title": "Real n8n integration",
+      "status": "PENDING",
+      "implementation_commit": null,
+      "capabilities": [],
+      "external_requirements": []
+    },
+    {
+      "number": 5,
+      "title": "Ops Pilot monitoring integration",
+      "status": "PENDING",
+      "implementation_commit": null,
+      "capabilities": [],
+      "external_requirements": []
+    },
+    {
+      "number": 6,
+      "title": "Activate fifteen specialists",
+      "status": "PENDING",
+      "implementation_commit": null,
+      "capabilities": [],
+      "external_requirements": []
+    },
+    {
+      "number": 7,
+      "title": "Mission Control dashboard",
+      "status": "PENDING",
+      "implementation_commit": null,
+      "capabilities": [],
+      "external_requirements": []
+    },
+    {
+      "number": 8,
+      "title": "Mem0 semantic memory",
+      "status": "PENDING",
+      "implementation_commit": null,
+      "capabilities": [],
+      "external_requirements": []
+    },
+    {
+      "number": 9,
+      "title": "Authorized Playwright browser",
+      "status": "PENDING",
+      "implementation_commit": null,
+      "capabilities": [],
+      "external_requirements": []
+    },
+    {
+      "number": 10,
+      "title": "MarkItDown documents",
+      "status": "PENDING",
+      "implementation_commit": null,
+      "capabilities": [],
+      "external_requirements": []
+    },
+    {
+      "number": 11,
+      "title": "Pydantic AI evaluation",
+      "status": "PENDING",
+      "implementation_commit": null,
+      "capabilities": [],
+      "external_requirements": []
+    },
+    {
+      "number": 12,
+      "title": "Performance optimization",
+      "status": "PENDING",
+      "implementation_commit": null,
+      "capabilities": [],
+      "external_requirements": []
+    },
+    {
+      "number": 13,
+      "title": "Mac M1 installation package",
+      "status": "PENDING",
+      "implementation_commit": null,
+      "capabilities": [],
+      "external_requirements": []
+    },
+    {
+      "number": 14,
+      "title": "Final security and end-to-end verification",
+      "status": "PENDING",
+      "implementation_commit": null,
+      "capabilities": [],
+      "external_requirements": []
+    }
+  ],
+  "production_deployed": false,
+  "mac_installed": false,
+  "paid_services_activated": false
+}

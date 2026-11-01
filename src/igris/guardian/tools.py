@@ -28,3 +28,9 @@ class GuardianTools:
             approval_store=self.store.path,tool_config=self.config)
         result['proposal_sha256'] = hashlib.sha256(raw.encode()).hexdigest()
         return result
+
+    def prepare(self, request_id, mission_id, raw):
+        identifier(request_id);identifier(mission_id)
+        return execute(self.policy,self.scope.workspace,
+            {'request_id':request_id,'mission_id':mission_id,'proposal':raw,'approval_id':None},
+            approval_store=self.store.path,tool_config=self.config,prepare=True)

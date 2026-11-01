@@ -11,10 +11,12 @@ from .controller import MissionController, State, TaskOutcome
 from .conversations import ConversationMemory
 from .guardian.policy import Denied, Permission, Policy
 from .guardian.tools import GuardianTools
+from .guardian.review import ApprovalReviews
+from .guardian.terminal import TerminalReview
 
 
 class ChatService:
-    def __init__(self, owner, memory, backend, *, policy=None, tools=None):
+    def __init__(self, owner, memory, backend, *, policy=None, tools=None, reviews=None):
         if type(memory) is not ConversationMemory or memory.owner != owner:
             raise Denied('Trusted owner-bound conversation memory required.')
         self.owner, self.memory, self.backend = owner, memory, backend
@@ -23,15 +25,24 @@ class ChatService:
         if tools is not None and (type(tools) is not GuardianTools or tools.policy.actor != owner):
             raise Denied('Trusted Guardian tool wiring required.')
         self.tools = tools
+        if reviews is not None and (type(reviews) is not ApprovalReviews or reviews.tools is not tools):
+            raise Denied('Trusted owner review service required.')
+        self.reviews=reviews
+        self._proposals={}
         self.controller = MissionController(owner, {'chat': self._route})
         self._requests = {}
         self._tool_results = {}
 
     def _route(self, context):
-        if context.actor != self.owner or context.approval_id is not None:
+        if context.actor != self.owner:
             return TaskOutcome('blocked', 'Unexpected chat authority.', 'unverified')
         conversation, request = self._requests[context.mission_id]
         try:
+            if context.approval_id is not None:
+                if self.reviews is None: raise Denied('Owner review unavailable.')
+                review=self.reviews.approved(self.owner,context.mission_id)
+                if context.approval_id!=review.id: raise Denied('Approval reference mismatch.')
+                return self._execute_proposal(context,conversation,request,approval_id=review.id)
             if self.tools is not None:
                 return self._tool_turn(context,conversation,request)
             reply = self.backend.reply(request)
@@ -52,8 +63,19 @@ class ChatService:
         if type(proposal) is not ToolProposal or proposal.request_id != request.request_id or proposal.origin != 'real_local_inference':
             raise ContractError('No verified real proposal.')
         proposal_wall = time.monotonic()-started
-        # The model cannot choose actor, policy, profile, store, IDs or approval.
-        result = self.tools.run(request.request_id,context.mission_id,proposal.raw)
+        self._proposals[context.mission_id]=(proposal,proposal_wall)
+        if self.reviews is not None:
+            prepared,review=self.reviews.prepare(self.owner,request.request_id,context.mission_id,proposal.raw)
+            self._tool_results[context.mission_id]=prepared
+            if not prepared['ok']: return TaskOutcome('blocked','Guardian denied the tool request.','real')
+            if review is not None:
+                return TaskOutcome('approval_required','Exact owner review required. No tool executed.','real',
+                                   approval_request_id=review.id)
+        return self._execute_proposal(context,conversation,request)
+
+    def _execute_proposal(self,context,conversation,request,*,approval_id=None):
+        proposal,proposal_wall=self._proposals[context.mission_id]
+        result=self.tools.run(request.request_id,context.mission_id,proposal.raw,approval_id=approval_id)
         result['generation_seconds'] = proposal.generation_seconds
         result['proposal_wall_seconds'] = proposal_wall
         result['hermes_maxrss_kib'] = proposal.hermes_maxrss_kib
@@ -75,18 +97,64 @@ class ChatService:
         try:
             request = ChatRequest(request_id, mission.prompt, window)
             self._requests[mission.id] = (conversation, request)
-            result = self.controller.run(mission.id)
-            report = self.controller.report(mission.id)
-            output = {'conversation_id': conversation, 'request_id': request_id,
-                    'mission': report, 'reply': result.message,
-                    'saved': result.state == State.SUCCEEDED, 'tools_enabled': self.tools is not None}
-            if self.tools is not None:
-                output.update(native_tools_enabled=False,tool=self._tool_results.get(mission.id))
-            return output
+            self.controller.run(mission.id)
+            return self.report(actor,mission.id)
         finally:
-            self._requests.pop(mission.id, None)
-            self._tool_results.pop(mission.id,None)
-            self.memory.abort(actor, conversation, request_id)  # No-op after committed success.
+            if self.controller.get(mission.id).state!=State.AWAITING_APPROVAL:self._finish(mission.id)
+
+    def report(self,actor,mission_id):
+        if actor!=self.owner:raise Denied('Chat access denied.')
+        conversation,request=self._requests[mission_id]
+        mission=self.controller.get(mission_id)
+        output={'conversation_id':conversation,'request_id':request.request_id,
+                'mission':self.controller.report(mission_id),'reply':mission.message,
+                'saved':mission.state==State.SUCCEEDED,'tools_enabled':self.tools is not None}
+        if self.tools is not None:output.update(native_tools_enabled=False,tool=self._tool_results.get(mission_id))
+        if mission.state==State.AWAITING_APPROVAL:
+            output['approval']=self.reviews.get(actor,mission_id).public()
+        return output
+
+    def _finish(self,mission_id):
+        conversation,request=self._requests[mission_id]
+        try:
+            if self.reviews is not None:self.reviews.finish(self.owner,mission_id)
+        finally:
+            self.memory.abort(self.owner,conversation,request.request_id)
+            self._requests.pop(mission_id,None);self._tool_results.pop(mission_id,None);self._proposals.pop(mission_id,None)
+
+    def decide(self,actor,mission_id,*,approve,reviewed_digest):
+        if actor!=self.owner:raise Denied('Owner decision required.')
+        if self.controller.get(mission_id).state!=State.AWAITING_APPROVAL:raise Denied('No waiting mission.')
+        review=self.reviews.get(actor,mission_id)
+        expired=self.reviews.expiry(review)
+        if expired:return self.cancel(actor,mission_id,reason=expired)
+        self.reviews.decide(actor,mission_id,approve=approve,reviewed_digest=reviewed_digest)
+        return self.resume(actor,mission_id) if approve else self.cancel(actor,mission_id,reason='rejected')
+
+    def resume(self,actor,mission_id):
+        if actor!=self.owner:raise Denied('Owner resume required.')
+        review=self.reviews.get(actor,mission_id)
+        expired=self.reviews.expiry(review)
+        if expired:return self.cancel(actor,mission_id,reason=expired)
+        review=self.reviews.approved(actor,mission_id)
+        try:
+            self.controller.run(mission_id,approval_id=review.id)
+            return self.report(actor,mission_id)
+        finally:self._finish(mission_id)
+
+    def cancel(self,actor,mission_id,*,reason='cancelled'):
+        if actor!=self.owner:raise Denied('Owner cancellation required.')
+        self.controller.cancel(mission_id,reason=reason)
+        try:
+            report=self.report(actor,mission_id)
+            if self.reviews is not None and mission_id in self.reviews._pending:
+                self.reviews.cancel(actor,mission_id,reason=reason if reason in ('expired','timed_out') else 'cancelled')
+            return report
+        finally:self._finish(mission_id)
+
+    def close(self):
+        for mission_id in tuple(self._requests):
+            self.cancel(self.owner,mission_id)
 
 
 def main():
@@ -99,7 +167,9 @@ def main():
     parser.add_argument('--json', action='store_true', help='Output structured result for --once.')
     parser.add_argument('--list', action='store_true', help='List owned sessions without inference.')
     parser.add_argument('--tools-config',type=Path,help='Explicit trusted profile for proposal-only, Guardian-controlled tools.')
+    parser.add_argument('--interactive-approvals',action='store_true',help='Require explicit decisions on the controlling terminal for approval-gated tools.')
     args = parser.parse_args()
+    if args.interactive_approvals and not args.tools_config:parser.error('--interactive-approvals requires --tools-config.')
     if not args.remember and not args.list:
         parser.error('Pass --remember to approve persistent sanitized chat storage.')
     if args.json and not args.once: parser.error('--json requires --once.')
@@ -117,11 +187,27 @@ def main():
     if conversation is None: conversation = memory.create('owner', approved=args.remember)
     else: memory.history('owner', conversation)  # Reject unknown session before constructing runtime.
     tools = GuardianTools('owner',args.tools_config,directory/'guardian.sqlite3') if args.tools_config else None
-    service = ChatService('owner', memory, DockerHermesAdapter(),tools=tools)
+    terminal=TerminalReview() if args.interactive_approvals else None
+    reviews=ApprovalReviews(tools) if terminal else None
+    service = ChatService('owner', memory, DockerHermesAdapter(),tools=tools,reviews=reviews)
+    try:return interact(args,memory,conversation,service,terminal)
+    finally:
+        service.close()
+        if terminal:terminal.close()
+
+
+def interact(args,memory,conversation,service,terminal):
+    def resolve(report):
+        if report['mission']['state']!='awaiting_approval':return report
+        mid=report['mission']['id'];review=service.reviews.get('owner',mid)
+        choice=terminal.choose(review) if terminal else 'channel_unavailable'
+        if choice in ('approve','reject'):
+            return service.decide('owner',mid,approve=choice=='approve',reviewed_digest=review.digest)
+        return service.cancel('owner',mid,reason=choice)
     if args.once:
         raw = sys.stdin.buffer.read(8193)
         if len(raw) > 8192: raise ValueError('Chat message exceeds limit.')
-        report = service.ask('owner', conversation, raw.decode('utf-8').rstrip('\n'))
+        report = resolve(service.ask('owner', conversation, raw.decode('utf-8').rstrip('\n')))
         print(json.dumps(report, ensure_ascii=False) if args.json else report['reply'])
         return 0 if report['saved'] else 1
     print('IGRIS local chat. Native tools disabled. Session: '+conversation)
@@ -140,7 +226,7 @@ def main():
             print('Conversation deleted; new session: '+conversation); continue
         if not text.strip(): continue
         try:
-            report = service.ask('owner', conversation, text)
+            report = resolve(service.ask('owner', conversation, text))
             print('IGRIS: '+report['reply'])
         except (ValueError, KeyError, Denied) as exc:
             print('Chat request rejected ('+type(exc).__name__+'). Remove sensitive data or inspect session state.')

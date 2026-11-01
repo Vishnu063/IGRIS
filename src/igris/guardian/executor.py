@@ -22,12 +22,14 @@ def _kill_group(proc):
 
 
 def execute(policy: Policy, workspace: Path, request: dict, *, approval_store: Path | None = None,
-            environment='development', tool_config: Path | None = None) -> dict:
+            environment='development', tool_config: Path | None = None, prepare=False) -> dict:
     """Trusted caller supplies policy/workspace; only request is untrusted."""
     try:
         started = time.monotonic()
         if type(request) is not dict:
             raise Denied('Typed request envelope required.')
+        if type(prepare) is not bool or (prepare and tool_config is None):
+            raise Denied('Preparation requires a trusted tools-only profile.')
         payload = json.dumps(request, allow_nan=False).encode()
         if len(payload) > MAX_REQUEST:
             raise Denied('Request too large.')
@@ -55,6 +57,7 @@ def execute(policy: Policy, workspace: Path, request: dict, *, approval_store: P
             ApprovalStore(Path(approval_store).absolute())
             command[7] = str(Path(approval_store).absolute())
             command.append(str(config))
+            if prepare: command.append('prepare')
         proc = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                 stderr=subprocess.DEVNULL, cwd=root, env={'LANG': 'C.UTF-8'},
                                 start_new_session=True)

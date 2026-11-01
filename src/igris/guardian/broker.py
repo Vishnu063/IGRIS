@@ -151,14 +151,14 @@ def _object(pairs):
 def main():
     try:
         apply_limits()
-        if len(sys.argv) not in (6,7):
+        if len(sys.argv) not in (6,7,8) or (len(sys.argv)==8 and sys.argv[7]!='prepare'):
             raise Denied('Invalid trusted startup.')
         root = Path(sys.argv[1])
         policy = Policy(sys.argv[2], frozenset(Permission(p) for p in sys.argv[3].split(',') if p))
         if sys.argv[5] not in ('development', 'test'):
             raise Denied('Live production execution is unavailable.')
         scope = store = None
-        if len(sys.argv) == 7:
+        if len(sys.argv) >= 7:
             from igris.guardian.readonly import ToolScope
             from igris.guardian.kernel import restrict_readonly_process
             scope = ToolScope.load(sys.argv[6])
@@ -175,7 +175,7 @@ def main():
             raise Denied('Invalid request JSON.') from None
         if scope:
             from igris.guardian.readonly import run
-            response = run(policy,root,request,scope,store,sys.argv[5])
+            response = run(policy,root,request,scope,store,sys.argv[5],prepare=len(sys.argv)==8)
             response['broker_maxrss_kib'] = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
         else:
             response = {'ok': True, 'result': run_action(policy, root, request, sys.argv[4], sys.argv[5])}

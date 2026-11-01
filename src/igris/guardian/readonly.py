@@ -121,7 +121,7 @@ def execute_tool(scope, operation, args):
     finally: os.close(parent)
 
 
-def run(policy, root, envelope, scope, store, environment):
+def run(policy, root, envelope, scope, store, environment, *, prepare=False):
     """All untrusted proposal parsing, authority checks and execution occur here."""
     from ..adapters.contracts import identifier
     request_id = mission_id = 'unavailable'
@@ -141,6 +141,14 @@ def run(policy, root, envelope, scope, store, environment):
         if operation == 'read_workspace_file' and args['path'] not in scope.files: raise Denied('File not explicitly approved.')
         if operation == 'list_workspace_files' and args['path'] not in scope.directories: raise Denied('Directory not explicitly approved.')
         binding = {'request_id':request_id,'mission_id':mission_id,'scope_sha256':scope.digest}
+        if prepare:
+            from .approvals import action_record
+            action_sha256,_ = action_record(policy,root,proposal,environment,binding=binding)
+            store.tool_event(policy,request_id,mission_id,operation,digest,'prepared')
+            return {'ok':True,'prepared':True,'executed':False,'review':{
+                'action':proposal,'binding':binding,'workspace':str(root),'actor':policy.actor,
+                'environment':environment,'risk':'read_only','action_sha256':action_sha256,
+                'approval_required':operation in scope.approval_required}}
         if operation in scope.approval_required:
             store.consume(envelope['approval_id'], policy, root, proposal, environment=environment, binding=binding)
         elif envelope['approval_id'] is not None:

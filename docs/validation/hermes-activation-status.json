@@ -51,7 +51,8 @@
   "real_guardian_denial_verified": true,
   "approval_binding_verified": true,
   "tool_audit_verified": true,
-  "interactive_chat_approvals": "unavailable; approval-required operations remain blocked",
+  "interactive_chat_approvals": "opt-in controlling-terminal review; exact action, expiration, one-time consumption; no AI decision channel",
   "security_boundaries": "restricted model container plus existing independent broker; no hostile same-user/full sandbox claim",
-  "performance_evidence": "docs/validation/guardian-tools-performance.json"
+  "performance_evidence": "docs/validation/guardian-tools-performance.json",
+  "completion_progress": "docs/execution/completion-progress.json"
 }

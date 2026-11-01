@@ -29,7 +29,7 @@ TRANSITIONS = MappingProxyType({
     State.PLANNED: frozenset({State.READY, State.BLOCKED}),
     State.READY: frozenset({State.RUNNING}),
     State.RUNNING: frozenset({State.VERIFYING, State.AWAITING_APPROVAL, State.BLOCKED, State.FAILED}),
-    State.AWAITING_APPROVAL: frozenset({State.READY}),
+    State.AWAITING_APPROVAL: frozenset({State.READY,State.BLOCKED}),
     State.VERIFYING: frozenset({State.SUCCEEDED, State.FAILED}),
 })
 
@@ -145,3 +145,9 @@ class MissionController:
                 'state': mission.state.value, 'message': mission.message,
                 'evidence_origin': mission.origin, 'approval_request_id': mission.approval_request_id,
                 'history': [state.value for state in mission.history]}
+
+    def cancel(self, identifier, *, reason='cancelled'):
+        if reason not in ('cancelled','timed_out','expired','rejected','channel_unavailable'):
+            raise MissionError('Invalid cancellation reason.')
+        return self._move(identifier,State.BLOCKED,message='Action '+reason+'. No execution authorized.',
+                          origin='real',approval_request_id=None)

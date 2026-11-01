@@ -50,6 +50,13 @@ external network tool is exposed. Approval-required chat actions stay blocked;
 there is no interactive approval issuer. This is development verification, with
 same-user/database-tampering and hardware limits documented in the report.
 
+The remaining work is tracked in [completion progress](docs/execution/completion-progress.md).
+Task 1 adds opt-in [controlling-terminal approvals](docs/security/interactive-approvals.md):
+the exact action is reviewed separately from chat, expires, and executes once
+through Guardian. Enable with `--interactive-approvals` and a private profile
+that explicitly marks the tool approval-required. Without this channel, such
+operations remain denied. No additional tool capability is granted by the flag.
+
 The authorized repository is `Vishnu063/IGRIS`; it is retained rather than
 creating or renaming a repository to the suggested `igris-ai-assistant`.
 Development takes place on `develop`. This cloud-first project must not install

@@ -136,12 +136,26 @@ class ApprovalStore:
             db.execute('BEGIN IMMEDIATE')
             now = self._now()
             row = db.execute('SELECT digest,actor,operation,expires,status,used FROM approvals WHERE id=?', (identifier,)).fetchone()
-            if not row or row[0] != reviewed_digest or row[3] <= now or row[4] != 'pending' or row[5]:
-                raise Denied('Approval decision rejected.')
-            status = 'approved' if approve else 'denied'
-            db.execute('UPDATE approvals SET status=? WHERE id=?', (status, identifier))
+            allowed=bool(row and row[0]==reviewed_digest and row[3]>now and row[4]=='pending' and not row[5])
+            status = ('approved' if approve else 'denied') if allowed else 'decision_rejected'
+            if allowed: db.execute('UPDATE approvals SET status=? WHERE id=?', (status, identifier))
             db.execute('INSERT INTO audit(at,approval_id,actor,operation,digest,event) VALUES (?,?,?,?,?,?)',
-                       (now, identifier, row[1], row[2], row[0], status))
+                       (now, identifier if len(identifier)==32 else None, row[1] if row else 'unknown',
+                        row[2] if row else 'unregistered',row[0] if row else 'unavailable',status))
+        if not allowed: raise Denied('Approval decision rejected.')
+
+    def close(self, identifier, policy, digest, *, reason='cancelled'):
+        if reason not in ('cancelled','timed_out','expired'):
+            raise Denied('Invalid closure reason.')
+        with self._db() as db:
+            db.execute('BEGIN IMMEDIATE')
+            changed=db.execute("UPDATE approvals SET status=? WHERE id=? AND actor=? AND digest=? AND used=0 AND status IN ('pending','approved')",
+                (reason,identifier,policy.actor,digest)).rowcount
+            if changed:
+                row=db.execute('SELECT operation FROM approvals WHERE id=?',(identifier,)).fetchone()
+                db.execute('INSERT INTO audit(at,approval_id,actor,operation,digest,event) VALUES (?,?,?,?,?,?)',
+                    (self._now(),identifier,policy.actor,row[0],digest,reason))
+        return bool(changed)
 
     def consume(self, identifier, policy, workspace, action, *, environment='development', binding=None):
         digest, _ = action_record(policy, workspace, action, environment, binding=binding)
@@ -182,7 +196,7 @@ class ApprovalStore:
         mission_id = mission_id if type(mission_id) is str and re.fullmatch('[a-f0-9]{32}', mission_id) else 'unavailable'
         operation = operation if type(operation) is str and operation in TOOLS else 'unregistered'
         digest = digest if type(digest) is str and re.fullmatch('[a-f0-9]{64}', digest) else 'unavailable'
-        if event not in ('authorized','completed','denied','execution_failed','timeout','interrupted','broker_failed'):
+        if event not in ('authorized','completed','denied','execution_failed','timeout','interrupted','broker_failed','prepared','decision_rejected'):
             raise Denied('Invalid audit event.')
         for value in (authorization_ms,execution_ms):
             if value is not None and (type(value) not in (int,float) or not math.isfinite(value) or value < 0):
