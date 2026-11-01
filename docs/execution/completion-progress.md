@@ -8,7 +8,7 @@
 | 4 | Real n8n integration | PASS | VERIFIED_BOUNDED_CLI | NOT_REQUIRED_FOR_CLOUD_ACCEPTANCE | 083be4212950e41793d1a83452e856d9b952d95d |
 | 5 | Ops Pilot monitoring integration | PASS | VERIFIED | NOT_REQUIRED | 13e0c6762caff78f3240a8090ec385331a3b90af |
 | 6 | Activate fifteen specialists | PASS | VERIFIED | NOT_REQUIRED | 2fc7810e804a4d1cdb386cc998f3faf84456da24 |
-| 7 | Mission Control dashboard | PENDING | PENDING | PENDING | — |
+| 7 | Mission Control dashboard | PASS | VERIFIED | NOT_REQUIRED | 0780a08ad3664c6e2ef0ff3eb2f6437e7f0be721 |
 | 8 | Mem0 semantic memory | PENDING | PENDING | PENDING | — |
 | 9 | Authorized Playwright browser | PENDING | PENDING | PENDING | — |
 | 10 | MarkItDown documents | PENDING | PENDING | PENDING | — |
@@ -27,6 +27,7 @@ Statuses apply to actual acceptance, not merely code presence.
 - Task 4: Real bounded n8n calculation after Guardian owner approval, with genuine rejection, cancellation and verified offline OS restrictions.
 - Task 5: Real approved read-only Ops Pilot monitoring of one disposable Docker application; healthy/stopped evidence and narrow proxy denials.
 - Task 6: Fifteen owner-selected, individually approved real Hermes advisory specialists with current definition hashes, separate tool permissions and private result logging.
+- Task 7: Real local authenticated Mission Control with chat/history, exact approval controls, bounded real integrations, owner-selected specialists, resource/audit status and emergency stop.
 
 ## External requirements
 
