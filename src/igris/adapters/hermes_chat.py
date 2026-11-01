@@ -87,6 +87,30 @@ class ChatReply:
         if self.origin not in ('real_local_inference', 'simulated'): raise ContractError('Invalid response origin.')
 
 
+@dataclass(frozen=True)
+class ToolProposal:
+    request_id: str
+    raw: str
+    model_sha256: str
+    api_calls: int
+    generation_seconds: float
+    hermes_maxrss_kib: int
+    model_maxrss_kib: int
+    origin: str = 'real_local_inference'
+
+    def __post_init__(self):
+        identifier(self.request_id)
+        if type(self.raw) is not str or not self.raw or len(self.raw.encode()) > 8192:
+            raise ContractError('Invalid bounded model proposal.')
+        if type(self.model_sha256) is not str or not re.fullmatch('[a-f0-9]{64}',self.model_sha256) or type(self.api_calls) is not int or not 1 <= self.api_calls <= 3 or self.origin != 'real_local_inference':
+            raise ContractError('Invalid proposal provenance.')
+        import math
+        if type(self.generation_seconds) not in (int,float) or not math.isfinite(self.generation_seconds) or not 0 <= self.generation_seconds <= 180:
+            raise ContractError('Invalid generation timing.')
+        if any(type(value) is not int or value <= 0 for value in (self.hermes_maxrss_kib,self.model_maxrss_kib)):
+            raise ContractError('Invalid measured memory.')
+
+
 class DockerHermesAdapter:
     """Trusted operator transport. No worker paths, flags or endpoints from chat."""
     def __init__(self, *, root=None):
@@ -130,7 +154,7 @@ class DockerHermesAdapter:
             finally: fcntl.flock(handle, fcntl.LOCK_UN)
 
     def _run(self, mode, payload=None):
-        if mode not in ('probe', 'chat'): raise ContractError('Unsupported fixed worker.')
+        if mode not in ('probe', 'chat', 'tools'): raise ContractError('Unsupported fixed worker.')
         self._preflight()
         with self._slot():
             docker = shutil.which('docker')
@@ -143,7 +167,7 @@ class DockerHermesAdapter:
             subprocess.run(base+['image', 'inspect', self.profile['container_image']], env=env,
                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, timeout=10)
             name = 'igris-hermes-'+uuid4().hex[:12]
-            worker = 'hermes_inference_worker.py' if mode == 'probe' else 'hermes_chat_worker.py'
+            worker = {'probe':'hermes_inference_worker.py','chat':'hermes_chat_worker.py','tools':'hermes_tool_worker.py'}[mode]
             args = base+['run', '--rm', '--pull=never', '--interactive', '--name', name,
                 '--label', 'com.igris.runtime=hermes-inference', '--network', 'none', '--read-only',
                 '--user', f'{os.getuid()}:{os.getgid()}', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges',
@@ -156,6 +180,7 @@ class DockerHermesAdapter:
                       'runtime/'+self.profile['model_file'], 'vendor/hermes-agent', 'src/igris',
                       'integrations/hermes-inference/profile.json', 'scripts/hermes_inference_worker.py']
             if mode == 'chat': mounts.append('scripts/hermes_chat_worker.py')
+            if mode == 'tools': mounts.append('scripts/hermes_tool_worker.py')
             for relative in mounts:
                 path = self.root/relative
                 if not path.exists() or path.is_symlink(): raise ContractError('Unsafe/missing worker mount.')
@@ -195,3 +220,17 @@ class DockerHermesAdapter:
         if result.get('status') != 'PASS': raise ContractError('Probe did not pass.')
         result['container_removed'] = True
         return result
+
+    def propose(self, request, *, file_hints=()):
+        if type(request) is not ChatRequest: raise ContractError('Typed proposal request required.')
+        from ..guardian.readonly import components
+        if type(file_hints) is not tuple or len(file_hints)>64: raise ContractError('Invalid bounded file hints.')
+        for name in file_hints: components(name)
+        payload=dict(request.payload(),file_hints=list(file_hints))
+        result = self._run('tools', payload)
+        expected = {'schema_version','request_id','origin','model_sha256','proposal','api_calls','controls',
+                    'generation_seconds','hermes_maxrss_kib','model_maxrss_kib'}
+        if set(result) != expected or type(result['schema_version']) is not int or result['schema_version'] != 1 or result['request_id'] != request.request_id:
+            raise ContractError('Invalid proposal transport schema/correlation.')
+        return ToolProposal(request.request_id,result['proposal'],result['model_sha256'],result['api_calls'],
+                            result['generation_seconds'],result['hermes_maxrss_kib'],result['model_maxrss_kib'],result['origin'])

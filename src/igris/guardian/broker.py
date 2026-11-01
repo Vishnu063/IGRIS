@@ -51,17 +51,17 @@ def open_parent(root, parts):
         raise
 
 
-def read_text(root, path):
+def read_text(root, path, *, maximum=MAX_FILE):
     parts = path_parts(path)
     parent = open_parent(root, parts)
     try:
         fd = os.open(parts[-1], os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=parent)
         with os.fdopen(fd, 'rb') as handle:
             info = os.fstat(handle.fileno())
-            if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1 or info.st_size > MAX_FILE:
+            if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1 or info.st_size > maximum:
                 raise Denied('Unsafe file denied.')
-            data = handle.read(MAX_FILE + 1)
-            if len(data) > MAX_FILE:
+            data = handle.read(maximum + 1)
+            if len(data) > maximum:
                 raise Denied('File too large.')
             return data.decode('utf-8')
     finally:
@@ -151,17 +151,34 @@ def _object(pairs):
 def main():
     try:
         apply_limits()
-        if len(sys.argv) != 6:
+        if len(sys.argv) not in (6,7):
             raise Denied('Invalid trusted startup.')
         root = Path(sys.argv[1])
         policy = Policy(sys.argv[2], frozenset(Permission(p) for p in sys.argv[3].split(',') if p))
         if sys.argv[5] not in ('development', 'test'):
             raise Denied('Live production execution is unavailable.')
+        scope = store = None
+        if len(sys.argv) == 7:
+            from igris.guardian.readonly import ToolScope
+            from igris.guardian.kernel import restrict_readonly_process
+            scope = ToolScope.load(sys.argv[6])
+            if scope.workspace != root or sys.argv[4] == '-': raise Denied('Trusted tools-only startup required.')
+            store = ApprovalStore(Path(sys.argv[4]))
+            restrict_readonly_process()
         raw = sys.stdin.buffer.read(16385)
         if len(raw) > 16384:
+            if store: store.tool_event(policy,'unavailable','unavailable','unregistered','unavailable','denied')
             raise Denied('Request too large.')
-        request = json.loads(raw, object_pairs_hook=_object)
-        response = {'ok': True, 'result': run_action(policy, root, request, sys.argv[4], sys.argv[5])}
+        try: request = json.loads(raw, object_pairs_hook=_object)
+        except Exception:
+            if store: store.tool_event(policy,'unavailable','unavailable','unregistered','unavailable','denied')
+            raise Denied('Invalid request JSON.') from None
+        if scope:
+            from igris.guardian.readonly import run
+            response = run(policy,root,request,scope,store,sys.argv[5])
+            response['broker_maxrss_kib'] = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        else:
+            response = {'ok': True, 'result': run_action(policy, root, request, sys.argv[4], sys.argv[5])}
     except Denied as exc:
         response = {'ok': False, 'reason': str(exc)}
     except Exception:

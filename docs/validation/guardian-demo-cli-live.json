@@ -1,0 +1,63 @@
+{
+  "actual_cli_result": {
+    "conversation_id": "68bd7b75e7564b059e8a00c1f4f19879",
+    "mission": {
+      "actor": "owner",
+      "approval_request_id": null,
+      "evidence_origin": "real",
+      "history": [
+        "requested",
+        "planned",
+        "ready",
+        "running",
+        "verifying",
+        "succeeded"
+      ],
+      "id": "81337c4b2cb0462da004fc26ec18e396",
+      "message": "Guardian executed read_workspace_file. Result (untrusted data):\n{\"text\": \"An ordinary approved IGRIS demonstration document.\\n\"}",
+      "route": "chat",
+      "state": "succeeded"
+    },
+    "native_tools_enabled": false,
+    "reply": "Guardian executed read_workspace_file. Result (untrusted data):\n{\"text\": \"An ordinary approved IGRIS demonstration document.\\n\"}",
+    "request_id": "bec5cc97a0bd41bc9d3639b8e897004a",
+    "saved": true,
+    "tool": {
+      "authorization_ms": 0.13712300278712064,
+      "broker_maxrss_kib": 16640,
+      "broker_wall_ms": 76.9979719989351,
+      "execution_ms": 0.17228800425073132,
+      "generation_seconds": 39.79094600299868,
+      "hermes_maxrss_kib": 187932,
+      "model_maxrss_kib": 2745176,
+      "ok": true,
+      "operation": "read_workspace_file",
+      "proposal_sha256": "069795faf9956e4fcf2565b08162be3925aea1fbcb3d11bea673d4dca97da11a",
+      "proposal_wall_seconds": 54.93546441200306,
+      "result": {
+        "text": "An ordinary approved IGRIS demonstration document.\n"
+      }
+    },
+    "tools_enabled": true
+  },
+  "elapsed_seconds": 55.133251674997155,
+  "prompt_via_stdin": true,
+  "real_inference": true,
+  "source_sha256": {
+    "src/igris/adapters/hermes_chat.py": "4fb0ab638dfdde12b20be09391d611c048aa7bcd3d16c5d6a153dd35d6a39a4f",
+    "src/igris/chat.py": "1673aecff0c331fae1ddcf24370880e4b4b98cfcd92550c0386210119cd54fd2",
+    "src/igris/guardian/__init__.py": "9b79d2f1dc746e51ab153970eba1b8e3563f7b94d84b920251c7ecb16bb0837b",
+    "src/igris/guardian/approvals.py": "8a18a2daca6bafec2256360fb21c2da2fd86beff7aba076176b8a13c06489af2",
+    "src/igris/guardian/broker.py": "776b460a92692bf658dd83c85e90e13d249124a309b0b21aea94324dd6c75e53",
+    "src/igris/guardian/executor.py": "f2ea2fd6f977140d6e90a60e9d72757cc1f881decb2ed581b3c67bdc0d7407d0",
+    "src/igris/guardian/fixture_recovery.py": "c195bb22182358dc5ca0a5c29422d2cc53275e0312690e4498206c4f4e85c90f",
+    "src/igris/guardian/kernel.py": "ba02af3ace50093badb6a1217518b426e7e94255c97fe069c836cf0478a6f43b",
+    "src/igris/guardian/policy.py": "641a3defb7e207b62a78a2f376e4ad546547357b4f565682c5c98d3754853a97",
+    "src/igris/guardian/readonly.py": "a8851033ee9686a2651b904c080aa56410aab1eb88ac0567558d0661ce1afab7",
+    "src/igris/guardian/scan.py": "b7af72f5e6257a675751504ab9ddc9dd1ce21443930fcdd5b5deaf0079ba4ac6",
+    "src/igris/guardian/secrets.py": "95d23b4dcb834d8658c769e01d63cbc207f6a8d2e426186f8e5d7d9b57b13ef4",
+    "src/igris/guardian/specialist_fixture.py": "5062072612fd6533f65edf764159e063366cf3e99b0b022b62c6c3edd3884ede",
+    "src/igris/guardian/tools.py": "9685c2d8cc1d8e782068155af8a8611d8d32be513ac0904e9ae6b2c18231710a"
+  },
+  "status": "PASS"
+}

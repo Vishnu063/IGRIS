@@ -1,5 +1,10 @@
 # Independent Guardian security architecture
 
+Current activation is described in [Guardian-controlled tools](guardian-controlled-tools.md).
+Its restricted model container and tools-only broker extend this design without
+enabling sensitive operations or claiming hostile same-user isolation. The Step 6
+body below records the historical design and remaining deployment prerequisites.
+
 Step 6: design and threat-model review only. No security service is operational
 at this step. Steps 7–10 implement progressively testable controls.
 

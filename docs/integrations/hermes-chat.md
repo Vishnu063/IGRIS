@@ -1,5 +1,9 @@
 # Manual Hermes chat and persistent conversation memory
 
+This documents normal text-chat mode. Phase 1 Milestone 3 adds optional explicit
+[Guardian-controlled tool mode](../security/guardian-controlled-tools.md) using
+the same controller and memory. Native Hermes tools remain disabled in both modes.
+
 Phase 1 Milestone 2 adds an explicit chat route to the existing MissionController.
 It uses the same isolated Hermes AIAgent/local Qwen inference verified in
 Milestone 1. This route is separate from the legacy disabled Hermes planner

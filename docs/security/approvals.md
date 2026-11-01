@@ -1,5 +1,12 @@
 # Action-bound approval controls
 
+Phase 1 Milestone 3 reuses this store for [controlled read-only tools](guardian-controlled-tools.md).
+Their approvals additionally bind mission/request IDs and the complete tool scope.
+Chat cannot issue, decide or submit approvals; approval-required tools remain
+blocked. The existing trusted API is exercised with synthetic owner test decisions.
+Normal read-only tool authorization/denial is recorded in the same private store's
+tool_audit table. Legacy mutation behavior below remains unavailable to chat.
+
 Step 10 implements a trusted-only approval store and enforcement at the broker's
 actual file-creation boundary. It is local development infrastructure, not a
 production authorization service or an approval dashboard.

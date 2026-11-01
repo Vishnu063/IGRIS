@@ -1,0 +1,72 @@
+{
+  "environment": "shared Linux x86_64 cloud, model container 2 CPUs / 3 GiB memory cap",
+  "evidence": "docs/validation/guardian-tools-live.json",
+  "measurements": {
+    "generation_seconds": {
+      "samples": 8,
+      "minimum": 28.31058258700068,
+      "median": 34.884117059002165,
+      "maximum": 53.19373187999736
+    },
+    "proposal_wall_seconds": {
+      "samples": 8,
+      "minimum": 42.011547865004104,
+      "median": 49.463743033000355,
+      "maximum": 68.26468045699585
+    },
+    "authorization_ms": {
+      "samples": 4,
+      "minimum": 0.11513999925227836,
+      "median": 0.13120750008965842,
+      "maximum": 0.22119999630376697
+    },
+    "execution_ms": {
+      "samples": 4,
+      "minimum": 0.021076994016766548,
+      "median": 0.11136100147268735,
+      "maximum": 0.16808600048534572
+    },
+    "broker_wall_ms": {
+      "samples": 8,
+      "minimum": 69.5810680044815,
+      "median": 81.13908299856121,
+      "maximum": 102.2827540000435
+    },
+    "hermes_maxrss_kib": {
+      "samples": 8,
+      "minimum": 187312,
+      "median": 188540.0,
+      "maximum": 188812
+    },
+    "model_maxrss_kib": {
+      "samples": 8,
+      "minimum": 2744744,
+      "median": 2745574.0,
+      "maximum": 2765368
+    },
+    "broker_maxrss_kib": {
+      "samples": 8,
+      "minimum": 16768,
+      "median": 25576.0,
+      "maximum": 26448
+    },
+    "model_tool_end_to_end_seconds": {
+      "samples": 7,
+      "minimum": 42.100279846003104,
+      "median": 51.8698984129951,
+      "maximum": 68.35377349399641
+    }
+  },
+  "authorization_scope": "parse/policy/scope/approval before authorization audit write",
+  "handler_scope": "actual fixed handler only; audit/worker startup measured in broker wall",
+  "memory_scope": "Linux per-process peak RSS in KiB, not summed physical memory or cgroup peak",
+  "mac_m1_validated": false,
+  "external_api_spend_inr": 0,
+  "prior_chat_sample_seconds_rounded": [
+    43,
+    59
+  ],
+  "implemented_optimization": "One real proposal inference; render verified tool result without second model inference.",
+  "potential_improvement": "Explicitly started offline warm model worker with fresh validated per-conversation context, unchanged Guardian broker and revalidated stop/isolation; not implemented.",
+  "do_not_skip": "Integrity checks, Guardian policy, scope, approval, audit or upstream context validation."
+}

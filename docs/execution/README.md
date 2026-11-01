@@ -63,4 +63,5 @@ report; the user-facing report supplies its exact SHA after commit creation.
 Post-prototype activation milestones (separate from the historical 50 records):
 - Phase 1, Milestone 1: [audit and real Hermes inference](phase-1-milestone-01.md).
 - Phase 1, Milestone 2: [controller chat and persistent memory](phase-1-milestone-02.md).
+- Phase 1, Milestone 3: [real Guardian enforcement and controlled tools](phase-1-milestone-03.md).
 - [Current activation scope/status](../validation/hermes-activation-status.json).

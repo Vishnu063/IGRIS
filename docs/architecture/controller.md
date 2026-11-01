@@ -1,5 +1,10 @@
 # Core controller — Step 12
 
+Post-prototype activation: [manual chat](../integrations/hermes-chat.md) now routes
+real local Hermes responses, and [controlled tools](../security/guardian-controlled-tools.md)
+send real untrusted JSON proposals through the existing independent broker.
+The historical library semantics and limits below still apply.
+
 MissionController accepts bounded text requests and named trusted routes, creates
 unique mission IDs, tracks immutable snapshots/history, handles approval waits,
 and returns sanitized reports. It is a synchronous in-memory library, not a

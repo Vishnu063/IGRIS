@@ -1,5 +1,10 @@
 # Restricted execution interface
 
+Current chat activation: [Guardian-controlled tools](guardian-controlled-tools.md)
+extends this existing broker with an explicit three-tool read-only mode, complete
+proposal audit and Linux network/process syscall restrictions. The legacy modes
+and their historical restrictions below are not exposed to model chat.
+
 Step 8 implements `guardian.executor.execute(policy, workspace, request)` as a
 trusted launcher and `broker.py` as a short-lived independent process. Only the
 request dictionary is untrusted. An agent MUST NOT control launcher policy,

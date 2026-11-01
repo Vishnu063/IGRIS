@@ -32,6 +32,24 @@ speech engines remain unverified. Specialist execution is a bounded simulation. 
 is supplied locally; no live service health is implied. Production deployment,
 paid activation and external client submission remain disabled.
 
+**Guardian-controlled tools are now verified** through real Hermes JSON
+proposals: [Milestone 3 report](docs/execution/phase-1-milestone-03.md),
+[execution and approval boundaries](docs/security/guardian-controlled-tools.md),
+[actual acceptance evidence](docs/validation/guardian-tools-live.json).
+Only current time, explicit workspace listing and allowlisted text-file reads
+are available. Default chat executes no tools; choose a private test profile:
+
+```sh
+$ python3 scripts/create_guardian_test_workspace.py
+$ PYTHONPATH=src python3 -m igris.chat --remember --tools-config runtime/guardian-demo/tools.json
+```
+
+The helper refuses to overwrite an existing demo. If this workspace already has
+the prepared profile, use its existing file. No shell, writes, Git, browser or
+external network tool is exposed. Approval-required chat actions stay blocked;
+there is no interactive approval issuer. This is development verification, with
+same-user/database-tampering and hardware limits documented in the report.
+
 The authorized repository is `Vishnu063/IGRIS`; it is retained rather than
 creating or renaming a repository to the suggested `igris-ai-assistant`.
 Development takes place on `develop`. This cloud-first project must not install

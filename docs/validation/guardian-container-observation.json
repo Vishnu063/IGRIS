@@ -1,0 +1,20 @@
+{
+  "verified_at_utc": "2026-11-01T09:15:51.593404+00:00",
+  "container": "c3b5701b71f9",
+  "privileged": false,
+  "read_only_root": true,
+  "network_mode": "none",
+  "memory_bytes": 3221225472,
+  "nano_cpus": 2000000000,
+  "pids_limit": 128,
+  "cap_drop": [
+    "ALL"
+  ],
+  "security_opt": [
+    "no-new-privileges"
+  ],
+  "user": "1000:1000",
+  "all_mounts_read_only": true,
+  "no_docker_socket_mount": true,
+  "no_chat_or_workspace_mount": true
+}

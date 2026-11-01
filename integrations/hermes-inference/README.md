@@ -2,6 +2,9 @@
 
 Scope: the Phase 1 Milestone 1 inference runtime, reused by
 [Milestone 2 controller chat and memory](../../docs/integrations/hermes-chat.md).
+The same isolated runtime now produces untrusted JSON proposals for
+[Milestone 3 controlled tools](../../docs/security/guardian-controlled-tools.md);
+execution stays in the existing independent Guardian broker, outside the model.
 Actual copied Hermes `AIAgent.run_conversation` uses licensed local CPU inference.
 This is not the complete assistant, legacy planner adapter, desktop installation
 or activation of specialist tools. Historical 50-step records remain unchanged.

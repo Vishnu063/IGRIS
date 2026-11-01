@@ -14,6 +14,9 @@ from types import MappingProxyType
 from .policy import Denied, Policy
 
 RISK_CATEGORIES = MappingProxyType({
+    'get_current_time': 'readonly_tool',
+    'list_workspace_files': 'readonly_tool',
+    'read_workspace_file': 'readonly_tool',
     'deployment.production': 'production_deployment',
     'file.delete': 'destructive_operation',
     'file.sensitive_change': 'sensitive_file_change',
@@ -27,7 +30,7 @@ RISK_CATEGORIES = MappingProxyType({
 })
 
 
-def action_record(policy: Policy, workspace: Path, request: dict, environment='development'):
+def action_record(policy: Policy, workspace: Path, request: dict, environment='development', *, binding=None):
     if type(request) is not dict or set(request) != {'operation', 'arguments'}:
         raise Denied('Invalid approval action.')
     policy.require(request['operation'])
@@ -42,6 +45,13 @@ def action_record(policy: Policy, workspace: Path, request: dict, environment='d
         root = str(Path(workspace).resolve(strict=True))
         bound = {'actor': policy.actor, 'workspace': root, 'environment': environment,
                  'policy_version': policy.version, 'action': request}
+        if binding is not None:
+            import re
+            if (type(binding) is not dict or set(binding) != {'request_id','mission_id','scope_sha256'}
+                    or any(type(binding[k]) is not str or not re.fullmatch('[a-f0-9]{'+str(n)+'}', binding[k])
+                           for k,n in (('request_id',32),('mission_id',32),('scope_sha256',64)))):
+                raise Denied('Invalid intended execution binding.')
+            bound['execution'] = binding
         canonical = json.dumps(bound, sort_keys=True, separators=(',', ':'), allow_nan=False)
     except (ValueError, TypeError, OSError, RecursionError):
         raise Denied('Invalid approval action.') from None
@@ -99,8 +109,8 @@ class ApprovalStore:
             raise Denied('Trusted clock unavailable.')
         return now
 
-    def request(self, policy, workspace, action, *, ttl_seconds=300, environment='development'):
-        digest, root = action_record(policy, workspace, action, environment)
+    def request(self, policy, workspace, action, *, ttl_seconds=300, environment='development', binding=None):
+        digest, root = action_record(policy, workspace, action, environment, binding=binding)
         if type(ttl_seconds) not in (int, float) or not math.isfinite(ttl_seconds) or not 0 < ttl_seconds <= 3600:
             raise Denied('Invalid approval lifetime.')
         # No body/secret values persisted: owner reviews the exact original action
@@ -133,8 +143,8 @@ class ApprovalStore:
             db.execute('INSERT INTO audit(at,approval_id,actor,operation,digest,event) VALUES (?,?,?,?,?,?)',
                        (now, identifier, row[1], row[2], row[0], status))
 
-    def consume(self, identifier, policy, workspace, action, *, environment='development'):
-        digest, _ = action_record(policy, workspace, action, environment)
+    def consume(self, identifier, policy, workspace, action, *, environment='development', binding=None):
+        digest, _ = action_record(policy, workspace, action, environment, binding=binding)
         if type(identifier) is not str or len(identifier) != 32:
             raise Denied('Approval required.')
         with self._db() as db:
@@ -155,3 +165,31 @@ class ApprovalStore:
             db.execute('INSERT INTO audit(at,approval_id,actor,operation,digest,event) VALUES (?,?,?,?,?,?)',
                        (self._now(), identifier, policy.actor, operation, digest,
                         'execution_succeeded' if succeeded else 'execution_failed'))
+
+    def enable_tool_audit(self):
+        """Trusted setup/migration only; no new authority or model-facing issuer."""
+        with self._db() as db:
+            db.execute('''CREATE TABLE IF NOT EXISTS tool_audit (
+                sequence INTEGER PRIMARY KEY, at REAL NOT NULL, request_id TEXT NOT NULL,
+                mission_id TEXT NOT NULL, actor TEXT NOT NULL, operation TEXT NOT NULL,
+                digest TEXT NOT NULL, event TEXT NOT NULL, authorization_ms REAL, execution_ms REAL)''')
+
+    def tool_event(self, policy, request_id, mission_id, operation, digest, event,
+                   *, authorization_ms=None, execution_ms=None):
+        from .readonly import TOOLS
+        import re
+        request_id = request_id if type(request_id) is str and re.fullmatch('[a-f0-9]{32}', request_id) else 'unavailable'
+        mission_id = mission_id if type(mission_id) is str and re.fullmatch('[a-f0-9]{32}', mission_id) else 'unavailable'
+        operation = operation if type(operation) is str and operation in TOOLS else 'unregistered'
+        digest = digest if type(digest) is str and re.fullmatch('[a-f0-9]{64}', digest) else 'unavailable'
+        if event not in ('authorized','completed','denied','execution_failed','timeout','interrupted','broker_failed'):
+            raise Denied('Invalid audit event.')
+        for value in (authorization_ms,execution_ms):
+            if value is not None and (type(value) not in (int,float) or not math.isfinite(value) or value < 0):
+                raise Denied('Invalid audit timing.')
+        with self._db() as db:
+            db.execute('BEGIN IMMEDIATE')
+            if db.execute('SELECT COUNT(*) FROM tool_audit').fetchone()[0] >= 10000:
+                raise Denied('Tool audit capacity reached.')
+            db.execute('INSERT INTO tool_audit(at,request_id,mission_id,actor,operation,digest,event,authorization_ms,execution_ms) VALUES (?,?,?,?,?,?,?,?,?)',
+                (self._now(),request_id,mission_id,policy.actor,operation,digest,event,authorization_ms,execution_ms))

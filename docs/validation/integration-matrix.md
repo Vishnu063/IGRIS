@@ -1,5 +1,13 @@
 # Integration testing — Step 47
 
+Post-prototype activation: [Milestone 1](../execution/phase-1-milestone-01.md)
+verified real Hermes inference; [Milestone 2](../execution/phase-1-milestone-02.md)
+verified controller chat and persistent conversations; [Milestone 3](../execution/phase-1-milestone-03.md)
+verified actual model proposals, scoped Guardian execution/denial, approval checks
+and audit. Their source-bound evidence supersedes the historical Hermes rows
+below for these explicit modes. Other external-service/specialist/voice rows
+remain unverified or simulated; the Step 47 matrix itself stays historical.
+
 Managed Linux cloud, 2026-10-30. “Real local” means the actual local Python/HTTP/
 SQLite/filesystem/subprocess implementation, not a real upstream service.
 
