@@ -27,7 +27,7 @@ $ PYTHONPATH=src python3 -m igris.chat --remember --resume
 ```
 
 Native tools remain disabled. The legacy planner adapter is still unavailable;
-there is no always-running service. Task 4 verifies a bounded real n8n CLI workflow; Task 5 verifies read-only Ops Pilot monitoring of a disposable Docker application. Speech synthesis is real in cloud tests, while microphone, human speech quality and Mac playback remain blocked. Specialist execution remains a bounded simulation until Task 6. Dashboard data is supplied locally; no existing production service health is implied. Production deployment,
+there is no always-running service. Task 4 verifies a bounded real n8n CLI workflow; Task 5 verifies read-only Ops Pilot monitoring of a disposable Docker application. Speech synthesis is real in cloud tests, while microphone, human speech quality and Mac playback remain blocked. Task 6 adds opt-in real role-conditioned advisory specialist responses; the legacy scheduler remains simulated. Dashboard data is supplied locally; no existing production service health is implied. Production deployment,
 paid activation and external client submission remain disabled.
 
 **Guardian-controlled tools are now verified** through real Hermes JSON
@@ -157,3 +157,8 @@ Optional English/Hindi/Marathi WAV generation and explicit language selection ar
 Task 5: [real read-only Ops Pilot runtime](docs/integrations/ops-runtime.md),
 [actual healthy/stopped Docker evidence](docs/validation/ops-runtime-live.json).
 No existing deployment is connected and remediation stays disabled.
+
+Task 6: [owner-approved real specialist reasoning](docs/specialists/live.md),
+[fifteen scoped acceptance results](docs/validation/specialists-live.json),
+[retained initial attempts](docs/validation/specialists-attempts.json).
+Small-model advice requires human review; role selection grants no tool rights.

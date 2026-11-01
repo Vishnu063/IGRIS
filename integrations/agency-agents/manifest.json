@@ -71,7 +71,7 @@
       "source": "project-management/project-manager-senior.md",
       "source_sha256": "70fb27cab174c97375293311211d5563c5ac257fba274450d1ca9c05b540ef2d",
       "adapted": "integrations/agency-agents/project_manager.md",
-      "adapted_sha256": "331bfaaf8e3bc555e186f291f49d6b5a1fe4b50ea78f9f390faa4e62fabc727f"
+      "adapted_sha256": "0a87951ff636a12f178a555e0722d1e523d211bea8cd24af0b1fabef4c8cbc52"
     },
     "research": {
       "source": "research/research-synthesist.md",
@@ -97,6 +97,7 @@
     "Removed persona identity/memory and success-metric sections",
     "Removed incident emergency-approval exemption",
     "Retained copied technical methodology and illustrative examples",
-    "Normalized whitespace in adapted copies; original vendor definitions retained byte-for-byte."
+    "Normalized whitespace in adapted copies; original vendor definitions retained byte-for-byte.",
+    "Completion Task 6: removed assumed PM memory, workspace paths and mandatory FluxUI/Laravel stack; retain copied methodology with explicit supplied-scope constraints."
   ]
 }

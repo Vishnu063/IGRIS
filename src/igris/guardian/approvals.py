@@ -28,6 +28,7 @@ RISK_CATEGORIES = MappingProxyType({
     'scope.external_change': 'outside_scope',
     'file.create': 'file_creation',
     'ops.recovery.fixture': 'recovery_simulation',
+    'specialists.reason': 'specialist_activation',
     'specialists.fixture': 'specialist_simulation',
 })
 

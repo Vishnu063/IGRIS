@@ -1,0 +1,394 @@
+{
+  "status": "PASS",
+  "responses": [
+    {
+      "role": "frontend",
+      "prompt": "Write valid HTML for an email label associated with an email input. Put the for attribute on the label and the matching id on the input. Return only these two HTML elements.",
+      "result": {
+        "role": "frontend",
+        "definition_sha256": "fbeb388704ad0c8453537c3031139416eacf355fafa1ecae8315b1708c3c4db1",
+        "text": "<label for=\"emailInput\">Email Address</label>\n<input type=\"email\" id=\"emailInput\" />",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "frontend_plan",
+        "mission_id": "77efa062a5284233ab3899bb9db45c58",
+        "executed_actions": false
+      },
+      "wall_seconds": 69.28743109600327,
+      "correctness_checks": [
+        "(?i)<label[^>]*for=",
+        "(?i)<input[^>]*id="
+      ],
+      "passed": true
+    },
+    {
+      "role": "backend",
+      "prompt": "Write only a short Python function valid_title(value) that returns True exactly when value is a string with at least one non-whitespace character, and False for None, numbers and empty or whitespace strings. Use isinstance and strip. Do not add API endpoints, frameworks or unrelated advice.",
+      "result": {
+        "role": "backend",
+        "definition_sha256": "e1557970c7a1fe2d461dd0419c4927c753b16ace9516317f50f646d97925f210",
+        "text": "```python\ndef valid_title(value):\n    if isinstance(value, str) and value.strip():\n        return True\n    return False\n```",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "backend_plan",
+        "mission_id": "d491bae33ee843adacd8f171e10317cb",
+        "executed_actions": false
+      },
+      "wall_seconds": 55.73261902500235,
+      "correctness_checks": [
+        "(?i)def\\s+valid_title",
+        "isinstance",
+        "\\.strip\\("
+      ],
+      "passed": true
+    },
+    {
+      "role": "mobile",
+      "prompt": "Supplied constraints: offline-only notes app, no remote account, no cloud database. Propose how to persist notes across app restart and show unsaved edits. Do not add network synchronization.",
+      "result": {
+        "role": "mobile",
+        "definition_sha256": "c036238e0b1da154e401a4fd4828e93631afb92b215e62001fec09451fbca0dc",
+        "text": "Use SQLite with a local database file stored in the app's internal storage. Implement a `save()` method that writes to the file on disk and a `load()` method that reads from the file on startup. Use `SharedPreferences` for unsaved edits to persist state across restarts.",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "mobile_plan",
+        "mission_id": "ad8eba9cd6ea4cd389fc5ce6a0140d44",
+        "executed_actions": false
+      },
+      "wall_seconds": 69.18365893000737,
+      "correctness_checks": [
+        "(?i)(local|SQLite|storage)",
+        "(?i)(save|persist|unsaved)"
+      ],
+      "passed": true
+    },
+    {
+      "role": "ai_engineer",
+      "prompt": "Evaluate a classifier using supplied counts: 8 correct predictions out of 10 total. Compute accuracy as a percentage and explain one limitation of this small evaluation set. Do not discuss tools or prompt injection.",
+      "result": {
+        "role": "ai_engineer",
+        "definition_sha256": "e8919378e7c18a7ce7879fa961377f2cf679786556bdc6b00fe721b08f442049",
+        "text": "Accuracy is 80%. Limitation: Small sample size increases variance and overfits to noise.",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "ai_plan",
+        "mission_id": "12fd257294524ddd8e25c418ef94fb53",
+        "executed_actions": false
+      },
+      "wall_seconds": 78.39780514599988,
+      "correctness_checks": [
+        "80\\s*%",
+        "(?i)(small|sample|limit|generaliz)"
+      ],
+      "passed": true
+    },
+    {
+      "role": "devops",
+      "prompt": "Supplied Docker inspection evidence: State.Running=false, State.Status=exited, State.ExitCode=0, RestartCount=0. Report whether this container is running and its exit code. Do not speculate about why it stopped or propose a restart. Two short sentences only.",
+      "result": {
+        "role": "devops",
+        "definition_sha256": "401e9c5b09f4cb992d4ba13032cfd717de4948a406c8cc5572c1f4d0a0fffa35",
+        "text": "The container is not running. It exited with an exit code of 0.",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "devops_plan",
+        "mission_id": "6e82c304096944979cba70dd459b81e8",
+        "executed_actions": false
+      },
+      "wall_seconds": 69.58138860799954,
+      "correctness_checks": [
+        "(?i)(not running|exited|stopped)",
+        "0"
+      ],
+      "passed": true
+    },
+    {
+      "role": "security_privacy",
+      "prompt": "A server logs Authorization header values. Identify the concrete credential exposure risk and recommend redaction without logging the raw value.",
+      "result": {
+        "role": "security_privacy",
+        "definition_sha256": "fe5e1c69b67f59d79185a216e722c817e6aa8ffccc91593aa8dae2b275a9df60",
+        "text": "**Risk:** Authorization header tokens (e.g., Bearer tokens, API keys) are exposed in logs.\n\n**Redaction:** Implement a regex-based redaction in the logging pipeline that masks the token value (e.g., `[REDACTED]`). Do not log the raw value.",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "security_review",
+        "mission_id": "6de004c06a574b76ba718d0fc1f4007f",
+        "executed_actions": false
+      },
+      "wall_seconds": 76.07399751499179,
+      "correctness_checks": [
+        "(?i)(credential|token|secret)",
+        "(?i)(redact|mask|remov)"
+      ],
+      "passed": true
+    },
+    {
+      "role": "testing",
+      "prompt": "Function clamp(x) returns 0 for x<0, 10 for x>10, otherwise x. Propose exact boundary test cases around 0 and 10.",
+      "result": {
+        "role": "testing",
+        "definition_sha256": "0e7c094483d6dcacdf90fdee6d7ab6682b07609b9890da0dfa848ae741210f7d",
+        "text": "Test cases: `clamp(-1)`, `clamp(0)`, `clamp(1)`, `clamp(9)`, `clamp(10)`, `clamp(11)`.",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "test_plan",
+        "mission_id": "8572c0826f95407a87f48cea570e4802",
+        "executed_actions": false
+      },
+      "wall_seconds": 79.1181610509957,
+      "correctness_checks": [
+        "0",
+        "10"
+      ],
+      "passed": true
+    },
+    {
+      "role": "code_reviewer",
+      "prompt": "Review Python: def add_item(item, items=[]): items.append(item); return items. Identify the shared mutable default bug and recommend a None default.",
+      "result": {
+        "role": "code_reviewer",
+        "definition_sha256": "f59ee7357c3c277512441ff2ff8da6e17b1bcd366f6d5fd78458c04516808273",
+        "text": "🔴 **Bug: Shared Mutable Default**\nThe `items=[]` default argument is shared across all calls, causing state leakage.\n\n**Fix:**\n```python\ndef add_item(item, items=None):\n    if items is None:\n        items = []\n    items.append(item)\n    return items\n```\n\n**Why:**\nSetting `None` as default prevents the list from being shared between calls. This ensures each invocation starts with a fresh list.",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "code_review",
+        "mission_id": "b6aa17061d5b47878a8a95d40cc5e32d",
+        "executed_actions": false
+      },
+      "wall_seconds": 89.91376516400487,
+      "correctness_checks": [
+        "(?i)(mutable|shar)",
+        "None"
+      ],
+      "passed": true
+    },
+    {
+      "role": "ui_ux",
+      "prompt": "An approval dialog only shows an unlabeled green icon. Propose accessible Approve and Reject controls and visible action details.",
+      "result": {
+        "role": "ui_ux",
+        "definition_sha256": "cf150f1ee5732617453c8b858888348c2d3308f79b50910cf91d04a4cb027eb7",
+        "text": "Propose a two-step approval dialog with explicit labels: \"Approve\" and \"Reject\" buttons. Add visible action details like \"Reviewing\" and \"Decline\" text. Ensure keyboard accessibility with Enter/Space triggers. Use semantic HTML with aria-labels for screen readers. Maintain consistent color contrast and focus states.",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "ux_plan",
+        "mission_id": "f1cc8ef8c55444c18f82c19f36f31c3f",
+        "executed_actions": false
+      },
+      "wall_seconds": 90.4468381080078,
+      "correctness_checks": [
+        "(?i)approv",
+        "(?i)reject"
+      ],
+      "passed": true
+    },
+    {
+      "role": "database",
+      "prompt": "SQLite query SELECT * FROM events WHERE owner_id=? ORDER BY created_at DESC LIMIT 20 is slow. Recommend a composite index and verify with EXPLAIN QUERY PLAN.",
+      "result": {
+        "role": "database",
+        "definition_sha256": "6c0173491ab476d3eb72c76dedc810afee771dae2c98cf0c7b28b5b1a828d0b9",
+        "text": "Recommend `CREATE INDEX idx_events_owner_created ON events (owner_id, created_at DESC);` to support the query. Verify with `EXPLAIN QUERY PLAN` to confirm the index is utilized.",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "database_plan",
+        "mission_id": "227c7cc333934c46bb062231a80fe5b9",
+        "executed_actions": false
+      },
+      "wall_seconds": 70.38211378199048,
+      "correctness_checks": [
+        "owner_id",
+        "(?i)(index|explain)"
+      ],
+      "passed": true
+    },
+    {
+      "role": "research",
+      "prompt": "Supplied source A says a trial used 20 participants and found 12 preferred option B. Summarize only this evidence and give one limitation; no external research.",
+      "result": {
+        "role": "research",
+        "definition_sha256": "d029ddc23bf1673c7e3aacb0ac191626d507a39877a6c6f8ce77149368f93824",
+        "text": "Trial of 20 participants found 12 preferred option B. Limitation: small sample size limits generalizability.",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "research_plan",
+        "mission_id": "e3f737a1c70b4853935169673b38ac9e",
+        "executed_actions": false
+      },
+      "wall_seconds": 60.86594927099941,
+      "correctness_checks": [
+        "12",
+        "20"
+      ],
+      "passed": true
+    },
+    {
+      "role": "project_manager",
+      "prompt": "Supplied tasks: implement one Python http.server handler on day 1; test it with unittest on day 2; then request owner approval. There is no frontend or database. Present the ordered two-day plan and the test-before-approval dependency. Use only supplied task names and dependencies; do not introduce any library or framework.",
+      "result": {
+        "role": "project_manager",
+        "definition_sha256": "0a87951ff636a12f178a555e0722d1e523d211bea8cd24af0b1fabef4c8cbc52",
+        "text": "# Python HTTP Server Implementation Plan\n\n## Day 1\n- Create `server.py` using `http.server` module.\n- Implement basic request/response handling.\n- Ensure no external dependencies beyond standard library.\n\n## Day 2\n- Write `test_server.py` using `unittest` to validate handler logic.\n- Run tests to confirm functionality.\n- Await owner approval.",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "project_plan",
+        "mission_id": "5c73e87a1f334c7695497d3273a234ee",
+        "executed_actions": false
+      },
+      "wall_seconds": 61.91272980699432,
+      "correctness_checks": [
+        "http\\.server",
+        "unittest",
+        "(?i)(approv|owner)"
+      ],
+      "passed": true
+    },
+    {
+      "role": "incident_response",
+      "prompt": "Evidence: container state exited, exit code 137, OOMKilled=true. Distinguish the confirmed OOM kill from hypotheses about memory growth and propose read-only checks.",
+      "result": {
+        "role": "incident_response",
+        "definition_sha256": "46dfeab5bac43d6447e0a124ccba523e0cdee3a0bcdf405975eebf655f58251e",
+        "text": "Confirmed OOM kill: exit code 137, OOMKilled=true. Hypotheses about memory growth require monitoring metrics and memory pressure analysis. Read-only checks: verify OOMKilled flag, check memory pressure metrics, review container logs for OOM events, and confirm no memory leaks via runtime analysis.",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "incident_plan",
+        "mission_id": "c05bb74ea3a8422f969db256f73f141a",
+        "executed_actions": false
+      },
+      "wall_seconds": 68.00242062000325,
+      "correctness_checks": [
+        "(?i)(OOM|memory)",
+        "(?i)(hypoth|possib|could|check)"
+      ],
+      "passed": true
+    },
+    {
+      "role": "voice_ai",
+      "prompt": "Design a manual push-to-talk interface. Return exactly four short lines labelled Start, Stop, Cancel, and Unavailable microphone. Specify that Stop finalizes recording, Cancel discards audio, and unavailable microphone offers manual text input. No automatic recording or placeholder transcript.",
+      "result": {
+        "role": "voice_ai",
+        "definition_sha256": "ff89f086e140bcc781718ed22161a2a9bb1da80e13ba7b9de81ffe20d29bd75c",
+        "text": "Start: Begin recording.\nStop: Finalizes recording.\nCancel: Discards audio.\nUnavailable: Manual text input.",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "voice_plan",
+        "mission_id": "1f892cb7125547c2bb24d71680ac4411",
+        "executed_actions": false
+      },
+      "wall_seconds": 74.34911340998951,
+      "correctness_checks": [
+        "(?i)stop",
+        "(?i)cancel",
+        "(?i)discard",
+        "(?i)text"
+      ],
+      "passed": true
+    },
+    {
+      "role": "minimal_change",
+      "prompt": "Bug: def average(xs): return sum(xs)/len(xs) fails for empty input. Propose only an empty-list guard that raises ValueError; preserve nonempty behavior.",
+      "result": {
+        "role": "minimal_change",
+        "definition_sha256": "58f43556091ef09028e450624dacd722a4a26386316890e5309928c2dc7d97cf",
+        "text": "```python\ndef average(xs):\n    if not xs:\n        raise ValueError(\"Cannot compute average of empty list\")\n    return sum(xs)/len(xs)\n```",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "minimal_change_plan",
+        "mission_id": "9059e07f02ad45279569d5bc1f881945",
+        "executed_actions": false
+      },
+      "wall_seconds": 71.79361613700166,
+      "correctness_checks": [
+        "ValueError",
+        "(?i)(empty|if not xs|len\\(xs\\))"
+      ],
+      "passed": true
+    }
+  ],
+  "structural_checks": [
+    "Generated frontend label for matches input id.",
+    "Generated review fix has None default, parsed with AST; model code not executed.",
+    "Generated exact-shape index tested against real disposable SQLite query planner."
+  ],
+  "rejected_attempts": {
+    "frontend": "First keyword check missed reversed HTML attributes; rejected on manual review.",
+    "backend": "Unsupported advice to omit authentication/audit; replaced with explicit project requirements task.",
+    "mobile": "Unrequested cloud database recommendation; replaced with explicit offline-only constraints.",
+    "ai_engineer": "Incorrect injection/hash/schema explanation; rejected. Classifier-metric task separately verified.",
+    "devops": "Earlier policy answer omitted requested approval details/inferred a cause; replaced with concrete Docker evidence classification.",
+    "project_manager": "Imported FluxUI and later requests/@app.route despite standard-library scope; adapted definition corrected, then re-tested.",
+    "voice_ai": "Omitted Stop and later suggested placeholder transcription; replaced with explicit cancel/discard/no-fabrication state task."
+  },
+  "owner_inputs": "Automated owner fixtures; model never approves.",
+  "quality_limitations": "These fifteen scoped checks establish real role-conditioned responses, not general professional competence. Rejected security advice remains preserved. Human review required.",
+  "definition_integrity_checked": true,
+  "source_sha256": {
+    "src/igris/specialists/live.py": "2676ee6596b487808d2d91acb3544e678d5fa00ef378e198a6922ae12a9ecdac",
+    "scripts/hermes_specialist_worker.py": "1779bfd5ee4ab0ab552dbcba7849050d629bbc6804dd0a340d026c13cc6bc69b",
+    "src/igris/adapters/hermes_chat.py": "0478ff3e75fcbcdcd8b8820e458c9a2bf270620074621dd82b2e7f4f67387d3c",
+    "scripts/test_specialists_live.py": "1db7a920fec08697a81577100ea0098a6d210703d14586510265651a23b1e7dd",
+    "scripts/test_specialist_corrections_live.py": "18c87c7dc36ee385b54833f6273ea03ea9e0420d85feb707d1de6a0b1d3a6e04",
+    "scripts/test_specialist_final_corrections_live.py": "78251eaeded901ee28d136b27a5b5c94089e274c4a60537c42aca96d47fc97d5",
+    "scripts/test_voice_specialist_controls_live.py": "eefbec8e9f5f75c5d418ef7d6e55bec2c7ce2b967df9f04bc5b4162cb34cebbe",
+    "scripts/verify_specialist_results.py": "6cd38ecbb8914e91540e7847f61d0ff58fd996af3ec65415b7fc94353087cfa5"
+  },
+  "completed_batches": [
+    {
+      "name": "remaining-live.json",
+      "status": "FAIL",
+      "runtime_source_sha256": {
+        "src/igris/specialists/live.py": "2676ee6596b487808d2d91acb3544e678d5fa00ef378e198a6922ae12a9ecdac",
+        "scripts/hermes_specialist_worker.py": "1779bfd5ee4ab0ab552dbcba7849050d629bbc6804dd0a340d026c13cc6bc69b",
+        "src/igris/adapters/hermes_chat.py": "0478ff3e75fcbcdcd8b8820e458c9a2bf270620074621dd82b2e7f4f67387d3c"
+      },
+      "approvals_consumed": 12
+    },
+    {
+      "name": "corrections-live.json",
+      "status": "FAIL",
+      "runtime_source_sha256": {
+        "src/igris/specialists/live.py": "2676ee6596b487808d2d91acb3544e678d5fa00ef378e198a6922ae12a9ecdac",
+        "scripts/hermes_specialist_worker.py": "1779bfd5ee4ab0ab552dbcba7849050d629bbc6804dd0a340d026c13cc6bc69b",
+        "src/igris/adapters/hermes_chat.py": "0478ff3e75fcbcdcd8b8820e458c9a2bf270620074621dd82b2e7f4f67387d3c"
+      },
+      "approvals_consumed": 6
+    },
+    {
+      "name": "final-corrections-live.json",
+      "status": "FAIL",
+      "runtime_source_sha256": {
+        "src/igris/specialists/live.py": "2676ee6596b487808d2d91acb3544e678d5fa00ef378e198a6922ae12a9ecdac",
+        "scripts/hermes_specialist_worker.py": "1779bfd5ee4ab0ab552dbcba7849050d629bbc6804dd0a340d026c13cc6bc69b",
+        "src/igris/adapters/hermes_chat.py": "0478ff3e75fcbcdcd8b8820e458c9a2bf270620074621dd82b2e7f4f67387d3c"
+      },
+      "approvals_consumed": 4
+    },
+    {
+      "name": "voice-controls-live.json",
+      "status": "PASS",
+      "runtime_source_sha256": {
+        "src/igris/specialists/live.py": "2676ee6596b487808d2d91acb3544e678d5fa00ef378e198a6922ae12a9ecdac",
+        "scripts/hermes_specialist_worker.py": "1779bfd5ee4ab0ab552dbcba7849050d629bbc6804dd0a340d026c13cc6bc69b",
+        "src/igris/adapters/hermes_chat.py": "0478ff3e75fcbcdcd8b8820e458c9a2bf270620074621dd82b2e7f4f67387d3c"
+      },
+      "approvals_consumed": 1
+    }
+  ],
+  "runtime_code_fingerprints_match": true
+}

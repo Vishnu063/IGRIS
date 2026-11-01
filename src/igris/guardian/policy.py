@@ -40,6 +40,7 @@ OPERATIONS = MappingProxyType({
     'scope.external_change': Permission.FILE_MODIFY,
     'ops.recovery.fixture': Permission.CLOUD,
     'specialists.fixture': Permission.SPECIALIST,
+    'specialists.reason': Permission.SPECIALIST,
 })
 
 

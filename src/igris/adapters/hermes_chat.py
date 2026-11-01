@@ -11,6 +11,8 @@ import re
 import shutil
 import subprocess
 import tempfile
+import threading
+import time
 from uuid import uuid4
 
 from .contracts import AdapterUnavailable, ContractError, identifier
@@ -113,7 +115,8 @@ class ToolProposal:
 
 class DockerHermesAdapter:
     """Trusted operator transport. No worker paths, flags or endpoints from chat."""
-    def __init__(self, *, root=None):
+    def __init__(self, *, root=None, cancel=None):
+        self.cancel = cancel if cancel is not None else threading.Event()
         self.root = Path(root) if root is not None else ROOT
         self.runtime = self.root/'runtime'
         self.profile = json.loads((self.root/'integrations/hermes-inference/profile.json').read_text())
@@ -154,7 +157,7 @@ class DockerHermesAdapter:
             finally: fcntl.flock(handle, fcntl.LOCK_UN)
 
     def _run(self, mode, payload=None):
-        if mode not in ('probe', 'chat', 'tools'): raise ContractError('Unsupported fixed worker.')
+        if mode not in ('probe', 'chat', 'tools', 'specialist'): raise ContractError('Unsupported fixed worker.')
         self._preflight()
         with self._slot():
             docker = shutil.which('docker')
@@ -167,7 +170,7 @@ class DockerHermesAdapter:
             subprocess.run(base+['image', 'inspect', self.profile['container_image']], env=env,
                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, timeout=10)
             name = 'igris-hermes-'+uuid4().hex[:12]
-            worker = {'probe':'hermes_inference_worker.py','chat':'hermes_chat_worker.py','tools':'hermes_tool_worker.py'}[mode]
+            worker = {'probe':'hermes_inference_worker.py','chat':'hermes_chat_worker.py','tools':'hermes_tool_worker.py','specialist':'hermes_specialist_worker.py'}[mode]
             args = base+['run', '--rm', '--pull=never', '--interactive', '--name', name,
                 '--label', 'com.igris.runtime=hermes-inference', '--network', 'none', '--read-only',
                 '--user', f'{os.getuid()}:{os.getgid()}', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges',
@@ -181,6 +184,7 @@ class DockerHermesAdapter:
                       'integrations/hermes-inference/profile.json', 'scripts/hermes_inference_worker.py']
             if mode == 'chat': mounts.append('scripts/hermes_chat_worker.py')
             if mode == 'tools': mounts.append('scripts/hermes_tool_worker.py')
+            if mode == 'specialist': mounts += ['scripts/hermes_specialist_worker.py', 'integrations/agency-agents']
             for relative in mounts:
                 path = self.root/relative
                 if not path.exists() or path.is_symlink(): raise ContractError('Unsafe/missing worker mount.')
@@ -190,12 +194,33 @@ class DockerHermesAdapter:
             if len(encoded) > MAX_PACKET: raise ContractError('Request too large.')
             with tempfile.TemporaryFile(dir=self.runtime) as output:
                 try:
-                    process = subprocess.run(args, input=encoded, env=env, stdout=output, stderr=subprocess.STDOUT, timeout=180)
+                    if self.cancel.is_set(): raise AdapterUnavailable('Reasoning cancelled before launch.')
+                    process = subprocess.Popen(args, env=env, stdin=subprocess.PIPE, stdout=output, stderr=subprocess.STDOUT)
+                    deadline = time.monotonic()+180
+                    try:
+                        first = True
+                        while True:
+                            if self.cancel.is_set(): raise AdapterUnavailable('Reasoning cancelled; response discarded.')
+                            if time.monotonic() >= deadline: raise subprocess.TimeoutExpired(args,180)
+                            try:
+                                process.communicate(encoded if first else None, timeout=.2)
+                                break
+                            except subprocess.TimeoutExpired: first = False
+                    finally:
+                        if process.poll() is None: process.kill()
+                        process.wait(timeout=5)
+                        if process.stdin is not None: process.stdin.close()
                 finally:
                     subprocess.run(base+['rm', '--force', name], env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=15)
-                    remaining = subprocess.run(base+['container', 'ls', '--all', '--filter', 'name=^/'+name+'$', '--format', '{{.ID}}'],
-                                               capture_output=True, text=True, check=True, env=env, timeout=10)
-                    if remaining.stdout.strip(): raise AdapterUnavailable('Worker cleanup not verified.')
+                    absent = 0
+                    for _ in range(10):
+                        remaining = subprocess.run(base+['container', 'ls', '--all', '--filter', 'name=^/'+name+'$', '--format', '{{.ID}}'],
+                                                   capture_output=True, text=True, check=True, env=env, timeout=10)
+                        absent = absent+1 if not remaining.stdout.strip() else 0
+                        if absent == 2: break
+                        if remaining.stdout.strip(): subprocess.run(base+['rm','--force',name],env=env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,timeout=15)
+                        time.sleep(.1)
+                    if absent != 2: raise AdapterUnavailable('Worker cleanup not verified.')
                 output.seek(0, 2); length = output.tell(); output.seek(max(0, length-65536))
                 raw = output.read().decode('utf-8', errors='replace')
             if process.returncode: raise AdapterUnavailable('Isolated reasoning worker failed; no reply accepted.')
@@ -234,3 +259,13 @@ class DockerHermesAdapter:
             raise ContractError('Invalid proposal transport schema/correlation.')
         return ToolProposal(request.request_id,result['proposal'],result['model_sha256'],result['api_calls'],
                             result['generation_seconds'],result['hermes_maxrss_kib'],result['model_maxrss_kib'],result['origin'])
+
+    def specialist(self, request, role):
+        from ..reused_agents import specialist_definition
+        if type(request) is not ChatRequest: raise ContractError('Typed specialist request required.')
+        digest=hashlib.sha256(specialist_definition(role).encode()).hexdigest()
+        result=self._run('specialist',dict(request.payload(),role=role,definition_sha256=digest))
+        expected={'schema_version','request_id','origin','model_sha256','text','api_calls','controls','role','definition_sha256'}
+        if set(result)!=expected or type(result['schema_version']) is not int or result['schema_version']!=1 or result['request_id']!=request.request_id or result['role']!=role or result['definition_sha256']!=digest: raise ContractError('Specialist identity/correlation mismatch.')
+        reply=ChatReply(request.request_id,response_text(result['text']),result['model_sha256'],result['api_calls'])
+        return {'role':role,'definition_sha256':digest,'text':reply.text,'model_sha256':reply.model_sha256,'origin':reply.origin,'api_calls':reply.api_calls}
