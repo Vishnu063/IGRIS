@@ -1,0 +1,14 @@
+{
+  "enabled_by_default": false,
+  "image": "sha256:62574f46949d5fa83aefdec7219d2238456b739fcd98790bd493b3c85cb641b3",
+  "markitdown": "0.1.9",
+  "platform": "CPython 3.14 Linux x86_64",
+  "packages_sha256": "9f684306788a2f52c3f806edca38f8ddfe837be97976f7efb3b352d1a479607e",
+  "files": {
+    "integrations/markitdown/worker.py": "facc86e8de94c3299888f142f048e56930daace113d561d1b969cf55bfccf694",
+    "runtime/python3149/python/bin/python3.14": "3642edb46c7bfad367e99751c422ca6b57977157b78f8f77ee4daa9498c002b5"
+  },
+  "network": "none",
+  "plugins": false,
+  "paid_services": false
+}

@@ -175,3 +175,5 @@ no automatic fact extraction or paid model is activated. Mission Control and
 text chat now share the `runtime/chat` default state directory.
 
 Optional approved owned-site browser inspection: [Playwright boundary and manual startup](docs/integrations/playwright.md). General web browsing remains disabled.
+
+Optional owner-approved document conversion and real Hermes summaries: [MarkItDown setup and restrictions](docs/integrations/markitdown.md).

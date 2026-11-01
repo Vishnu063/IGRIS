@@ -28,6 +28,7 @@ OPERATIONS = MappingProxyType({
     'ops.monitor': Permission.READ,
     'memory.search': Permission.READ,
     'browser.inspect': Permission.READ,
+    'documents.convert': Permission.READ,
     'memory.manage': Permission.FILE_MODIFY,
     'file.read': Permission.READ,
     'file.create': Permission.FILE_MODIFY,

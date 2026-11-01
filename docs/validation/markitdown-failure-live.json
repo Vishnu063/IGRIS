@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "real_malformed_pdf_denied": true,
+  "owned_worker_cleanup_verified": true,
+  "mocked": false
+}
