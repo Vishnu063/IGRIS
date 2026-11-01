@@ -62,12 +62,15 @@
     {
       "number": 5,
       "title": "Ops Pilot monitoring integration",
-      "status": "PENDING",
-      "implementation_commit": null,
-      "capabilities": [],
+      "status": "PASS",
+      "implementation_commit": "13e0c6762caff78f3240a8090ec385331a3b90af",
+      "capabilities": [
+        "Real approved read-only Ops Pilot monitoring of one disposable Docker application; healthy/stopped evidence and narrow proxy denials."
+      ],
       "external_requirements": [],
-      "implementation_status": "PENDING",
-      "external_verification": "PENDING"
+      "implementation_status": "VERIFIED",
+      "external_verification": "NOT_REQUIRED",
+      "report": "docs/execution/completion-task-05.md"
     },
     {
       "number": 6,
