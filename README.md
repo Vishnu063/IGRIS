@@ -173,3 +173,5 @@ facts, local semantic retrieval, correction/deletion and bounded real-Hermes
 context. SQLite remains authoritative. Enable explicitly with `--enable-mem0`;
 no automatic fact extraction or paid model is activated. Mission Control and
 text chat now share the `runtime/chat` default state directory.
+
+Optional approved owned-site browser inspection: [Playwright boundary and manual startup](docs/integrations/playwright.md). General web browsing remains disabled.

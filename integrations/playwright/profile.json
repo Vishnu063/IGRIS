@@ -1,0 +1,19 @@
+{
+  "enabled": false,
+  "playwright": "1.62.0",
+  "chromium": "154.0.8037.57",
+  "python": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+  "python_root": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python",
+  "package_root": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright",
+  "package_sha256": "17c6cdaa7a7687b4aed0d03d36823e52ada75a78070ad2dd7c61d155b9d01074",
+  "files": {
+    "integrations/playwright/worker.py": "44dddcb93ffb5c397c0c9e0c2a41d7a572ddb49ed8e5392a30eda09cc8d24ce7",
+    "integrations/playwright/site/index.html": "b836bd17fd9331ad1eb4bdbb29ac4736ceaf79aa1c46c30b13afac2dabc1a4a8",
+    "/usr/bin/bwrap": "573236e5328ac2ebb08f59ae3a9805b4f8d12bdef14be8af4450d5463294985f",
+    "/usr/lib/chromium/chromium": "4dc9f9f9b20e9bd95bf201f43d2d643f48938f36a70ddcb6fce3dd611a178180",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node": "bc17c508ffeed0ec622934f9b7fa72f8e78da65350e63c3eceb56fa688aa5e12"
+  },
+  "trusted_os": "Managed Debian runtime libraries; not a reproducible portable browser distribution.",
+  "node": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node"
+}
