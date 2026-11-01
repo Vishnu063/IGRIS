@@ -5,10 +5,13 @@
     {
       "number": 1,
       "title": "Interactive Guardian approvals",
-      "status": "PENDING",
-      "implementation_commit": null,
-      "capabilities": [],
-      "external_requirements": []
+      "status": "PASS",
+      "implementation_commit": "d7a0faacb83f4992058d18ef83523f879b4b9a52",
+      "capabilities": [
+        "Opt-in terminal approval and rejection with real Hermes and Guardian, exact-context one-time execution and conversation continuity."
+      ],
+      "external_requirements": [],
+      "report": "docs/execution/completion-task-01.md"
     },
     {
       "number": 2,
