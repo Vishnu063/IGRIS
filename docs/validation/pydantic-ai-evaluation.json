@@ -1,0 +1,112 @@
+{
+  "status": "PASS",
+  "decision": "Do not integrate Pydantic AI; retain Hermes and Guardian.",
+  "validation": [
+    {
+      "case": "time",
+      "guardian": "accepted",
+      "standalone_pydantic_strict": "accepted"
+    },
+    {
+      "case": "read",
+      "guardian": "accepted",
+      "standalone_pydantic_strict": "accepted"
+    },
+    {
+      "case": "extra",
+      "guardian": "denied",
+      "standalone_pydantic_strict": "denied"
+    },
+    {
+      "case": "shell",
+      "guardian": "denied",
+      "standalone_pydantic_strict": "denied"
+    },
+    {
+      "case": "absolute",
+      "guardian": "denied",
+      "standalone_pydantic_strict": "denied"
+    },
+    {
+      "case": "traversal",
+      "guardian": "denied",
+      "standalone_pydantic_strict": "denied"
+    },
+    {
+      "case": "bool_path",
+      "guardian": "denied",
+      "standalone_pydantic_strict": "denied"
+    },
+    {
+      "case": "duplicate",
+      "guardian": "denied",
+      "standalone_pydantic_strict": "accepted"
+    }
+  ],
+  "packages": [
+    {
+      "name": "pydantic-ai",
+      "version": "2.64.0",
+      "metadata_sha256": "b336b2922ec4cad412723f1168cc694c65a0ba2076600ba7aa6849b2d103252b",
+      "license": "MIT",
+      "base_requirements": [
+        "pydantic-ai-slim[anthropic,cli,evals,google,logfire,mcp,openai,web]==2.64.0"
+      ],
+      "wheel_bytes": 10590,
+      "wheel_sha256": "89be962fcc664980b5fe591ec8f2b2e4b4bd24e84ac0ef0df8e578979a1cd669"
+    },
+    {
+      "name": "pydantic-ai-slim",
+      "version": "2.64.0",
+      "metadata_sha256": "0187aa052563234b87acbdc306d9d25e1f0d0683238b2eb0796822c96db8d8fb",
+      "license": "MIT",
+      "base_requirements": [
+        "anyio>=4.7.0",
+        "genai-prices>=0.1.13",
+        "griffelib>=2.0",
+        "httpx2>=2.7",
+        "opentelemetry-api>=1.28.0",
+        "pydantic-graph==2.64.0",
+        "pydantic>=2.12",
+        "typing-inspection>=0.4.0"
+      ],
+      "wheel_bytes": 2754541,
+      "wheel_sha256": "63ccfe3f66beefb0a2fb3843d471f9d5b74a432f4436ed5ceb7e0d6bb06cb1e4",
+      "source_review": {
+        "python_files": 416,
+        "supports_output_type": true,
+        "has_model_tool_orchestration": true,
+        "agent_source_sha256": "65c5924c19df6648bd88c6f4cfe5f4feba8dad8b1d38e74520593896743463fa"
+      }
+    }
+  ],
+  "startup": {
+    "guardian_core": {
+      "import_seconds": [
+        0.03861828400113154,
+        0.049275825993390754,
+        0.06666978298744652,
+        0.0473743439943064,
+        0.058386449003592134
+      ],
+      "median_seconds": 0.049275825993390754
+    },
+    "standalone_pydantic": {
+      "import_seconds": [
+        0.13762423500884324,
+        0.09351677299127914,
+        0.1590737169899512,
+        0.12610278200008906,
+        0.1206775979953818
+      ],
+      "median_seconds": 0.12610278200008906
+    }
+  },
+  "pydantic_version": "2.13.4",
+  "framework_startup": "Not measured; Pydantic AI was inspected as an inert hash-verified wheel, not installed or imported.",
+  "network": "HTTPS package metadata/source retrieval for audit only; no provider request.",
+  "limitations": [
+    "Schema validation is not authorization, containment, isolation or approval. Duplicate JSON still needs the existing strict parser.",
+    "Standalone Pydantic is an optional future schema convenience, not an architectural benefit requiring another agent framework."
+  ]
+}
