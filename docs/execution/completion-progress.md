@@ -12,7 +12,7 @@
 | 8 | Mem0 semantic memory | PASS | VERIFIED | NOT_REQUIRED | eaf4f45e1aa3c0de063e082f532034ef034f81a2 |
 | 9 | Authorized Playwright browser | PASS | VERIFIED | NOT_REQUIRED | 42030b29f6c4ff9153f641a878d3f438389e5ed6 |
 | 10 | MarkItDown documents | PASS | VERIFIED | NOT_REQUIRED | 57619094d630584dd420a02d93cc5e61932ce44f |
-| 11 | Pydantic AI evaluation | PENDING | PENDING | PENDING | — |
+| 11 | Pydantic AI evaluation | PASS | VERIFIED | NOT_REQUIRED | a75a114c3fdcd604b1bf37808521a3dcb5065869 |
 | 12 | Performance optimization | PENDING | PENDING | PENDING | — |
 | 13 | Mac M1 installation package | PENDING | PENDING | PENDING | — |
 | 14 | Final security and end-to-end verification | PENDING | PENDING | PENDING | — |
@@ -31,6 +31,7 @@ Statuses apply to actual acceptance, not merely code presence.
 - Task 8: Optional real local semantic memory with explicit owner-approved facts, scoped retrieval, revision/deletion controls, real-Hermes enrichment, dashboard management and SQLite fallback.
 - Task 9: Approved real browser inspection and screenshot of an owned offline site, with genuine destination/action rejection, Chromium sandbox and cleanup.
 - Task 10: Owner-approved genuine five-format document conversion and real-Hermes summary, with actual malformed-parser rejection and strict workspace/archive boundaries.
+- Task 11: Technical decision record and reproducible Pydantic AI compatibility/validation evaluation; Hermes remains the only agent runtime.
 
 ## External requirements
 
