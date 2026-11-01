@@ -1,0 +1,34 @@
+'use strict';
+let state=null,session=null,pendingHistory=false;
+const byId=id=>document.getElementById(id);
+const show=(id,value)=>{byId(id).textContent=typeof value==='string'?value:JSON.stringify(value,null,2);};
+async function api(path,data){const options={credentials:'same-origin',cache:'no-store'};if(data!==undefined){options.method='POST';options.headers={'Content-Type':'application/json','X-IGRIS-CSRF':state.csrf};options.body=JSON.stringify(data);}const response=await fetch(path,options);const value=await response.json();if(!response.ok)throw new Error(value.error||'Request failed');return value;}
+
+function summary(view){const rows=[
+'Assistant: '+view.igris.state.replaceAll('_',' '),
+'Guardian: default deny; '+(view.guardian.tools_profile_configured?'restricted tools configured':'no read-only tools profile'),
+'Specialist: '+(view.components.specialists.active||view.components.specialists.status.replaceAll('_',' ')),
+'n8n: '+view.components.n8n.status.replaceAll('_',' '),
+(view.components.ops_pilot.last_result?'Last Ops check: '+view.components.ops_pilot.last_result.health:'Ops Pilot: '+view.components.ops_pilot.status.replaceAll('_',' ')),
+'Voice: manual interface not connected; text chat available',
+'Stored conversations: '+view.memory.session_count,
+'Free runtime storage: '+(view.resources.disk_free_bytes/(1024**3)).toFixed(1)+' GiB'];
+if(view.components.ops_pilot.observed_at)rows.push('Last Ops check: '+new Date(view.components.ops_pilot.observed_at*1000).toLocaleString());
+byId('overview').replaceChildren(...rows.map(text=>{const item=document.createElement('li');item.textContent=text;return item;}));}
+function taskSummary(jobs){byId('task-summary').replaceChildren(...jobs.slice(-8).reverse().map(job=>{const item=document.createElement('li');item.textContent=(job.review?.action?.operation||job.kind)+': '+job.status.replaceAll('_',' ');return item;}));}
+
+function report(error){show('message',error.message||String(error));}
+async function history(){if(!session||pendingHistory)return;pendingHistory=true;try{const result=await api('/api/history/'+session);byId('history').replaceChildren();for(const row of result.history){const node=document.createElement('p');node.className='message';node.textContent=row.role+': '+row.content;byId('history').append(node);}}catch(error){report(error);}finally{pendingHistory=false;}}
+function renderApprovals(){const parent=byId('approvals');parent.replaceChildren();for(const pending of state.pending_approvals||[]){const review=pending.review;const box=document.createElement('div');box.className='approval';const details=document.createElement('pre');details.textContent=JSON.stringify({decision_deadline:new Date(pending.decision_deadline_unix*1000).toISOString(),review},null,2);const label=document.createElement('label');label.textContent='Digest confirmation: '+review.action_sha256.slice(0,12);const input=document.createElement('input');input.autocomplete='off';input.maxLength=12;label.append(input);box.append(details,label);for(const approve of [true,false]){const button=document.createElement('button');button.textContent=approve?'Approve exact action':'Reject';button.addEventListener('click',async()=>{try{await api('/api/decision',{mission_id:review.mission_id,source:pending.source,approve,action_sha256:review.action_sha256,confirmation:input.value});show('message','Decision queued.');await refresh();}catch(error){report(error);}});box.append(button);}parent.append(box);}}
+let approvalFingerprint='';
+async function refresh(){try{state=await api('/api/state');const {csrf,jobs,errors,audit,tool_audit,sessions,pending_approvals,specialist_choices,...publicStatus}=state;show('status',publicStatus);summary(publicStatus);const owner=Boolean(csrf);byId('owner').hidden=!owner;byId('stop').hidden=!owner;if(!owner)return;show('jobs',jobs);taskSummary(jobs);show('errors',errors.length?errors:'No recorded errors.');show('audit',{actions:audit,tools:tool_audit});const chooser=byId('session');if(JSON.stringify([...chooser.options].map(o=>o.value))!==JSON.stringify(sessions.map(s=>s.id))){chooser.replaceChildren(...sessions.map(row=>{const option=document.createElement('option');option.value=row.id;option.textContent=row.id;return option;}));if(!sessions.some(s=>s.id===session))session=sessions[0]?.id||null;chooser.value=session||'';}
+if(!byId('role').options.length)for(const choice of specialist_choices){const option=document.createElement('option');option.value=choice.role;option.textContent=choice.role+' — '+choice.focus;byId('role').append(option);}
+const fingerprint=JSON.stringify(pending_approvals);if(fingerprint!==approvalFingerprint){renderApprovals();approvalFingerprint=fingerprint;}await history();}catch(error){report(error);}}
+byId('new').addEventListener('click',async()=>{try{const result=await api('/api/session',{});session=result.conversation_id;await refresh();byId('session').value=session;}catch(error){report(error);}});
+byId('session').addEventListener('change',()=>{session=byId('session').value;history();});
+byId('chat').addEventListener('submit',async event=>{event.preventDefault();try{if(!session)throw new Error('Create a conversation first.');await api('/api/chat',{conversation_id:session,prompt:byId('prompt').value,mode:byId('mode').value});byId('prompt').value='';show('message','Request queued.');await refresh();}catch(error){report(error);}});
+byId('specialist').addEventListener('submit',async event=>{event.preventDefault();try{await api('/api/prepare',{operation:'specialists.reason',arguments:{role:byId('role').value,context:byId('context').value}});show('message','Specialist request queued for preparation.');}catch(error){report(error);}});
+byId('workflow').addEventListener('submit',async event=>{event.preventDefault();try{await api('/api/prepare',{operation:'n8n.calculate',arguments:{left:Number(byId('left').value),right:Number(byId('right').value)}});show('message','Workflow queued for preparation.');}catch(error){report(error);}});
+byId('ops').addEventListener('click',async()=>{try{const cid=state.components.ops_pilot.target_container_id;if(!cid)throw new Error('No approved Ops Pilot target configured.');await api('/api/prepare',{operation:'ops.monitor',arguments:{container_id:cid}});show('message','Monitoring queued for preparation.');}catch(error){report(error);}});
+byId('stop').addEventListener('click',async()=>{try{await api('/api/stop',{});show('message','Stop requested. Wait for stopped status; restart is manual.');await refresh();}catch(error){report(error);}});
+refresh();setInterval(refresh,2000);

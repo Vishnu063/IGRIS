@@ -2,6 +2,7 @@
 import argparse
 import json
 import time
+import threading
 from pathlib import Path
 import sys
 
@@ -16,9 +17,10 @@ from .guardian.terminal import TerminalReview
 
 
 class ChatService:
-    def __init__(self, owner, memory, backend, *, policy=None, tools=None, reviews=None):
+    def __init__(self, owner, memory, backend, *, policy=None, tools=None, reviews=None, cancel=None):
         if type(memory) is not ConversationMemory or memory.owner != owner:
             raise Denied('Trusted owner-bound conversation memory required.')
+        self.cancel_event=cancel if cancel is not None else threading.Event()
         self.owner, self.memory, self.backend = owner, memory, backend
         self.policy = policy if policy is not None else Policy(owner, frozenset({Permission.READ, Permission.FILE_MODIFY}))
         if self.policy.actor != owner: raise Denied('Chat actor mismatch.')
@@ -38,6 +40,7 @@ class ChatService:
             return TaskOutcome('blocked', 'Unexpected chat authority.', 'unverified')
         conversation, request = self._requests[context.mission_id]
         try:
+            if self.cancel_event.is_set(): raise AdapterUnavailable('Chat stopped.')
             if context.approval_id is not None:
                 if self.reviews is None: raise Denied('Owner review unavailable.')
                 review=self.reviews.approved(self.owner,context.mission_id)
@@ -48,6 +51,7 @@ class ChatService:
             reply = self.backend.reply(request)
             if type(reply) is not ChatReply or reply.request_id != request.request_id or reply.origin != 'real_local_inference':
                 raise ContractError('No verified real response.')
+            if self.cancel_event.is_set(): raise AdapterUnavailable('Chat stopped; result discarded.')
             text = response_text(reply.text)
             self.memory.complete(self.owner, conversation, request.request_id, context.mission_id,
                                  text, reply.model_sha256, reply.api_calls, origin=reply.origin)
@@ -62,6 +66,7 @@ class ChatService:
         proposal = self.backend.propose(request,file_hints=self.tools.scope.files)
         if type(proposal) is not ToolProposal or proposal.request_id != request.request_id or proposal.origin != 'real_local_inference':
             raise ContractError('No verified real proposal.')
+        if self.cancel_event.is_set(): raise AdapterUnavailable('Chat stopped before tool preparation.')
         proposal_wall = time.monotonic()-started
         self._proposals[context.mission_id]=(proposal,proposal_wall)
         if self.reviews is not None:
@@ -74,6 +79,7 @@ class ChatService:
         return self._execute_proposal(context,conversation,request)
 
     def _execute_proposal(self,context,conversation,request,*,approval_id=None):
+        if self.cancel_event.is_set(): raise AdapterUnavailable('Chat stopped before execution.')
         proposal,proposal_wall=self._proposals[context.mission_id]
         result=self.tools.run(request.request_id,context.mission_id,proposal.raw,approval_id=approval_id)
         result['generation_seconds'] = proposal.generation_seconds
@@ -90,6 +96,7 @@ class ChatService:
 
     def ask(self, actor, conversation, text):
         if actor != self.owner: raise Denied('Chat access denied.')
+        if self.cancel_event.is_set(): raise Denied('Chat stopped; restart explicitly.')
         self.policy.require('file.read'); self.policy.require('file.create')
         chat_text(text)
         mission = self.controller.create(text, 'chat')

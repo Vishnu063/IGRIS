@@ -56,9 +56,9 @@ class IsolatedWorker:
                 env=env,capture_output=True,text=True,check=True,timeout=10)
             if existing.stdout.strip():raise AdapterUnavailable('An unfinished inference worker needs operator review.')
             subprocess.run(base+['image','inspect',image],env=env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,check=True,timeout=10)
-            name='igris-'+component+'-'+uuid4().hex[:12];self.name=name
-            args=base+['run','--rm','--pull=never','--interactive','--name',name,'--label','com.igris.runtime=hermes-inference',
-                '--label','com.igris.component='+component,'--network','none','--read-only','--user',f'{os.getuid()}:{os.getgid()}',
+            name='igris-'+component+'-'+uuid4().hex[:12];marker=uuid4().hex
+            args=base+['create','--rm','--pull=never','--interactive','--name',name,'--label','com.igris.runtime=hermes-inference',
+                '--label','com.igris.component='+component,'--label','com.igris.owner='+marker,'--network','none','--read-only','--user',f'{os.getuid()}:{os.getgid()}',
                 '--cap-drop','ALL','--security-opt','no-new-privileges','--pids-limit','128','--memory',memory,'--cpus','2',
                 '--tmpfs','/tmp:rw,noexec,nosuid,size=536870912,mode=1777','--workdir','/tmp']
             for source,destination in mounts:
@@ -68,9 +68,15 @@ class IsolatedWorker:
                     raise ContractError('Invalid fixed worker mount.')
                 args+=['--mount',f'type=bind,src={source},dst={target},readonly']
             args += [image,*program]
-            process=None;started=time.monotonic();output=bytearray();total=0
+            from .owned_jobs import OwnedLaunch
+            launch=OwnedLaunch(ROOT/'runtime',base,env,name,marker)
+            process=None;output=bytearray();total=0
             try:
-                process=subprocess.Popen(args,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,env=env,start_new_session=True)
+                self.name=name
+                cid=launch.create(args)
+                if self.cancel.is_set():raise Cancelled('Worker cancelled before start.')
+                started=time.monotonic()
+                process=subprocess.Popen(base+['start','--attach','--interactive',cid],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,env=env,start_new_session=True)
                 with selectors.DefaultSelector() as events:
                     for pipe in (process.stdout,process.stderr):
                         os.set_blocking(pipe.fileno(),False);events.register(pipe,selectors.EVENT_READ)
@@ -104,14 +110,5 @@ class IsolatedWorker:
                     process.wait(timeout=5)
                     for pipe in (process.stdin,process.stdout,process.stderr):
                         if not pipe.closed:pipe.close()
-                absent=0
-                for _ in range(5):
-                    subprocess.run(base+['rm','--force',name],env=env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,timeout=5)
-                    remaining=subprocess.run(base+['container','ls','--all','--filter','name=^/'+name+'$','--format','{{.ID}}'],
-                        env=env,capture_output=True,text=True,check=True,timeout=5)
-                    absent=absent+1 if not remaining.stdout.strip() else 0
-                    if absent>=2:
-                        self.name=None
-                        break
-                    time.sleep(.2)
-                if self.name is not None:raise AdapterUnavailable('Worker cleanup could not be verified; owned name retained.')
+                launch.cleanup()
+                self.name=None

@@ -30,13 +30,13 @@ class Snapshot:
                 if role == 'owner' or name != 'pending_approvals'}
 
 
-def make_server(accounts, snapshot_provider):
+def make_server(accounts, snapshot_provider=None, *, control=None, port=0):
     """Trusted operator API. Does not start serving or print credentials.
 
     accounts: username -> (private secret >=32 characters, owner/viewer).
     Authenticated snapshots must exclude raw customer details and action bodies.
     """
-    if type(accounts) is not dict or not accounts or len(accounts) > 10 or not callable(snapshot_provider):
+    if type(accounts) is not dict or not accounts or len(accounts) > 10 or (control is None and not callable(snapshot_provider)):
         raise ValueError('Trusted dashboard configuration required.')
     credentials = {}
     for name, entry in accounts.items():
@@ -46,6 +46,10 @@ def make_server(accounts, snapshot_provider):
         if type(secret) is not str or not 32 <= len(secret) <= 128 or not secret.isascii() or ':' in secret or role not in ('owner', 'viewer'):
             raise ValueError('Invalid dashboard credential.')
         credentials[name] = (secret, role)
+
+    if control is not None:
+        from .mission_control import interactive_server
+        return interactive_server(credentials,control,port=port)
 
     class Handler(BaseHTTPRequestHandler):
         server_version = 'IGRIS'

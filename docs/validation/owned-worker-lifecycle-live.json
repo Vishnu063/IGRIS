@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "case": "success",
+      "status": "PASS",
+      "seconds": 3.14905384699523,
+      "cleanup_verified": true
+    },
+    {
+      "case": "timeout",
+      "status": "PASS",
+      "seconds": 5.1527778359886725,
+      "cleanup_verified": true
+    },
+    {
+      "case": "failure",
+      "status": "PASS",
+      "seconds": 2.7703260439884616,
+      "cleanup_verified": true
+    },
+    {
+      "case": "output_limit",
+      "status": "PASS",
+      "seconds": 2.3009679329989012,
+      "cleanup_verified": true
+    },
+    {
+      "case": "cancellation",
+      "status": "PASS",
+      "cleanup_verified": true
+    }
+  ],
+  "hermes_cancel": {
+    "status": "PASS",
+    "actual_worker_observed": true,
+    "response_discarded": true,
+    "cleanup_verified": true,
+    "cancellation_seconds": 0.8162861870077904,
+    "scope": "Only adapter-tracked worker; no broad stop command."
+  },
+  "launch_ledgers_empty": true,
+  "source_sha256": {
+    "src/igris/owned_jobs.py": "357b2c2f2691320f6e008c598a4dfbca81057d5dab3595882654031ad4c6af43",
+    "src/igris/isolated.py": "613d1db87cca040d294c8c004a1f6d068a9ba7a01caef15551e93376db5f03b3",
+    "src/igris/adapters/hermes_chat.py": "386a8251b7d97ec451aa0a5e28e39c9c33ee8f0e96c41a901c6b03ebb83cf8e1",
+    "src/igris/integrations/ops_runtime.py": "fb8fd9cd4187c4409ed1469ed46a0f1140c26e297a15d2186e293c9dbd9262c0",
+    "scripts/test_isolated_worker_live.py": "ae9e1cf65b0ae35d9701ce16a7d6e92f0a511c167c4ed56908f7533c6f9e76b8",
+    "scripts/test_hermes_cancel_live.py": "28854719d861eebe6b2ec841ce0b23a48372febfa8e65985a7bde0420a42d691"
+  },
+  "unknown_creation": "Control-flow fixtures verify a retained private record and denied restart. No claim that an actual daemon create timeout was forced in the final run."
+}

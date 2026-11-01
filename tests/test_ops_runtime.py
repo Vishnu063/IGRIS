@@ -19,3 +19,11 @@ class OpsRuntimeContracts(unittest.TestCase):
         monitor=self.monitor();monitor.enabled=True
         for permit in (None,{},object()):
             with self.assertRaises(Denied):monitor.execute({'container_id':'a'*64},threading.Event(),permit)
+    def test_unconfirmed_fixture_preserves_storage_and_blocks_cleanup_claim(self):
+        from igris.integrations.ops_runtime import DisposableOpsFixture
+        from igris.owned_jobs import UnconfirmedLaunch
+        from unittest.mock import Mock,patch
+        fixture=DisposableOpsFixture();fixture.directory=Path('/synthetic-owned-fixture')
+        fixture.launch=Mock(request_sent=True,cid=None);fixture.launch.cleanup.side_effect=UnconfirmedLaunch('Fixture response unknown.')
+        with patch('igris.integrations.ops_runtime.daemon_read') as daemon,self.assertRaises(UnconfirmedLaunch):fixture.close()
+        daemon.assert_not_called();self.assertIsNotNone(fixture.name);self.assertIsNotNone(fixture.directory)

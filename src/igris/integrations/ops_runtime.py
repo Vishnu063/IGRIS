@@ -33,21 +33,25 @@ def inspect_target(cid):
 
 class DisposableOpsFixture:
     """Explicit development/test setup only, never registered as a model tool."""
-    def __init__(self):self.name='igris-ops-fixture-'+secrets.token_hex(6);self.directory=None;self.cid=None
+    def __init__(self):self.name='igris-ops-fixture-'+secrets.token_hex(6);self.directory=None;self.cid=None;self.launch=None
     def start(self):
         if platform.system()!='Linux' or platform.machine()!='x86_64':raise AdapterUnavailable('Reviewed cloud Linux x86_64 fixture only; no Mac/ARM substitution.')
         self.temporary=tempfile.TemporaryDirectory(dir=ROOT/'runtime/ops',prefix='instance-');self.directory=Path(self.temporary.name)
         appdata=self.directory/'appdata';appdata.mkdir(mode=0o700);marker=secrets.token_hex(32);self.marker=marker
         image='sha256:71ed6a3c8bc579133b3983e8e61599e7b1ecfba0a4985045451c6e8ec36fd855'
-        args=docker_command()+['run','--detach','--pull=never','--name',self.name,'--label','com.igris.fixture=completion-task-05',
-             '--label','com.igris.fixture-marker='+marker,'--network','none','--read-only','--user',f'{os.getuid()}:{os.getgid()}',
+        args=docker_command()+['create','--pull=never','--name',self.name,'--label','com.igris.fixture=completion-task-05',
+             '--label','com.igris.fixture-marker='+marker,'--label','com.igris.owner='+marker[:32],'--network','none','--read-only','--user',f'{os.getuid()}:{os.getgid()}',
              '--cap-drop','ALL','--security-opt','no-new-privileges','--memory','128m','--cpus','.25','--pids-limit','32',
              '--tmpfs','/tmp:rw,noexec,nosuid,size=33554432,mode=1777','--env','IGRIS_FIXTURE_MARKER='+marker]
         for source,target,readonly in [(ROOT/'runtime/python3149/python','/opt/igris/python',True),(ROOT/'integrations/ops/fixture_app.py','/opt/igris/app.py',True),(appdata,'/appdata',False)]:
             args+=['--mount',f'type=bind,src={source},dst={target}'+(',readonly' if readonly else '')]
         args+=[image,'/opt/igris/python/bin/python3.14','-I','-S','/opt/igris/app.py']
         try:
-            self.cid=subprocess.run(args,env=docker_environment(),capture_output=True,text=True,check=True,timeout=15).stdout.strip()
+            from ..owned_jobs import OwnedLaunch,assert_no_pending_launches
+            assert_no_pending_launches(ROOT/'runtime/ops')
+            self.launch=OwnedLaunch(ROOT/'runtime/ops',docker_command(),docker_environment(),self.name,marker[:32])
+            self.cid=self.launch.create(args)
+            subprocess.run(docker_command()+['start',self.cid],env=docker_environment(),capture_output=True,check=True,timeout=15)
             if not re.fullmatch('[a-f0-9]{64}',self.cid):raise ContractError('No actual fixture ID.')
             deadline=time.monotonic()+15
             while not (appdata/'app.sock').exists():
@@ -60,12 +64,14 @@ class DisposableOpsFixture:
         except BaseException:self.close();raise
     def stop_application(self):subprocess.run(docker_command()+['stop','--time','2',self.cid],env=docker_environment(),capture_output=True,check=True,timeout=10)
     def close(self):
+        if self.launch is not None and self.launch.request_sent and self.launch.cid is None:self.launch.cleanup()
         if self.name:
             status,_,raw=daemon_read('/containers/'+(self.cid or self.name)+'/json')
             if status==200:
                 observed=json.loads(raw)
                 if not getattr(self,'marker',None) or observed.get('Config',{}).get('Labels',{}).get('com.igris.fixture-marker')!=self.marker:raise Denied('Unrelated container preserved; fixture name/identity mismatch.')
-                subprocess.run(docker_command()+['rm','--force',observed['Id']],env=docker_environment(),stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,timeout=10)
+                if self.launch is None:raise Denied('No acknowledged fixture ownership; preserved.')
+            if self.launch is not None:self.launch.cleanup()
             remaining=subprocess.run(docker_command()+['ps','--all','--filter','name=^/'+self.name+'$','--format','{{.ID}}'],env=docker_environment(),capture_output=True,text=True,check=True,timeout=5)
             if remaining.stdout.strip():raise RuntimeError('Fixture removal not verified; storage preserved.')
             self.name=None

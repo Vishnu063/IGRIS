@@ -1,0 +1,93 @@
+{
+  "status": "PASS",
+  "observations": [
+    {
+      "case": "browser_real_chat",
+      "result": "PASS",
+      "reply": "12"
+    },
+    {
+      "case": "browser_real_hermes_time_proposal_guardian_approval_execution",
+      "result": "PASS",
+      "forged_confirmation": 400,
+      "viewer_decision": 403,
+      "replay": 400
+    },
+    {
+      "case": "browser_approved_real_n8n",
+      "result": "PASS",
+      "response": {
+        "schema_version": 1,
+        "request_id": "1bfee07ff43641cfbb33103bcb3f3cd4",
+        "mission_id": "59640f5fcae34cc794ec165e55313b4a",
+        "workflow_sha256": "b0ce295eac96bc455fe7a1222bbecb57895e654a8cc62245e6bd53666f634e7f",
+        "execution_id": "1",
+        "status": "completed",
+        "output": {
+          "left": 7,
+          "right": 5,
+          "total": 12
+        },
+        "origin": "real_n8n_cli",
+        "elapsed_seconds": 12.762076275001164
+      }
+    },
+    {
+      "case": "browser_approved_real_ops_monitor",
+      "result": "PASS",
+      "container_state": "running",
+      "health": "healthy"
+    },
+    {
+      "case": "browser_specialist_reject",
+      "result": "PASS",
+      "model_executed": false
+    },
+    {
+      "case": "actual_mobile_viewport",
+      "result": "PASS",
+      "dimensions": {
+        "innerWidth": 390,
+        "clientWidth": 390,
+        "scrollWidth": 390,
+        "ownerVisible": true
+      },
+      "screenshot_sha256": "6272a6c1bbf67f6460c3e83d3ac2a247ad5d30b8bddc2e5934239789aef34235"
+    },
+    {
+      "case": "browser_emergency_stop_real_specialist_worker",
+      "result": "PASS",
+      "seconds": 0.9673628999880748,
+      "cleanup_verified": true,
+      "new_execution_denied": 400
+    }
+  ],
+  "browser_sandbox_status": "Sandbox Status\nLayer 1 Sandbox\tNamespace\nPID namespaces\tYes\nNetwork namespaces\tYes\nSeccomp-BPF sandbox\tYes\nSeccomp-BPF sandbox supports TSYNC\tYes\nPtrace Protection with Yama LSM (Broker)\tNo\nPtrace Protection with Yama LSM (Non-broker)\tNo\n\nYou are adequately sandboxed.",
+  "browser_version": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/154.0.8037.57",
+    "revision": "@73c14f6228d7cd537c855007e8f88678969cc0eb",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+    "jsVersion": "15.4.80.11"
+  },
+  "offline_namespace": true,
+  "external_network_error": "ENETUNREACH",
+  "owner_interaction": "Automated trusted owner browser clicks and fixture credentials; no model authorization.",
+  "mocked_integrations": false,
+  "voice": "Not connected; no physical microphone or Mac playback tested.",
+  "seconds": 237.30242554401048,
+  "source_sha256": {
+    "src/igris/mission_control.py": "b3cf2bb9ea205726bdbf8299d3fb554f9af6edf92469d8efce35fd1cdd0e70c6",
+    "src/igris/dashboard.py": "9478f9714f16580aa9f8dbd2d2c1cad703f8d62c23b230b24acfa18af00b83b7",
+    "src/igris/chat.py": "a757fc373adc1706ff173bebd3e28bb33cd520b393a7e9e7cfa120ead0f1cf38",
+    "src/igris/owned_jobs.py": "357b2c2f2691320f6e008c598a4dfbca81057d5dab3595882654031ad4c6af43",
+    "src/igris/adapters/hermes_chat.py": "386a8251b7d97ec451aa0a5e28e39c9c33ee8f0e96c41a901c6b03ebb83cf8e1",
+    "src/igris/isolated.py": "613d1db87cca040d294c8c004a1f6d068a9ba7a01caef15551e93376db5f03b3",
+    "src/igris/web/control.html": "22e2e486f964775bcec5c645b706f832ed26a9edcad76a785e373df629a03db3",
+    "src/igris/web/control.js": "aff0ad570501cb1a9ef69c558c47be1e2c3f2f29f817109be3584e150d081de8",
+    "src/igris/web/control.css": "2f5a5781d6e6cec8c87a035685f784a45100c0f1a4290aed6f47167abb1d10ad",
+    "scripts/browser_test_client.py": "6bdfbe1249c704908ac7b85a5ba14e69c0c2ca6e4ea6add99d5bf31caa9ae48d",
+    "scripts/test_mission_control_live.py": "47355a954f466cbfe76ee6b484add3637e36be5a0600277fa108fe4aacb348e0"
+  },
+  "cleanup_verified": true
+}

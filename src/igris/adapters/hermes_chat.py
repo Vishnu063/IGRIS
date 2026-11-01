@@ -117,6 +117,7 @@ class DockerHermesAdapter:
     """Trusted operator transport. No worker paths, flags or endpoints from chat."""
     def __init__(self, *, root=None, cancel=None):
         self.cancel = cancel if cancel is not None else threading.Event()
+        self.cleanup_verified=True
         self.root = Path(root) if root is not None else ROOT
         self.runtime = self.root/'runtime'
         self.profile = json.loads((self.root/'integrations/hermes-inference/profile.json').read_text())
@@ -153,7 +154,10 @@ class DockerHermesAdapter:
         with path.open('rb') as handle:
             try: fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
             except BlockingIOError: raise RuntimeBusy('Another local inference turn is active.') from None
-            try: yield
+            try:
+                from ..owned_jobs import assert_no_pending_launches
+                assert_no_pending_launches(self.runtime)
+                yield
             finally: fcntl.flock(handle, fcntl.LOCK_UN)
 
     def _run(self, mode, payload=None):
@@ -169,10 +173,10 @@ class DockerHermesAdapter:
             if idle.stdout.strip(): raise RuntimeBusy('A previous inference container needs cleanup.')
             subprocess.run(base+['image', 'inspect', self.profile['container_image']], env=env,
                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, timeout=10)
-            name = 'igris-hermes-'+uuid4().hex[:12]
+            name = 'igris-hermes-'+uuid4().hex[:12]; marker=uuid4().hex
             worker = {'probe':'hermes_inference_worker.py','chat':'hermes_chat_worker.py','tools':'hermes_tool_worker.py','specialist':'hermes_specialist_worker.py'}[mode]
-            args = base+['run', '--rm', '--pull=never', '--interactive', '--name', name,
-                '--label', 'com.igris.runtime=hermes-inference', '--network', 'none', '--read-only',
+            args = base+['create', '--rm', '--pull=never', '--interactive', '--name', name,
+                '--label', 'com.igris.runtime=hermes-inference', '--label', 'com.igris.owner='+marker, '--network', 'none', '--read-only',
                 '--user', f'{os.getuid()}:{os.getgid()}', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges',
                 '--pids-limit', '128', '--memory', '3g', '--cpus', '2',
                 '--tmpfs', '/tmp:rw,noexec,nosuid,size=268435456,mode=1777', '--workdir', '/tmp',
@@ -192,10 +196,15 @@ class DockerHermesAdapter:
             args += [self.profile['container_image'], str(self.root/'runtime/hermes-venv/bin/python'), '-I', str(self.root/'scripts'/worker)]
             encoded = b'' if payload is None else json.dumps(payload, ensure_ascii=False).encode()
             if len(encoded) > MAX_PACKET: raise ContractError('Request too large.')
+            from ..owned_jobs import OwnedLaunch
+            launch=OwnedLaunch(self.runtime,base,env,name,marker)
             with tempfile.TemporaryFile(dir=self.runtime) as output:
                 try:
                     if self.cancel.is_set(): raise AdapterUnavailable('Reasoning cancelled before launch.')
-                    process = subprocess.Popen(args, env=env, stdin=subprocess.PIPE, stdout=output, stderr=subprocess.STDOUT)
+                    self.cleanup_verified=False
+                    cid=launch.create(args)
+                    if self.cancel.is_set(): raise AdapterUnavailable('Reasoning cancelled before start.')
+                    process = subprocess.Popen(base+['start','--attach','--interactive',cid], env=env, stdin=subprocess.PIPE, stdout=output, stderr=subprocess.STDOUT)
                     deadline = time.monotonic()+180
                     try:
                         first = True
@@ -211,16 +220,8 @@ class DockerHermesAdapter:
                         process.wait(timeout=5)
                         if process.stdin is not None: process.stdin.close()
                 finally:
-                    subprocess.run(base+['rm', '--force', name], env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=15)
-                    absent = 0
-                    for _ in range(10):
-                        remaining = subprocess.run(base+['container', 'ls', '--all', '--filter', 'name=^/'+name+'$', '--format', '{{.ID}}'],
-                                                   capture_output=True, text=True, check=True, env=env, timeout=10)
-                        absent = absent+1 if not remaining.stdout.strip() else 0
-                        if absent == 2: break
-                        if remaining.stdout.strip(): subprocess.run(base+['rm','--force',name],env=env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,timeout=15)
-                        time.sleep(.1)
-                    if absent != 2: raise AdapterUnavailable('Worker cleanup not verified.')
+                    launch.cleanup()
+                    self.cleanup_verified=True
                 output.seek(0, 2); length = output.tell(); output.seek(max(0, length-65536))
                 raw = output.read().decode('utf-8', errors='replace')
             if process.returncode: raise AdapterUnavailable('Isolated reasoning worker failed; no reply accepted.')

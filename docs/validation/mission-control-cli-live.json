@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "actual_cli": true,
+  "private_random_accounts": true,
+  "no_credentials_in_stdout": true,
+  "ops_demo_created_and_removed": true,
+  "inference": "Not invoked; optional integrations remain on request.",
+  "exit_code": 0
+}

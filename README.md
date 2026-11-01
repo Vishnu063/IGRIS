@@ -6,7 +6,7 @@ planning and DevOps work with a restricted independent execution broker.
 ## Actual implementation state
 
 Tested local libraries provide mission control, Guardian permissions and exact
-approvals, project/Git utilities, an authenticated read-only dashboard, business
+approvals, project/Git utilities, an authenticated local dashboard, business
 records, private SQLite memory/earnings and backup restoration. The 15 specialist
 definitions are copied and adapted from Agency Agents. A curated Hermes backend
 source subset is copied and patched as the intended reasoning foundation.
@@ -27,7 +27,7 @@ $ PYTHONPATH=src python3 -m igris.chat --remember --resume
 ```
 
 Native tools remain disabled. The legacy planner adapter is still unavailable;
-there is no always-running service. Task 4 verifies a bounded real n8n CLI workflow; Task 5 verifies read-only Ops Pilot monitoring of a disposable Docker application. Speech synthesis is real in cloud tests, while microphone, human speech quality and Mac playback remain blocked. Task 6 adds opt-in real role-conditioned advisory specialist responses; the legacy scheduler remains simulated. Dashboard data is supplied locally; no existing production service health is implied. Production deployment,
+there is no always-running service. Task 4 verifies a bounded real n8n CLI workflow; Task 5 verifies read-only Ops Pilot monitoring of a disposable Docker application. Speech synthesis is real in cloud tests, while microphone, human speech quality and Mac playback remain blocked. Task 6 adds opt-in real role-conditioned advisory specialist responses; the legacy scheduler remains simulated. Mission Control uses real backend data when explicitly enabled; no existing production service health is implied. Production deployment,
 paid activation and external client submission remain disabled.
 
 **Guardian-controlled tools are now verified** through real Hermes JSON
@@ -162,3 +162,8 @@ Task 6: [owner-approved real specialist reasoning](docs/specialists/live.md),
 [fifteen scoped acceptance results](docs/validation/specialists-live.json),
 [retained initial attempts](docs/validation/specialists-attempts.json).
 Small-model advice requires human review; role selection grants no tool rights.
+
+Task 7: [interactive local Mission Control](docs/integrations/mission-control.md) adds
+authenticated chat/history, exact Guardian approval controls, selected specialists,
+bounded n8n/Ops operations and emergency stop. See [real browser acceptance](docs/validation/mission-control-live.json).
+Voice is explicitly unavailable in the dashboard; no microphone starts automatically.

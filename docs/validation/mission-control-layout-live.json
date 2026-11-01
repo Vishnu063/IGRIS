@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "dimensions": {
+    "width": 390,
+    "clientWidth": 390,
+    "scrollWidth": 390,
+    "technicalDetailsClosed": true,
+    "chatTop": 677.3125
+  },
+  "actual_authenticated_ui": true,
+  "actual_new_conversation": true,
+  "actual_guardian_reject": true,
+  "model_inference": "Not invoked in this layout check; full live acceptance recorded separately.",
+  "screenshot_sha256": "79f875cd2849935be7462255e3c08e72b5aa75df3ebeb095d56858f9ce860835",
+  "source_sha256": {
+    "src/igris/web/control.html": "22e2e486f964775bcec5c645b706f832ed26a9edcad76a785e373df629a03db3",
+    "src/igris/web/control.css": "2f5a5781d6e6cec8c87a035685f784a45100c0f1a4290aed6f47167abb1d10ad",
+    "src/igris/web/control.js": "aff0ad570501cb1a9ef69c558c47be1e2c3f2f29f817109be3584e150d081de8",
+    "scripts/browser_test_client.py": "7782f23e9e6b2c1de6dbb15a8923e90d5a94681ee859a021ace59c587cfad843",
+    "scripts/test_dashboard_layout_live.py": "1b0b18151582b1fd3c67dcc60b4b70d50c29c374bbed8a63200a27428626df65"
+  },
+  "cleanup_verified": true
+}
