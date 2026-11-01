@@ -19,6 +19,7 @@ RISK_CATEGORIES = MappingProxyType({
     'read_workspace_file': 'readonly_tool',
     'n8n.calculate': 'bounded_local_workflow',
     'ops.monitor': 'readonly_container_monitoring',
+    'memory.manage': 'approved_scoped_memory_change',
     'deployment.production': 'production_deployment',
     'file.delete': 'destructive_operation',
     'file.sensitive_change': 'sensitive_file_change',

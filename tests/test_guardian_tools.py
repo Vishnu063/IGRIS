@@ -217,7 +217,7 @@ print('network and child process creation denied')'''
         self.assertTrue(self.send('get_current_time')['ok'])
 
     def test_registered_profiles_cannot_widen_readonly_broker(self):
-        for operation,arguments in [('n8n.calculate',{'left':7,'right':5}),('ops.monitor',{'container_id':'a'*64}),('specialists.reason',{'role':'frontend'})]:
+        for operation,arguments in [('n8n.calculate',{'left':7,'right':5}),('ops.monitor',{'container_id':'a'*64}),('specialists.reason',{'role':'frontend'}),('memory.search',{'query':'secret'}),('memory.manage',{'kind':'save'})]:
             result=self.send(operation,arguments)
             self.assertFalse(result['ok'])
         self.assertIn(('unregistered','denied'),self.audit())

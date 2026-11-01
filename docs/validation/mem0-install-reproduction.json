@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "fresh_disposable_venv": true,
+  "packages": 50,
+  "packages_sha256": "6562f40e53876fb7810f30921352afa6c914bd0b4f2ae262cdfc67fdddcecd1e",
+  "cleanup": "Disposable reproduction directory removed after verification; verified runtime unchanged."
+}

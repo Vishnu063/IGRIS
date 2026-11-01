@@ -20,7 +20,7 @@ ASSETS=Path(__file__).with_name('web')
 class MissionControl:
     """One bounded worker; only it mutates ChatService's process-local missions."""
     owner='owner'
-    def __init__(self,state,*,remember=False,tools_config=None,enable_specialists=False,enable_n8n=False,ops_instance=None,backend_factory=DockerHermesAdapter):
+    def __init__(self,state,*,remember=False,tools_config=None,enable_specialists=False,enable_n8n=False,ops_instance=None,enable_mem0=False,backend_factory=DockerHermesAdapter):
         if remember is not True:raise Denied('Explicit conversation storage consent required.')
         self.state=Path(state).absolute();self.state.mkdir(mode=0o700,parents=True,exist_ok=True)
         self.stop_event=threading.Event();self.lock=threading.RLock();self.queue=queue.Queue(8);self.decisions=queue.Queue(8)
@@ -31,7 +31,15 @@ class MissionControl:
         self.tools=GuardianTools(self.owner,tools_config,self.state/'guardian.sqlite3') if tools_config else None
         self.tool_chat=ChatService(self.owner,self.memory,self.backend,tools=self.tools,reviews=ApprovalReviews(self.tools),cancel=self.stop_event) if self.tools else None
         self.components={'n8n':{'status':'disabled','last_result':None},'ops_pilot':{'status':'disabled','last_result':None},'voice':{'status':'hardware_blocked','dashboard_microphone':'disabled','native_capture':'not_connected','detail':'Use the separate manually started Handy/text entry point; browser microphone is not enabled.'},'specialists':{'status':'disabled','active':None}}
-        profiles=[];permissions=set()
+        profiles=[];permissions=set();self.semantic=None
+        if enable_mem0:
+            from .scoped_memory import ScopedFacts
+            from .semantic_memory import SemanticMemory
+            facts_path=self.state/'facts.sqlite3';facts=ScopedFacts(facts_path,self.owner,self.memory,initialize=not facts_path.exists())
+            self.semantic=SemanticMemory(facts,Policy(self.owner,frozenset({Permission.READ,Permission.FILE_MODIFY})),enabled=True,cancel=self.stop_event)
+            profiles.append(self.semantic.registration());permissions.update({Permission.READ,Permission.FILE_MODIFY})
+            self.chat.knowledge=self.semantic
+            if self.tool_chat:self.tool_chat.knowledge=self.semantic
         from .specialists.live import LiveSpecialists
         self.specialists=LiveSpecialists(enabled=enable_specialists)
         if enable_specialists:profiles.append(self.specialists.registration());permissions.add(Permission.SPECIALIST);self.components['specialists']['status']='enabled_on_request'
@@ -207,7 +215,7 @@ class MissionControl:
                     'guardian':{'tools_profile_configured':self.tools is not None,'default_deny':True,'native_hermes_tools':False},
                     'components':json.loads(json.dumps(self.components)),
                     'resources':{'dashboard_rss_bytes':rss,'load_average':list(os.getloadavg()),'disk_free_bytes':usage.free},
-                    'memory':{'backend':'private_sqlite','session_count':len(self.memory.sessions(self.owner))}}
+                    'memory':{'backend':'private_sqlite','session_count':len(self.memory.sessions(self.owner)),'semantic_backend':self.semantic.last_backend if self.semantic else 'disabled'}}
             if role=='owner':
                 result.update(jobs=list(self.jobs.values()),pending_approvals=list(self.waiting.values()),sessions=list(self.memory.sessions(self.owner)),errors=list(self.errors),specialist_choices=self.specialists.choices())
                 with self.actions.store._db() as db:result['audit']=[dict(zip(('at','operation','event'),row)) for row in db.execute('SELECT at,operation,event FROM audit ORDER BY sequence DESC LIMIT 20')]
@@ -270,6 +278,12 @@ def interactive_server(credentials,control,*,port=0):
                     view=control.snapshot(role)
                     if role=='owner' and name==control.owner:view['csrf']=csrf[name]
                     return self.reply(200,view)
+                if self.path.startswith('/api/facts/'):
+                    if role!='owner' or name!=control.owner or control.semantic is None:return self.reply(403,{'error':'Scoped memory not enabled for this owner'})
+                    session=self.path[len('/api/facts/'):]
+                    if not re.fullmatch('[a-f0-9]{32}',session):return self.reply(400,{'error':'Invalid session'})
+                    control.semantic.policy.require('memory.search')
+                    return self.reply(200,{'facts':control.semantic.facts.review(control.owner,session)})
                 if self.path.startswith('/api/history/'):
                     if role!='owner' or name!=control.owner:return self.reply(403,{'error':'Owner required'})
                     session=self.path[len('/api/history/'):]
@@ -311,8 +325,8 @@ def interactive_server(credentials,control,*,port=0):
 
 def main():
     parser=argparse.ArgumentParser(description='Manually start local authenticated Mission Control; no public bind or automatic restart.')
-    parser.add_argument('--remember',action='store_true',required=True);parser.add_argument('--accounts-file',type=Path,required=True);parser.add_argument('--state-dir',type=Path,default=ROOT/'runtime/mission-control/state');parser.add_argument('--port',type=int,default=8765)
-    parser.add_argument('--tools-config',type=Path);parser.add_argument('--enable-specialists',action='store_true');parser.add_argument('--enable-n8n',action='store_true');targets=parser.add_mutually_exclusive_group();targets.add_argument('--ops-instance',type=Path);targets.add_argument('--ops-demo',action='store_true',help='Explicitly create a disposable local monitoring target, removed on dashboard exit.')
+    parser.add_argument('--remember',action='store_true',required=True);parser.add_argument('--accounts-file',type=Path,required=True);parser.add_argument('--state-dir',type=Path,default=ROOT/'runtime/chat');parser.add_argument('--port',type=int,default=8765)
+    parser.add_argument('--tools-config',type=Path);parser.add_argument('--enable-specialists',action='store_true');parser.add_argument('--enable-n8n',action='store_true');parser.add_argument('--enable-mem0',action='store_true');targets=parser.add_mutually_exclusive_group();targets.add_argument('--ops-instance',type=Path);targets.add_argument('--ops-demo',action='store_true',help='Explicitly create a disposable local monitoring target, removed on dashboard exit.')
     args=parser.parse_args();raw=json.loads(private_file(args.accounts_file).read_text());accounts={key:tuple(value) for key,value in raw.items()}
     from .dashboard import make_server
     server=None;control=None;fixture=None
@@ -320,7 +334,7 @@ def main():
         if args.ops_demo:
             from .integrations.ops_runtime import DisposableOpsFixture
             fixture=DisposableOpsFixture().start()
-        control=MissionControl(args.state_dir,remember=args.remember,tools_config=args.tools_config,enable_specialists=args.enable_specialists,enable_n8n=args.enable_n8n,ops_instance=fixture.config_path if fixture else args.ops_instance)
+        control=MissionControl(args.state_dir,remember=args.remember,tools_config=args.tools_config,enable_specialists=args.enable_specialists,enable_n8n=args.enable_n8n,enable_mem0=args.enable_mem0,ops_instance=fixture.config_path if fixture else args.ops_instance)
         server=make_server(accounts,control=control,port=args.port);print(f'IGRIS local dashboard: http://127.0.0.1:{server.server_port} (credentials remain in private account file)',flush=True);server.serve_forever(poll_interval=.1)
     except KeyboardInterrupt:pass
     finally:

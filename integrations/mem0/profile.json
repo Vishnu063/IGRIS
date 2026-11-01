@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "enabled_by_default": false,
+  "image": "sha256:62574f46949d5fa83aefdec7219d2238456b739fcd98790bd493b3c85cb641b3",
+  "python": "3.14.9",
+  "platform": "Linux x86_64",
+  "packages_sha256": "6562f40e53876fb7810f30921352afa6c914bd0b4f2ae262cdfc67fdddcecd1e",
+  "files": {
+    "runtime/python3149/python/bin/python3.14": "3642edb46c7bfad367e99751c422ca6b57977157b78f8f77ee4daa9498c002b5",
+    "integrations/mem0/worker.py": "ebd132132810472e07ca73ad0fa115e102d85245cf74fc000dbd7f71b79308b1",
+    "runtime/mem0/model/README.md": "2c47a70b94fe29e24841acf0e177949f1c9aa543e450d43af7e872ea81e43501",
+    "runtime/mem0/model/config.json": "1b4d8e2a3988377ed8b519a31d8d31025a25f1c5f8606998e8014111438efcd7",
+    "runtime/mem0/model/model.onnx": "bbd7b466f6d58e646fdc2bd5fd67b2f5e93c0b687011bd4548c420f7bd46f0c5",
+    "runtime/mem0/model/special_tokens_map.json": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a",
+    "runtime/mem0/model/tokenizer.json": "851ca67100d372ca3ae031a6abd168f53489eebfd7d89523f35c5c9b4d372c3c",
+    "runtime/mem0/model/tokenizer_config.json": "abda01c8c14c5151ae498aceb30db406d6b91242c394fd88d3b6fd5a63a101e6",
+    "runtime/mem0/model/vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+  },
+  "memory_limit": "1g",
+  "network": "none",
+  "extraction_enabled": false,
+  "telemetry_enabled": false,
+  "authorized_spend_inr": 0
+}

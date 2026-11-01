@@ -1,0 +1,140 @@
+{
+  "status": "PASS",
+  "observations": [
+    {
+      "case": "real_semantic_retrieval",
+      "result": {
+        "backend": "real_mem0_local",
+        "facts": [
+          {
+            "id": "910fb170537248109915d15ab15d2793",
+            "category": "project",
+            "text": "We deploy our web application to the Mumbai AWS region.",
+            "classification": "verified_fact",
+            "evidence": "Explicit synthetic owner acceptance fixture.",
+            "revision": 1,
+            "score": 0.4132919036463098
+          }
+        ],
+        "indexed_facts": 2,
+        "metrics": {
+          "worker_seconds": 0.36046508299477864,
+          "wall_seconds": 6.035445474990411,
+          "maxrss_kib": 306224,
+          "embedding_calls": 1,
+          "index_disk_bytes": 42061
+        },
+        "extraction_probe_denied": true
+      }
+    },
+    {
+      "case": "new_service_process_worker_persistence",
+      "result": {
+        "backend": "real_mem0_local",
+        "facts": [
+          {
+            "id": "910fb170537248109915d15ab15d2793",
+            "category": "project",
+            "text": "We deploy our web application to the Mumbai AWS region.",
+            "classification": "verified_fact",
+            "evidence": "Explicit synthetic owner acceptance fixture.",
+            "revision": 1,
+            "score": 0.4165972806966789
+          }
+        ],
+        "indexed_facts": 2,
+        "metrics": {
+          "worker_seconds": 2.700116984997294,
+          "wall_seconds": 10.332404947999748,
+          "maxrss_kib": 307980,
+          "embedding_calls": 1,
+          "index_disk_bytes": 42061
+        },
+        "extraction_probe_denied": false
+      }
+    },
+    {
+      "case": "real_memory_enriched_hermes",
+      "reply": "The approved memory records the Mumbai AWS region.",
+      "memory": {
+        "backend": "real_mem0_local",
+        "facts_used": [
+          {
+            "id": "910fb170537248109915d15ab15d2793",
+            "revision": 1
+          }
+        ]
+      }
+    },
+    {
+      "case": "correction_and_deletion",
+      "after_correction": {
+        "backend": "real_mem0_local",
+        "facts": [
+          {
+            "id": "910fb170537248109915d15ab15d2793",
+            "category": "project",
+            "text": "We deploy our web application to the Hyderabad AWS region.",
+            "classification": "assumption",
+            "evidence": "",
+            "revision": 2,
+            "score": 0.40668028175002735
+          }
+        ],
+        "indexed_facts": 2,
+        "metrics": {
+          "worker_seconds": 0.308162306988379,
+          "wall_seconds": 5.683701515008579,
+          "maxrss_kib": 308900,
+          "embedding_calls": 1,
+          "index_disk_bytes": 42061
+        },
+        "extraction_probe_denied": false
+      },
+      "after_deletion": {
+        "backend": "real_mem0_local",
+        "facts": [],
+        "indexed_facts": 1,
+        "metrics": {
+          "worker_seconds": 0.345522624993464,
+          "wall_seconds": 5.857530295994366,
+          "maxrss_kib": 309420,
+          "embedding_calls": 1,
+          "index_disk_bytes": 41874
+        },
+        "extraction_probe_denied": false
+      }
+    },
+    {
+      "case": "sqlite_fallback",
+      "result": {
+        "backend": "sqlite_keyword_fallback",
+        "facts": [
+          {
+            "id": "c466674e6ffb45cea3f26757930b0e3f",
+            "category": "preference",
+            "text": "The interface theme should be dark.",
+            "classification": "verified_fact",
+            "evidence": "Explicit synthetic owner acceptance fixture.",
+            "revision": 1
+          }
+        ],
+        "reason": "AdapterUnavailable"
+      }
+    }
+  ],
+  "approvals_consumed": 5,
+  "facts": "Synthetic explicit owner-approved fixtures, never customer data.",
+  "mocked_integrations": false,
+  "real": "Actual Mem0 2.2.1, FastEmbed/MiniLM ONNX, embedded Qdrant, SQLite and Hermes.",
+  "source_sha256": {
+    "src/igris/scoped_memory.py": "462337001c9c57182eb759dc405304cd30f7f39d635eeddd3699d97d75c559e2",
+    "src/igris/semantic_memory.py": "b35b0a5a16e2c643511961a4c65b2001c40833ee5f837a9508046b4c10ffe295",
+    "src/igris/integrations/mem0_runtime.py": "24fc5df2bbab02cb8f5291e03d3f36638a6a0e9e95b616fbd0588fb7f873ef23",
+    "src/igris/isolated.py": "dd1dbf94eb4d75f3d3170e87fe475913661321872e2fc218f5f9ca2f9f76d879",
+    "src/igris/chat.py": "a06d66a1202f6a837069cf05636efeabdcdb19ba5ddd9782a676a73cc412a45e",
+    "integrations/mem0/worker.py": "ebd132132810472e07ca73ad0fa115e102d85245cf74fc000dbd7f71b79308b1",
+    "integrations/mem0/profile.json": "1ed4317104af5a586fafa8d2d4ee49a860f65122305116b8d9c3de26a09c5db3",
+    "scripts/test_mem0_live.py": "c49791a24541dfe7af25b14b15e7a4c698e60858b05243a6d0faa8aa30b25c46"
+  }
+}

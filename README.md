@@ -167,3 +167,9 @@ Task 7: [interactive local Mission Control](docs/integrations/mission-control.md
 authenticated chat/history, exact Guardian approval controls, selected specialists,
 bounded n8n/Ops operations and emergency stop. See [real browser acceptance](docs/validation/mission-control-live.json).
 Voice is explicitly unavailable in the dashboard; no microphone starts automatically.
+
+Task 8: [optional scoped Mem0 memory](docs/integrations/mem0.md) adds approved
+facts, local semantic retrieval, correction/deletion and bounded real-Hermes
+context. SQLite remains authoritative. Enable explicitly with `--enable-mem0`;
+no automatic fact extraction or paid model is activated. Mission Control and
+text chat now share the `runtime/chat` default state directory.

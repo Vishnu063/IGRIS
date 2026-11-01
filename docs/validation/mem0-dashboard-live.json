@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "actual_browser_save_approval": true,
+  "real_mem0_index": true,
+  "delete_rejected_fact_preserved": true,
+  "before_approval_no_fact": true,
+  "approvals": [
+    [
+      "approved",
+      1
+    ],
+    [
+      "denied",
+      0
+    ]
+  ],
+  "dimensions": {
+    "width": 390,
+    "scrollWidth": 390,
+    "clientWidth": 390
+  },
+  "inference": "Not invoked in this UI test; separate real memory-enriched Hermes acceptance exists.",
+  "owner_inputs": "Automated trusted owner fixtures, not model decisions.",
+  "source_sha256": {
+    "src/igris/mission_control.py": "53e062f624b1c4998a10c9da0dc38c412213470c04042365bdee87cdf27af59b",
+    "src/igris/web/control.html": "dcabced83364be37d699c2b9b44b4e9e78cae6ffe3cc9d747e0d2346d00cc4b7",
+    "src/igris/web/control.js": "b16fe1f82ced274059724fa997783a22fff6640e12f5f8ee73a05e1fd1a98d18",
+    "scripts/test_mem0_dashboard_live.py": "8c9c08f211296c341ab9221d02b547cb4cef58d2f0f2f709d5046379078b3a90"
+  },
+  "cleanup_verified": true
+}
