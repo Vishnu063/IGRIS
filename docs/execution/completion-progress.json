@@ -16,10 +16,15 @@
     {
       "number": 2,
       "title": "Handy voice input",
-      "status": "PENDING",
-      "implementation_commit": null,
-      "capabilities": [],
-      "external_requirements": []
+      "status": "BLOCKED",
+      "implementation_commit": "2977b932be2337e2b59923981996c6803a8063ae",
+      "capabilities": [
+        "Real Handy file transcription -> real Hermes response -> persistent SQLite, with offline worker and bounded audio."
+      ],
+      "external_requirements": [
+        "Authorized target Mac and physical microphone, OS permission and human speech testing."
+      ],
+      "report": "docs/execution/completion-task-02.md"
     },
     {
       "number": 3,

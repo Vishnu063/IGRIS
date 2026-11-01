@@ -3,7 +3,7 @@
 | Task | Title | Status | Implementation commit |
 | --- | --- | --- | --- |
 | 1 | Interactive Guardian approvals | PASS | d7a0faacb83f4992058d18ef83523f879b4b9a52 |
-| 2 | Handy voice input | PENDING | — |
+| 2 | Handy voice input | BLOCKED | 2977b932be2337e2b59923981996c6803a8063ae |
 | 3 | Multilingual voice responses | PENDING | — |
 | 4 | Real n8n integration | PENDING | — |
 | 5 | Ops Pilot monitoring integration | PENDING | — |
@@ -22,5 +22,8 @@ Statuses apply to actual acceptance, not merely code presence.
 ## Actual working capabilities
 
 - Task 1: Opt-in terminal approval and rejection with real Hermes and Guardian, exact-context one-time execution and conversation continuity.
+- Task 2: Real Handy file transcription -> real Hermes response -> persistent SQLite, with offline worker and bounded audio.
 
 ## External requirements
+
+- Task 2: Authorized target Mac and physical microphone, OS permission and human speech testing.
