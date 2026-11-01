@@ -59,3 +59,7 @@ Overall operational status: PENDING_EXTERNAL_VERIFICATION. See ../delivery/final
 
 Commit references for reports in the same commit use the commit containing the
 report; the user-facing report supplies its exact SHA after commit creation.
+
+Post-prototype activation milestones (separate from the historical 50 records):
+- Phase 1, Milestone 1: [audit and real Hermes inference](phase-1-milestone-01.md).
+- [Current activation scope/status](../validation/hermes-activation-status.json).

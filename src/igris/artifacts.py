@@ -24,7 +24,7 @@ def build_bundle(destination, *, source=None):
         for path in sorted(base.rglob('*')):
             relative = path.relative_to(root)
             if any(p in OMIT_DIRS for p in relative.parts): continue
-            if path.suffix in TEXT_SUFFIXES or path.name in ('LICENSE', 'SECURITY', 'README'):
+            if path.suffix in TEXT_SUFFIXES or path.name in ('LICENSE', 'SECURITY', 'README', 'Dockerfile'):
                 if path.is_file() or path.is_symlink(): paths.append(path)
     if len(paths) > 10000: raise ValueError('Too many artifact entries.')
     entries = {}

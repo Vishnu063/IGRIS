@@ -18,9 +18,17 @@ Do not infer that upstream MIT licenses grant rights over all IGRIS-specific wor
   their source references; full terms and edition restrictions require review
   before integration. In particular VoiceStudio is AGPL-3.0-only, not MIT.
 
-The active lightweight IGRIS `src` runtime uses Python's standard library. The
-uninstalled copied Hermes source lists its own separate dependencies and may
-refer to third-party services/models with additional licenses and costs. Those
-dependencies and their vulnerabilities/licenses have not been fully resolved.
+The default lightweight IGRIS `src` runtime uses Python's standard library.
+The separate manual inference profile installs 53 hash-locked Python dependencies
+under ignored runtime/, and runs the copied Hermes source in an offline container.
+It uses llama.cpp b11960 (MIT, notice retained with the downloaded binary) and
+Qwen3.5-2B Q4_K_M weights (Apache-2.0, original Qwen model plus public Unsloth
+quantization). Exact repositories, revisions and hashes are recorded in
+integrations/hermes-inference/profile.json. Original model license:
+https://huggingface.co/Qwen/Qwen3.5-2B/blob/15852e8c16360a2fea060d615a32b45270f8a8fc/LICENSE.
+The runtime downloads are not redistributed in Git. Each installed dependency
+retains its own distribution license; a complete vulnerability/license audit is
+not claimed. The remaining copied Hermes features refer to other optional
+dependencies/services/models, which are not enabled by this profile.
 Model weights, voice rights, trademarks, hosted services and client data are not
 licensed by inclusion of these notices. No paid or production use is activated.

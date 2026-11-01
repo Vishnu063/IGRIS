@@ -1,0 +1,31 @@
+{
+  "scope": "actual preparation and live-probe failures retained for review; synthetic prompts only",
+  "failures": [
+    {
+      "stage": "initial_raw_dependency_resolution_without_project_policy",
+      "observed": "browser-harness 0.1.13 requires Pillow 12.3.0; upstream pins Pillow 13.0.0",
+      "resolution": "Source review found upstream tool.uv overrides. Full resolution succeeded with those overrides and the upstream three-day quarantine. The earlier raw check does not prove a full-stack blocker. A separate lean inference profile avoids loading unused engines; no Pillow downgrade."
+    },
+    {
+      "stage": "native_engine_start",
+      "observed": "libgomp.so.1 absent from minimal base image",
+      "resolution": "Added only libgomp1 through signed Ubuntu repositories; recorded version and built image ID."
+    },
+    {
+      "stage": "Hermes_model_context_admission",
+      "observed": "Actual Hermes guard rejected the configured 8192-token window; requires at least 64000",
+      "resolution": "Selected a native-262144-context Qwen3.5 model and configured a 65536-token server; no guard disabled."
+    },
+    {
+      "stage": "real_generated_answer_quality",
+      "model": "unsloth/Qwen3.5-0.8B-GGUF / Q4_K_M",
+      "prompt": "What is 18 plus 13? Reply with only the integer.",
+      "expected": "31",
+      "actual_response": "21",
+      "actual_api_calls": 1,
+      "configuration": "thinking disabled; max output 80",
+      "resolution": "A later bounded-reasoning run still failed another case (11 plus 15 returned 16, expected 26). The 0.8B candidate is rejected for this acceptance gate; evaluate the 2B model against unchanged regression/random-arithmetic/uppercase checks."
+    }
+  ],
+  "limitations": "Small-model competence is not established by successful imports, API calls or a few prompt checks. Historical failures are not erased by a later passing probe."
+}

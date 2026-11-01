@@ -21,6 +21,8 @@ class ArtifactTests(unittest.TestCase):
             (root / 'vendor/hermes-agent/run_agent.py').write_text('# Source fixture, never run')
             (root / 'integrations/agency-agents').mkdir(parents=True)
             (root / 'integrations/agency-agents/frontend.md').write_text('Synthetic adapted definition fixture')
+            (root / 'integrations/hermes-inference').mkdir()
+            (root / 'integrations/hermes-inference/Dockerfile').write_text('# Synthetic build definition')
             (root / 'workflows').mkdir()
             (root / 'workflows/local.json').write_text('{"active": false}')
             (root / 'config/private.db').write_text('SYNTHETIC_PRIVATE_MARKER')
@@ -31,7 +33,7 @@ class ArtifactTests(unittest.TestCase):
             with zipfile.ZipFile(first) as archive:
                 self.assertNotIn('.env', archive.namelist())
                 self.assertNotIn('config/private.db', archive.namelist())
-                for name in ('vendor/hermes-agent/LICENSE', 'vendor/hermes-agent/run_agent.py', 'integrations/agency-agents/frontend.md', 'workflows/local.json'):
+                for name in ('vendor/hermes-agent/LICENSE', 'vendor/hermes-agent/run_agent.py', 'integrations/agency-agents/frontend.md', 'integrations/hermes-inference/Dockerfile', 'workflows/local.json'):
                     self.assertIn(name, archive.namelist())
                 manifest = json.loads(archive.read('MANIFEST.json'))
                 self.assertFalse(manifest['production_ready'])

@@ -11,9 +11,13 @@ records, private SQLite memory/earnings and backup restoration. The 15 specialis
 definitions are copied and adapted from Agency Agents. A curated Hermes backend
 source subset is copied and patched as the intended reasoning foundation.
 
-**No live reasoning assistant or upstream integration is connected.** Hermes
-startup/inference, installed n8n, Ops Pilot/Docker operations and speech engines
-remain unverified. Specialist execution is a bounded simulation. Dashboard data
+**Manual local Hermes inference is now verified** in an isolated, reasoning-only
+cloud profile: [Phase 1 milestone](docs/execution/phase-1-milestone-01.md),
+[actual generated responses](docs/validation/hermes-inference-live.json),
+[explicit cloud setup/probe](integrations/hermes-inference/README.md).
+The default IGRIS adapter is still disabled; no complete conversational assistant
+or always-running service is connected. Installed n8n, Ops Pilot operations and
+speech engines remain unverified. Specialist execution is a bounded simulation. Dashboard data
 is supplied locally; no live service health is implied. Production deployment,
 paid activation and external client submission remain disabled.
 
@@ -104,5 +108,6 @@ are not connected live models; no separate Agent Builder is added.
 
 The user-authorized [reuse correction](docs/revisions/reuse-correction.md) copies
 and adapts Agency Agents definitions and Hermes backend source in this repo.
-Real runtime activation is still unverified; these source copies replace the
-earlier reference-only strategy. MIT notices and provenance manifests are retained.
+The manual source-run reasoning profile is now verified; general product/runtime
+activation remains unavailable. These source copies replace the earlier
+reference-only strategy. MIT notices and provenance manifests are retained.
