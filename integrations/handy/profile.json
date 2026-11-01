@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "enabled_by_default": false,
+  "source_revision": "14f6f0d31cb22a4268acfbddba3052820fd0a06e",
+  "release": "v0.9.8",
+  "platform": "linux-x86_64",
+  "package_url": "https://github.com/cjpais/Handy/releases/download/v0.9.8/Handy_0.9.8_amd64.deb",
+  "package_sha256": "4efe1fdcc2b68e95612e866810ccb23e06bbdf004a4e857de0862b0c6927caa8",
+  "model_id": "small",
+  "model_file": "ggml-small.bin",
+  "model_url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small.bin",
+  "model_sha256": "1be3a9b2063867b937e64e2ec7483364a79917e157fa98c5d94b5c1fffea987b",
+  "model_languages": [
+    "en",
+    "hi",
+    "mr"
+  ],
+  "image": "sha256:8a2317637a9d8f5e012a287635d77c10529d577f32ea0a3f4cc95eb1bbb99ced",
+  "max_audio_seconds": 30,
+  "physical_microphone_verified": false,
+  "model_original_url": "https://blob.handy.computer/ggml-small.bin",
+  "model_mirror_revision": "5359861c739e955e79d9a303bcbc70fb988958b1"
+}

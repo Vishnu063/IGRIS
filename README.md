@@ -148,3 +148,7 @@ and adapts Agency Agents definitions and Hermes backend source in this repo.
 The manual source-run reasoning profile is now verified; general product/runtime
 activation remains unavailable. These source copies replace the earlier
 reference-only strategy. MIT notices and provenance manifests are retained.
+
+### Optional Handy file input
+
+See [Handy integration](docs/integrations/handy.md) for explicit offline file transcription and text fallback. Physical microphone and Mac acceptance are not verified. No voice service starts automatically.

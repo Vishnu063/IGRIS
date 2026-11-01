@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "case": "success",
+      "status": "PASS",
+      "seconds": 2.3001046830031555,
+      "cleanup_verified": true
+    },
+    {
+      "case": "timeout",
+      "status": "PASS",
+      "seconds": 2.4839622219878947,
+      "cleanup_verified": true
+    },
+    {
+      "case": "failure",
+      "status": "PASS",
+      "seconds": 1.2385120179969817,
+      "cleanup_verified": true
+    },
+    {
+      "case": "output_limit",
+      "status": "PASS",
+      "seconds": 2.0039068189944373,
+      "cleanup_verified": true
+    },
+    {
+      "case": "cancellation",
+      "status": "PASS",
+      "cleanup_verified": true
+    }
+  ],
+  "source_sha256": {
+    "src/igris/isolated.py": "42f68ed0550c8ec9aa5cb2709a57d55f690a597835d79cf32a1cb7c4ee90d298",
+    "scripts/test_isolated_worker_live.py": "ae9e1cf65b0ae35d9701ce16a7d6e92f0a511c167c4ed56908f7533c6f9e76b8"
+  },
+  "fixture": "trusted fixed Python programs in original offline image; no mock subprocesses or model-generated commands"
+}

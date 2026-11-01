@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "verified_at": "2026-11-01T18:14:19.750262+05:30",
+  "fixture": "ffmpeg flite synthetic English speech; no human recording or hardware acceptance",
+  "audio_sha256": "f1330d0760a0467d4c1c457ba233a2bc58b90824590ef7f5b6e008157a900486",
+  "transcript": {
+    "text": "What is 7 plus 5?",
+    "seconds": 1.855,
+    "load_ms": 6754,
+    "inference_ms": [
+      14162
+    ],
+    "origin": "real_handy_transcription",
+    "language": null
+  },
+  "asr_wall_seconds": 32.76060605200473,
+  "chat_wall_seconds": 61.92691501400259,
+  "chat_reply": "12",
+  "persisted": true,
+  "inference_and_transcription": "real Handy v0.9.8 Whisper Small and real Hermes Qwen3.5-2B; no mocks",
+  "physical_microphone": "BLOCKED: no authorized microphone/Mac",
+  "model_tools": "disabled; existing Guardian tool wiring unchanged",
+  "source_sha256": {
+    "src/igris/voice/handy.py": "25e47b28037e2b9ff794a7b8fbad1edde46d18e9421a4ee93ba762004d20c4c3",
+    "src/igris/isolated.py": "111a0c7697fdffabee70bd2dc175d57cdecccd37d2673d3e57e5a57702adfc12",
+    "integrations/handy/worker.py": "ef4dcd835690afa0e57bf948e5d5b9e064f0bc784f8180e8e2000a8a6b2e067f",
+    "integrations/handy/profile.json": "1acd9497746218eb12751e91f10e83155dd3649d28aa71b6e8c1bacfd21be586",
+    "scripts/test_handy_live.py": "7e8eb0135713c11ba99515f0e5ff2d8163086a1e5402d9011f60671de5268395"
+  }
+}
