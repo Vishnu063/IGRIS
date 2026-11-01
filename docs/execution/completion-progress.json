@@ -33,12 +33,18 @@
     {
       "number": 3,
       "title": "Multilingual voice responses",
-      "status": "PENDING",
-      "implementation_commit": null,
-      "capabilities": [],
-      "external_requirements": [],
-      "implementation_status": "PENDING",
-      "external_verification": "PENDING"
+      "status": "BLOCKED",
+      "implementation_commit": "419e9cedc1acfbd5320edbd59709f42978b5015c",
+      "capabilities": [
+        "Actual local en/hi/mr speech WAV synthesis and real language-selected Hermes greetings; manual mute/stop and conservative language confirmation."
+      ],
+      "external_requirements": [
+        "Authorized M1 microphone/speaker permissions and per-language human/native-speaker acceptance.",
+        "Sufficient disposable cloud disk or native Mac Handy runtime for repeated human speech ASR; current VFS copies exceed remaining space."
+      ],
+      "implementation_status": "TESTED_PARTIAL",
+      "external_verification": "BLOCKED",
+      "report": "docs/execution/completion-task-03.md"
     },
     {
       "number": 4,
