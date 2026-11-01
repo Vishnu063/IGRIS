@@ -49,12 +49,15 @@
     {
       "number": 4,
       "title": "Real n8n integration",
-      "status": "PENDING",
-      "implementation_commit": null,
-      "capabilities": [],
+      "status": "PASS",
+      "implementation_commit": "083be4212950e41793d1a83452e856d9b952d95d",
+      "capabilities": [
+        "Real bounded n8n calculation after Guardian owner approval, with genuine rejection, cancellation and verified offline OS restrictions."
+      ],
       "external_requirements": [],
-      "implementation_status": "PENDING",
-      "external_verification": "PENDING"
+      "implementation_status": "VERIFIED_BOUNDED_CLI",
+      "external_verification": "NOT_REQUIRED_FOR_CLOUD_ACCEPTANCE",
+      "report": "docs/execution/completion-task-04.md"
     },
     {
       "number": 5,
