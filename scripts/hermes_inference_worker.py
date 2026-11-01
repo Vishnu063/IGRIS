@@ -1,7 +1,8 @@
 """Private offline container worker; real Hermes and GGUF inference, no tools.
 
-Run only through run_hermes_inference_probe.py. No framework, model or SDK mock.
+Launched by the shared isolated transport. No framework, model or SDK mock.
 """
+from contextlib import contextmanager
 import errno
 import hashlib
 import json
@@ -16,11 +17,12 @@ import time
 import urllib.error
 import urllib.request
 
-ROOT = Path('/workspace/IGRIS')
+ROOT = Path(__file__).resolve().parents[1]
 RUNTIME = ROOT/'runtime'
 
 
-def main():
+@contextmanager
+def reasoning_session():
     os.umask(0o077)
     sys.path.insert(0, str(ROOT/'src'))
     from igris.guardian.secrets import redact
@@ -107,6 +109,17 @@ def main():
         try: agent._execute_tool_calls(None, [], 'security-probe')
         except Denied: pass
         else: raise RuntimeError('Guardian did not deny tool dispatch')
+        yield agent, profile, opener, local_secret
+    finally:
+        process.terminate()
+        try: process.wait(timeout=5)
+        except subprocess.TimeoutExpired: process.kill(); process.wait(timeout=5)
+        log.close()
+
+
+def main():
+    with reasoning_session() as (agent, profile, opener, local_secret):
+        from igris.guardian.secrets import redact
         left, right = 10+secrets.randbelow(10), 10+secrets.randbelow(10)
         word = secrets.choice(('river', 'window', 'planet'))
         cases = [('What is 18 plus 13? Reply with only the integer.', '31'),
@@ -145,11 +158,6 @@ def main():
                          'model_authentication_checked': True, 'tools_exposed': 0,
                          'guardian_tool_dispatch_denied': True, 'automatic_install_disabled': True},
             'spend_inr': 0, 'full_assistant_operational': False}, sort_keys=True), flush=True)
-    finally:
-        process.terminate()
-        try: process.wait(timeout=5)
-        except subprocess.TimeoutExpired: process.kill(); process.wait(timeout=5)
-        log.close()
 
 
 if __name__ == '__main__': main()

@@ -1,0 +1,49 @@
+{
+  "container_removed": true,
+  "controls": {
+    "automatic_install_disabled": true,
+    "external_network_absent": true,
+    "guardian_tool_dispatch_denied": true,
+    "model_authentication_checked": true,
+    "non_root": true,
+    "source_read_only": true,
+    "tools_exposed": 0
+  },
+  "direct_control_response": "31",
+  "framework": "Hermes AIAgent.run_conversation",
+  "full_assistant_operational": false,
+  "hermes_revision": "2d2808ee84549f9836b0056750265058e5488a8a",
+  "image": "sha256:71ed6a3c8bc579133b3983e8e61599e7b1ecfba0a4985045451c6e8ec36fd855",
+  "model": "unsloth/Qwen3.5-2B-GGUF",
+  "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+  "origin": "real_local_inference",
+  "profile_sha256": "d02f0a549a125a4e6ca759affd156670670285a74e7842a2e983b51166163195",
+  "python": "3.14.9",
+  "responses": [
+    {
+      "api_calls": 1,
+      "elapsed_seconds": 27.783,
+      "expected": "31",
+      "prompt": "What is 18 plus 13? Reply with only the integer.",
+      "response": "31"
+    },
+    {
+      "api_calls": 1,
+      "elapsed_seconds": 19.1735,
+      "expected": "27",
+      "prompt": "What is 15 plus 12? Reply with only the integer.",
+      "response": "27"
+    },
+    {
+      "api_calls": 1,
+      "elapsed_seconds": 18.5758,
+      "expected": "WINDOW",
+      "prompt": "Write window in uppercase. Reply with only that word.",
+      "response": "WINDOW"
+    }
+  ],
+  "spend_inr": 0,
+  "status": "PASS",
+  "verified_at_utc": "2026-11-01T04:17:21.296827+00:00",
+  "worker_sha256": "af6bf5b0942a7b5a840ecf33eed0c8e21f1f171da75df97f17b23a8df38dd0b3"
+}

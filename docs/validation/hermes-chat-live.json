@@ -1,0 +1,121 @@
+{
+  "all_containers_removed": true,
+  "cancelled_turn_excluded_from_history": true,
+  "conversation_isolation": true,
+  "cross_process_recall": true,
+  "explicit_forget": true,
+  "mac_tested": false,
+  "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+  "native_tools_enabled": false,
+  "origin": "real_local_inference",
+  "persisted_owner_denial": true,
+  "real_sigint_exit": 130,
+  "source_sha256": {
+    "integrations/hermes-inference/profile.json": "d02f0a549a125a4e6ca759affd156670670285a74e7842a2e983b51166163195",
+    "scripts/hermes_chat_worker.py": "b469262234a7a3d6386ab219be063578af5d47d3df74dcd49098a236616f2349",
+    "scripts/hermes_inference_worker.py": "af6bf5b0942a7b5a840ecf33eed0c8e21f1f171da75df97f17b23a8df38dd0b3",
+    "scripts/test_chat_live.py": "afa4c0f870712512b4812988bdee9fe46606a32bce00cc7b6e200ea80359424c",
+    "src/igris/adapters/hermes_chat.py": "208ad07976565e93fbc9400c980520309cb1b8e3b575c4cd0d635b640c2b6bb1",
+    "src/igris/chat.py": "0af857159cb7af204fb3f7111ded5e526c9123631eb44e45234404bbe9c0114a",
+    "src/igris/controller.py": "80df884a350636a8cf8b38c5848474613ae462396ead1be6b6130f1f700ecb09",
+    "src/igris/conversations.py": "12e19352a6556dfa40c155f73a2d6f4c5a32535bd1751970307d901f22e2096c",
+    "src/igris/guardian/policy.py": "ba0f5e8863026d595a6a1aa03ac6dda0074f8b27a708495dae21ec7c34ee34ff",
+    "src/igris/memory.py": "b8c393ced0194e69bf6c09b29d80522fb6bc97535ac02cdd60ea4df4eb28aff0"
+  },
+  "spend_inr": 0,
+  "sqlite_backup_restore": true,
+  "status": "PASS",
+  "turns": [
+    {
+      "elapsed_seconds": 53.1669,
+      "fresh_offline_worker": true,
+      "inference": {
+        "api_calls": 1,
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "state": "completed"
+      },
+      "mission": {
+        "actor": "owner",
+        "approval_request_id": null,
+        "evidence_origin": "real",
+        "history": [
+          "requested",
+          "planned",
+          "ready",
+          "running",
+          "verifying",
+          "succeeded"
+        ],
+        "id": "ec941cc05df34fb6b6c1136662003755",
+        "message": "NOTED.",
+        "route": "chat",
+        "state": "succeeded"
+      },
+      "prompt": "Remember this codeword for our conversation: MAPLEB524C2ED. Reply only NOTED.",
+      "response": "NOTED.",
+      "separate_cli_process": true
+    },
+    {
+      "elapsed_seconds": 59.3336,
+      "fresh_offline_worker": true,
+      "inference": {
+        "api_calls": 1,
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "state": "completed"
+      },
+      "mission": {
+        "actor": "owner",
+        "approval_request_id": null,
+        "evidence_origin": "real",
+        "history": [
+          "requested",
+          "planned",
+          "ready",
+          "running",
+          "verifying",
+          "succeeded"
+        ],
+        "id": "0b1d023ee696491a923371c81d3e4f3a",
+        "message": "MAPLEB524C2ED",
+        "route": "chat",
+        "state": "succeeded"
+      },
+      "prompt": "What codeword did I ask you to remember? Reply only with that codeword.",
+      "response": "MAPLEB524C2ED",
+      "separate_cli_process": true
+    },
+    {
+      "elapsed_seconds": 43.464,
+      "fresh_offline_worker": true,
+      "inference": {
+        "api_calls": 1,
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "state": "completed"
+      },
+      "mission": {
+        "actor": "owner",
+        "approval_request_id": null,
+        "evidence_origin": "real",
+        "history": [
+          "requested",
+          "planned",
+          "ready",
+          "running",
+          "verifying",
+          "succeeded"
+        ],
+        "id": "21c4cf1f64884a579d0da7823b5ae2b0",
+        "message": "UNKNOWN",
+        "route": "chat",
+        "state": "succeeded"
+      },
+      "prompt": "What codeword did I ask you to remember in this conversation? If none was provided, reply only UNKNOWN.",
+      "response": "UNKNOWN",
+      "separate_cli_process": true
+    }
+  ],
+  "verified_at_utc": "2026-11-01T04:14:10.639744+00:00"
+}

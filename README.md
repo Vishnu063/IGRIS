@@ -15,8 +15,19 @@ source subset is copied and patched as the intended reasoning foundation.
 cloud profile: [Phase 1 milestone](docs/execution/phase-1-milestone-01.md),
 [actual generated responses](docs/validation/hermes-inference-live.json),
 [explicit cloud setup/probe](integrations/hermes-inference/README.md).
-The default IGRIS adapter is still disabled; no complete conversational assistant
-or always-running service is connected. Installed n8n, Ops Pilot operations and
+**Manual IGRIS chat now connects the existing controller to real Hermes and
+private persistent conversation memory**: [Milestone 2](docs/execution/phase-1-milestone-02.md),
+[chat instructions and security limits](docs/integrations/hermes-chat.md),
+[real restart/recall/stop evidence](docs/validation/hermes-chat-live.json).
+Start explicitly with the prepared cloud runtime:
+
+```sh
+$ PYTHONPATH=src python3 -m igris.chat --remember
+$ PYTHONPATH=src python3 -m igris.chat --remember --resume
+```
+
+Native tools remain disabled. The legacy planner adapter is still unavailable;
+there is no always-running service. Installed n8n, Ops Pilot operations and
 speech engines remain unverified. Specialist execution is a bounded simulation. Dashboard data
 is supplied locally; no live service health is implied. Production deployment,
 paid activation and external client submission remain disabled.
@@ -34,7 +45,7 @@ scoped local work; live activation and hardware checks remain pending.
 
 ## Structure
 
-- `src/igris/`: lightweight standard-library implementations and disabled adapters.
+- `src/igris/`: standard-library controller/chat/storage, guarded runtime transport and disabled service adapters.
 - `tests/`: local unit/security/integration tests with explicit simulations.
 - `vendor/`, `integrations/agency-agents/`: copied source and adapted definitions.
 - `workflows/`: inactive n8n definition and contract validation assets.
@@ -84,8 +95,9 @@ single-use expiring approval. Real scoped mutations create new text artifacts;
 recovery mutations are confined to simulator state. Production, spending and
 external communications remain unavailable.
 
-The [core controller](docs/architecture/controller.md) is a tested synchronous
-in-memory library. No real reasoning service or autonomous assistant is active.
+The [core controller](docs/architecture/controller.md) remains a synchronous
+in-memory library. Its explicit [chat route](docs/integrations/hermes-chat.md)
+uses real local inference and durable completed exchanges; no autonomous service is active.
 
 [Simulated orchestration](docs/integrations/orchestration.md) connects tested
 controller and Guardian code to explicit Hermes/Ops Pilot mocks and a local n8n

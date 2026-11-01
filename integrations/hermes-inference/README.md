@@ -1,9 +1,10 @@
 # Manual cloud Hermes inference profile
 
-Scope: Phase 1 Milestone 1, actual copied Hermes `AIAgent.run_conversation` plus
-licensed local CPU inference. This is not the complete assistant, default IGRIS
-adapter, chat UI, conversation-memory integration, CLI/desktop installation or
-activation of specialist tools. Historical 50-step records remain unchanged.
+Scope: the Phase 1 Milestone 1 inference runtime, reused by
+[Milestone 2 controller chat and memory](../../docs/integrations/hermes-chat.md).
+Actual copied Hermes `AIAgent.run_conversation` uses licensed local CPU inference.
+This is not the complete assistant, legacy planner adapter, desktop installation
+or activation of specialist tools. Historical 50-step records remain unchanged.
 
 Linux x86_64 development only. Mac execution is refused by the artifact helper.
 Use existing `develop` checkout, uv, managed Docker and normal network/CA policy.
