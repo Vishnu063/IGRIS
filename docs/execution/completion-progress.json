@@ -114,12 +114,15 @@
     {
       "number": 9,
       "title": "Authorized Playwright browser",
-      "status": "PENDING",
-      "implementation_commit": null,
-      "capabilities": [],
+      "status": "PASS",
+      "implementation_commit": "42030b29f6c4ff9153f641a878d3f438389e5ed6",
+      "capabilities": [
+        "Approved real browser inspection and screenshot of an owned offline site, with genuine destination/action rejection, Chromium sandbox and cleanup."
+      ],
       "external_requirements": [],
-      "implementation_status": "PENDING",
-      "external_verification": "PENDING"
+      "implementation_status": "VERIFIED",
+      "external_verification": "NOT_REQUIRED",
+      "report": "docs/execution/completion-task-09.md"
     },
     {
       "number": 10,
