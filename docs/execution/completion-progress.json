@@ -75,12 +75,15 @@
     {
       "number": 6,
       "title": "Activate fifteen specialists",
-      "status": "PENDING",
-      "implementation_commit": null,
-      "capabilities": [],
+      "status": "PASS",
+      "implementation_commit": "2fc7810e804a4d1cdb386cc998f3faf84456da24",
+      "capabilities": [
+        "Fifteen owner-selected, individually approved real Hermes advisory specialists with current definition hashes, separate tool permissions and private result logging."
+      ],
       "external_requirements": [],
-      "implementation_status": "PENDING",
-      "external_verification": "PENDING"
+      "implementation_status": "VERIFIED",
+      "external_verification": "NOT_REQUIRED",
+      "report": "docs/execution/completion-task-06.md"
     },
     {
       "number": 7,
