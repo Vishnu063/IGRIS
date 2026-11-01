@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "verified_at": "2026-11-01T21:57:53.537337+05:30",
+  "observations": [
+    {
+      "decision_fixture": "approve",
+      "result": {
+        "elapsed_seconds": 12.568342106998898,
+        "execution_id": "1",
+        "mission_id": "d8b01041451640bc9f09d95898f2c073",
+        "origin": "real_n8n_cli",
+        "output": {
+          "left": 7,
+          "right": 5,
+          "total": 12
+        },
+        "request_id": "e348cd12e4f14de2970bb4edebefec0a",
+        "schema_version": 1,
+        "status": "completed",
+        "workflow_sha256": "b0ce295eac96bc455fe7a1222bbecb57895e654a8cc62245e6bd53666f634e7f"
+      },
+      "approval": [
+        "approved",
+        1
+      ],
+      "audit_events": [
+        "requested",
+        "approved",
+        "consumed",
+        "execution_succeeded"
+      ],
+      "wall_seconds": 74.11271092799143
+    },
+    {
+      "decision_fixture": "reject",
+      "result": {
+        "decision": "reject",
+        "executed": false,
+        "status": "blocked"
+      },
+      "approval": [
+        "denied",
+        0
+      ],
+      "audit_events": [
+        "requested",
+        "denied"
+      ],
+      "wall_seconds": 26.33161714700691
+    }
+  ],
+  "owner_inputs": "automated PTY owner fixtures; no model approval",
+  "inference": "not used; real native n8n calculation through IGRIS Guardian",
+  "external_workflows": "disabled; no service/account/HTTP endpoint connected",
+  "source_sha256": {
+    "src/igris/guardian/activities.py": "888b4ef31a0bf11409dc488a39c9fa97134ea4e7456b606b2d9fc06c7edfa39f",
+    "src/igris/guardian/approvals.py": "094e7cfd3b806cb2c8b1d4fa23ed1dc1494e2657ed1b8cdcae2a7f5c12267467",
+    "src/igris/guardian/policy.py": "283a993fcbf8a59b94d759cdd2c948395f425b1607e5cb62e7dc360e1f1fd68d",
+    "src/igris/isolated.py": "18840825c7c1af28b15a5f839845d2c112986345ab8639aa1db248dce1f6f590",
+    "src/igris/integrations/n8n_runtime.py": "2aa9719cbbc9e5411ca81365bcfd92e734df4707189f203308bf0073c139f276",
+    "src/igris/integrations/n8n_cli.py": "13ecb70c773dfe9f98d071122ed4b8c29c46eea3222ea4823a7093eb07c4c098",
+    "integrations/n8n/worker.py": "05e7466d791e0e495197937803e94322d5b914fed89d6d82913e4abdd256bf26",
+    "integrations/n8n/profile.json": "406dcd213f4e1b177d997c98cfcb66f1ebcabbec42524212ac983b71f5d12755",
+    "workflows/n8n-bounded-calculation.json": "fc9428c1373ed41cab4224c4c6a90b73b01fb0c2f1b97ca4ef3b1e876167778a",
+    "scripts/test_n8n_runtime_live.py": "81621b07a199a8f514c2225d4db55c7080523eaea4e6aaafc351df867efd714c"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "profile": "same pinned n8n image, flags and runtime mounts; fixed developer OS probe",
+  "observed": {
+    "uid": 1000,
+    "capabilities_effective": 0,
+    "no_new_privileges": true,
+    "root_readonly": true,
+    "runtime_mount_readonly": true,
+    "docker_socket_present": false,
+    "external_network_errno": 101,
+    "limits": {
+      "memory.max": "2147483648",
+      "pids.max": "128",
+      "cpu.max": "200000 100000"
+    }
+  },
+  "source_sha256": "18840825c7c1af28b15a5f839845d2c112986345ab8639aa1db248dce1f6f590"
+}

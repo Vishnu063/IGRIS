@@ -215,3 +215,8 @@ print('network and child process creation denied')'''
         with self.assertRaises(ProcessLookupError): os.kill(interrupted[0],0)
         self.assertIn(('unregistered','interrupted'),self.audit())
         self.assertTrue(self.send('get_current_time')['ok'])
+
+    def test_registered_n8n_profile_cannot_widen_readonly_broker(self):
+        result=self.send('n8n.calculate',{'left':7,'right':5})
+        self.assertFalse(result['ok'])
+        self.assertIn(('unregistered','denied'),self.audit())

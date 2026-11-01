@@ -1,0 +1,45 @@
+{
+  "original_sha256": "03e0727a67d34a2e8961e5ed62d6f126d0041108a55879336491d04c2072b94d",
+  "root_order": [
+    "name",
+    "lockfileVersion",
+    "requires",
+    "packages"
+  ],
+  "header": {
+    "name": "igris-task4-n8n",
+    "lockfileVersion": 3,
+    "requires": true
+  },
+  "package_json": "{\n  \"dependencies\": {\n    \"n8n\": \"2.45.7\"\n  }\n}\n",
+  "parts": [
+    {
+      "file": "part-001.json",
+      "sha256": "ed27a38c0c929a9706d3cab654bae89d3679c9f67dd4c2326d5350f0bf53704c"
+    },
+    {
+      "file": "part-002.json",
+      "sha256": "6d412da72e590eea1fb8d919ac6e9a632573c2ba922b469c7017380491d79598"
+    },
+    {
+      "file": "part-003.json",
+      "sha256": "5cf53da8a3709d99fc68c3624c6ceedb5e3427682b00e88141498d77d9395138"
+    },
+    {
+      "file": "part-004.json",
+      "sha256": "97d50e084da81f45c07e607df7121bc9097bd74a13b266bd218eddc6a49b32a3"
+    },
+    {
+      "file": "part-005.json",
+      "sha256": "21a58dd72c62949c97bf00d8fdd5a1cee9a38df28d34c006e4fcb1e166c3ddd0"
+    },
+    {
+      "file": "part-006.json",
+      "sha256": "7781f6b60c922d961c55ce920cb0c4f38b167333de5fcf9c579527f917037b96"
+    },
+    {
+      "file": "part-007.json",
+      "sha256": "ef9a68ea0c900b432b52e359b130e3c47357eb73247d7e9b109ceb3762f1e5ec"
+    }
+  ]
+}

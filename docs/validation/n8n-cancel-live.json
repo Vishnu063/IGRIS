@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "scope": "Actual approved n8n CLI startup process cancelled; no claim of transactional rollback or remote n8n API cancellation.",
+  "owner_authorization": "explicit automated owner fixture; real Policy/ApprovalStore/ExecutionPermit",
+  "observed_node_process": true,
+  "owned_container_removed": true,
+  "cancellation_seconds": 0.6970132840069709,
+  "approval": [
+    "approved",
+    1
+  ],
+  "audit_events": [
+    "requested",
+    "approved",
+    "consumed",
+    "execution_failed"
+  ],
+  "source_sha256": {
+    "src/igris/guardian/activities.py": "888b4ef31a0bf11409dc488a39c9fa97134ea4e7456b606b2d9fc06c7edfa39f",
+    "src/igris/integrations/n8n_runtime.py": "2aa9719cbbc9e5411ca81365bcfd92e734df4707189f203308bf0073c139f276",
+    "src/igris/isolated.py": "18840825c7c1af28b15a5f839845d2c112986345ab8639aa1db248dce1f6f590",
+    "scripts/test_n8n_cancel_live.py": "d600187e5bb4d71afafc5c1e5a8b0b8b7b792dc99296310414093b51c6e0b5d4"
+  }
+}

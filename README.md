@@ -154,3 +154,5 @@ reference-only strategy. MIT notices and provenance manifests are retained.
 See [Handy integration](docs/integrations/handy.md) for explicit offline file transcription and text fallback. Physical microphone and Mac acceptance are not verified. No voice service starts automatically.
 
 Optional English/Hindi/Marathi WAV generation and explicit language selection are described in [multilingual voice status](docs/integrations/multilingual-voice.md). Real human recognition, physical playback and M1 validation remain blocked; automatic spoken-language detection is not claimed.
+
+[Real n8n local calculation](docs/integrations/n8n-runtime.md) now requires Guardian owner approval and a pinned offline runtime. It exposes no public webhook and does not enable general workflows or change the original three chat tools.

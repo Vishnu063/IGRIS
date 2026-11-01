@@ -24,6 +24,7 @@ OPERATIONS = MappingProxyType({
     'get_current_time': Permission.READ,
     'list_workspace_files': Permission.READ,
     'read_workspace_file': Permission.READ,
+    'n8n.calculate': Permission.READ,
     'file.read': Permission.READ,
     'file.create': Permission.FILE_MODIFY,
     'python.version': Permission.TERMINAL,

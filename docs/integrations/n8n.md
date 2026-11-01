@@ -64,3 +64,5 @@ HTTP round trips against a fixture, not real n8n integration. The sandbox initia
 refused socket creation; tests passed after the supported command-level network
 permission was granted. Network permission is needed to run these tests in this
 cloud environment; no checks are skipped to hide the restriction.
+
+A separate opt-in [real bounded n8n CLI profile](n8n-runtime.md) is now verified. This legacy HTTP-contract adapter remains simulated.

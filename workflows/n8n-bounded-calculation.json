@@ -1,0 +1,15 @@
+{
+  "id": "IGRISCalc0000001",
+  "name": "IGRIS bounded local calculation",
+  "active": false,
+  "nodes": [
+    {"id": "manual", "name": "Manual start", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [0, 0], "parameters": {}},
+    {"id": "calculation", "name": "Calculation", "type": "n8n-nodes-base.set", "typeVersion": 3.4, "position": [240, 0], "parameters": {"assignments": {"assignments": [
+      {"id": "left", "name": "left", "type": "number", "value": 0},
+      {"id": "right", "name": "right", "type": "number", "value": 0},
+      {"id": "total", "name": "total", "type": "number", "value": "={{ (0) + (0) }}"}
+    ]}, "options": {}}}
+  ],
+  "connections": {"Manual start": {"main": [[{"node": "Calculation", "type": "main", "index": 0}]]}},
+  "settings": {"executionTimeout": 30, "executionOrder": "v1"}
+}

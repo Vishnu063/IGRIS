@@ -1,5 +1,6 @@
 """Trusted fixed-worker container transport. Never expose image/argv/mounts to AI."""
 import os
+import platform
 from pathlib import Path,PurePosixPath
 import re
 import selectors
@@ -31,12 +32,21 @@ class IsolatedWorker:
         self.cancel=cancel if cancel is not None else threading.Event()
         self.name=None
 
-    def run(self,image,program,mounts,*,component,timeout=180,memory='2g',payload=b'',output_limit=131072):
+    def run(self,image,program,mounts,*,component,timeout=180,memory='2g',payload=b'',output_limit=131072,mount_profile='repository'):
         """All selectors are trusted startup values; only payload/input files are data."""
+        if platform.system()!='Linux' or platform.machine()!='x86_64':raise AdapterUnavailable('Verified Linux x86_64 workers only; Mac/ARM requires a separately validated runtime.')
         if not re.fullmatch('sha256:[a-f0-9]{64}',image or ''):raise ContractError('Pinned installed worker image required.')
         if not re.fullmatch('[a-z][a-z0-9-]{0,20}',component) or memory not in ('1g','2g','3g') or not 0<timeout<=300:
             raise ContractError('Invalid trusted worker limits.')
         if output_limit not in (131072,2097152):raise ContractError('Invalid fixed output limit.')
+        extra_root=None
+        if mount_profile=='n8n-test-runtime' and component=='n8n':
+            import stat
+            extra_root=Path('/tmp/igris-task4-n8n')
+            info=extra_root.lstat()
+            if extra_root.resolve(strict=True)!=extra_root or not stat.S_ISDIR(info.st_mode) or info.st_uid!=os.getuid() or stat.S_IMODE(info.st_mode)!=0o700:
+                raise ContractError('Private pinned n8n test runtime required.')
+        elif mount_profile!='repository':raise ContractError('Unknown fixed mount profile.')
         if type(payload) is not bytes or len(payload)>32768:raise ContractError('Bounded worker request required.')
         base=docker_command();env=docker_environment()
         # Reuse the existing cross-process heavy-inference slot and orphan label.
@@ -53,7 +63,8 @@ class IsolatedWorker:
                 '--tmpfs','/tmp:rw,noexec,nosuid,size=536870912,mode=1777','--workdir','/tmp']
             for source,destination in mounts:
                 source=Path(source).absolute();target=PurePosixPath(destination)
-                if source.resolve(strict=True)!=source or not source.is_relative_to(ROOT) or not target.is_absolute() or '..' in target.parts or not str(target).startswith(('/input/','/models/','/opt/igris/')):
+                contained=source.is_relative_to(ROOT) or (extra_root is not None and source.is_relative_to(extra_root))
+                if source.resolve(strict=True)!=source or not contained or not target.is_absolute() or '..' in target.parts or not str(target).startswith(('/input/','/models/','/opt/igris/')):
                     raise ContractError('Invalid fixed worker mount.')
                 args+=['--mount',f'type=bind,src={source},dst={target},readonly']
             args += [image,*program]

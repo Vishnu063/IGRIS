@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "enabled_by_default": false,
+  "version": "2.45.7",
+  "npm_integrity": "sha512-nm1ZlfWBfqdZ0cy0o+TT1zdpGsfPzGPLtzYU62mghuI2za7r7nVhzriBF9YLiVeHMGTBdlVeeRLXQyKlacqudA==",
+  "image": "sha256:62574f46949d5fa83aefdec7219d2238456b739fcd98790bd493b3c85cb641b3",
+  "runtime_tree_sha256": "b41b11a9cf36e97f021ecd38fe6faa38fe3dd4c065d331ddfb913cca91c8f254",
+  "package_lock_sha256": "03e0727a67d34a2e8961e5ed62d6f126d0041108a55879336491d04c2072b94d",
+  "worker_sha256": "05e7466d791e0e495197937803e94322d5b914fed89d6d82913e4abdd256bf26",
+  "template_sha256": "fc9428c1373ed41cab4224c4c6a90b73b01fb0c2f1b97ca4ef3b1e876167778a",
+  "operation": "n8n.calculate",
+  "network": "none",
+  "public_endpoints": false,
+  "authorized_spend_inr": 0,
+  "native_provenance": {
+    "sqlite_url": "https://github.com/TryGhost/node-sqlite3/releases/download/v5.1.7/sqlite3-v5.1.7-napi-v6-linux-x64.tar.gz",
+    "sqlite_release_asset_id": 143894986,
+    "sqlite_asset_digest_from_github": null,
+    "sqlite_archive_sha256": "6d1f7a95e5aca90db1fd6a2839380a021d5ee23d46f2d7c520ded094da813fed",
+    "sqlite_binding_sha256": "c9bd0419f77efb3b5d3a691fda04e265f740ad8dc195f0b56003cdeac92e9a34",
+    "node_version": "24.19.0",
+    "node_sha256": "bc17c508ffeed0ec622934f9b7fa72f8e78da65350e63c3eceb56fa688aa5e12",
+    "provenance": "Official SQLite maintainer release over TLS; locally computed hashes pinned, not a signed reproducible-build attestation. Node is existing managed runtime, copied without modification."
+  }
+}
