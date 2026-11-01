@@ -127,12 +127,15 @@
     {
       "number": 10,
       "title": "MarkItDown documents",
-      "status": "PENDING",
-      "implementation_commit": null,
-      "capabilities": [],
+      "status": "PASS",
+      "implementation_commit": "57619094d630584dd420a02d93cc5e61932ce44f",
+      "capabilities": [
+        "Owner-approved genuine five-format document conversion and real-Hermes summary, with actual malformed-parser rejection and strict workspace/archive boundaries."
+      ],
       "external_requirements": [],
-      "implementation_status": "PENDING",
-      "external_verification": "PENDING"
+      "implementation_status": "VERIFIED",
+      "external_verification": "NOT_REQUIRED",
+      "report": "docs/execution/completion-task-10.md"
     },
     {
       "number": 11,

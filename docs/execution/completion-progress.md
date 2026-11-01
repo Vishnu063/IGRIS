@@ -11,7 +11,7 @@
 | 7 | Mission Control dashboard | PASS | VERIFIED | NOT_REQUIRED | 0780a08ad3664c6e2ef0ff3eb2f6437e7f0be721 |
 | 8 | Mem0 semantic memory | PASS | VERIFIED | NOT_REQUIRED | eaf4f45e1aa3c0de063e082f532034ef034f81a2 |
 | 9 | Authorized Playwright browser | PASS | VERIFIED | NOT_REQUIRED | 42030b29f6c4ff9153f641a878d3f438389e5ed6 |
-| 10 | MarkItDown documents | PENDING | PENDING | PENDING | — |
+| 10 | MarkItDown documents | PASS | VERIFIED | NOT_REQUIRED | 57619094d630584dd420a02d93cc5e61932ce44f |
 | 11 | Pydantic AI evaluation | PENDING | PENDING | PENDING | — |
 | 12 | Performance optimization | PENDING | PENDING | PENDING | — |
 | 13 | Mac M1 installation package | PENDING | PENDING | PENDING | — |
@@ -30,6 +30,7 @@ Statuses apply to actual acceptance, not merely code presence.
 - Task 7: Real local authenticated Mission Control with chat/history, exact approval controls, bounded real integrations, owner-selected specialists, resource/audit status and emergency stop.
 - Task 8: Optional real local semantic memory with explicit owner-approved facts, scoped retrieval, revision/deletion controls, real-Hermes enrichment, dashboard management and SQLite fallback.
 - Task 9: Approved real browser inspection and screenshot of an owned offline site, with genuine destination/action rejection, Chromium sandbox and cleanup.
+- Task 10: Owner-approved genuine five-format document conversion and real-Hermes summary, with actual malformed-parser rejection and strict workspace/archive boundaries.
 
 ## External requirements
 
