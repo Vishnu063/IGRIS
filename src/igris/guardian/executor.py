@@ -78,6 +78,12 @@ def execute(policy: Policy, workspace: Path, request: dict, *, approval_store: P
                     ApprovalStore(Path(approval_store)).tool_event(policy, request.get('request_id'), request.get('mission_id'), 'unregistered','unavailable','interrupted')
                 except Exception: pass  # Preserve cancellation; never report successful execution.
             raise
+        finally:
+            # communicate() interrupted before its first write can leave stdin
+            # open even after a subsequent reap. Close every owned pipe.
+            for stream in (proc.stdin, proc.stdout, proc.stderr):
+                if stream is not None:
+                    stream.close()
         if proc.returncode or len(output) > 32768:
             if tool_config is not None:
                 ApprovalStore(Path(approval_store)).tool_event(policy, request.get('request_id'), request.get('mission_id'), 'unregistered','unavailable','broker_failed')

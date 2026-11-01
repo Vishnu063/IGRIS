@@ -53,7 +53,7 @@ class Monitoring:
 
 
 def parse_export(raw, binding, *, origin='provided_export', now=None):
-    if origin not in ('provided_export', 'simulated') or type(raw) is not dict:
+    if origin not in ('provided_export', 'simulated', 'real_ops_pilot') or type(raw) is not dict:
         raise ContractError('Invalid evidence source.')
     try:
         encoded = json.dumps(raw, sort_keys=True, allow_nan=False).encode()

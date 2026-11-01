@@ -27,9 +27,7 @@ $ PYTHONPATH=src python3 -m igris.chat --remember --resume
 ```
 
 Native tools remain disabled. The legacy planner adapter is still unavailable;
-there is no always-running service. Installed n8n, Ops Pilot operations and
-speech engines remain unverified. Specialist execution is a bounded simulation. Dashboard data
-is supplied locally; no live service health is implied. Production deployment,
+there is no always-running service. Task 4 verifies a bounded real n8n CLI workflow; Task 5 verifies read-only Ops Pilot monitoring of a disposable Docker application. Speech synthesis is real in cloud tests, while microphone, human speech quality and Mac playback remain blocked. Specialist execution remains a bounded simulation until Task 6. Dashboard data is supplied locally; no existing production service health is implied. Production deployment,
 paid activation and external client submission remain disabled.
 
 **Guardian-controlled tools are now verified** through real Hermes JSON
@@ -46,8 +44,7 @@ $ PYTHONPATH=src python3 -m igris.chat --remember --tools-config runtime/guardia
 
 The helper refuses to overwrite an existing demo. If this workspace already has
 the prepared profile, use its existing file. No shell, writes, Git, browser or
-external network tool is exposed. Approval-required chat actions stay blocked;
-there is no interactive approval issuer. This is development verification, with
+external network tool is exposed. Approval-required chat actions require the opt-in controlling-terminal channel described below. This is development verification, with
 same-user/database-tampering and hardware limits documented in the report.
 
 The remaining work is tracked in [completion progress](docs/execution/completion-progress.md).
@@ -156,3 +153,7 @@ See [Handy integration](docs/integrations/handy.md) for explicit offline file tr
 Optional English/Hindi/Marathi WAV generation and explicit language selection are described in [multilingual voice status](docs/integrations/multilingual-voice.md). Real human recognition, physical playback and M1 validation remain blocked; automatic spoken-language detection is not claimed.
 
 [Real n8n local calculation](docs/integrations/n8n-runtime.md) now requires Guardian owner approval and a pinned offline runtime. It exposes no public webhook and does not enable general workflows or change the original three chat tools.
+
+Task 5: [real read-only Ops Pilot runtime](docs/integrations/ops-runtime.md),
+[actual healthy/stopped Docker evidence](docs/validation/ops-runtime-live.json).
+No existing deployment is connected and remediation stays disabled.

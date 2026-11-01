@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "enabled_by_default": false,
+  "image": "sha256:62574f46949d5fa83aefdec7219d2238456b739fcd98790bd493b3c85cb641b3",
+  "sources": {
+    "ops-pilot": "930a7c7dde4eb718bfe43fca18608472985f32f6eb284f5ab2c92b902e6fdf85",
+    "triage": "74a52f3ae627d4999d70a84b143621ad35a9b840f377de793c2c9c6beaae4edc"
+  },
+  "files": {
+    "runtime/ops/docker": "27f239f97492c434e091a70b41b8796c698f0aa2b6052c6f9c28da4ee7ae888b",
+    "integrations/ops/worker.py": "b4624bbb7296c0a20db28d0d59570fbf80848d02947909126336bc97937d6424",
+    "integrations/ops/fixture_app.py": "0f181a64d4c3b95381da5096b74a4349b9ef88a2b6d53854d83a1ecfe8f04301"
+  },
+  "source_provenance": [
+    {
+      "repository": "Vishnu063/ops-pilot",
+      "revision": "57c46ce40a62a2cb129a1034f631b928831c265f",
+      "archive_sha256": "99cc86988c630301467210cdf5c79313979e01082e8fc4a4a603e7b7daa92b7b",
+      "archive_bytes": 1701783,
+      "directory": "runtime/ops/ops-pilot"
+    },
+    {
+      "repository": "Vishnu063/devops-triage-assistant",
+      "revision": "d466ca4e1cdd93d02274145c0b12e73f76863b6d",
+      "archive_sha256": "ee57cd27bebb79748bf4d98e941eaecfbbd30a8c7a3e0374daf3041499d29ce9",
+      "archive_bytes": 193977,
+      "directory": "runtime/ops/triage"
+    }
+  ],
+  "operation": "ops.monitor",
+  "mutations_enabled": false,
+  "network": "none",
+  "authorized_spend_inr": 0
+}
