@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "actual_real_chat_before_backup": "OK",
+  "actual_real_recall_after_restore": "CedarLynx",
+  "data_restored": {
+    "restored": true,
+    "conversations": 1,
+    "facts": 1,
+    "approvals_restored": 0,
+    "pending_requests_restored": 0,
+    "credentials_restored": false,
+    "execution_resumed": false,
+    "semantic_index_restored": false
+  },
+  "old_approved_unused_action_denied": true,
+  "snapshot_sha256": "0e354ca981913de37d6b9592c8a93cabfcafbd7cbc16d2f3219717cb330f1355",
+  "facts_preserved": true,
+  "approvals_restored": 0,
+  "mocked": false,
+  "owner_inputs": "Explicit synthetic owner fixture data and decisions.",
+  "source_sha256": {
+    "src/igris/chat_backup.py": "fd275ca7f37bb964a8b752057c1bcdf63185c93c801890f4cae627a6ee5e70e4",
+    "scripts/test_chat_backup_live.py": "a6a15e4aa29deda7de7c7a10832432d291e809027b39e6588e0a8b806f363133"
+  }
+}

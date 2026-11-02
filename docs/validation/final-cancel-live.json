@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "actual_worker_observed": true,
+  "response_discarded": true,
+  "cleanup_verified": true,
+  "cancellation_seconds": 0.718296064005699,
+  "scope": "Only adapter-tracked worker; no broad stop command."
+}

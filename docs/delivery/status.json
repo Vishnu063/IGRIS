@@ -24,5 +24,7 @@
   "mac_m1_verified": false,
   "hosted_github_actions_dispatched": false,
   "source_review": "self-review; full upstream dependency/security audit outstanding",
-  "project_wide_license_for_igris_specific_code": "not selected"
+  "project_wide_license_for_igris_specific_code": "not selected",
+  "historical_snapshot": true,
+  "current_status": "docs/delivery/completion-status.json"
 }

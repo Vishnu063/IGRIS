@@ -3,6 +3,8 @@
 IGRIS is a cloud-first development prototype for software, automation, business
 planning and DevOps work with a restricted independent execution broker.
 
+**Current release acceptance: BLOCKED — 9 tasks PASS, 5 BLOCKED, 0 FAIL.** Real cloud chat, Guardian tools, approvals and selected integrations work within their documented scopes. n8n is quarantined; native Mac and human voice acceptance remain unavailable. See [current final review](docs/delivery/completion-final-report.md) and [live versus unverified matrix](docs/validation/completion-integration-matrix.md).
+
 ## Actual implementation state
 
 Tested local libraries provide mission control, Guardian permissions and exact
@@ -27,7 +29,7 @@ $ PYTHONPATH=src python3 -m igris.chat --remember --resume
 ```
 
 Native tools remain disabled. The legacy planner adapter is still unavailable;
-there is no always-running service. Task 4 verifies a bounded real n8n CLI workflow; Task 5 verifies read-only Ops Pilot monitoring of a disposable Docker application. Speech synthesis is real in cloud tests, while microphone, human speech quality and Mac playback remain blocked. Task 6 adds opt-in real role-conditioned advisory specialist responses; the legacy scheduler remains simulated. Mission Control uses real backend data when explicitly enabled; no existing production service health is implied. Production deployment,
+there is no always-running service. **Task 14 quarantines the previously verified n8n runtime after critical/high dependency findings; n8n execution is currently blocked.** Task 4 retains its historical live evidence; Task 5 verifies read-only Ops Pilot monitoring of a disposable Docker application. Speech synthesis is real in cloud tests, while microphone, human speech quality and Mac playback remain blocked. Task 6 adds opt-in real role-conditioned advisory specialist responses; the legacy scheduler remains simulated. Mission Control uses real backend data when explicitly enabled; no existing production service health is implied. Production deployment,
 paid activation and external client submission remain disabled.
 
 **Guardian-controlled tools are now verified** through real Hermes JSON
@@ -47,7 +49,7 @@ the prepared profile, use its existing file. No shell, writes, Git, browser or
 external network tool is exposed. Approval-required chat actions require the opt-in controlling-terminal channel described below. This is development verification, with
 same-user/database-tampering and hardware limits documented in the report.
 
-The remaining work is tracked in [completion progress](docs/execution/completion-progress.md).
+The current completion and blocked work are tracked in [completion progress](docs/execution/completion-progress.md).
 Task 1 adds opt-in [controlling-terminal approvals](docs/security/interactive-approvals.md):
 the exact action is reviewed separately from chat, expires, and executes once
 through Guardian. Enable with `--interactive-approvals` and a private profile
@@ -60,7 +62,7 @@ Development takes place on `develop`. This cloud-first project must not install
 software on the owner's Mac, activate paid services, or deploy to production.
 The initial spending allowance is ₹0.
 
-Delivery: [consolidated report](docs/delivery/final-report.md),
+Current delivery: [completion release review](docs/delivery/completion-final-report.md), [current startup](docs/delivery/setup.md). Historical Step 50 delivery: [original consolidated report](docs/delivery/final-report.md),
 [cloud setup](docs/delivery/setup.md), [exact capability status](docs/delivery/status.json)
 and [later Mac plan](docs/delivery/mac-plan.md). All 50 numbered records describe
 scoped local work; live activation and hardware checks remain pending.

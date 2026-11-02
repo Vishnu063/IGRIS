@@ -50,12 +50,24 @@ class RealN8n:
         self.profile_bytes=self.profile_path.read_bytes();self.profile=json.loads(self.profile_bytes)
         self.template=self.template_path.read_text()
 
+    def security_status(self):
+        try:
+            data=json.loads((ROOT/'integrations/n8n/security-status.json').read_text(),object_pairs_hook=unique)
+            if data.get('status')=='PASS' and data.get('runtime_tree_sha256')==self.profile['runtime_tree_sha256']:
+                return 'PASS'
+        except (OSError,ValueError,AttributeError):pass
+        return 'BLOCKED_SECURITY_AUDIT'
+
+    def require_security_review(self):
+        if self.security_status()!='PASS':raise AdapterUnavailable('Pinned n8n quarantined after dependency audit; no workflow execution permitted.')
+
     def normalize(self,raw):
         if type(raw) is not dict or set(raw)!={'left','right'} or any(type(raw[k]) is not int or not -1000<=raw[k]<=1000 for k in raw):raise ContractError('Only two bounded integer operands are allowed.')
         return dict(raw,workflow_sha256=hashlib.sha256(render(self.template,raw['left'],raw['right'])).hexdigest())
 
     def scope(self,cancel):
         if not self.enabled:raise AdapterUnavailable('Real n8n disabled; no invocation attempted.')
+        self.require_security_review()
         profile=self.profile
         if self.profile_path.read_bytes()!=self.profile_bytes or hashlib.sha256(self.template_path.read_bytes()).hexdigest()!=profile['template_sha256']:raise ContractError('Workflow or runtime profile changed.')
         worker=ROOT/'integrations/n8n/worker.py'
@@ -66,6 +78,7 @@ class RealN8n:
 
     def execute(self,arguments,cancel,permit):
         if not self.enabled or type(permit) is not ExecutionPermit:raise Denied('Current Guardian execution lease required.')
+        self.require_security_review()
         review=permit.consume('n8n.calculate',arguments)
         payload={'schema_version':1,'request_id':review.request_id,'mission_id':review.mission_id,'arguments':arguments}
         raw=IsolatedWorker(cancel=cancel).run(self.profile['image'],['/opt/igris/python/bin/python3.14','-I','-S','/opt/igris/worker.py'],

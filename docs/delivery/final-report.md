@@ -1,3 +1,5 @@
+> Historical Step 50 snapshot. Later real integrations and current release blockers are recorded in [the completion release review](completion-final-report.md). Statements below describe the original delivery date.
+
 # IGRIS consolidated delivery — Step 50
 
 Repository: https://github.com/Vishnu063/IGRIS, development branch `develop`.

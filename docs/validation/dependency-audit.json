@@ -1,0 +1,992 @@
+{
+  "status": "PASS",
+  "source": "OSV public PyPI version queries",
+  "queried_at_utc": "2026-11-02T01:13:19.559433+00:00",
+  "script_sha256": "b269bddb13b076b0273e6c77fcfafd612f528340eb06a6247c6fa17c437fd9e8",
+  "package_count": 105,
+  "inventory": [
+    {
+      "name": "annotated-types",
+      "version": "0.8.0",
+      "components": [
+        "hermes",
+        "mem0"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "anyio",
+      "version": "4.15.1",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "anyio",
+      "version": "4.16.0",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "backoff",
+      "version": "2.2.1",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "beautifulsoup4",
+      "version": "4.15.0",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT License"
+    },
+    {
+      "name": "certifi",
+      "version": "2026.10.19",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": "MPL-2.0"
+    },
+    {
+      "name": "certifi",
+      "version": "2026.10.23",
+      "components": [
+        "mem0",
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "MPL-2.0"
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1",
+      "components": [
+        "hermes",
+        "markitdown"
+      ],
+      "license_expression": "MIT-0",
+      "license_metadata": ""
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.2",
+      "components": [
+        "hermes",
+        "mem0",
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "click",
+      "version": "8.5.0",
+      "components": [
+        "mem0",
+        "markitdown"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "cobble",
+      "version": "0.1.4",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": ""
+    },
+    {
+      "name": "croniter",
+      "version": "6.2.4",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.2",
+      "components": [
+        "hermes",
+        "markitdown"
+      ],
+      "license_expression": "Apache-2.0 OR BSD-3-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "defusedxml",
+      "version": "0.7.1",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "PSFL"
+    },
+    {
+      "name": "distro",
+      "version": "1.9.0",
+      "components": [
+        "hermes",
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": "Apache License, Version 2.0"
+    },
+    {
+      "name": "et_xmlfile",
+      "version": "2.0.0",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "fastembed",
+      "version": "0.9.1",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "Apache-2.0",
+      "license_metadata": ""
+    },
+    {
+      "name": "filelock",
+      "version": "4.2.6",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "fire",
+      "version": "0.7.1",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "flatbuffers",
+      "version": "25.12.19",
+      "components": [
+        "mem0",
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "Apache 2.0"
+    },
+    {
+      "name": "fsspec",
+      "version": "2026.9.0",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "grpcio",
+      "version": "1.85.1",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "Apache-2.0",
+      "license_metadata": ""
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "components": [
+        "hermes",
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "h2",
+      "version": "4.4.1",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "hf-xet",
+      "version": "1.8.0",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "Apache-2.0",
+      "license_metadata": ""
+    },
+    {
+      "name": "hpack",
+      "version": "4.2.0",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "httpcore",
+      "version": "1.0.9",
+      "components": [
+        "hermes",
+        "mem0"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "httpcore2",
+      "version": "2.16.0",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1",
+      "components": [
+        "hermes",
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": "BSD-3-Clause"
+    },
+    {
+      "name": "httpx2",
+      "version": "2.16.0",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "huggingface_hub",
+      "version": "1.33.0",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "hyperframe",
+      "version": "6.1.0",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": "The MIT License (MIT)\n        \n        Copyright (c) 2014 Cory Benfield\n        \n        Permission is hereby granted, free of charge, to any person obtaining a copy\n        of thi"
+    },
+    {
+      "name": "idna",
+      "version": "3.20",
+      "components": [
+        "hermes",
+        "mem0",
+        "markitdown"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "Jinja2",
+      "version": "3.1.6",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": ""
+    },
+    {
+      "name": "jiter",
+      "version": "0.18.0",
+      "components": [
+        "hermes",
+        "mem0"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "loguru",
+      "version": "0.7.3",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": ""
+    },
+    {
+      "name": "lxml",
+      "version": "6.1.3",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "BSD-3-Clause"
+    },
+    {
+      "name": "magika",
+      "version": "1.0.3",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "mammoth",
+      "version": "1.13.0",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "BSD-2-Clause"
+    },
+    {
+      "name": "Markdown",
+      "version": "3.11.2",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "markdown-it-py",
+      "version": "4.2.0",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": ""
+    },
+    {
+      "name": "markdownify",
+      "version": "1.2.3",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": ""
+    },
+    {
+      "name": "markitdown",
+      "version": "0.1.9",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "MarkupSafe",
+      "version": "3.0.4",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "mdurl",
+      "version": "0.1.2",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": ""
+    },
+    {
+      "name": "mem0ai",
+      "version": "2.2.1",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "Apache-2.0",
+      "license_metadata": ""
+    },
+    {
+      "name": "mmh3",
+      "version": "5.3.1",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT License\n        \n        Copyright (c) 2011-2026 Hajime Senuma\n        \n        Permission is hereby granted, free of charge, to any person obtaining a copy\n        of this sof"
+    },
+    {
+      "name": "nemo-relay",
+      "version": "0.10.4",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": "Apache-2.0",
+      "license_metadata": ""
+    },
+    {
+      "name": "numpy",
+      "version": "2.5.4",
+      "components": [
+        "mem0",
+        "markitdown"
+      ],
+      "license_expression": "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0",
+      "license_metadata": ""
+    },
+    {
+      "name": "onnxruntime",
+      "version": "1.31.1",
+      "components": [
+        "mem0",
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT License"
+    },
+    {
+      "name": "openai",
+      "version": "2.54.0",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "openai",
+      "version": "3.42.0",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "Apache-2.0",
+      "license_metadata": ""
+    },
+    {
+      "name": "openpyxl",
+      "version": "3.1.5",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3",
+      "components": [
+        "hermes",
+        "mem0",
+        "markitdown"
+      ],
+      "license_expression": "Apache-2.0 OR BSD-2-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "pandas",
+      "version": "3.1.0",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "pathspec",
+      "version": "1.1.1",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": ""
+    },
+    {
+      "name": "pdfminer.six",
+      "version": "20260107",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "pdfplumber",
+      "version": "0.11.10",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": ""
+    },
+    {
+      "name": "pillow",
+      "version": "13.0.0",
+      "components": [
+        "hermes",
+        "mem0",
+        "markitdown"
+      ],
+      "license_expression": "MIT-CMU",
+      "license_metadata": ""
+    },
+    {
+      "name": "portalocker",
+      "version": "4.4.2",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "posthog",
+      "version": "7.81.1",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "prompt_toolkit",
+      "version": "3.0.53",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": ""
+    },
+    {
+      "name": "protobuf",
+      "version": "6.33.6",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": "3-Clause BSD License"
+    },
+    {
+      "name": "protobuf",
+      "version": "7.36.2",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "3-Clause BSD License"
+    },
+    {
+      "name": "psutil",
+      "version": "7.2.2",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": "BSD-3-Clause"
+    },
+    {
+      "name": "ptyprocess",
+      "version": "0.7.0",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": "UNKNOWN"
+    },
+    {
+      "name": "py_rust_stemmers",
+      "version": "0.1.8",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": ""
+    },
+    {
+      "name": "pycparser",
+      "version": "3.12",
+      "components": [
+        "hermes",
+        "markitdown"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "pydantic",
+      "version": "2.14.1",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "pydantic",
+      "version": "2.14.2",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.50.1",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.50.2",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "Pygments",
+      "version": "2.21.0",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": "BSD-2-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "PyJWT",
+      "version": "2.15.1",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "pypdfium2",
+      "version": "5.14.0",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "BSD-3-Clause, Apache-2.0, dependency licenses"
+    },
+    {
+      "name": "python-dateutil",
+      "version": "3.0.0",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": "Dual License"
+    },
+    {
+      "name": "python-dateutil",
+      "version": "4.0.0",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_metadata": ""
+    },
+    {
+      "name": "python-dotenv",
+      "version": "1.2.4",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": "BSD-3-Clause"
+    },
+    {
+      "name": "python-pptx",
+      "version": "1.0.2",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "pytz",
+      "version": "2026.6",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "PyYAML",
+      "version": "6.0.3",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "qdrant-client",
+      "version": "1.20.0",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "requests",
+      "version": "2.34.2",
+      "components": [
+        "hermes",
+        "mem0",
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "rich",
+      "version": "14.3.4",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "ruamel.yaml",
+      "version": "0.18.16",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": "MIT license",
+      "license_metadata": ""
+    },
+    {
+      "name": "ruamel.yaml.clib",
+      "version": "0.2.15",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "six",
+      "version": "1.17.0",
+      "components": [
+        "hermes",
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT"
+    },
+    {
+      "name": "sniffio",
+      "version": "1.3.1",
+      "components": [
+        "hermes",
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "snowballstemmer",
+      "version": "3.1.1",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": "BSD-3-Clause"
+    },
+    {
+      "name": "socksio",
+      "version": "1.0.0",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": "UNKNOWN"
+    },
+    {
+      "name": "soupsieve",
+      "version": "3.0.4",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "SQLAlchemy",
+      "version": "2.1.6",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "tenacity",
+      "version": "9.2.1",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": "Apache-2.0",
+      "license_metadata": ""
+    },
+    {
+      "name": "termcolor",
+      "version": "3.3.0",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "tokenizers",
+      "version": "0.23.3",
+      "components": [
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": ""
+    },
+    {
+      "name": "tomli_w",
+      "version": "1.2.0",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": ""
+    },
+    {
+      "name": "tqdm",
+      "version": "4.70.1",
+      "components": [
+        "hermes",
+        "mem0"
+      ],
+      "license_expression": null,
+      "license_metadata": "MPL-2.0 AND MIT"
+    },
+    {
+      "name": "truststore",
+      "version": "0.10.5",
+      "components": [
+        "hermes",
+        "mem0"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.4",
+      "components": [
+        "hermes",
+        "mem0"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0",
+      "components": [
+        "hermes",
+        "mem0",
+        "markitdown"
+      ],
+      "license_expression": "PSF-2.0",
+      "license_metadata": ""
+    },
+    {
+      "name": "tzdata",
+      "version": "2026.6",
+      "components": [
+        "hermes",
+        "markitdown"
+      ],
+      "license_expression": null,
+      "license_metadata": "Apache-2.0"
+    },
+    {
+      "name": "urllib3",
+      "version": "2.8.0",
+      "components": [
+        "hermes",
+        "mem0",
+        "markitdown"
+      ],
+      "license_expression": "MIT",
+      "license_metadata": ""
+    },
+    {
+      "name": "wcwidth",
+      "version": "0.9.4",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": ""
+    },
+    {
+      "name": "websockets",
+      "version": "15.0.1",
+      "components": [
+        "hermes"
+      ],
+      "license_expression": null,
+      "license_metadata": "BSD-3-Clause"
+    },
+    {
+      "name": "xlsxwriter",
+      "version": "3.3.1",
+      "components": [
+        "markitdown"
+      ],
+      "license_expression": "BSD-2-Clause",
+      "license_metadata": ""
+    }
+  ],
+  "vulnerabilities": [],
+  "query_failures": [],
+  "scope": "Installed optional Python environments only; no claim about OS/npm/kernel or unaudited native binaries.",
+  "network_data": "Public package names/versions only; no credentials, prompts, files or account data."
+}

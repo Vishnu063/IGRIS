@@ -32,3 +32,15 @@ not claimed. The remaining copied Hermes features refer to other optional
 dependencies/services/models, which are not enabled by this profile.
 Model weights, voice rights, trademarks, hosted services and client data are not
 licensed by inclusion of these notices. No paid or production use is activated.
+
+## Completion-plan optional runtime additions
+
+These optional dependencies are not part of the standard-library core and no binary/model is committed. Keep upstream license files with any separately redistributed installation. The [license audit](docs/validation/license-audit.json) records metadata limitations and unresolved custom/unknown entries; it is not a blanket redistribution clearance.
+
+- Mem0 2.2.1: Apache-2.0; MiniLM/Qdrant ONNX model: Apache-2.0; ONNX Runtime MIT. Local extraction is disabled, with no paid provider configured.
+- Playwright 1.62.0: Apache-2.0; managed Chromium has BSD and many bundled third-party notices; Bubblewrap LGPL-2.0-or-later. No browser binary is redistributed in Git.
+- Microsoft MarkItDown 0.1.9: MIT; Office/PDF/HTML dependencies retain their individual notices.
+- Pydantic AI 2.64.0: MIT, inspected as a source wheel only and intentionally not integrated. Standalone Pydantic was used only for development evaluation.
+- Handy 0.9.8 and Whisper weights: MIT; eSpeak NG 1.51: GPL-3.0-or-later. No actor voice cloning or model relicensing. Native Mac/audio acceptance is blocked.
+- Lima 2.2.1: Apache-2.0; ARM64 candidates are metadata pins, not executed/distributed Mac binaries. CPython uses PSF licensing and llama.cpp MIT; Qwen3.5-2B weights retain Apache-2.0.
+- n8n 2.45.7: Sustainable Use License plus differently licensed components, including enterprise packages not enabled by IGRIS. The current runtime is quarantined after dependency audit; no unrestricted commercial redistribution eligibility or paid features are claimed.

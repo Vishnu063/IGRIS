@@ -1,3 +1,5 @@
+> Current status: BLOCKED / QUARANTINED after Task 14 dependency audit (173 affected lock entries, including 6 critical and 78 high). Existing opt-in flags cannot bypass the adapter gate. The live tests below are historical Task 4 evidence. A patched, pinned tree and renewed audit/acceptance are required. See [audit evidence](../validation/n8n-dependency-audit.json).
+
 # Real n8n: bounded private CLI profile
 
 The original N8nAdapter remains a labelled simulated HTTP-contract client.

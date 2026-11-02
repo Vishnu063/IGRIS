@@ -49,15 +49,19 @@
     {
       "number": 4,
       "title": "Real n8n integration",
-      "status": "PASS",
+      "status": "BLOCKED",
       "implementation_commit": "083be4212950e41793d1a83452e856d9b952d95d",
       "capabilities": [
-        "Real bounded n8n calculation after Guardian owner approval, with genuine rejection, cancellation and verified offline OS restrictions."
+        "Historical real bounded n8n calculation verified in Task 4; current runtime is quarantined and execution is blocked by the final security audit."
       ],
-      "external_requirements": [],
-      "implementation_status": "VERIFIED_BOUNDED_CLI",
-      "external_verification": "NOT_REQUIRED_FOR_CLOUD_ACCEPTANCE",
-      "report": "docs/execution/completion-task-04.md"
+      "external_requirements": [
+        "Patched, reviewed and re-audited n8n dependency tree, sufficient disposable storage for comparison, then renewed real workflow/isolation/cancellation acceptance before clearing quarantine."
+      ],
+      "implementation_status": "VERIFIED_THEN_QUARANTINED",
+      "external_verification": "BLOCKED_SECURITY_REMEDIATION",
+      "report": "docs/execution/completion-task-04.md",
+      "historical_task_status": "PASS",
+      "final_review_note": "Task 14 npm audit supersedes live Task 4 acceptance: 173 affected lock dependency entries, including 6 critical and 78 high; no unsafe automatic downgrade or audit fix applied."
     },
     {
       "number": 5,

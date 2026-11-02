@@ -1,0 +1,7 @@
+{
+  "status": "BLOCKED",
+  "runtime_tree_sha256": "b41b11a9cf36e97f021ecd38fe6faa38fe3dd4c065d331ddfb913cca91c8f254",
+  "reason": "Final dependency audit reports unresolved critical/high findings; runtime quarantined.",
+  "evidence": "docs/validation/n8n-dependency-audit.json",
+  "bypass_allowed": false
+}

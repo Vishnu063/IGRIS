@@ -25,3 +25,8 @@ class N8nRuntimeTests(unittest.TestCase):
         self.assertEqual(json.loads(canonical({'epoch':1793500000}))['epoch'],1793500000)
         for value in ({'text':'+91 9876543210'},{'password':'synthetic-placeholder'}):
             with self.assertRaises(Denied):canonical(value)
+
+    def test_audited_runtime_is_quarantined_even_when_opted_in(self):
+        adapter=RealN8n(enabled=True)
+        self.assertEqual(adapter.security_status(),'BLOCKED_SECURITY_AUDIT')
+        with self.assertRaises(AdapterUnavailable):adapter.scope(threading.Event())

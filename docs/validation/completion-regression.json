@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "tests": 280,
+  "seconds": 36.642,
+  "command": "$ python3 -m unittest discover -s tests -q",
+  "output_sha256": "4ca769f66a106788084c7ebc763b13b16e719a0e671ca00a13034cb207037678",
+  "mocking": "Regression includes explicitly named fixture adapters; live acceptance is recorded separately.",
+  "source_tree_note": "Tested worktree; implementation SHA recorded after verified source commit."
+}

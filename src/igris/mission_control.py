@@ -45,7 +45,7 @@ class MissionControl:
         if enable_specialists:profiles.append(self.specialists.registration());permissions.add(Permission.SPECIALIST);self.components['specialists']['status']='enabled_on_request'
         if enable_n8n:
             from .integrations.n8n_runtime import RealN8n
-            adapter=RealN8n(enabled=True);profiles.append(adapter.registration());permissions.add(Permission.READ);self.components['n8n']['status']='configured_on_request'
+            adapter=RealN8n(enabled=True);profiles.append(adapter.registration());permissions.add(Permission.READ);self.components['n8n']['status']='configured_on_request' if adapter.security_status()=='PASS' else 'blocked_security_audit'
         if ops_instance:
             from .integrations.ops_runtime import RealOpsMonitor
             adapter=RealOpsMonitor(ops_instance,enabled=True);profiles.append(adapter.registration());permissions.add(Permission.READ);self.components['ops_pilot'].update(status='configured_on_request',target_container_id=adapter.config['container_id'])

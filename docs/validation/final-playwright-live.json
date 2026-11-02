@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "result": {
+    "status": "completed",
+    "origin": "real_playwright",
+    "title": "IGRIS owned browser fixture",
+    "text": "IGRIS browser acceptance\n\nApproved inspection: 7 + 5 = 12.\n\nForbidden submission\nForbidden destination",
+    "screenshot_sha256": "1bd3eed1b49891decec93839dc8ace0696eae0d7baca9119d517dc4749e6480b",
+    "sandbox": "Sandbox Status\nLayer 1 Sandbox\tNamespace\nPID namespaces\tYes\nNetwork namespaces\tYes\nSeccomp-BPF sandbox\tYes\nSeccomp-BPF sandbox supports TSYNC\tYes\nPtrace Protection with Yama LSM (Broker)\tNo\nPtrace Protection with Yama LSM (Non-broker)\tNo\n\nYou are adequately sandboxed.",
+    "network_denied": true,
+    "blocked_requests": 3,
+    "seconds": 4.488,
+    "peak_rss_kib": 132700,
+    "artifact": "runtime/playwright/1bd3eed1b49891decec93839dc8ace0696eae0d7baca9119d517dc4749e6480b.png"
+  },
+  "checks": [
+    "unauthorized_arguments_denied",
+    "unauthorized_arguments_denied",
+    "unauthorized_arguments_denied",
+    "missing_approval_denied",
+    "replay_denied",
+    "actual_worker_cancellation_and_namespace_cleanup"
+  ],
+  "owner_inputs": "Automated trusted owner fixtures, not AI approval.",
+  "elapsed_seconds": 10.688,
+  "source_sha256": {
+    "src/igris/integrations/playwright_runtime.py": "72af44439b2a39dfcf7bf9d1fa724902b3fe4238fabe31dd7b5d7985ab65e9ea",
+    "integrations/playwright/worker.py": "44dddcb93ffb5c397c0c9e0c2a41d7a572ddb49ed8e5392a30eda09cc8d24ce7",
+    "scripts/test_playwright_live.py": "cbc6f452b9169fbef19df29121fe698ca301a72c901ae385605c3fb0eb60d7f6"
+  }
+}

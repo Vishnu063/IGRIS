@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "source_sha256": {
+    "src/igris/specialists/live.py": "2676ee6596b487808d2d91acb3544e678d5fa00ef378e198a6922ae12a9ecdac",
+    "scripts/hermes_specialist_worker.py": "08be4fdf302a5f8e32307f1c16fe75033c40972c7b338f67cb9ee5c7a06ad9d2",
+    "src/igris/adapters/hermes_chat.py": "386a8251b7d97ec451aa0a5e28e39c9c33ee8f0e96c41a901c6b03ebb83cf8e1",
+    "scripts/test_specialists_live.py": "1db7a920fec08697a81577100ea0098a6d210703d14586510265651a23b1e7dd"
+  },
+  "responses": [
+    {
+      "role": "frontend",
+      "prompt": "Write valid HTML for an email label associated with an email input. Put the for attribute on the label and the matching id on the input. Return only these two HTML elements.",
+      "result": {
+        "role": "frontend",
+        "definition_sha256": "fbeb388704ad0c8453537c3031139416eacf355fafa1ecae8315b1708c3c4db1",
+        "text": "<label for=\"emailInput\">Email Address</label>\n<input id=\"emailInput\" type=\"email\" />",
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "api_calls": 1,
+        "task": "frontend_plan",
+        "mission_id": "59c2153143d04b98877a859764469c59",
+        "executed_actions": false
+      },
+      "wall_seconds": 54.13110246999713,
+      "correctness_checks": [
+        "(?i)<label[^>]*for=",
+        "(?i)<input[^>]*id="
+      ],
+      "passed": true
+    }
+  ],
+  "approvals_consumed": 1,
+  "owner_inputs": "Automated trusted owner fixtures, not model decisions.",
+  "real_vs_simulated": "One actual selected frontend response generated in this final replay; fifteen prior scoped real responses are recorded in Task 6.",
+  "metadata_note": "Generic all-fifteen label normalized to actual selected count; model response, approval count, timings and measured source hashes unchanged."
+}

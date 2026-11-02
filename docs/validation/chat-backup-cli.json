@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "actual_cli_create_restore_without_mem0": true,
+  "data": "Empty synthetic owner-approved conversation; no inference in this CLI check.",
+  "result": {
+    "restored": true,
+    "conversations": 1,
+    "facts": 0,
+    "approvals_restored": 0,
+    "pending_requests_restored": 0,
+    "credentials_restored": false,
+    "execution_resumed": false,
+    "semantic_index_restored": false
+  },
+  "source_sha256": "e53dae19813174bf90a84b8a0c7d1c48bb6acb84f5db2758995d5e88aa087e0e"
+}

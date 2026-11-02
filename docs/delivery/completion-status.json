@@ -1,0 +1,61 @@
+{
+  "recorded_at_utc": "2026-11-02T01:31:42.657236+00:00",
+  "release_status": "BLOCKED",
+  "task_counts": {
+    "PASS": 9,
+    "BLOCKED": 5,
+    "FAIL": 0
+  },
+  "task_count_note": "Current acceptance; Task 4 historical PASS superseded by Task 14 dependency quarantine.",
+  "source_commit": null,
+  "branch": "develop",
+  "regression": {
+    "tests": 280,
+    "seconds": 36.642,
+    "status": "PASS"
+  },
+  "n8n_current_status": "BLOCKED_SECURITY_AUDIT",
+  "production_deployed": false,
+  "mac_installed": false,
+  "mac_m1_verified": false,
+  "paid_services_activated": false,
+  "main_merged": false,
+  "hosted_actions_dispatched": false,
+  "authorized_spend_inr": 0,
+  "voice_hardware_verified": false,
+  "human_multilingual_asr_verified": false,
+  "model": "Qwen3.5-2B Q4_K_M, local zero-paid-API inference",
+  "evidence_files": [
+    "docs/validation/chat-backup-live.json",
+    "docs/validation/chat-backup-cli.json",
+    "docs/validation/final-guardian-live.json",
+    "docs/validation/final-ops-live.json",
+    "docs/validation/final-specialist-live.json",
+    "docs/validation/final-mem0-dashboard-live.json",
+    "docs/validation/final-playwright-live.json",
+    "docs/validation/final-dashboard-layout.json",
+    "docs/validation/final-cancel-live.json",
+    "docs/validation/n8n-quarantine-live.json",
+    "docs/validation/dependency-audit.json",
+    "docs/validation/n8n-dependency-audit.json",
+    "docs/validation/license-audit.json",
+    "docs/validation/warm-hermes-live.json",
+    "docs/validation/warm-protocol-live.json",
+    "docs/validation/mac-package-cloud.json",
+    "docs/validation/markitdown-live.json",
+    "docs/validation/mem0-live.json",
+    "docs/validation/specialists-live.json",
+    "docs/validation/handy-live.json",
+    "docs/validation/multilingual-voice-live.json"
+  ],
+  "limitations": [
+    "n8n lock audit reports 173 affected entries, including 6 critical and 78 high; runtime quarantined.",
+    "Mac M1/ARM64 enforcement and native microphone/speech/playback require later explicit authorization and hardware.",
+    "Handy image archived; cloud storage needed before restoring and re-verifying ASR.",
+    "Small-model advice can be wrong; tool scope stays finite.",
+    "Same-user/admin tampering, database rollback, native/kernel vulnerabilities and full license clearance remain outside verified guarantees."
+  ],
+  "startup_document": "docs/delivery/setup.md",
+  "security_review": "docs/security/completion-review.md",
+  "integration_matrix": "docs/validation/completion-integration-matrix.md"
+}

@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "release_status": "BLOCKED",
+  "actual_runtime_gate_denied": true,
+  "guardian_denial_audited": true,
+  "no_approval_issued": true,
+  "dashboard_reports_blocked": true,
+  "unsafe_workflow_executed": false,
+  "mocked": false,
+  "source_sha256": {
+    "src/igris/integrations/n8n_runtime.py": "080b0cef9a2fa0a5926521031bcb386011c2134f70afca947d30d25339e52708",
+    "src/igris/mission_control.py": "41dd1c4dde04ee20a46c06f5a19b81102b74054b303c6e9ca74494f5f7e04f92",
+    "integrations/n8n/security-status.json": "df557f479350d05fa4b2e9c8de51c16535859aaa9056d57cbf38e58f2d7d2ce7",
+    "scripts/test_n8n_quarantine_live.py": "a6797f543c93797e44169a60f10b702b58f6ea2787f1cb9ed345eaf8166db174"
+  }
+}

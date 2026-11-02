@@ -1,0 +1,307 @@
+{
+  "status": "REVIEWED_WITH_LIMITATIONS",
+  "inventory_entries": 2205,
+  "license_counts": {
+    "MIT": 1363,
+    "MIT License": 3,
+    "MPL-2.0": 3,
+    "MIT-0": 4,
+    "BSD-3-Clause": 65,
+    "UNKNOWN": 32,
+    "Apache-2.0 OR BSD-3-Clause": 1,
+    "PSFL": 1,
+    "Apache License, Version 2.0": 1,
+    "Apache-2.0": 493,
+    "Apache 2.0": 1,
+    "The MIT License (MIT)\n        \n        Copyright (c) 2014 Cory Benfield\n        \n        Permission is hereby granted, free of charge, to any person obtaining a copy\n        of thi": 1,
+    "BSD-2-Clause": 48,
+    "MIT License\n        \n        Copyright (c) 2011-2026 Hajime Senuma\n        \n        Permission is hereby granted, free of charge, to any person obtaining a copy\n        of this sof": 1,
+    "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0": 1,
+    "Apache-2.0 OR BSD-2-Clause": 1,
+    "MIT-CMU": 1,
+    "3-Clause BSD License": 2,
+    "BSD-3-Clause, Apache-2.0, dependency licenses": 1,
+    "Dual License": 1,
+    "MIT license": 1,
+    "MIT OR Apache-2.0": 1,
+    "MPL-2.0 AND MIT": 1,
+    "PSF-2.0": 1,
+    "0BSD": 9,
+    "BlueOak-1.0.0": 17,
+    "ISC": 79,
+    "SEE LICENSE IN LICENSE.md": 50,
+    "LicenseRef-n8n-enterprise": 2,
+    "LGPL-3.0-or-later": 4,
+    "(MIT OR EUPL-1.1+)": 2,
+    "Python-2.0": 1,
+    "Unlicense": 4,
+    "BSD": 1,
+    "(MIT OR WTFPL)": 1,
+    "(AFL-2.1 OR BSD-3-Clause)": 1,
+    "(MIT OR GPL-3.0-or-later)": 1,
+    "MIT/X11": 1,
+    "(Apache-2.0 OR UPL-1.0)": 1,
+    "(MIT AND Zlib)": 1,
+    "(BSD-2-Clause OR MIT OR Apache-2.0)": 1,
+    "(MIT AND BSD-3-Clause)": 1
+  },
+  "unknown_entries": [
+    {
+      "ecosystem": "PyPI",
+      "name": "cobble",
+      "version": "0.1.4",
+      "license": "UNKNOWN",
+      "components": [
+        "markitdown"
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "Jinja2",
+      "version": "3.1.6",
+      "license": "UNKNOWN",
+      "components": [
+        "hermes"
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "loguru",
+      "version": "0.7.3",
+      "license": "UNKNOWN",
+      "components": [
+        "mem0"
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "markdown-it-py",
+      "version": "4.2.0",
+      "license": "UNKNOWN",
+      "components": [
+        "hermes"
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "markdownify",
+      "version": "1.2.3",
+      "license": "UNKNOWN",
+      "components": [
+        "markitdown"
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "mdurl",
+      "version": "0.1.2",
+      "license": "UNKNOWN",
+      "components": [
+        "hermes"
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "pathspec",
+      "version": "1.1.1",
+      "license": "UNKNOWN",
+      "components": [
+        "hermes"
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "pdfplumber",
+      "version": "0.11.10",
+      "license": "UNKNOWN",
+      "components": [
+        "markitdown"
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "prompt_toolkit",
+      "version": "3.0.53",
+      "license": "UNKNOWN",
+      "components": [
+        "hermes"
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "ptyprocess",
+      "version": "0.7.0",
+      "license": "UNKNOWN",
+      "components": [
+        "hermes"
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "py_rust_stemmers",
+      "version": "0.1.8",
+      "license": "UNKNOWN",
+      "components": [
+        "mem0"
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "socksio",
+      "version": "1.0.0",
+      "license": "UNKNOWN",
+      "components": [
+        "hermes"
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "tokenizers",
+      "version": "0.23.3",
+      "license": "UNKNOWN",
+      "components": [
+        "mem0"
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "tomli_w",
+      "version": "1.2.0",
+      "license": "UNKNOWN",
+      "components": [
+        "hermes"
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "wcwidth",
+      "version": "0.9.4",
+      "license": "UNKNOWN",
+      "components": [
+        "hermes"
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@ewoudenberg/difflib",
+      "version": "0.1.0",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@icetee/ftp",
+      "version": "0.3.15",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@kafkajs/confluent-schema-registry",
+      "version": "3.8.0",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@getzep/zep-cloud",
+      "version": "1.0.6",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@n8n/sandbox-client",
+      "version": "0.1.1",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rudderstack/rudder-sdk-node",
+      "version": "3.0.5",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "busboy",
+      "version": "1.6.0",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "cohere-ai",
+      "version": "7.14.0",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "dreamopt",
+      "version": "0.8.0",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "js-nacl",
+      "version": "1.4.0",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "limiter",
+      "version": "1.1.5",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "rechoir",
+      "version": "0.6.2",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "simple-lru-cache",
+      "version": "0.0.2",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "ssh2",
+      "version": "1.15.0",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "ssh2",
+      "version": "1.17.0",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "streamsearch",
+      "version": "1.1.0",
+      "license": "UNKNOWN"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "xmlhttprequest-ssl",
+      "version": "2.1.2",
+      "license": "UNKNOWN"
+    }
+  ],
+  "first_party_reuse": {
+    "Hermes": "MIT, vendor license retained",
+    "Agency Agents": "MIT, vendor original/adapted hashes retained",
+    "Ops Pilot": "MIT, unmodified external checkout",
+    "MarkItDown": "MIT",
+    "Mem0": "Apache-2.0",
+    "Playwright": "Apache-2.0",
+    "Handy and Whisper weights": "MIT",
+    "Qwen3.5-2B": "Apache-2.0",
+    "eSpeak NG": "GPL-3.0-or-later",
+    "n8n": "Sustainable Use License and separately licensed enterprise/dependencies; quarantined",
+    "Lima": "Apache-2.0, candidate metadata only",
+    "Chromium": "BSD and many third-party notices; managed binary not redistributed by this repository"
+  },
+  "limitations": [
+    "Metadata inventory is not a complete legal review or SBOM of OS/native binary content.",
+    "Unknown/custom/SEE LICENSE metadata requires source/license inspection before redistribution.",
+    "n8n personal/internal use differs from unrestricted commercial redistribution; enterprise features not activated.",
+    "No paid service or production/commercial license eligibility is claimed."
+  ]
+}
