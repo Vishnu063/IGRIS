@@ -1,3 +1,5 @@
+> Current implementation: [single-task architecture](single-task.md) adds the durable foreground reservation and current interactive controls. Historical step descriptions below retain their original scope.
+
 # Core controller — Step 12
 
 Post-prototype activation: [manual chat](../integrations/hermes-chat.md) now routes

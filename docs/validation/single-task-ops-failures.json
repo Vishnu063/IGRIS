@@ -1,0 +1,76 @@
+{
+  "status": "PASS",
+  "scenarios": [
+    {
+      "scenario": "timeout",
+      "status": "PASS",
+      "task": {
+        "task_id": "6ce3d4727eee449daff247d2be469cf0",
+        "task_type": "ops.lifecycle",
+        "status": "failed",
+        "started_at": "2026-11-02T03:29:16.155373+00:00",
+        "completed_at": "2026-11-02T03:29:19.005884+00:00",
+        "outcome": "failed",
+        "actions_attempted": [
+          "ops.lifecycle"
+        ],
+        "verified_outcomes": [],
+        "errors_or_limitations": [
+          "TimeoutError"
+        ],
+        "cleanup_status": "verified"
+      },
+      "seconds": 2.7563699379970785
+    },
+    {
+      "scenario": "failure",
+      "status": "PASS",
+      "task": {
+        "task_id": "ae5b2aa85ec144919d609dc3eee0f889",
+        "task_type": "ops.lifecycle",
+        "status": "failed",
+        "started_at": "2026-11-02T03:29:21.474068+00:00",
+        "completed_at": "2026-11-02T03:29:21.926217+00:00",
+        "outcome": "failed",
+        "actions_attempted": [
+          "ops.lifecycle"
+        ],
+        "verified_outcomes": [],
+        "errors_or_limitations": [
+          "AdapterUnavailable"
+        ],
+        "cleanup_status": "verified"
+      },
+      "seconds": 0.35771442399709485
+    },
+    {
+      "scenario": "cancel",
+      "status": "PASS",
+      "task": {
+        "task_id": "44d24df816de4c8f85a3fd040b20a244",
+        "task_type": "ops.lifecycle",
+        "status": "cancelled",
+        "started_at": "2026-11-02T03:29:21.940394+00:00",
+        "completed_at": "2026-11-02T03:29:24.633090+00:00",
+        "outcome": "cancelled",
+        "actions_attempted": [
+          "ops.lifecycle"
+        ],
+        "verified_outcomes": [],
+        "errors_or_limitations": [
+          "Cancelled"
+        ],
+        "cleanup_status": "verified"
+      },
+      "seconds": 2.603525382990483
+    }
+  ],
+  "remaining_owned_sessions": 0,
+  "real": true,
+  "mocked": false,
+  "source_sha256": {
+    "src/igris/integrations/ops_lifecycle.py": "1e2d0475cc8ae2cfdf5088d73402055d4cce4ef4e6b0cf5c1a1484760a0cc675",
+    "src/igris/integrations/session_process.py": "945af938edc572c7f82312ca9fdb170fe26820bd69a7b2829d72940911af4d0c",
+    "scripts/test_single_task_ops_failures.py": "04742ef57840c2bf773cd5dfcb3b777712a57b00d85041c7be5443d2c10988f8"
+  }
+}

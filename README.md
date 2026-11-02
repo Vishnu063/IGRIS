@@ -5,6 +5,8 @@ planning and DevOps work with a restricted independent execution broker.
 
 **Current release acceptance: BLOCKED — 9 tasks PASS, 5 BLOCKED, 0 FAIL.** Real cloud chat, Guardian tools, approvals and selected integrations work within their documented scopes. n8n is quarantined; native Mac and human voice acceptance remain unavailable. See [current final review](docs/delivery/completion-final-report.md) and [live versus unverified matrix](docs/validation/completion-integration-matrix.md).
 
+The new [single-task architecture](docs/architecture/single-task.md) is the default: one foreground reservation across chat, specialists and Guardian profiles, including approval waits; lazy integrations and verified owned cleanup. [Ops lifecycle modes](docs/integrations/ops-lifecycle.md) default to Manual. The original Mac/voice and n8n release blockers remain.
+
 ## Actual implementation state
 
 Tested local libraries provide mission control, Guardian permissions and exact

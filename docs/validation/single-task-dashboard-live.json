@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "actual_hermes_time_proposal": true,
+  "actual_owner_gui_approval_and_guardian_execution": true,
+  "actual_cancel_then_new_task": true,
+  "actual_emergency_stop": true,
+  "cancel_seconds": 1.1881170209962875,
+  "emergency_stop_seconds": 0.7092536999989534,
+  "dimensions": {
+    "width": 390,
+    "scrollWidth": 390
+  },
+  "n8n_loaded_or_started": false,
+  "optional_integrations_loaded": [],
+  "owner_inputs": "Automated trusted browser fixtures, not AI authorization.",
+  "source_sha256": {
+    "src/igris/mission_control.py": "659dfdc2f267828a73a4d7975d942346e12b57dcc08b9d3aac04b84d88d8478e",
+    "src/igris/foreground.py": "e98671e51cb839e05fb97918d71b8aa3c4486cbd539939c2a49592f2c1a0db42",
+    "src/igris/chat.py": "803dfad012d40c3494da2137efb2adc77779167112a2076866db1e0671478e76",
+    "src/igris/web/control.js": "60d20def1eced7b8d749e7fb771fe624bbc6dfae65c6deceb43d8851d952b9a2",
+    "src/igris/web/control.html": "3c77617517ceeabed97897f4af2bce973ad10c9f6b8d2ebe37ffb4be4ad2eeb0",
+    "scripts/test_single_task_dashboard_live.py": "a1bd7d034cbb37a4082d2597952d2ad63682f397f0f3e534611e31058a58916b"
+  }
+}

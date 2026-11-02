@@ -1,3 +1,5 @@
+> Current implementation: [single-task architecture](single-task.md) adds the durable foreground reservation and current interactive controls. Historical step descriptions below retain their original scope.
+
 # Mission Control
 
 Standard-library, read-only HTTP dashboard, loopback IPv4 only, OS-selected port.

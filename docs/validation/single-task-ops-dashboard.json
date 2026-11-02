@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "real_browser_and_ops": true,
+  "lazy_until_requested": true,
+  "manual_mode": true,
+  "reject_starts_no_worker": true,
+  "observations": [
+    {
+      "button": "ops-start",
+      "approved": false,
+      "health": {
+        "status": "stopped",
+        "cleanup_verified": true,
+        "mode": "manual",
+        "target": "7e4d62524b122582394538b469159f8721462d2d6b71ea0053ed85c87ccd0239",
+        "background_polling": false
+      }
+    },
+    {
+      "button": "ops-start",
+      "approved": true,
+      "health": {
+        "status": "running",
+        "container_id": "f9450a4a6391e2bf8905ef6d96698818aa6059742ce5eee7cfe4fc937af2e626",
+        "cleanup_verified": false,
+        "mode": "manual",
+        "target": "7e4d62524b122582394538b469159f8721462d2d6b71ea0053ed85c87ccd0239",
+        "background_polling": false
+      }
+    },
+    {
+      "button": "ops",
+      "approved": true,
+      "health": {
+        "status": "running",
+        "container_id": "f9450a4a6391e2bf8905ef6d96698818aa6059742ce5eee7cfe4fc937af2e626",
+        "cleanup_verified": false,
+        "mode": "manual",
+        "target": "7e4d62524b122582394538b469159f8721462d2d6b71ea0053ed85c87ccd0239",
+        "background_polling": false
+      }
+    },
+    {
+      "button": "ops-stop",
+      "approved": true,
+      "health": {
+        "status": "stopped",
+        "cleanup_verified": true,
+        "mode": "manual",
+        "target": "7e4d62524b122582394538b469159f8721462d2d6b71ea0053ed85c87ccd0239",
+        "background_polling": false
+      }
+    }
+  ],
+  "n8n_imported_or_started": false,
+  "owner_inputs": "Automated trusted browser decisions, not model authorization.",
+  "source_sha256": {
+    "src/igris/mission_control.py": "659dfdc2f267828a73a4d7975d942346e12b57dcc08b9d3aac04b84d88d8478e",
+    "src/igris/web/control.js": "60d20def1eced7b8d749e7fb771fe624bbc6dfae65c6deceb43d8851d952b9a2",
+    "src/igris/integrations/ops_lifecycle.py": "1e2d0475cc8ae2cfdf5088d73402055d4cce4ef4e6b0cf5c1a1484760a0cc675",
+    "scripts/test_single_task_ops_dashboard.py": "d70333a38dda8cd4a1b2e47afb649d3c31155499ba8148229a149723548b3bff"
+  }
+}

@@ -1,3 +1,5 @@
+> Current implementation: [single-task architecture](single-task.md) adds the durable foreground reservation and current interactive controls. Historical step descriptions below retain their original scope.
+
 # IGRIS architecture
 
 Status: original target design reviewed in Step 3; updated during final review.

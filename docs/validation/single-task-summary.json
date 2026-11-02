@@ -1,0 +1,92 @@
+{
+  "scope": "IGRIS Single-Task Architecture, cloud development acceptance",
+  "implementation_status": "PASS",
+  "mac_hardware_acceptance": "BLOCKED",
+  "production_readiness": "NOT CERTIFIED",
+  "branch": "develop",
+  "baseline_commit": "2592bf2b69902c43f5d1934435eaf7787915b53c",
+  "implementation_commit": "796f3f681db19ea64da5b707cc93a218b4ef3c50",
+  "environment": "Managed Linux x86_64; Python 3.12.14; Docker VFS; not Mac M1",
+  "regression": {
+    "command": "$ python3 -m unittest discover -s tests -q",
+    "status": "PASS",
+    "tests_run": 295,
+    "failures": 0,
+    "elapsed_seconds": 31.155,
+    "includes_synthetic_unit_fixtures": true
+  },
+  "checks": {
+    "one_foreground_task": "PASS",
+    "second_request_no_competing_worker": "PASS",
+    "lazy_ops_start": "PASS",
+    "on_demand_cleanup": "PASS",
+    "manual_no_autostart": "PASS",
+    "monitoring_owner_approval": "PASS",
+    "cancellation_cleanup": "PASS",
+    "failure_timeout_cleanup": "PASS",
+    "guardian_default_deny": "PASS",
+    "one_model_process_observed": "PASS",
+    "idle_no_optional_workers": "PASS",
+    "actual_linux_rss_measurement": "PASS",
+    "regression_compatibility": "PASS",
+    "responsive_approval_and_emergency_stop": "PASS",
+    "mac_m1_hardware": "BLOCKED",
+    "fresh_fifteen_specialist_live_tasks": "NOT TESTED",
+    "n8n_runtime": "NOT RUN"
+  },
+  "external_requirements": [
+    "Explicit later authorization and actual Mac M1 access for ARM64/isolation/RAM/microphone/playback/startup/shutdown acceptance."
+  ],
+  "limits": [
+    "Single checkout/runtime namespace, not distributed coordination.",
+    "Same-user database/Python/host tampering is not independently isolated.",
+    "Crash and unknown cleanup require owner verification; no automatic replay.",
+    "Job/account integrations remain disabled placeholders; no production access or repairs.",
+    "Monitoring retains authorized component for foreground probes, not background polling."
+  ],
+  "report": "docs/execution/single-task-architecture.md",
+  "evidence": [
+    {
+      "path": "docs/validation/single-task-dashboard-live.json",
+      "status": "PASS",
+      "sha256": "f1a1f58cdf4951574f98c9bb871306f671af6b0ba2bd7bff3ef717625b9b5c8f",
+      "recorded_source_hashes_match_delivery": true
+    },
+    {
+      "path": "docs/validation/single-task-legacy-ops-live.json",
+      "status": "PASS",
+      "sha256": "c492b25d31147d902b8248c4a89175073d4d4a739691b8bb2f9a5ab6f7f0f44a",
+      "recorded_source_hashes_match_delivery": true
+    },
+    {
+      "path": "docs/validation/single-task-memory.json",
+      "status": "PASS",
+      "sha256": "1c07f0dd01ef9e26fdd593f09a2874e158a21993b205b3eec3f7b355f02b1c1f",
+      "recorded_source_hashes_match_delivery": true
+    },
+    {
+      "path": "docs/validation/single-task-ops-cli-live.json",
+      "status": "PASS",
+      "sha256": "dc1ceecdd126dc5fb93ad09b09aef5ec3060af551f5ef5964eb47692f73b3f77",
+      "recorded_source_hashes_match_delivery": true
+    },
+    {
+      "path": "docs/validation/single-task-ops-dashboard.json",
+      "status": "PASS",
+      "sha256": "82172e8ecd820b6d4e9fbd6fb8cf4c44fb2d2346c3aa54b765495220cfdc705f",
+      "recorded_source_hashes_match_delivery": true
+    },
+    {
+      "path": "docs/validation/single-task-ops-failures.json",
+      "status": "PASS",
+      "sha256": "2adfc967c60570d0d05c9b08fd356626b4832b58e7ec47793a479be0f1bd69e7",
+      "recorded_source_hashes_match_delivery": true
+    },
+    {
+      "path": "docs/validation/single-task-ops-live.json",
+      "status": "PASS",
+      "sha256": "d63aa91cd09de66b58a2833c6bc6132e68cfffe861fbb103ae4583a8bd3f5320",
+      "recorded_source_hashes_match_delivery": true
+    }
+  ]
+}

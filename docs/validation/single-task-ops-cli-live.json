@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "real_pty": true,
+  "real_ops_worker": true,
+  "observations": [
+    {
+      "action": "status",
+      "task_status": "completed",
+      "cleanup_status": "verified"
+    },
+    {
+      "action": "start",
+      "task_status": "completed",
+      "cleanup_status": "retained_authorized"
+    },
+    {
+      "action": "probe",
+      "task_status": "completed",
+      "cleanup_status": "retained_authorized"
+    },
+    {
+      "action": "stop",
+      "task_status": "completed",
+      "cleanup_status": "verified"
+    }
+  ],
+  "owner_inputs": "Automated trusted PTY fixture decisions, not model approval.",
+  "source_sha256": {
+    "src/igris/integrations/ops_lifecycle_cli.py": "c20e3aad9c61419b5b2c5ceb5f293e266dd246f84abcc24174ca6e4fee6d2e92",
+    "scripts/test_ops_lifecycle_cli_live.py": "4da1cf09c708d2cb7ebbe7cc220124beca13b75b8c6e3186b89b479d61a13d0a"
+  }
+}

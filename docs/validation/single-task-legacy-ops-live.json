@@ -1,0 +1,182 @@
+{
+  "status": "PASS",
+  "verified_at": "2026-11-02T09:07:44.368580+05:30",
+  "observations": [
+    {
+      "application_state": "running",
+      "monitoring": {
+        "binding": {
+          "container": "8d262cb26ba331a6f22da3fa8121f2c61d7a9ef3e19e30d7b6d32ba45ca056e8",
+          "context": "igris-readonly",
+          "health_url": "http://127.0.0.1:8789/health"
+        },
+        "origin": "real_ops_pilot",
+        "digest": "8efeffc9dd966c91292f9d5f69cec8b48a91b5bc9f4d3586560d7781da81305b",
+        "generated_at": 1793590660.89279,
+        "health": "healthy",
+        "container_state": "running",
+        "container_id": "8d262cb26ba331a6f22da3fa8121f2c61d7a9ef3e19e30d7b6d32ba45ca056e8",
+        "daemon_id": "10bf8b21-093c-4672-a61a-c08469260e14",
+        "oom_killed": false,
+        "exit_code": 0,
+        "restart_count": 0,
+        "signals": [],
+        "issues": [],
+        "restart_offered": false,
+        "maintenance_active": false,
+        "remediation_enabled": false,
+        "transport_audit": [
+          {
+            "method": "HEAD",
+            "kind": "ping",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "kind": "info",
+            "status": 200
+          },
+          {
+            "method": "HEAD",
+            "kind": "ping",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "kind": "inspect",
+            "status": 200
+          },
+          {
+            "method": "HEAD",
+            "kind": "ping",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "kind": "info",
+            "status": 200
+          },
+          {
+            "method": "HEAD",
+            "kind": "ping",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "kind": "inspect",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "kind": "logs",
+            "status": 200
+          }
+        ]
+      },
+      "wall_seconds": 2.203700897996896
+    },
+    {
+      "application_state": "stopped",
+      "monitoring": {
+        "binding": {
+          "container": "8d262cb26ba331a6f22da3fa8121f2c61d7a9ef3e19e30d7b6d32ba45ca056e8",
+          "context": "igris-readonly",
+          "health_url": "http://127.0.0.1:8789/health"
+        },
+        "origin": "real_ops_pilot",
+        "digest": "9418155b95f4d02bd162131fba48db3f9cc67cafb83634b502f201a2c6e886f7",
+        "generated_at": 1793590662.9316304,
+        "health": "unhealthy",
+        "container_state": "exited",
+        "container_id": "8d262cb26ba331a6f22da3fa8121f2c61d7a9ef3e19e30d7b6d32ba45ca056e8",
+        "daemon_id": "10bf8b21-093c-4672-a61a-c08469260e14",
+        "oom_killed": false,
+        "exit_code": 0,
+        "restart_count": 0,
+        "signals": [],
+        "issues": [],
+        "restart_offered": true,
+        "maintenance_active": false,
+        "remediation_enabled": false,
+        "transport_audit": [
+          {
+            "method": "HEAD",
+            "kind": "ping",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "kind": "info",
+            "status": 200
+          },
+          {
+            "method": "HEAD",
+            "kind": "ping",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "kind": "inspect",
+            "status": 200
+          },
+          {
+            "method": "HEAD",
+            "kind": "ping",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "kind": "info",
+            "status": 200
+          },
+          {
+            "method": "HEAD",
+            "kind": "ping",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "kind": "inspect",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "kind": "logs",
+            "status": 200
+          }
+        ]
+      },
+      "wall_seconds": 1.946881359006511
+    }
+  ],
+  "denials": {
+    "other_target": 403,
+    "restart": 403,
+    "invalid_read_credential": 401
+  },
+  "approval_events": [
+    "requested",
+    "approved",
+    "consumed",
+    "execution_succeeded",
+    "requested",
+    "approved",
+    "consumed",
+    "execution_succeeded"
+  ],
+  "upstream_unmodified": true,
+  "fixture_cleanup_verified": true,
+  "owner_authorization": "Explicit automated owner fixtures; real Guardian/SQLite/ExecutionPermit, no model approval.",
+  "runtime": "Actual pinned Ops Pilot Pilot library and default DockerAdapter, actual Docker CLI and daemon, actual Docker application and HTTP-over-Unix health.",
+  "mocked_integrations": false,
+  "remediation": "disabled; no restart or production action executed",
+  "source_sha256": {
+    "src/igris/guardian/docker_read_proxy.py": "a8dcde1af89aa65a8bf954a5fea6c123edd8420665b195bc687249e7f19984a8",
+    "src/igris/integrations/ops_runtime.py": "3d76ef6a59da83961e506115e2667e8f6715dcf876bf787ce37763b3069ad1db",
+    "src/igris/adapters/ops_monitoring.py": "ae7a459fceab0064e3155d1cb7d8338047e7567f0a9192a74874dae5500fa066",
+    "integrations/ops/worker.py": "28a936d97f2ad9108f20052edc6d700e6356aa4a6dafa73022cddaa9ef6cccd6",
+    "integrations/ops/fixture_app.py": "0f181a64d4c3b95381da5096b74a4349b9ef88a2b6d53854d83a1ecfe8f04301",
+    "integrations/ops/profile.json": "4e0062563964eed1e514fc4e50d6c619e42271531934e939935f9e5c9c8632cb",
+    "scripts/test_ops_runtime_live.py": "d13d6d10104840bdc4a7d211bd78da7f96bdb6083444e9db36eda9bb6fde5e89"
+  }
+}
