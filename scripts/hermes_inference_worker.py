@@ -22,7 +22,8 @@ RUNTIME = ROOT/'runtime'
 
 
 @contextmanager
-def reasoning_session():
+def reasoning_session(*, agent_factory=False):
+    session_started=time.monotonic()
     os.umask(0o077)
     sys.path.insert(0, str(ROOT/'src'))
     from igris.guardian.secrets import redact
@@ -77,6 +78,7 @@ def reasoning_session():
         except urllib.error.HTTPError as exc: assert exc.code == 401
         else: raise RuntimeError('Unauthenticated model endpoint refused')
 
+        model_ready_seconds=time.monotonic()-session_started
         sys.path.insert(0, str(ROOT/'vendor/hermes-agent'))
         sys.path.insert(1, str(ROOT/'src'))
         from agent.safe_worker_policy import _bind_safe_worker_policy
@@ -97,19 +99,23 @@ def reasoning_session():
                 guardian.require('python.version')
                 raise RuntimeError('Inference profile must never grant tool authority')
 
-        agent = ReasoningOnlyAgent(model='igris-local-qwen', provider='custom',
-            api_mode='chat_completions', base_url='http://127.0.0.1:8766/v1',
-            api_key=local_secret, enabled_toolsets=[], max_iterations=1, max_tokens=256,
-            quiet_mode=True, skip_context_files=True, load_soul_identity=False,
-            skip_memory=True, skip_background_review=True, save_trajectories=False,
-            verbose_logging=False, checkpoints_enabled=False, run_budget_seconds=60,
-            ephemeral_system_prompt='You are IGRIS. Answer the question briefly. You have no tools or execution permissions.',
-            request_overrides={'temperature': 0, 'seed': 42})
-        assert agent.tools == [] and agent.valid_tool_names == set()
-        try: agent._execute_tool_calls(None, [], 'security-probe')
-        except Denied: pass
-        else: raise RuntimeError('Guardian did not deny tool dispatch')
-        yield agent, profile, opener, local_secret
+        def make_agent():
+            agent = ReasoningOnlyAgent(model='igris-local-qwen', provider='custom',
+                api_mode='chat_completions', base_url='http://127.0.0.1:8766/v1',
+                api_key=local_secret, enabled_toolsets=[], max_iterations=1, max_tokens=256,
+                quiet_mode=True, skip_context_files=True, load_soul_identity=False,
+                skip_memory=True, skip_background_review=True, save_trajectories=False,
+                verbose_logging=False, checkpoints_enabled=False, run_budget_seconds=60,
+                ephemeral_system_prompt='You are IGRIS. Answer the question briefly. You have no tools or execution permissions.',
+                request_overrides={'temperature': 0, 'seed': 42})
+            assert agent.tools == [] and agent.valid_tool_names == set()
+            try: agent._execute_tool_calls(None, [], 'security-probe')
+            except Denied: pass
+            else: raise RuntimeError('Guardian did not deny tool dispatch')
+            return agent
+        make_agent.engine_pid=process.pid
+        make_agent.metrics={'model_ready_seconds':model_ready_seconds,'imports_seconds':time.monotonic()-session_started-model_ready_seconds}
+        yield (make_agent if agent_factory else make_agent()), profile, opener, local_secret
     finally:
         process.terminate()
         try: process.wait(timeout=5)

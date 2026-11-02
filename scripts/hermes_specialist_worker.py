@@ -7,8 +7,8 @@ from igris.guardian.readonly import unique
 from igris.reused_agents import specialist_definition
 from hermes_inference_worker import reasoning_session
 
-def main():
-    raw=sys.stdin.buffer.read(MAX_PACKET+1)
+def main(*, session=reasoning_session, input_stream=None):
+    raw=(input_stream or sys.stdin.buffer).read(MAX_PACKET+1)
     if len(raw)>MAX_PACKET:raise ValueError('Oversized specialist packet.')
     data=json.loads(raw,object_pairs_hook=unique)
     role=data.pop('role');expected=data.pop('definition_sha256');definition=specialist_definition(role)
@@ -16,7 +16,7 @@ def main():
     methodology=definition.split('## Adapted upstream methodology',1)[1].strip()[:1800]
     request=ChatRequest.parse(data)
     if request.history:raise ValueError('Specialists accept only explicitly reviewed context.')
-    with reasoning_session() as (agent,profile,_,_credential):
+    with session() as (agent,profile,_,_credential):
         result=agent.run_conversation(request.prompt,system_message=
             'You are the selected IGRIS specialist. Use this reviewed technical methodology:\n'+methodology+
             '\nBinding runtime constraints: answer the supplied task briefly. No tools, commands, permissions or approvals are available. '

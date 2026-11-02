@@ -48,7 +48,7 @@ class OwnerActionTests(unittest.TestCase):
         self.assertEqual(self.count,0)
         with self.store._db() as db:self.assertEqual(db.execute('SELECT used FROM approvals').fetchone()[0],0)
     def test_reject_expire_timeout_cancel_and_restart(self):
-        for mode in ('reject','expire','timeout','cancel','restart'):
+        for mode in ('reject','expire','cancel','restart'):
             self.mono[0]=0;r=self.prepare()
             if mode=='reject':self.actions.decide('owner',r.mission_id,approve=False,reviewed_digest=r.digest)
             else:
@@ -62,6 +62,13 @@ class OwnerActionTests(unittest.TestCase):
                     self.actions.cancel('owner',r.mission_id);replacement.close()
             with self.assertRaises(Denied):self.actions.run('owner',r.mission_id)
         self.assertEqual(self.count,0)
+    def test_decision_timeout_is_separate_from_approved_expiry(self):
+        r=self.prepare();self.mono[0]=61
+        with self.assertRaises(Denied):self.approve(r)
+        self.mono[0]=0;r=self.prepare();self.approve(r);self.mono[0]=61
+        self.assertIn('epoch',self.actions.run('owner',r.mission_id))
+        self.mono[0]=0;r=self.prepare();self.approve(r);self.now[0]+=301
+        with self.assertRaises(Denied):self.actions.run('owner',r.mission_id)
     def test_unregistered_malformed_sensitive_requests_and_untrusted_lease(self):
         for operation,args in [('shell.execute',{}),('get_current_time',{'shell':'injection'}),('get_current_time',{'password':'synthetic-not-secret'})]:
             with self.subTest(operation=operation),self.assertRaises((Denied,ContractError)):

@@ -189,10 +189,12 @@ def main():
     parser.add_argument('--once', action='store_true', help='Read one bounded message from stdin, never process arguments.')
     parser.add_argument('--json', action='store_true', help='Output structured result for --once.')
     parser.add_argument('--list', action='store_true', help='List owned sessions without inference.')
+    parser.add_argument('--warm-runtime',action='store_true',help='Explicit bounded warm model session; no automatic restart.')
     parser.add_argument('--enable-mem0',action='store_true',help='Opt in to scoped approved-fact lookup; no automatic extraction.')
     parser.add_argument('--tools-config',type=Path,help='Explicit trusted profile for proposal-only, Guardian-controlled tools.')
     parser.add_argument('--interactive-approvals',action='store_true',help='Require explicit decisions on the controlling terminal for approval-gated tools.')
     args = parser.parse_args()
+    if args.warm_runtime and args.enable_mem0:parser.error('Warm mode reserves the model slot; use one-shot mode with Mem0.')
     if args.interactive_approvals and not args.tools_config:parser.error('--interactive-approvals requires --tools-config.')
     if not args.remember and not args.list:
         parser.error('Pass --remember to approve persistent sanitized chat storage.')
@@ -220,11 +222,19 @@ def main():
         facts_path=directory/'facts.sqlite3'
         facts=ScopedFacts(facts_path,'owner',memory,initialize=not facts_path.exists())
         knowledge=SemanticMemory(facts,Policy('owner',frozenset({Permission.READ})),enabled=True)
-    service = ChatService('owner', memory, DockerHermesAdapter(),tools=tools,reviews=reviews,knowledge=knowledge)
+    backend=DockerHermesAdapter()
+    if args.warm_runtime:
+        from .adapters.hermes_warm import WarmDockerHermesAdapter
+        backend=WarmDockerHermesAdapter();backend.start()
+    service = ChatService('owner', memory, backend,tools=tools,reviews=reviews,knowledge=knowledge)
     try:return interact(args,memory,conversation,service,terminal)
     finally:
-        service.close()
-        if terminal:terminal.close()
+        try:service.close()
+        finally:
+            try:
+                if args.warm_runtime:backend.close()
+            finally:
+                if terminal:terminal.close()
 
 
 def interact(args,memory,conversation,service,terminal):

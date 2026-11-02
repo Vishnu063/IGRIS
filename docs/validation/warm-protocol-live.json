@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "actual_cases": [
+    "forged_denied_before_inference",
+    "replay_denied_before_inference"
+  ],
+  "current_transport_real_response": "11",
+  "cleanup_verified": true,
+  "inference_calls_for_invalid_requests": 0,
+  "seconds": 74.302,
+  "source_sha256": {
+    "scripts/hermes_warm_worker.py": "bbb9751f17241fe923a102701e4008bc2221c46550931d41624b5ea14e957e22",
+    "src/igris/adapters/hermes_warm.py": "933d6f27b40cf08220c7e803d9a1c04eabe8787219edcb80b0b47af438677f5c",
+    "scripts/test_warm_protocol_live.py": "184affc24a8057aa1900b1cc03c6d34084679c78f7f80c74628336cd107cb988"
+  }
+}

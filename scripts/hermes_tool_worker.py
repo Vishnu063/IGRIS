@@ -12,8 +12,8 @@ from igris.guardian.readonly import components, unique
 from hermes_inference_worker import reasoning_session
 
 
-def main():
-    raw = sys.stdin.buffer.read(MAX_PACKET+1)
+def main(*, session=reasoning_session, input_stream=None):
+    raw = (input_stream or sys.stdin.buffer).read(MAX_PACKET+1)
     if len(raw) > MAX_PACKET: raise ValueError('Oversized proposal request.')
     payload=json.loads(raw,object_pairs_hook=unique)
     if type(payload) is not dict or 'file_hints' not in payload: raise ValueError('Missing bounded planning hints.')
@@ -21,7 +21,7 @@ def main():
     if type(hints) is not list or len(hints)>64: raise ValueError('Invalid bounded planning hints.')
     for name in hints: components(name)
     request = ChatRequest.parse(payload)
-    with reasoning_session() as (agent,profile,_opener,_credential):
+    with session() as (agent,profile,_opener,_credential):
         started = time.monotonic()
         result = agent.run_conversation(request.prompt,
             conversation_history=[{'role':role,'content':text} for role,text in request.history],

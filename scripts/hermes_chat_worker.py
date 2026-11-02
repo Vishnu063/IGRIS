@@ -18,11 +18,11 @@ def unique(pairs):
     return result
 
 
-def main():
-    raw = sys.stdin.buffer.read(MAX_PACKET+1)
+def main(*, session=reasoning_session, input_stream=None):
+    raw = (input_stream or sys.stdin.buffer).read(MAX_PACKET+1)
     if len(raw) > MAX_PACKET: raise ValueError('Oversized conversation packet.')
     request = ChatRequest.parse(json.loads(raw, object_pairs_hook=unique))
-    with reasoning_session() as (agent, profile, _opener, _credential):
+    with session() as (agent, profile, _opener, _credential):
         history = [{'role': role, 'content': content} for role, content in request.history]
         result = agent.run_conversation(request.prompt, conversation_history=history,
             system_message='You are IGRIS, a personal assistant. Answer clearly and briefly. '

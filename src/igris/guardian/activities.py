@@ -112,9 +112,9 @@ class OwnerActions:
         if mid not in self._pending:raise Denied('No current action snapshot; prepare again after restart.')
         return self._pending[mid]
 
-    def _expiry(self,review):
+    def _expiry(self,review,*,decision=True):
         if self.store._now()>=review.expires_at:return 'expired'
-        if self.monotonic()>=review.deadline:return 'timed_out'
+        if decision and self.monotonic()>=review.deadline:return 'timed_out'
         return None
 
     def review(self,actor,mid):
@@ -143,7 +143,7 @@ class OwnerActions:
             action={'operation':profile.operation,'arguments':profile.normalize(json.loads(job['raw']))}
             if canonical(action)!=review.action_json or canonical(profile.scope(job['cancel']))!=job['scope']:raise Denied('Action arguments, runtime or scope changed.')
             with self._lock:
-                reason=self._expiry(review)
+                reason=self._expiry(review,decision=False)
                 if self._stopped or job['cancel'].is_set() or reason:raise Denied('Action cancelled, stopped or expired.')
                 self.store.consume(review.id,self.policy,self.workspace,action,environment='test',binding=json.loads(review.binding_json));consumed=True
                 permit=ExecutionPermit(self,review);job.update(permit=permit,permit_used=False,consumed=True)
@@ -167,7 +167,7 @@ class OwnerActions:
         with self._lock:
             if type(permit) is not ExecutionPermit:raise Denied('Guardian execution lease required.')
             review=permit.review;job=self._job(self.policy.actor,review.mission_id)
-            if job.get('permit') is not permit or not job.get('consumed') or job.get('permit_used') or not job['running'] or self._stopped or job['cancel'].is_set() or self._expiry(review):
+            if job.get('permit') is not permit or not job.get('consumed') or job.get('permit_used') or not job['running'] or self._stopped or job['cancel'].is_set() or self._expiry(review,decision=False):
                 raise Denied('Execution lease missing, used, cancelled or expired.')
             action=json.loads(review.action_json)
             self.policy.require(operation)

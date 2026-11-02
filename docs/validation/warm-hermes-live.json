@@ -1,0 +1,80 @@
+{
+  "status": "PASS",
+  "pairs": [
+    {
+      "prompt": "What is 7 plus 5? Reply with only the integer.",
+      "cold_seconds": 69.47748749199673,
+      "cold_response": "12",
+      "warm_seconds": 36.90395789600734,
+      "warm_response": "12"
+    },
+    {
+      "prompt": "What is 8 plus 6? Reply with only the integer.",
+      "cold_seconds": 60.867971319996286,
+      "cold_response": "14",
+      "warm_seconds": 40.11111462699773,
+      "warm_response": "14"
+    }
+  ],
+  "cold_mean_seconds": 65.1727294059965,
+  "warm_mean_seconds": 38.50753626150254,
+  "request_improvement_percent": 40.914648484923696,
+  "warm_startup_seconds": 11.178175875000306,
+  "preflight_seconds": 2.5388446130091324,
+  "startup_breakdown": {
+    "model_ready_seconds": 4.334134848992107,
+    "imports_seconds": 2.2455288050114177
+  },
+  "warm_request_metrics": [
+    {
+      "generation_and_agent_seconds": 35.0334305689903,
+      "model_peak_rss_kib": 2745436,
+      "fresh_agent": true
+    },
+    {
+      "generation_and_agent_seconds": 37.121325244006584,
+      "model_peak_rss_kib": 2745548,
+      "fresh_agent": true
+    },
+    {
+      "generation_and_agent_seconds": 27.249380271998234,
+      "model_peak_rss_kib": 2745592,
+      "fresh_agent": true
+    },
+    {
+      "generation_and_agent_seconds": 53.55991373899451,
+      "model_peak_rss_kib": 2745776,
+      "fresh_agent": true
+    },
+    {
+      "generation_and_agent_seconds": 9.632119618996512,
+      "model_peak_rss_kib": 2765700,
+      "fresh_agent": true
+    },
+    {
+      "generation_and_agent_seconds": 36.781854561006185,
+      "model_peak_rss_kib": 2871968,
+      "fresh_agent": true
+    }
+  ],
+  "guardian": {
+    "authorization_ms": 6.200102987349965,
+    "execution_ms": 0.4075010074302554
+  },
+  "actual_fresh_context_isolation": true,
+  "actual_persistent_recall": true,
+  "actual_owner_approval_and_execution": true,
+  "owner_inputs": "Automated trusted owner fixtures, not AI authorization.",
+  "cancel_seconds": 2.9005947669938905,
+  "cleanup_verified": true,
+  "mac_tested": false,
+  "model_unchanged": true,
+  "served_context_tokens": 65536,
+  "source_sha256": {
+    "scripts/hermes_inference_worker.py": "b02a028665e39df08c08d89b55b6f3c7013c82cbb11cd27e6315bc5410c717ab",
+    "scripts/hermes_warm_worker.py": "bbb9751f17241fe923a102701e4008bc2221c46550931d41624b5ea14e957e22",
+    "src/igris/adapters/hermes_warm.py": "701df8bdb125ac477ab727da75e0edced833ace30c8dfa09cdd41c285af67262",
+    "src/igris/chat.py": "1e26bad6899577cf642db22912d211103f89648212b9dd2df27cc6256aad9d3b",
+    "scripts/test_warm_hermes_live.py": "190331c4e6fa3905d7487050ae53443de4675e0e3317254703bd14fe4b688ce3"
+  }
+}
