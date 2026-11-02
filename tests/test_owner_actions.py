@@ -88,3 +88,12 @@ class OwnerActionTests(unittest.TestCase):
             self.assertLess(time.monotonic()-started,.2)
             with self.assertRaises(Cancelled):pending.result(timeout=1)
         with self.assertRaises(Denied):manager.prepare('owner','get_current_time',{})
+
+    def test_explicit_failed_contract_is_not_marked_completed(self):
+        def failed(raw,cancel,permit):permit.consume('get_current_time',raw);return {'verified':False,'status':'failed'}
+        manager=OwnerActions(self.policy,self.root,self.store,[ExecutionProfile('get_current_time',lambda raw:{},lambda cancel:{'local':'fixture'},failed)])
+        try:
+            review=manager.prepare('owner','get_current_time',{});manager.decide('owner',review.mission_id,approve=True,reviewed_digest=review.digest)
+            with self.assertRaises(ContractError):manager.run('owner',review.mission_id)
+            self.assertEqual(manager.foreground.lookup('owner',review.mission_id)['status'],'failed')
+        finally:manager.close()

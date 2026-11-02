@@ -17,9 +17,11 @@ from .guardian.terminal import TerminalReview
 
 
 class ChatService:
-    def __init__(self, owner, memory, backend, *, policy=None, tools=None, reviews=None, cancel=None, knowledge=None):
+    def __init__(self, owner, memory, backend, *, policy=None, tools=None, reviews=None, cancel=None, knowledge=None, foreground=None):
         if type(memory) is not ConversationMemory or memory.owner != owner:
             raise Denied('Trusted owner-bound conversation memory required.')
+        from .foreground import default_foreground
+        self.foreground=foreground if foreground is not None else default_foreground();self._leases={}
         self.cancel_event=cancel if cancel is not None else threading.Event()
         self.owner, self.memory, self.backend = owner, memory, backend
         self.policy = policy if policy is not None else Policy(owner, frozenset({Permission.READ, Permission.FILE_MODIFY}))
@@ -39,6 +41,20 @@ class ChatService:
         self._requests = {}
         self._tool_results = {}
 
+    def _infer(self,mission_id,method,request,**kwargs):
+        from .foreground import Cancellation
+        from .isolated import Cancelled
+        lease=self._leases[mission_id];lease.transition('running',action='hermes.'+method)
+        if lease.cancel.is_set():raise Cancelled('Foreground task cancelled.')
+        previous=getattr(self.backend,'cancel',None)
+        if previous is not None:self.backend.cancel=Cancellation(previous,lease.cancel)
+        try:
+            reply=getattr(self.backend,method)(request,**kwargs)
+            if lease.cancel.is_set():raise Cancelled('Foreground task cancelled; response discarded.')
+            return reply
+        finally:
+            if previous is not None:self.backend.cancel=previous
+
     def _route(self, context):
         if context.actor != self.owner:
             return TaskOutcome('blocked', 'Unexpected chat authority.', 'unverified')
@@ -52,7 +68,7 @@ class ChatService:
                 return self._execute_proposal(context,conversation,request,approval_id=review.id)
             if self.tools is not None:
                 return self._tool_turn(context,conversation,request)
-            reply = self.backend.reply(request)
+            reply = self._infer(context.mission_id,'reply',request)
             if type(reply) is not ChatReply or reply.request_id != request.request_id or reply.origin != 'real_local_inference':
                 raise ContractError('No verified real response.')
             if self.cancel_event.is_set(): raise AdapterUnavailable('Chat stopped; result discarded.')
@@ -67,7 +83,7 @@ class ChatService:
 
     def _tool_turn(self, context, conversation, request):
         started = time.monotonic()
-        proposal = self.backend.propose(request,file_hints=self.tools.scope.files)
+        proposal = self._infer(context.mission_id,'propose',request,file_hints=self.tools.scope.files)
         if type(proposal) is not ToolProposal or proposal.request_id != request.request_id or proposal.origin != 'real_local_inference':
             raise ContractError('No verified real proposal.')
         if self.cancel_event.is_set(): raise AdapterUnavailable('Chat stopped before tool preparation.')
@@ -78,12 +94,16 @@ class ChatService:
             self._tool_results[context.mission_id]=prepared
             if not prepared['ok']: return TaskOutcome('blocked','Guardian denied the tool request.','real')
             if review is not None:
+                self._leases[context.mission_id].transition('waiting_for_approval')
                 return TaskOutcome('approval_required','Exact owner review required. No tool executed.','real',
                                    approval_request_id=review.id)
         return self._execute_proposal(context,conversation,request)
 
     def _execute_proposal(self,context,conversation,request,*,approval_id=None):
         if self.cancel_event.is_set(): raise AdapterUnavailable('Chat stopped before execution.')
+        lease=self._leases[context.mission_id]
+        if lease.cancel.is_set():raise Denied('Foreground task cancelled.')
+        lease.transition('running',action='guardian.execute')
         proposal,proposal_wall=self._proposals[context.mission_id]
         result=self.tools.run(request.request_id,context.mission_id,proposal.raw,approval_id=approval_id)
         result['generation_seconds'] = proposal.generation_seconds
@@ -98,13 +118,18 @@ class ChatService:
                              proposal.model_sha256,proposal.api_calls,origin=proposal.origin)
         return TaskOutcome('success',text,'real',True)
 
-    def ask(self, actor, conversation, text):
+    def ask(self, actor, conversation, text, *, task_id=None, task_identity=None, task_cancel=None):
         if actor != self.owner: raise Denied('Chat access denied.')
         if self.cancel_event.is_set(): raise Denied('Chat stopped; restart explicitly.')
         self.policy.require('file.read'); self.policy.require('file.create')
         chat_text(text)
-        mission = self.controller.create(text, 'chat')
-        request_id, window = self.memory.reserve(actor, conversation, mission.id, text)
+        from .foreground import fingerprint
+        self.memory.history(actor,conversation)
+        lease=self.foreground.begin(actor,'chat',task_id=task_id,identity=task_identity or fingerprint('chat',{'conversation':conversation,'text':text,'tools':self.tools is not None}),cancel=task_cancel)
+        mission = self.controller.create(text, 'chat');self._leases[mission.id]=lease
+        try:request_id, window = self.memory.reserve(actor, conversation, mission.id, text)
+        except BaseException as error:
+            self._leases.pop(mission.id,None);lease.finish(error=type(error).__name__);raise
         try:
             request = ChatRequest(request_id, mission.prompt, window)
             self._requests[mission.id] = (conversation, request)
@@ -120,15 +145,19 @@ class ChatService:
                 self._requests[mission.id]=(conversation,request)
                 self._memory_context[mission.id]={'backend':context['backend'],'facts_used':[{'id':row['id'],'revision':row['revision']} for row in selected]}
             self.controller.run(mission.id)
-            return self.report(actor,mission.id)
+            report=self.report(actor,mission.id)
+        except KeyboardInterrupt:
+            lease.cancel.set();raise
         finally:
             if self.controller.get(mission.id).state!=State.AWAITING_APPROVAL:self._finish(mission.id)
+        report['task']=self.foreground.lookup(actor,lease.task_id)
+        return report
 
     def report(self,actor,mission_id):
         if actor!=self.owner:raise Denied('Chat access denied.')
         conversation,request=self._requests[mission_id]
         mission=self.controller.get(mission_id)
-        output={'conversation_id':conversation,'request_id':request.request_id,
+        output={'task':self.foreground.lookup(actor,self._leases[mission_id].task_id),'conversation_id':conversation,'request_id':request.request_id,
                 'mission':self.controller.report(mission_id),'reply':mission.message,
                 'saved':mission.state==State.SUCCEEDED,'tools_enabled':self.tools is not None}
         if mission_id in self._memory_context:output['memory']=self._memory_context[mission_id]
@@ -138,11 +167,14 @@ class ChatService:
         return output
 
     def _finish(self,mission_id):
-        conversation,request=self._requests[mission_id]
+        conversation,request=self._requests[mission_id];lease=self._leases.pop(mission_id);cleanup=getattr(self.backend,'cleanup_verified',True) is True
         try:
             if self.reviews is not None:self.reviews.finish(self.owner,mission_id)
-        finally:
             self.memory.abort(self.owner,conversation,request.request_id)
+        except BaseException:cleanup=False;raise
+        finally:
+            mission=self.controller.get(mission_id)
+            lease.finish(verified=mission.state==State.SUCCEEDED,cleanup=cleanup,error=None if mission.state==State.SUCCEEDED else 'Task did not produce a verified result')
             self._requests.pop(mission_id,None);self._tool_results.pop(mission_id,None);self._proposals.pop(mission_id,None);self._memory_context.pop(mission_id,None)
 
     def decide(self,actor,mission_id,*,approve,reviewed_digest):
@@ -162,18 +194,22 @@ class ChatService:
         review=self.reviews.approved(actor,mission_id)
         try:
             self.controller.run(mission_id,approval_id=review.id)
-            return self.report(actor,mission_id)
+            report=self.report(actor,mission_id)
         finally:self._finish(mission_id)
+        report['task']=self.foreground.lookup(actor,report['task']['task_id'])
+        return report
 
     def cancel(self,actor,mission_id,*,reason='cancelled'):
         if actor!=self.owner:raise Denied('Owner cancellation required.')
+        self._leases[mission_id].cancel.set()
         self.controller.cancel(mission_id,reason=reason)
         try:
             report=self.report(actor,mission_id)
             if self.reviews is not None and mission_id in self.reviews._pending:
                 self.reviews.cancel(actor,mission_id,reason=reason if reason in ('expired','timed_out') else 'cancelled')
-            return report
         finally:self._finish(mission_id)
+        report['task']=self.foreground.lookup(actor,report['task']['task_id'])
+        return report
 
     def close(self):
         for mission_id in tuple(self._requests):

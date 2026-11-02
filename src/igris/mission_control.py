@@ -17,19 +17,30 @@ from .memory import private_file
 ROOT=Path(__file__).resolve().parents[2]
 ASSETS=Path(__file__).with_name('web')
 
+def validate_decision(data,pending):
+    if type(data) is not dict or set(data)!={'mission_id','source','approve','action_sha256','confirmation'} or data['source'] not in ('chat','profile') or type(data['approve']) is not bool:raise Denied('Invalid owner decision.')
+    from .adapters.contracts import identifier
+    identifier(data['mission_id'])
+    if not pending or pending['source']!=data['source']:raise Denied('No current pending snapshot.')
+    review=pending['review']
+    if data['action_sha256']!=review['action_sha256'] or data['confirmation']!=review['action_sha256'][:12]:raise Denied('Exact action digest confirmation required.')
+
 class MissionControl:
     """One bounded worker; only it mutates ChatService's process-local missions."""
     owner='owner'
-    def __init__(self,state,*,remember=False,tools_config=None,enable_specialists=False,enable_n8n=False,ops_instance=None,enable_mem0=False,backend_factory=DockerHermesAdapter):
+    def __init__(self,state,*,remember=False,tools_config=None,enable_specialists=False,enable_n8n=False,ops_instance=None,enable_mem0=False,backend_factory=DockerHermesAdapter,foreground=None,ops_mode='manual'):
+        from .foreground import default_foreground
+        self.foreground=foreground if foreground is not None else default_foreground()
+        self.wake=threading.Event()
         if remember is not True:raise Denied('Explicit conversation storage consent required.')
         self.state=Path(state).absolute();self.state.mkdir(mode=0o700,parents=True,exist_ok=True)
         self.stop_event=threading.Event();self.lock=threading.RLock();self.queue=queue.Queue(8);self.decisions=queue.Queue(8)
-        self.jobs={};self.waiting={};self.errors=[];self.stopped=False;self.cleanup_errors=[];self.started=time.time()
+        self.jobs={};self.task_signals={};self.waiting={};self.errors=[];self.stopped=False;self.cleanup_errors=[];self.started=time.time()
         db=self.state/'chat.sqlite3';self.memory=ConversationMemory(db,self.owner,initialize=not db.exists())
         self.backend=backend_factory(cancel=self.stop_event)
-        self.chat=ChatService(self.owner,self.memory,self.backend,cancel=self.stop_event)
+        self.chat=ChatService(self.owner,self.memory,self.backend,cancel=self.stop_event,foreground=self.foreground)
         self.tools=GuardianTools(self.owner,tools_config,self.state/'guardian.sqlite3') if tools_config else None
-        self.tool_chat=ChatService(self.owner,self.memory,self.backend,tools=self.tools,reviews=ApprovalReviews(self.tools),cancel=self.stop_event) if self.tools else None
+        self.tool_chat=ChatService(self.owner,self.memory,self.backend,tools=self.tools,reviews=ApprovalReviews(self.tools),cancel=self.stop_event,foreground=self.foreground) if self.tools else None
         self.components={'n8n':{'status':'disabled','last_result':None},'ops_pilot':{'status':'disabled','last_result':None},'voice':{'status':'hardware_blocked','dashboard_microphone':'disabled','native_capture':'not_connected','detail':'Use the separate manually started Handy/text entry point; browser microphone is not enabled.'},'specialists':{'status':'disabled','active':None}}
         profiles=[];permissions=set();self.semantic=None
         if enable_mem0:
@@ -43,14 +54,19 @@ class MissionControl:
         from .specialists.live import LiveSpecialists
         self.specialists=LiveSpecialists(enabled=enable_specialists)
         if enable_specialists:profiles.append(self.specialists.registration());permissions.add(Permission.SPECIALIST);self.components['specialists']['status']='enabled_on_request'
-        if enable_n8n:
-            from .integrations.n8n_runtime import RealN8n
-            adapter=RealN8n(enabled=True);profiles.append(adapter.registration());permissions.add(Permission.READ);self.components['n8n']['status']='configured_on_request' if adapter.security_status()=='PASS' else 'blocked_security_audit'
+        if enable_n8n:raise Denied('n8n is excluded from single-task architecture; quarantine remains enforced.')
+        from .integrations.catalog import default_catalog
+        self.integrations=default_catalog(ops_instance=ops_instance,ops_mode=ops_mode)
         if ops_instance:
-            from .integrations.ops_runtime import RealOpsMonitor
-            adapter=RealOpsMonitor(ops_instance,enabled=True);profiles.append(adapter.registration());permissions.add(Permission.READ);self.components['ops_pilot'].update(status='configured_on_request',target_container_id=adapter.config['container_id'])
+            from .guardian.activities import ExecutionProfile
+            raw=json.loads(private_file(ops_instance).read_text())
+            target=raw.get('container_id')
+            if type(target) is not str or not re.fullmatch('[a-f0-9]{64}',target):raise Denied('Exact configured Ops target required.')
+            def selected():return self.integrations.resolve('ops_pilot')
+            profiles.append(ExecutionProfile('ops.lifecycle',lambda args:selected().normalize(args),lambda cancel:selected().scope(cancel),lambda args,cancel,permit:selected().execute(args,cancel,permit)))
+            permissions.add(Permission.READ);self.components['ops_pilot'].update(status='configured_stopped',target_container_id=target,mode=ops_mode)
         path=self.state/'activities.sqlite3';store=ApprovalStore(path,initialize=not path.exists())
-        self.actions=OwnerActions(Policy(self.owner,frozenset(permissions)),self.state,store,profiles)
+        self.actions=OwnerActions(Policy(self.owner,frozenset(permissions)),self.state,store,profiles,foreground=self.foreground)
         self.worker=threading.Thread(target=self._loop,name='igris-mission-worker',daemon=False);self.worker.start()
 
     def submit(self,kind,data):
@@ -59,7 +75,12 @@ class MissionControl:
             if kind not in ('chat','prepare','decision'):raise Denied('Unregistered dashboard action.')
             if type(data) is not dict:raise Denied('Typed action required.')
             # Validate and detach before enqueue; no caller-owned mutable arguments.
-            data=json.loads(canonical(data))
+            data=json.loads(canonical(data)) if kind!='decision' else json.loads(json.dumps(data,allow_nan=False))
+            request_id=data.pop('request_id',None)
+            if request_id is not None:
+                from .adapters.contracts import identifier
+                identifier(request_id)
+                if kind=='decision':raise Denied('Decision references must use their existing action snapshot.')
             if kind=='chat':
                 if set(data)!={'conversation_id','prompt','mode'} or data['mode'] not in ('chat','tools'):raise Denied('Invalid chat action.')
                 if data['mode']=='tools' and self.tool_chat is None:raise Denied('No approved tools profile configured.')
@@ -69,19 +90,23 @@ class MissionControl:
             elif kind=='prepare':
                 if set(data)!={'operation','arguments'} or data['operation'] not in self.actions.profiles:raise Denied('Unregistered execution profile.')
             else:
-                if set(data)!={'mission_id','source','approve','action_sha256','confirmation'} or data['source'] not in ('chat','profile') or type(data['approve']) is not bool:raise Denied('Invalid owner decision.')
-                pending=self.waiting.get(data['mission_id'])
-                if not pending or pending['source']!=data['source']:raise Denied('No current pending snapshot.')
-                review=pending['review']
-                if data['action_sha256']!=review['action_sha256'] or data['confirmation']!=review['action_sha256'][:12]:raise Denied('Exact action digest confirmation required.')
+                validate_decision(data,self.waiting.get(data.get('mission_id')))
             target=self.decisions if kind=='decision' else self.queue
             if target.full():raise Denied('Bounded queue full.')
-            ident=uuid4().hex;self.jobs[ident]={'id':ident,'kind':kind,'status':'queued','created_at':time.time()}
+            from .foreground import fingerprint
+            ident=request_id or uuid4().hex;identity=fingerprint(kind,data)
+            if ident in self.jobs:
+                if self.jobs[ident].get('identity')!=identity:raise Denied('Retry body changed.')
+                return {'job_id':ident,'status':self.jobs[ident]['status'],'duplicate':True}
+            prior=self.foreground.lookup(self.owner,ident,identity=identity)
+            if prior:return {'job_id':ident,'status':prior['status'],'task':prior,'duplicate':True}
+            self.task_signals[ident]=threading.Event()
+            self.jobs[ident]={'id':ident,'kind':kind,'identity':identity,'status':'queued','created_at':time.time()}
             if len(self.jobs)>64:
                 removable=next((key for key,val in self.jobs.items() if val['status'] not in ('queued','running','awaiting_approval')),None)
-                if removable:self.jobs.pop(removable)
+                if removable:self.jobs.pop(removable);self.task_signals.pop(removable,None)
                 else:self.jobs.pop(ident);raise Denied('Job capacity reached.')
-            target.put_nowait((ident,kind,data));return {'job_id':ident,'status':'queued'}
+            target.put_nowait((ident,kind,data));self.wake.set();return {'job_id':ident,'status':'queued'}
 
     def _pending(self,ident,source,review):
         with self.lock:
@@ -91,18 +116,19 @@ class MissionControl:
 
     def _finish(self,ident,result):
         status=result.get('mission',{}).get('state') or (result.get('status') if result.get('status') in ('rejected','expired','timed_out','cancelled') else 'completed')
-        with self.lock:self.jobs[ident].update(status=status,result=result,completed_at=time.time())
+        with self.lock:self.jobs[ident].update(status=status,result=result,completed_at=time.time(),task=self.foreground.lookup(self.owner,ident))
 
     def _expire(self):
         # Single worker owns all chat review snapshots; no concurrent inference
         # starts while an approval is pending, so deadlines cannot be starved.
         with self.lock:items=list(self.waiting.items())
         for mid,pending in items:
+            if self.stop_event.is_set():return
             if pending['source']=='chat':
-                review=self.tool_chat.reviews.get(self.owner,mid);reason=self.tool_chat.reviews.expiry(review)
+                review=self.tool_chat.reviews.get(self.owner,mid);reason='cancelled' if self.foreground.active and self.foreground.active.cancel.is_set() else self.tool_chat.reviews.expiry(review)
                 if reason:result=self.tool_chat.cancel(self.owner,mid,reason=reason)
             else:
-                review=self.actions.review(self.owner,mid);reason=self.actions._expiry(review)
+                review=self.actions.review(self.owner,mid);reason='cancelled' if self.foreground.active and self.foreground.active.cancel.is_set() else self.actions._expiry(review)
                 if reason:self.actions.cancel(self.owner,mid,reason=reason);result={'status':reason}
             if reason:
                 with self.lock:self.waiting.pop(mid,None)
@@ -112,7 +138,7 @@ class MissionControl:
         with self.lock:self.jobs[ident]['status']='running'
         if kind=='chat':
             service=self.chat if data['mode']=='chat' else self.tool_chat
-            result=service.ask(self.owner,data['conversation_id'],data['prompt'])
+            result=service.ask(self.owner,data['conversation_id'],data['prompt'],task_id=ident,task_identity=self.jobs[ident]['identity'],task_cancel=self.task_signals[ident])
             if getattr(self.backend,'cleanup_verified',True) is not True:
                 from .owned_jobs import UnconfirmedLaunch
                 raise UnconfirmedLaunch('Worker cleanup requires operator review.')
@@ -120,7 +146,7 @@ class MissionControl:
         elif kind=='prepare':
             args=data['arguments']
             if data['operation']=='specialists.reason':args=self.specialists.arguments(args['role'],args['context']) if type(args) is dict and set(args)=={'role','context'} else args
-            review=self.actions.prepare(self.owner,data['operation'],args)
+            review=self.actions.prepare(self.owner,data['operation'],args,mission_id=ident,request_id=ident,task_identity=self.jobs[ident]['identity'],task_cancel=self.task_signals[ident])
             self._pending(ident,'profile',review.public());return
         else:
             mid=data['mission_id']
@@ -133,7 +159,7 @@ class MissionControl:
                     operation=pending['review']['action']['operation']
                     with self.lock:
                         if operation=='specialists.reason':self.components['specialists']['active']=pending['review']['action']['arguments']['role']
-                    component={'n8n.calculate':'n8n','ops.monitor':'ops_pilot'}.get(operation)
+                    component={'ops.lifecycle':'ops_pilot'}.get(operation)
                     if component:
                         with self.lock:self.components[component]['status']='running'
                     try:result=self.actions.run(self.owner,mid)
@@ -146,7 +172,7 @@ class MissionControl:
                     if operation=='specialists.reason':
                         from .specialists.journal import record
                         record(self.state/'specialists.sqlite3',self.owner,self._review_object(pending),result)
-                    component={'n8n.calculate':'n8n','ops.monitor':'ops_pilot'}.get(operation)
+                    component={'ops.lifecycle':'ops_pilot'}.get(operation)
                     if component:
                         with self.lock:self.components[component].update(status='last_verified_execution',last_result=result,observed_at=time.time())
                 else:result={'status':'rejected','executed':False}
@@ -164,13 +190,20 @@ class MissionControl:
     def _loop(self):
         try:
             while not self.stop_event.is_set():
+                self.wake.clear()
+                if self.stop_event.is_set():break
                 self._expire()
                 try:job=self.decisions.get_nowait()
                 except queue.Empty:
-                    if self.waiting:self.stop_event.wait(.05);continue
-                    try:job=self.queue.get(timeout=.1)
-                    except queue.Empty:continue
+                    if self.waiting:
+                        timeout=max(.01,min(p['decision_deadline_unix'] for p in self.waiting.values())-time.time())
+                        self.wake.wait(timeout);continue
+                    try:job=self.queue.get_nowait()
+                    except queue.Empty:self.wake.wait();continue
                 ident,kind,data=job
+                with self.lock:
+                    if self.jobs[ident]['status']=='cancelled':continue
+                    self.jobs[ident]['status']='running'
                 try:self._perform(ident,kind,data)
                 except Exception as exc:
                     from .owned_jobs import UnconfirmedLaunch
@@ -189,17 +222,42 @@ class MissionControl:
                             with self.lock:self.jobs[pending['job_id']].update(status='failed',error='Decision failed; no reusable authority.')
         finally:
             self.stop_event.set()
-            for cleanup in [self.actions.close,self.chat.close]+([self.tool_chat.close] if self.tool_chat else []):
+            for cleanup in [self.actions.close,self.chat.close,self.integrations.shutdown]+([self.tool_chat.close] if self.tool_chat else []):
                 try:cleanup()
-                except Exception as exc:self.cleanup_errors.append(type(exc).__name__)
+                except Exception as exc:
+                    self.cleanup_errors.append(type(exc).__name__)
+                    self.foreground.block_cleanup(self.owner,'component.cleanup')
             with self.lock:
                 for job in self.jobs.values():
                     if job['status'] in ('queued','running','awaiting_approval'):job.update(status='cancelled',error='Emergency stop or shutdown.')
                 self.waiting.clear();self.components['specialists']['active']=None;self.stopped=True
 
     def emergency_stop(self):
-        self.stop_event.set();self.actions.stop(self.owner)
+        self.stop_event.set();self.wake.set();self.actions.stop(self.owner)
+        active=self.foreground.active
+        if active:
+            try:self.foreground.request_cancel(self.owner,active.task_id)
+            except Denied:
+                if self.foreground.active is not None:raise
         return {'status':'stop_requested','automatic_restart':False}
+
+    def cancel_task(self,task_id):
+        from .adapters.contracts import identifier
+        identifier(task_id)
+        with self.lock:
+            job=self.jobs.get(task_id)
+            if not job or job['status'] not in ('queued','running','awaiting_approval'):raise Denied('No active or queued owned task.')
+            self.task_signals[task_id].set()
+            if job['status']=='queued':
+                job['task']=self.foreground.record_cancelled(self.owner,job['kind'],task_id,job['identity'])
+                job['status']='cancelled';job['error']='Cancelled before execution.'
+                self.wake.set();return {'status':'cancelled','job_id':task_id}
+        active=self.foreground.active
+        if active and active.task_id==task_id:
+            try:self.foreground.request_cancel(self.owner,task_id)
+            except Denied:
+                if self.foreground.active is not None:raise
+        self.wake.set();return {'status':'stop_requested','job_id':task_id}
 
     def close(self):
         self.emergency_stop();self.worker.join(timeout=35)
@@ -213,9 +271,11 @@ class MissionControl:
         with self.lock:
             result={'igris':{'state':'stopped_with_errors' if self.stopped and self.cleanup_errors else 'stopped' if self.stopped else 'stopping' if self.stop_event.is_set() else 'manual_running','started_at':self.started},
                     'guardian':{'tools_profile_configured':self.tools is not None,'default_deny':True,'native_hermes_tools':False},
+                    'foreground':self.foreground.snapshot(self.owner),
                     'components':json.loads(json.dumps(self.components)),
                     'resources':{'dashboard_rss_bytes':rss,'load_average':list(os.getloadavg()),'disk_free_bytes':usage.free},
                     'memory':{'backend':'private_sqlite','session_count':len(self.memory.sessions(self.owner)),'semantic_backend':self.semantic.last_backend if self.semantic else 'disabled'}}
+            if 'ops_pilot' in self.integrations.loaded:result['components']['ops_pilot']['lifecycle']=self.integrations.loaded['ops_pilot'].health()
             if role=='owner':
                 result.update(jobs=list(self.jobs.values()),pending_approvals=list(self.waiting.values()),sessions=list(self.memory.sessions(self.owner)),errors=list(self.errors),specialist_choices=self.specialists.choices())
                 with self.actions.store._db() as db:result['audit']=[dict(zip(('at','operation','event'),row)) for row in db.execute('SELECT at,operation,event FROM audit ORDER BY sequence DESC LIMIT 20')]
@@ -309,6 +369,9 @@ def interactive_server(credentials,control,*,port=0):
                 if self.path=='/api/stop':
                     if data!={}:raise ValueError()
                     return self.reply(202,control.emergency_stop())
+                if self.path=='/api/cancel':
+                    if set(data)!={'task_id'}:raise ValueError()
+                    return self.reply(202,control.cancel_task(data['task_id']))
                 if self.path=='/api/session':
                     if data!={} or control.stop_event.is_set():raise Denied('Session creation stopped.')
                     return self.reply(201,{'conversation_id':control.memory.create(control.owner,approved=True)})
@@ -326,7 +389,7 @@ def interactive_server(credentials,control,*,port=0):
 def main():
     parser=argparse.ArgumentParser(description='Manually start local authenticated Mission Control; no public bind or automatic restart.')
     parser.add_argument('--remember',action='store_true',required=True);parser.add_argument('--accounts-file',type=Path,required=True);parser.add_argument('--state-dir',type=Path,default=ROOT/'runtime/chat');parser.add_argument('--port',type=int,default=8765)
-    parser.add_argument('--tools-config',type=Path);parser.add_argument('--enable-specialists',action='store_true');parser.add_argument('--enable-n8n',action='store_true');parser.add_argument('--enable-mem0',action='store_true');targets=parser.add_mutually_exclusive_group();targets.add_argument('--ops-instance',type=Path);targets.add_argument('--ops-demo',action='store_true',help='Explicitly create a disposable local monitoring target, removed on dashboard exit.')
+    parser.add_argument('--tools-config',type=Path);parser.add_argument('--enable-specialists',action='store_true');parser.add_argument('--enable-n8n',action='store_true',help='Unsupported; retained solely to reject old startup requests.');parser.add_argument('--ops-mode',choices=('manual','on_demand','monitoring'),default='manual');parser.add_argument('--enable-mem0',action='store_true');targets=parser.add_mutually_exclusive_group();targets.add_argument('--ops-instance',type=Path);targets.add_argument('--ops-demo',action='store_true',help='Explicitly create a disposable local monitoring target, removed on dashboard exit.')
     args=parser.parse_args();raw=json.loads(private_file(args.accounts_file).read_text());accounts={key:tuple(value) for key,value in raw.items()}
     from .dashboard import make_server
     server=None;control=None;fixture=None
@@ -334,7 +397,7 @@ def main():
         if args.ops_demo:
             from .integrations.ops_runtime import DisposableOpsFixture
             fixture=DisposableOpsFixture().start()
-        control=MissionControl(args.state_dir,remember=args.remember,tools_config=args.tools_config,enable_specialists=args.enable_specialists,enable_n8n=args.enable_n8n,enable_mem0=args.enable_mem0,ops_instance=fixture.config_path if fixture else args.ops_instance)
+        control=MissionControl(args.state_dir,remember=args.remember,tools_config=args.tools_config,enable_specialists=args.enable_specialists,enable_n8n=args.enable_n8n,ops_mode=args.ops_mode,enable_mem0=args.enable_mem0,ops_instance=fixture.config_path if fixture else args.ops_instance)
         server=make_server(accounts,control=control,port=args.port);print(f'IGRIS local dashboard: http://127.0.0.1:{server.server_port} (credentials remain in private account file)',flush=True);server.serve_forever(poll_interval=.1)
     except KeyboardInterrupt:pass
     finally:

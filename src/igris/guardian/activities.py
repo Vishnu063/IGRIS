@@ -60,13 +60,15 @@ class OwnerActions:
     Restart has no pending snapshots and cannot automatically execute database
     approvals. Python/same-user tampering and database rollback are not isolation.
     """
-    def __init__(self,policy,workspace,store,profiles,*,timeout=60,ttl=300,monotonic=time.monotonic):
+    def __init__(self,policy,workspace,store,profiles,*,timeout=60,ttl=300,monotonic=time.monotonic,foreground=None):
         if type(policy) is not Policy or type(store) is not ApprovalStore:raise Denied('Existing Guardian authority required.')
         if type(timeout) not in (int,float) or not 0<timeout<=60 or type(ttl) not in (int,float) or not 0<ttl<=300:raise Denied('Bounded review lifetime required.')
         entries={}
         for profile in profiles:
             if type(profile) is not ExecutionProfile or profile.operation in entries or profile.operation not in RISK_CATEGORIES or not all(callable(x) for x in (profile.normalize,profile.scope,profile.execute)):raise Denied('Invalid trusted execution profile.')
             policy.require(profile.operation);entries[profile.operation]=profile
+        from ..foreground import default_foreground
+        self.foreground=foreground if foreground is not None else default_foreground()
         self.policy,self.workspace,self.store=policy,Path(workspace).resolve(strict=True),store
         self.profiles=MappingProxyType(entries);self.timeout,self.ttl,self.monotonic=timeout,ttl,monotonic
         self._pending={};self._preparing={};self._history={};self._lock=threading.RLock();self._stopped=False
@@ -79,9 +81,9 @@ class OwnerActions:
     def _deny(self,request_id,mission_id):
         self.store.tool_event(self.policy,request_id,mission_id,'unregistered','unavailable','denied')
 
-    def prepare(self,actor,operation,arguments,*,mission_id=None,request_id=None):
+    def prepare(self,actor,operation,arguments,*,mission_id=None,request_id=None,task_identity=None,task_cancel=None):
         self._owner(actor);mid=mission_id or uuid4().hex;rid=request_id or uuid4().hex
-        event=threading.Event();reserved=False
+        event=task_cancel if task_cancel is not None else threading.Event();reserved=False;lease=None
         try:
             identifier(mid);identifier(rid)
             with self._lock:
@@ -90,6 +92,10 @@ class OwnerActions:
                 self.policy.require(operation);profile=self.profiles[operation]
                 self._preparing[mid]=event;reserved=True
             raw=canonical(arguments)
+            from ..foreground import fingerprint
+            lease=self.foreground.begin(actor,operation,task_id=mid,identity=task_identity or fingerprint(operation,json.loads(raw)),cancel=event)
+            lease.transition('starting',action=operation)
+            if event.is_set():raise Cancelled('Task cancelled before preparation.')
             normalized=profile.normalize(json.loads(raw))
             if type(normalized) is not dict:raise Denied('Typed action arguments required.')
             action={'operation':operation,'arguments':normalized};action_json=canonical(action)
@@ -100,9 +106,13 @@ class OwnerActions:
                 if self._stopped or event.is_set():raise Cancelled('Preparation cancelled.')
                 record=self.store.request(self.policy,self.workspace,action,environment='test',binding=binding,ttl_seconds=self.ttl)
                 review=ActionReview(record['id'],mid,rid,action_json,canonical(binding),str(self.workspace),record['action_sha256'],record['expires_at'],self.monotonic()+self.timeout,actor,RISK_CATEGORIES[operation])
-                self._pending[mid]={'review':review,'profile':profile,'raw':raw,'scope':scope,'cancel':event,'approved':False,'running':False}
+                self._pending[mid]={'review':review,'profile':profile,'raw':raw,'scope':scope,'cancel':event,'approved':False,'running':False,'lease':lease}
+                lease.transition('waiting_for_approval')
                 return review
-        except BaseException:self._deny(rid,mid);raise
+        except BaseException as error:
+            from ..owned_jobs import UnconfirmedLaunch
+            if lease:lease.finish(error=type(error).__name__,cleanup=not isinstance(error,UnconfirmedLaunch))
+            self._deny(rid,mid);raise
         finally:
             if reserved:
                 with self._lock:self._preparing.pop(mid,None)
@@ -136,8 +146,9 @@ class OwnerActions:
             job=self._job(actor,mid);review=job['review']
             if not job['approved'] or job['running'] or self._stopped:
                 self._deny(review.request_id,mid);raise Denied('Current explicit owner approval required.')
+            job['lease'].transition('running')
             job['running']=True
-        consumed=False;succeeded=False
+        consumed=False;succeeded=False;failure=None;cleanup=True;retained=False;partial=False
         try:
             profile=job['profile'];self.policy.require(profile.operation)
             action={'operation':profile.operation,'arguments':profile.normalize(json.loads(job['raw']))}
@@ -151,8 +162,15 @@ class OwnerActions:
             if not job['permit_used']:raise Denied('Execution profile did not validate its Guardian lease.')
             if job['cancel'].is_set():raise Cancelled('Owner cancelled; result discarded.')
             if type(result) is not dict or not result:raise ContractError('Validated execution result required.')
-            canonical(result);succeeded=True
+            if ('verified' in result and result['verified'] is not True) or result.get('status') in ('failed','cancelled','not_verified'):raise ContractError('Executor did not verify its outcome.')
+            canonical(result);succeeded=True;retained=result.get('resource_disposition')=='retained_authorized'
             return result
+        except BaseException as error:
+            from ..owned_jobs import UnconfirmedLaunch
+            from ..semantic_memory import PartialMemoryCommit
+            partial=isinstance(error,PartialMemoryCommit)
+            failure=type(error).__name__;cleanup=not isinstance(error,UnconfirmedLaunch)
+            raise
         finally:
             with self._lock:
                 if consumed:self.store.outcome(review.id,self.policy,profile.operation,review.digest,succeeded=succeeded)
@@ -162,6 +180,7 @@ class OwnerActions:
                 self._history[mid]={'status':'completed' if succeeded else 'cancelled' if job['cancel'].is_set() else 'failed','operation':review.public()['action']['operation']}
                 if len(self._history)>128:self._history.pop(next(iter(self._history)))
                 self._pending.pop(mid,None)
+                job['lease'].finish(verified=succeeded,cleanup=cleanup,error=failure,retained=retained,partial=partial)
 
     def _consume_permit(self,permit,operation,arguments):
         with self._lock:
@@ -180,6 +199,7 @@ class OwnerActions:
             job=self._job(actor,mid);review=job['review'];job['cancel'].set()
             self.store.close(review.id,self.policy,review.digest,reason=reason if reason in ('expired','timed_out') else 'cancelled')
             if not job['running']:
+                job['lease'].finish(error='Owner rejected or cancelled action')
                 self._pending.pop(mid,None);self._history[mid]={'status':reason,'operation':review.public()['action']['operation']}
                 if len(self._history)>128:self._history.pop(next(iter(self._history)))
 

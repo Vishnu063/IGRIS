@@ -4,6 +4,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
 from igris.dashboard import make_server
 from igris.mission_control import MissionControl
+from igris.foreground import Foreground
 from igris.adapters.hermes_chat import ToolProposal
 class ProposalFixture:
  """Not real inference; only supplies a protocol object to test HTTP controls."""
@@ -14,7 +15,7 @@ class MissionControlTests(unittest.TestCase):
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup);root=Path(self.tmp.name);work=root/'work';work.mkdir(mode=0o700)
   config=root/'tools.json';config.write_text(json.dumps({'version':1,'workspace':str(work),'allowed_operations':['get_current_time'],'directories':[],'files':[],'approval_required':['get_current_time']}));config.chmod(0o600)
-  self.control=MissionControl(root/'state',remember=True,tools_config=config,backend_factory=ProposalFixture)
+  self.control=MissionControl(root/'state',remember=True,tools_config=config,backend_factory=ProposalFixture,foreground=Foreground(root/'foreground'))
   self.owner=secrets.token_urlsafe(32);self.viewer=secrets.token_urlsafe(32)
   self.server=make_server({'owner':(self.owner,'owner'),'viewer':(self.viewer,'viewer')},control=self.control)
   self.thread=threading.Thread(target=self.server.serve_forever,kwargs={'poll_interval':.01},daemon=True);self.thread.start();self.addCleanup(self.close)
@@ -81,6 +82,7 @@ class MissionControlTests(unittest.TestCase):
   self.wait(lambda state:bool(state['pending_approvals']))
   # Trusted test clock acceleration only; actual SQLite/HTTP/controller cleanup.
   self.control.tool_chat.reviews.monotonic=lambda:time.monotonic()+61
+  self.control.wake.set()
   self.wait(lambda state:not state['pending_approvals'])
   self.assertIsNone(self.control.memory.sessions('owner')[0]['active'])
   with self.control.tools.store._db() as db:self.assertEqual(db.execute('SELECT used FROM approvals').fetchone()[0],0)

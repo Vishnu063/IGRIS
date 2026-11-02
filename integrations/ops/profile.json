@@ -8,8 +8,9 @@
   },
   "files": {
     "runtime/ops/docker": "27f239f97492c434e091a70b41b8796c698f0aa2b6052c6f9c28da4ee7ae888b",
-    "integrations/ops/worker.py": "b4624bbb7296c0a20db28d0d59570fbf80848d02947909126336bc97937d6424",
-    "integrations/ops/fixture_app.py": "0f181a64d4c3b95381da5096b74a4349b9ef88a2b6d53854d83a1ecfe8f04301"
+    "integrations/ops/worker.py": "28a936d97f2ad9108f20052edc6d700e6356aa4a6dafa73022cddaa9ef6cccd6",
+    "integrations/ops/fixture_app.py": "0f181a64d4c3b95381da5096b74a4349b9ef88a2b6d53854d83a1ecfe8f04301",
+    "integrations/ops/session_worker.py": "b70804bafcd1965f8641a54aace2e60f0ad43e7caa3a746bee2e1549b0dab153"
   },
   "source_provenance": [
     {

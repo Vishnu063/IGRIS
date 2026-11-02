@@ -26,6 +26,7 @@ OPERATIONS = MappingProxyType({
     'read_workspace_file': Permission.READ,
     'n8n.calculate': Permission.READ,
     'ops.monitor': Permission.READ,
+    'ops.lifecycle': Permission.READ,
     'memory.search': Permission.READ,
     'browser.inspect': Permission.READ,
     'documents.convert': Permission.READ,

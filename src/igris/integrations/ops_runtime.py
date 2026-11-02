@@ -122,12 +122,14 @@ class RealOpsMonitor:
                      (ROOT/'runtime/ops/ops-pilot','/opt/igris/ops'),(ROOT/'runtime/ops/triage','/opt/igris/triage'),
                      (ROOT/'integrations/ops/worker.py','/opt/igris/worker.py'),(proxy.path,'/input/docker.sock'),(self.socket_path,'/input/app.sock')],
                     component='ops-monitor',timeout=90,memory='1g',payload=json.dumps(packet).encode())
-                data=json.loads(raw,object_pairs_hook=unique)
-                if type(data) is not dict or set(data)!={'schema_version','origin','request_id','mission_id','export'} or data['origin']!='real_ops_pilot' or data['request_id']!=review.request_id or data['mission_id']!=review.mission_id or type(data['schema_version']) is not int or data['schema_version']!=1:raise ContractError('Unverified or uncorrelated Ops Pilot result.')
-                binding=TargetBinding(self.config['container_id'],'igris-readonly',HEALTH)
-                observation=parse_export(data['export'],binding,origin='real_ops_pilot')
-                view=json.loads(json.dumps(asdict(observation)))
-                view.update(remediation_enabled=False,transport_audit=list(proxy.events))
-                return view
+                return self.parse(json.loads(raw,object_pairs_hook=unique),review,proxy.events)
             finally:proxy.close()
+    def parse(self,data,review,events):
+        if type(data) is not dict or set(data)!={'schema_version','origin','request_id','mission_id','export'} or data['origin']!='real_ops_pilot' or data['request_id']!=review.request_id or data['mission_id']!=review.mission_id or type(data['schema_version']) is not int or data['schema_version']!=1:raise ContractError('Unverified or uncorrelated Ops Pilot result.')
+        binding=TargetBinding(self.config['container_id'],'igris-readonly',HEALTH)
+        observation=parse_export(data['export'],binding,origin='real_ops_pilot')
+        view=json.loads(json.dumps(asdict(observation)))
+        view.update(remediation_enabled=False,transport_audit=list(events))
+        return view
+
     def registration(self):return ExecutionProfile('ops.monitor',self.normalize,self.scope,self.execute)
