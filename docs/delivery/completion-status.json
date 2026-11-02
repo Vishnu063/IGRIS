@@ -7,7 +7,7 @@
     "FAIL": 0
   },
   "task_count_note": "Current acceptance; Task 4 historical PASS superseded by Task 14 dependency quarantine.",
-  "source_commit": null,
+  "source_commit": "a4ad03ac92cacb1c29e41b1cc3a4af93a567fa1f",
   "branch": "develop",
   "regression": {
     "tests": 280,

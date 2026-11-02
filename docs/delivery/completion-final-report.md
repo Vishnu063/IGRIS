@@ -1,5 +1,7 @@
 IGRIS FINAL EXECUTION REPORT
 
+Verified implementation commit: `a4ad03ac92cacb1c29e41b1cc3a4af93a567fa1f`. The final publication adds this report in a following documentation commit.
+
 Release status: BLOCKED. All fourteen tasks were attempted sequentially; current acceptance is **9 PASS, 5 BLOCKED, 0 FAIL**. Task 4's original real workflow PASS is preserved as historical evidence, but its current status is BLOCKED after the final dependency audit. No production-readiness claim is made.
 
 1. **Completed:** Tasks 1, 5, 6, 7, 8, 9, 10, 11 and 12 passed their scoped acceptance. Pydantic AI's justified non-integration is a completed evaluation, not an activated framework.

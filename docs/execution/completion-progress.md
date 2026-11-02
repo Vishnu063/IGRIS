@@ -15,7 +15,7 @@
 | 11 | Pydantic AI evaluation | PASS | VERIFIED | NOT_REQUIRED | a75a114c3fdcd604b1bf37808521a3dcb5065869 |
 | 12 | Performance optimization | PASS | VERIFIED | NOT_REQUIRED | 3a27888de701a404287c18e1b81244c0b21bc2e6 |
 | 13 | Mac M1 installation package | BLOCKED | TESTED_PREPARATION_ONLY | BLOCKED | 484de1e9b2b1cc381e8a622f965307ffce3233b5 |
-| 14 | Final security and end-to-end verification | PENDING | PENDING | PENDING | — |
+| 14 | Final security and end-to-end verification | BLOCKED | VERIFIED_CLOUD_REVIEW_WITH_RELEASE_GATES | BLOCKED | a4ad03ac92cacb1c29e41b1cc3a4af93a567fa1f |
 
 Statuses apply to actual acceptance, not merely code presence.
 
@@ -34,6 +34,7 @@ Statuses apply to actual acceptance, not merely code presence.
 - Task 11: Technical decision record and reproducible Pydantic AI compatibility/validation evaluation; Hermes remains the only agent runtime.
 - Task 12: Measured real warm-chat latency improvement, fresh isolated request contexts, persistent recall and existing Guardian approvals/tools with bounded authenticated transport and real stop.
 - Task 13: Tested safe Mac preparation files, pinned ARM64 candidate assets and preservation-aware setup/uninstall controls; actual Mac installation and operation remain blocked.
+- Task 14: Reviewed real cloud assistant with Guardian-controlled finite operations, persistent data-only recovery and targeted live integrations; final release correctly blocked by unresolved n8n and hardware/voice gates.
 
 ## External requirements
 
@@ -44,3 +45,6 @@ Statuses apply to actual acceptance, not merely code presence.
 - Task 13: Explicit later owner authorization and access to target M1 Mac.
 - Task 13: Real native ARM64 assets, Docker guest setup and Guardian syscall/isolation tests before enabling runtime.
 - Task 13: Physical microphone/speaker permissions, human English/Hindi/Marathi quality tests, measured RAM/disk/latency and safe shutdown.
+- Task 14: Later explicit owner authorization and access to target M1, microphone and speakers; native ARM runtime/kernel and English/Hindi/Marathi human acceptance.
+- Task 14: Patched/reviewed n8n dependencies, fresh advisory audit and enough disposable storage for renewed pinned runtime/workflow/isolation/cancellation tests.
+- Task 14: Native/OS/kernel vulnerability and unknown/custom license review before broader deployment or redistribution.
