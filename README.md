@@ -179,3 +179,5 @@ Optional approved owned-site browser inspection: [Playwright boundary and manual
 Optional owner-approved document conversion and real Hermes summaries: [MarkItDown setup and restrictions](docs/integrations/markitdown.md).
 
 Optional manually started warm chat: [startup, stop controls and measured tradeoffs](docs/integrations/warm-inference.md). One-shot remains the default.
+
+Mac M1 preparation is **BLOCKED pending authorized hardware and ARM64 security validation**. See the [safe preparation package and exact gates](docs/delivery/mac-package.md); no Mac installation was performed.

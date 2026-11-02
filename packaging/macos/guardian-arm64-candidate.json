@@ -1,0 +1,12 @@
+{
+  "status": "UNVERIFIED_DISABLED",
+  "platform": "Linux aarch64 inside dedicated VM, never native macOS",
+  "audit_arch": "0xc00000b7",
+  "deny_syscalls": {
+    "network": [198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 242, 243, 269],
+    "process_creation_execution": [220, 221, 281, 435],
+    "io_uring": [425, 426, 427]
+  },
+  "warning": "Review-only candidate, not installed or enabled. Existing kernel.py continues to reject non-x86_64 systems.",
+  "required_checks": ["Verify syscall numbers against the actual guest kernel headers", "Verify AUDIT_ARCH and kill-on-architecture-mismatch", "Verify actual denied socket, fork/clone, execve/execveat and io_uring calls", "Verify descriptor containment, SQLite and real Guardian tools still work", "Run complete end-to-end regression in the target ARM64 guest"]
+}

@@ -1,0 +1,43 @@
+{
+  "status": "PINNED_NOT_EXECUTED",
+  "lima": {
+    "version": "v2.2.1",
+    "license": "Apache-2.0"
+  },
+  "engine": [
+    {
+      "name": "llama-b11960-bin-macos-arm64.tar.gz",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11960/llama-b11960-bin-macos-arm64.tar.gz",
+      "sha256": "58e5a5e1d7c2bf66cedd9c29e0323f3e570660a70a1e2156d32eed08f4cc1e3c",
+      "bytes": 16465074,
+      "verified_execution": false
+    },
+    {
+      "name": "llama-b11960-bin-ubuntu-arm64.tar.gz",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11960/llama-b11960-bin-ubuntu-arm64.tar.gz",
+      "sha256": "0065ecfbffe8a790bb0d28059a3320cdc8f723b7f3f248cdc8bfc04790927715",
+      "bytes": 18411465,
+      "verified_execution": false
+    }
+  ],
+  "handy": [
+    {
+      "name": "Handy_0.9.8_aarch64.dmg",
+      "sha256": "81ac05aaaf4fafa62826bb40c5cf0bc0c813fb6fc8255497480e762620779417",
+      "size": 19558818,
+      "url": "https://github.com/cjpais/Handy/releases/download/v0.9.8/Handy_0.9.8_aarch64.dmg"
+    }
+  ],
+  "model": "Reuse architecture-independent pinned Qwen GGUF and multilingual Whisper Small hashes; do not use English-only models.",
+  "authorized_spend_inr": 0,
+  "python": {
+    "darwin-arm64": {
+      "sha256": "226d696642a8a53d03b4d5b255b1c319b1575a6d44bd723a953c9f507755e36a",
+      "url": "https://github.com/astral-sh/python-build-standalone/releases/download/20261021/cpython-3.14.9+20261021-aarch64-apple-darwin-install_only.tar.gz"
+    },
+    "linux-arm64": {
+      "sha256": "847895ba727440b012207bb0192282d7e182eb991ae5c7bb5c35c6a12a99e732",
+      "url": "https://github.com/astral-sh/python-build-standalone/releases/download/20261021/cpython-3.14.9+20261021-aarch64-unknown-linux-gnu-install_only.tar.gz"
+    }
+  }
+}

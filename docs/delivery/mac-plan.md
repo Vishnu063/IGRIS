@@ -46,3 +46,5 @@ Cloud x86_64 performance is not transferable evidence for this Mac. If hardware,
 storage, compatibility, permissions, license eligibility or zero-cost access is
 unavailable, record BLOCKED/PENDING_EXTERNAL_VERIFICATION rather than weakening
 controls. This document authorizes no installation or external activation.
+
+Task 13 now supplies a tested preparation utility, pinned ARM64 candidate assets and a dedicated no-home-sharing Lima template. See [the current Mac package status](mac-package.md). This does not supersede the requirement for real ARM64 enforcement and hardware acceptance; assistant startup remains blocked.

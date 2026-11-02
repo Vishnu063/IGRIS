@@ -1,0 +1,17 @@
+{
+  "status": "BLOCKED",
+  "cloud_checks": "PASS",
+  "unit_checks": 4,
+  "yaml_syntax": "PASS with PyYAML; Lima execution not available",
+  "mac_execution": false,
+  "vm_started": false,
+  "arm64_assets_executed": false,
+  "voice_hardware_tested": false,
+  "source_sha256": {
+    "scripts/mac_package.py": "c3b7de51e86bf3e2ee182ad033109b91c1f1344d387c1f99a474173995d734d0",
+    "packaging/macos/lima.yaml": "d312d992317252ba260cf383677b506fab2e94ce53b70cf04e85549068fba34f",
+    "packaging/macos/assets.json": "61237667160500f59d433fb0f32a52e623835db9cb47ad80bcc0e5b1b18f41a2",
+    "packaging/macos/guardian-arm64-candidate.json": "055eff0b831da0fd6f779060134db952762ae03d70631a4d704cd6f9d5cc0a58"
+  },
+  "actual_linux_preflight": "BLOCKED exit 2, no mutation"
+}
