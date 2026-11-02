@@ -166,12 +166,19 @@
     {
       "number": 13,
       "title": "Mac M1 installation package",
-      "status": "PENDING",
-      "implementation_commit": null,
-      "capabilities": [],
-      "external_requirements": [],
-      "implementation_status": "PENDING",
-      "external_verification": "PENDING"
+      "status": "BLOCKED",
+      "implementation_commit": "484de1e9b2b1cc381e8a622f965307ffce3233b5",
+      "capabilities": [
+        "Tested safe Mac preparation files, pinned ARM64 candidate assets and preservation-aware setup/uninstall controls; actual Mac installation and operation remain blocked."
+      ],
+      "external_requirements": [
+        "Explicit later owner authorization and access to target M1 Mac.",
+        "Real native ARM64 assets, Docker guest setup and Guardian syscall/isolation tests before enabling runtime.",
+        "Physical microphone/speaker permissions, human English/Hindi/Marathi quality tests, measured RAM/disk/latency and safe shutdown."
+      ],
+      "implementation_status": "TESTED_PREPARATION_ONLY",
+      "external_verification": "BLOCKED",
+      "report": "docs/execution/completion-task-13.md"
     },
     {
       "number": 14,

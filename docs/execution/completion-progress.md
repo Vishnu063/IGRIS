@@ -14,7 +14,7 @@
 | 10 | MarkItDown documents | PASS | VERIFIED | NOT_REQUIRED | 57619094d630584dd420a02d93cc5e61932ce44f |
 | 11 | Pydantic AI evaluation | PASS | VERIFIED | NOT_REQUIRED | a75a114c3fdcd604b1bf37808521a3dcb5065869 |
 | 12 | Performance optimization | PASS | VERIFIED | NOT_REQUIRED | 3a27888de701a404287c18e1b81244c0b21bc2e6 |
-| 13 | Mac M1 installation package | PENDING | PENDING | PENDING | — |
+| 13 | Mac M1 installation package | BLOCKED | TESTED_PREPARATION_ONLY | BLOCKED | 484de1e9b2b1cc381e8a622f965307ffce3233b5 |
 | 14 | Final security and end-to-end verification | PENDING | PENDING | PENDING | — |
 
 Statuses apply to actual acceptance, not merely code presence.
@@ -33,9 +33,13 @@ Statuses apply to actual acceptance, not merely code presence.
 - Task 10: Owner-approved genuine five-format document conversion and real-Hermes summary, with actual malformed-parser rejection and strict workspace/archive boundaries.
 - Task 11: Technical decision record and reproducible Pydantic AI compatibility/validation evaluation; Hermes remains the only agent runtime.
 - Task 12: Measured real warm-chat latency improvement, fresh isolated request contexts, persistent recall and existing Guardian approvals/tools with bounded authenticated transport and real stop.
+- Task 13: Tested safe Mac preparation files, pinned ARM64 candidate assets and preservation-aware setup/uninstall controls; actual Mac installation and operation remain blocked.
 
 ## External requirements
 
 - Task 2: Authorized target Mac and physical microphone, OS permission and human speech testing.
 - Task 3: Authorized M1 microphone/speaker permissions and per-language human/native-speaker acceptance.
 - Task 3: Sufficient disposable cloud disk or native Mac Handy runtime for repeated human speech ASR; current VFS copies exceed remaining space.
+- Task 13: Explicit later owner authorization and access to target M1 Mac.
+- Task 13: Real native ARM64 assets, Docker guest setup and Guardian syscall/isolation tests before enabling runtime.
+- Task 13: Physical microphone/speaker permissions, human English/Hindi/Marathi quality tests, measured RAM/disk/latency and safe shutdown.
