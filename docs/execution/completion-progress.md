@@ -13,7 +13,7 @@
 | 9 | Authorized Playwright browser | PASS | VERIFIED | NOT_REQUIRED | 42030b29f6c4ff9153f641a878d3f438389e5ed6 |
 | 10 | MarkItDown documents | PASS | VERIFIED | NOT_REQUIRED | 57619094d630584dd420a02d93cc5e61932ce44f |
 | 11 | Pydantic AI evaluation | PASS | VERIFIED | NOT_REQUIRED | a75a114c3fdcd604b1bf37808521a3dcb5065869 |
-| 12 | Performance optimization | PENDING | PENDING | PENDING | — |
+| 12 | Performance optimization | PASS | VERIFIED | NOT_REQUIRED | 3a27888de701a404287c18e1b81244c0b21bc2e6 |
 | 13 | Mac M1 installation package | PENDING | PENDING | PENDING | — |
 | 14 | Final security and end-to-end verification | PENDING | PENDING | PENDING | — |
 
@@ -32,6 +32,7 @@ Statuses apply to actual acceptance, not merely code presence.
 - Task 9: Approved real browser inspection and screenshot of an owned offline site, with genuine destination/action rejection, Chromium sandbox and cleanup.
 - Task 10: Owner-approved genuine five-format document conversion and real-Hermes summary, with actual malformed-parser rejection and strict workspace/archive boundaries.
 - Task 11: Technical decision record and reproducible Pydantic AI compatibility/validation evaluation; Hermes remains the only agent runtime.
+- Task 12: Measured real warm-chat latency improvement, fresh isolated request contexts, persistent recall and existing Guardian approvals/tools with bounded authenticated transport and real stop.
 
 ## External requirements
 
