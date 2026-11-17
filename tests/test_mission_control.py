@@ -76,6 +76,15 @@ class MissionControlTests(unittest.TestCase):
   with self.control.tools.store._db() as db:self.assertEqual(db.execute('SELECT used FROM approvals').fetchone()[0],0)
  def test_no_storage_consent(self):
   with self.assertRaises(PermissionError):MissionControl(Path(self.tmp.name)/'other')
+ def test_logout_revokes_cached_basic_auth_and_pending_authority(self):
+  session=self.request('/api/session',{})[1]['conversation_id']
+  self.request('/api/chat',{'conversation_id':session,'prompt':'Fixture time request','mode':'tools'})
+  self.wait(lambda s:bool(s['pending_approvals']))
+  self.assertEqual(self.request('/api/logout',{})[0],200)
+  self.assertEqual(self.request('/api/state')[0],401)
+  self.assertEqual(self.request('/api/session',{})[0],401)
+  self.assertEqual(self.request('/api/state',account='viewer')[0],200)
+  self.assertTrue(self.control.stop_event.is_set())
  def test_pending_timeout_releases_chat_reservation(self):
   session=self.request('/api/session',{})[1]['conversation_id']
   self.request('/api/chat',{'conversation_id':session,'prompt':'Fixture planner','mode':'tools'})

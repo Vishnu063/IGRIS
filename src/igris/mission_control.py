@@ -31,7 +31,7 @@ class MissionControl:
     def __init__(self,state,*,remember=False,tools_config=None,enable_specialists=False,enable_n8n=False,ops_instance=None,enable_mem0=False,backend_factory=DockerHermesAdapter,foreground=None,ops_mode='manual'):
         from .foreground import default_foreground
         self.foreground=foreground if foreground is not None else default_foreground()
-        self.wake=threading.Event()
+        self.wake=threading.Event();self.native_voice=None
         if remember is not True:raise Denied('Explicit conversation storage consent required.')
         self.state=Path(state).absolute();self.state.mkdir(mode=0o700,parents=True,exist_ok=True)
         self.stop_event=threading.Event();self.lock=threading.RLock();self.queue=queue.Queue(8);self.decisions=queue.Queue(8)
@@ -73,6 +73,7 @@ class MissionControl:
         with self.lock:
             if self.stop_event.is_set():raise Denied('Emergency stop active; restart explicitly.')
             if kind not in ('chat','prepare','decision'):raise Denied('Unregistered dashboard action.')
+            if self.native_voice is not None and kind!='decision':raise Denied('Native voice owns the single foreground reservation.')
             if type(data) is not dict:raise Denied('Typed action required.')
             # Validate and detach before enqueue; no caller-owned mutable arguments.
             data=json.loads(canonical(data)) if kind!='decision' else json.loads(json.dumps(data,allow_nan=False))
@@ -119,6 +120,10 @@ class MissionControl:
         with self.lock:self.jobs[ident].update(status=status,result=result,completed_at=time.time(),task=self.foreground.lookup(self.owner,ident))
 
     def _expire(self):
+        with self.lock:
+            voice=self.native_voice
+            if voice and (voice['lease'].cancel.is_set() or time.monotonic()>=voice['deadline']):
+                voice['lease'].cancel.set();voice['lease'].finish(error='Native input cancelled or timed out');self.native_voice=None
         # Single worker owns all chat review snapshots; no concurrent inference
         # starts while an approval is pending, so deadlines cannot be starved.
         with self.lock:items=list(self.waiting.items())
@@ -193,6 +198,9 @@ class MissionControl:
                 self.wake.clear()
                 if self.stop_event.is_set():break
                 self._expire()
+                with self.lock:voice=self.native_voice
+                if voice:
+                    self.wake.wait(max(.01,voice['deadline']-time.monotonic()));continue
                 try:job=self.decisions.get_nowait()
                 except queue.Empty:
                     if self.waiting:
@@ -222,6 +230,9 @@ class MissionControl:
                             with self.lock:self.jobs[pending['job_id']].update(status='failed',error='Decision failed; no reusable authority.')
         finally:
             self.stop_event.set()
+            with self.lock:
+                if self.native_voice:
+                    self.native_voice['lease'].cancel.set();self.native_voice['lease'].finish(error='Native voice stopped');self.native_voice=None
             for cleanup in [self.actions.close,self.chat.close,self.integrations.shutdown]+([self.tool_chat.close] if self.tool_chat else []):
                 try:cleanup()
                 except Exception as exc:
@@ -241,10 +252,39 @@ class MissionControl:
                 if self.foreground.active is not None:raise
         return {'status':'stop_requested','automatic_restart':False}
 
+    def reserve_native_voice(self):
+        with self.lock:
+            if self.stop_event.is_set() or self.native_voice or self.waiting or not self.queue.empty():raise Denied('Foreground unavailable for native voice.')
+            lease=self.foreground.begin(self.owner,'voice.native_io');lease.transition('running',action='voice.manual_io')
+            nonce=secrets.token_urlsafe(32);self.native_voice={'lease':lease,'nonce':nonce,'deadline':time.monotonic()+120}
+            self.components['voice'].update(native_capture='client_reserved_device_unverified')
+            self.wake.set();return {'task_id':lease.task_id,'nonce':nonce,'expires_in_seconds':120}
+
+    def finish_native_voice(self,data):
+        if type(data) is not dict or set(data)!={'task_id','nonce','prompt','conversation_id','mode','cancel'} or type(data['cancel']) is not bool:raise Denied('Typed native input completion required.')
+        with self.lock:
+            voice=self.native_voice
+            if not voice or data['task_id']!=voice['lease'].task_id or type(data['nonce']) is not str or not hmac.compare_digest(data['nonce'],voice['nonce']):raise Denied('Current exact native input reservation required.')
+            lease=voice['lease']
+            if data['cancel'] or lease.cancel.is_set() or time.monotonic()>=voice['deadline']:
+                lease.cancel.set();result=lease.finish(error='Native input cancelled');self.native_voice=None;self.wake.set();return {'status':'cancelled','task':result}
+            if data['mode']=='output' and data['prompt']=='':
+                result=lease.finish(verified=True);self.native_voice=None;self.wake.set();return {'status':'audio_output_complete','task':result}
+            from .adapters.hermes_chat import chat_text
+            chat_text(data['prompt']);self.memory.history(self.owner,data['conversation_id'])
+            if data['mode'] not in ('chat','tools') or data['mode']=='tools' and self.tool_chat is None:raise Denied('Configured chat mode required.')
+            lease.finish(verified=True);self.native_voice=None
+            self.components['voice'].update(native_capture='finalized_input_received_device_unverified')
+            # The finalized audio stage releases its resources before inference.
+            result=self.submit('chat',{key:data[key] for key in ('conversation_id','prompt','mode')})
+            self.wake.set();return result
+
     def cancel_task(self,task_id):
         from .adapters.contracts import identifier
         identifier(task_id)
         with self.lock:
+            if self.native_voice and self.native_voice['lease'].task_id==task_id:
+                self.foreground.request_cancel(self.owner,task_id);self.wake.set();return {'status':'stop_requested','job_id':task_id}
             job=self.jobs.get(task_id)
             if not job or job['status'] not in ('queued','running','awaiting_approval'):raise Denied('No active or queued owned task.')
             self.task_signals[task_id].set()
@@ -304,6 +344,7 @@ def interactive_server(credentials,control,*,port=0):
     if type(control) is not MissionControl or type(port) is not int or not 0<=port<=65535:raise ValueError('Trusted local controller and port required.')
     if not any(name==control.owner and role=='owner' for name,(_,role) in credentials.items()):raise ValueError('Configured owner account required.')
     csrf={name:secrets.token_urlsafe(32) for name in credentials}
+    revoked=set();authentication_lock=threading.Lock()
     class Handler(BaseHTTPRequestHandler):
         server_version='IGRIS';sys_version=''
         def setup(self):super().setup();self.connection.settimeout(2)
@@ -323,7 +364,8 @@ def interactive_server(credentials,control,*,port=0):
                 if len(entries)!=1 or not entries[0].startswith('Basic ') or len(entries[0])>512:raise ValueError()
                 name,supplied=base64.b64decode(entries[0][6:],validate=True).decode('ascii').split(':',1)
                 expected,role=credentials.get(name,('',None))
-                if not expected or not hmac.compare_digest(supplied,expected):raise ValueError()
+                with authentication_lock:
+                    if name in revoked or not expected or not hmac.compare_digest(supplied,expected):raise ValueError()
                 return name,role
             except (ValueError,UnicodeError,binascii.Error):self.reply(401,{'error':'Authentication required'});return None
         def do_GET(self):
@@ -366,6 +408,18 @@ def interactive_server(credentials,control,*,port=0):
                 from .guardian.readonly import unique
                 data=json.loads(self.rfile.read(int(lengths[0])),object_pairs_hook=unique)
                 if type(data) is not dict:raise ValueError()
+                if self.path=='/api/logout':
+                    if data!={}:raise ValueError()
+                    # HTTP Basic credentials may remain cached by the browser.
+                    # Revoke this identity server-side, cancel authority/work and
+                    # require an explicitly restarted process to authenticate again.
+                    control.emergency_stop()
+                    with authentication_lock:revoked.add(name);csrf[name]=secrets.token_urlsafe(32)
+                    return self.reply(200,{'status':'logged_out','restart_required':True,'stop_requested':True})
+                if self.path=='/api/voice/reserve':
+                    if data!={}:raise ValueError()
+                    return self.reply(201,control.reserve_native_voice())
+                if self.path=='/api/voice/finish':return self.reply(202,control.finish_native_voice(data))
                 if self.path=='/api/stop':
                     if data!={}:raise ValueError()
                     return self.reply(202,control.emergency_stop())

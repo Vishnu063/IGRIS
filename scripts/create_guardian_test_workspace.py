@@ -1,12 +1,14 @@
 """Manual disposable demonstration only. Refuses to overwrite any existing path."""
 import json
 import os
+import argparse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--require-approvals',action='store_true');args=parser.parse_args()
     destination = ROOT/'runtime/guardian-demo'
     destination.mkdir(mode=0o700)
     workspace = destination/'workspace';workspace.mkdir(mode=0o700)
@@ -16,7 +18,7 @@ def main():
     with os.fdopen(fd,'w') as handle:
         json.dump({'version':1,'workspace':str(workspace),'allowed_operations':
             ['get_current_time','list_workspace_files','read_workspace_file'],'directories':['.'],
-            'files':['note.txt'],'approval_required':[]},handle,indent=2)
+            'files':['note.txt'],'approval_required':['get_current_time','list_workspace_files','read_workspace_file'] if args.require_approvals else []},handle,indent=2)
         handle.write('\n')
     print(json.dumps({'profile':str(profile),'workspace':str(workspace),'native_tools_enabled':False}))
 

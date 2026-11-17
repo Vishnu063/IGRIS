@@ -11,6 +11,8 @@ class WarmDockerHermesAdapter(DockerHermesAdapter):
  def __init__(self,**kwargs):
   super().__init__(**kwargs);self.process=None;self.launch=None;self.slot=None;self.buffer=bytearray();self.sequence=0;self.metrics=[];self.active=False;self.turn_lock=threading.Lock()
  def start(self):
+  import platform
+  if platform.machine()!='x86_64':raise AdapterUnavailable('Warm transport is not yet ARM64-accepted; use the native one-shot runtime.')
   if self.active or self.process is not None or self.cancel.is_set():raise AdapterUnavailable('Explicit fresh warm session required.')
   self._preflight();self.slot=self._slot();self.slot.__enter__()
   from ..isolated import docker_command,docker_environment
@@ -21,9 +23,9 @@ class WarmDockerHermesAdapter(DockerHermesAdapter):
    args=base+['create','--rm','--pull=never','--interactive','--name',name,'--label','com.igris.runtime=hermes-inference','--label','com.igris.owner='+marker,'--network','none','--read-only','--user',f'{os.getuid()}:{os.getgid()}','--cap-drop','ALL','--security-opt','no-new-privileges','--pids-limit','128','--memory','3g','--cpus','2','--tmpfs','/tmp:rw,noexec,nosuid,size=268435456,mode=1777','--workdir','/tmp','--env','HOME=/tmp/igris-home','--env','HERMES_HOME=/tmp/igris-home/hermes','--env','HERMES_DISABLE_LAZY_INSTALLS=1','--env','PYTHONDONTWRITEBYTECODE=1','--env','NO_PROXY=127.0.0.1,localhost']
    mounts=['runtime/python3149','runtime/hermes-venv','runtime/llama-b11960','runtime/'+self.profile['model_file'],'vendor/hermes-agent','src/igris','integrations/hermes-inference/profile.json','integrations/agency-agents']+['scripts/'+name for name in ('hermes_inference_worker.py','hermes_chat_worker.py','hermes_tool_worker.py','hermes_specialist_worker.py','hermes_warm_worker.py')]
    for relative in mounts:
-    path=self.root/relative
+    destination=self.root/relative;path=self.profile_path if relative=='integrations/hermes-inference/profile.json' else destination
     if path.is_symlink() or not path.exists():raise ContractError('Unsafe fixed warm worker mount.')
-    args+=['--mount',f'type=bind,src={path},dst={path},readonly']
+    args+=['--mount',f'type=bind,src={path},dst={destination},readonly']
    args+=[self.profile['container_image'],str(self.root/'runtime/hermes-venv/bin/python'),'-I',str(self.root/'scripts/hermes_warm_worker.py')]
    self.launch=OwnedLaunch(self.runtime,base,env,name,marker);self.cleanup_verified=False;cid=self.launch.create(args);self.log=tempfile.TemporaryFile(dir=self.runtime)
    self.key=os.urandom(32);self.started=time.monotonic();self.process=subprocess.Popen(base+['start','--attach','--interactive',cid],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=self.log,env=env)

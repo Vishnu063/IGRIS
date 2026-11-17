@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleIdentifier</key><string>local.igris.manualvoice</string>
+<key>CFBundleName</key><string>IGRIS Manual Voice</string>
+<key>CFBundleExecutable</key><string>igris-voice</string>
+<key>CFBundlePackageType</key><string>APPL</string>
+<key>NSMicrophoneUsageDescription</key><string>Record only when you explicitly start an IGRIS voice request, for at most 30 seconds.</string>
+<key>NSSpeechRecognitionUsageDescription</key><string>Transcribe your explicitly selected recording using available on-device recognition. Cloud recognition is disabled.</string>
+</dict></plist>

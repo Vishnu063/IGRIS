@@ -1,0 +1,9 @@
+# Native aarch64 guest build only. Ubuntu signed package metadata pins contents
+# in the local image; its exact image ID/recipe label is checked at execution.
+FROM ubuntu@sha256:fe81560990fae86dc4743202b2cb4d3df98d0bcf949173cecef15ce1127ef852
+RUN test "$(dpkg --print-architecture)" = arm64 \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends libgomp1=14.2.0-4ubuntu2~24.04.1 \
+    && dpkg-query -W libgomp1 > /usr/local/share/igris-system-packages.txt \
+    && rm -rf /var/lib/apt/lists/*
+USER 1000:1000

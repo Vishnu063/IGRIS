@@ -1,7 +1,7 @@
 """Future authorized Mac preparation only; no cloud-to-Mac installation pathway."""
 import argparse,hashlib,json,os,platform,shutil,stat,subprocess,sys
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1];PACKAGE=ROOT/'packaging/macos';NAME='igris';LIMA_VERSION='2.2.1'
+ROOT=Path(__file__).resolve().parents[1];PACKAGE=ROOT/'packaging/macos';NAME='igris';LIMA_VERSION='2.3.0'
 class Blocked(RuntimeError):pass
 
 def digest(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -10,7 +10,7 @@ def native_gate():
  if sys.version_info<(3,11):raise Blocked('Existing native Python >=3.11 required; installer does not bootstrap Python.')
 
 def inventory():
- return {'system':platform.system(),'architecture':platform.machine(),'python':platform.python_version(),'lima_installed':bool(shutil.which('limactl')),'free_bytes':shutil.disk_usage(Path.home()).free,'hardware_acceptance':'BLOCKED','assistant_startup':'BLOCKED: ARM64 Guardian/runtime not verified','autostart':False,'mac_modified':False}
+ return {'system':platform.system(),'architecture':platform.machine(),'python':platform.python_version(),'lima_installed':bool(shutil.which('limactl') or (Path.home()/'Library/Application Support/IGRIS/lima/bin/limactl').is_file()),'free_bytes':shutil.disk_usage(Path.home()).free,'hardware_acceptance':'REQUIRES_ACTUAL_GUEST_AND_HUMAN_VOICE_EVIDENCE','assistant_startup':'GATED: current native guest acceptance receipt required; start command revalidates it','autostart':False,'mac_modified':False}
 
 def install(root):
  root=Path(root).absolute()
@@ -40,7 +40,7 @@ def check(root):
 
 def uninstall(root):
  manifest=check(root);root=Path(root)
- if (root/'vm-state').exists():raise Blocked('VM state preserved: stop, back up and review the dedicated VM before uninstalling its control files.')
+ if (root/'vm-state').exists() or (root/'lima').exists():raise Blocked('VM state preserved: stop, back up and review the dedicated VM before uninstalling its control files.')
  for name in manifest['files']:(root/name).unlink()
  (root/'manifest.json').unlink();retained=sorted(p.name for p in root.iterdir())
  if not retained:root.rmdir()
@@ -50,28 +50,40 @@ def vm_command(root,action):
  check(root)
  for name in ('default.yaml','override.yaml'):
   if (Path(root)/'vm-state/_config'/name).exists():raise Blocked('Unreviewed Lima defaults/overrides could change isolation; preserved and blocked.')
- binary=shutil.which('limactl')
- if not binary:raise Blocked('Lima 2.2.1 must be explicitly installed/reviewed by the owner first; no automatic Homebrew installation.')
+ candidate=Path(root)/'lima/bin/limactl'
+ if candidate.is_file():
+  from mac_vm import verify_lima
+  verify_lima(Path(root)/'lima')
+ binary=str(candidate) if candidate.is_file() else shutil.which('limactl')
+ if not binary:raise Blocked('Lima 2.3.0 must be explicitly installed/reviewed by the owner first; no automatic Homebrew installation.')
  version=subprocess.check_output([binary,'--version'],text=True,timeout=5).strip()
- if version!='limactl version '+LIMA_VERSION:raise Blocked('Pinned Lima 2.2.1 required; other versions need review.')
+ if version!='limactl version '+LIMA_VERSION:raise Blocked('Pinned Lima 2.3.0 required; other versions need review.')
  env=dict(os.environ,LIMA_HOME=str(Path(root)/'vm-state'));args=[binary]
- if action=='start-vm':args+=['start','--name='+NAME,'--tty=false',str(Path(root)/'lima.yaml')]
+ if action=='start-vm':
+  if (Path(root)/'vm-state/igris').exists():
+   from mac_vm import inspect_instance
+   inspect_instance(binary,env,root);args+=['start',NAME]
+  else:args+=['start','--name='+NAME,'--tty=false',str(Path(root)/'lima.yaml')]
  elif action=='stop-vm':args+=['stop',NAME]
  else:raise Blocked('Unsupported VM action.')
  return args,env
 
 def main():
  parser=argparse.ArgumentParser(description='Read-only plan by default; no actual Mac installation is authorized by this package.')
- parser.add_argument('action',choices=('plan','preflight','configure','start-vm','stop-vm','start','uninstall'));parser.add_argument('--allow-changes',action='store_true',help='Use only after separate owner authorization on the actual Mac.')
+ parser.add_argument('action',choices=('plan','preflight','configure','start-vm','stop-vm','start','uninstall','install-lima','uninstall-lima','bootstrap-guest','prepare-runtime','verify-guest','export-accounts','measure'));parser.add_argument('--allow-changes',action='store_true',help='Use only after separate owner authorization on the actual Mac.')
+ parser.add_argument('--allow-downloads',action='store_true');parser.add_argument('--commit',help='Exact reviewed source SHA for a fresh guest clone.')
  args=parser.parse_args()
  if args.action=='plan':print(json.dumps(inventory(),indent=2));return 0
  native_gate()
  if args.action=='preflight':print(json.dumps(inventory(),indent=2));return 2
- if not args.allow_changes:raise Blocked('Later explicit Mac authorization and --allow-changes required.')
- if args.action=='start':raise Blocked('ARM64 runtime, kernel enforcement and hardware acceptance remain unverified; assistant startup disabled.')
+ if not args.allow_changes and args.action!='measure':raise Blocked('Later explicit Mac authorization and --allow-changes required.')
  root=Path.home()/'Library'/'Application Support'/'IGRIS'
+ if args.action in ('install-lima','uninstall-lima','bootstrap-guest','prepare-runtime','verify-guest','export-accounts','start','measure'):
+  from mac_vm import perform
+  return perform(args,root)
  if args.action in ('configure','start-vm'):
   memory=int(subprocess.check_output(['/usr/sbin/sysctl','-n','hw.memsize'],text=True,timeout=5))
+  if subprocess.check_output(['/usr/sbin/sysctl','-n','kern.hv_support'],text=True,timeout=5).strip()!='1':raise Blocked('Native hardware virtualization required; no QEMU/Rosetta fallback.')
   if memory<8*1024**3 or int(platform.mac_ver()[0].split('.')[0])<13:raise Blocked('At least 8 GiB RAM and macOS 13 are required for this candidate VZ profile.')
   if shutil.disk_usage(root.parent).free<20*1024**3:raise Blocked('At least 20 GiB free required for preparation; estimates remain unverified.')
  if args.action=='configure':
