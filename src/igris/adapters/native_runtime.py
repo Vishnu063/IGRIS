@@ -1,8 +1,29 @@
 """Trusted native ARM64 profile selection; no model-supplied runtime parameters."""
-import hashlib,json,platform,re,struct
+import hashlib,json,platform,re,struct,subprocess
 from pathlib import Path
 from .contracts import AdapterUnavailable,ContractError
 from ..memory import private_file
+
+def validate_daemon_limits(info):
+    required=('MemoryLimit','SwapLimit','CpuCfsPeriod','CpuCfsQuota','PidsLimit')
+    if type(info) is not dict or any(info.get(key) is not True for key in required) or info.get('CgroupVersion')!='2' or info.get('CgroupDriver') not in ('systemd','cgroupfs'):
+        raise AdapterUnavailable('CPU, memory, swap and PID cgroup v2 enforcement unavailable; runtime activation blocked.')
+    return {key:info[key] for key in required}
+
+def require_daemon_limits():
+    from ..isolated import docker_command,docker_environment
+    raw=subprocess.check_output(docker_command()+['info','--format','{{json .}}'],env=docker_environment(),text=True,timeout=10)
+    return validate_daemon_limits(json.loads(raw))
+
+def verify_worker_limits(directory='/sys/fs/cgroup'):
+    root=Path(directory)
+    try:
+        values={name:(root/name).read_text().strip() for name in ('memory.max','memory.swap.max','pids.max','cpu.max')}
+        memory=int(values['memory.max']);swap=int(values['memory.swap.max']);pids=int(values['pids.max'])
+        quota,period=map(int,values['cpu.max'].split())
+        if not (0<memory<=3*1024**3 and swap==0 and 0<pids<=128 and 0<quota<=2*period and period>0):raise ValueError()
+    except (OSError,ValueError):raise AdapterUnavailable('Actual worker cgroup limits absent or exceed the reviewed profile.') from None
+    return values
 
 def digest(path):
     with Path(path).open('rb') as source:return hashlib.file_digest(source,'sha256').hexdigest()
@@ -49,7 +70,6 @@ def validate_native_profile(root,profile,machine):
     elf_machine(root/'runtime/llama-b11960/llama-b11960/llama-server',183 if machine=='aarch64' else 62)
     # Verify actual installed image metadata, not merely a claimed image tag.
     from ..isolated import docker_command,docker_environment
-    import subprocess
     result=subprocess.run(docker_command()+['image','inspect',image],env=docker_environment(),capture_output=True,text=True,check=True,timeout=10)
     rows=json.loads(result.stdout)
     if len(rows)!=1 or rows[0].get('Architecture')!=('arm64' if machine=='aarch64' else 'amd64') or rows[0].get('Os')!='linux' or rows[0].get('Id')!=image:

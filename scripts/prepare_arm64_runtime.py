@@ -21,6 +21,8 @@ def unpack(archive,target):
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--allow-downloads',action='store_true',required=True);args=parser.parse_args()
     if platform.system()!='Linux' or platform.machine()!='aarch64':raise RuntimeError('Actual native ARM64 Linux guest required; no cross-architecture preparation execution.')
+    from igris.adapters.native_runtime import require_daemon_limits
+    require_daemon_limits() # No model download when enforcement is unavailable.
     runtime=ROOT/'runtime';runtime.mkdir(mode=0o700,exist_ok=True)
     if runtime.resolve()!=runtime or (runtime/'arm64').exists():raise RuntimeError('Existing preparation preserved; verify/review it instead of overwriting.')
     proof=verify() # Actual target headers and irreversible syscall tests FIRST.

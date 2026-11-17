@@ -36,6 +36,8 @@ def reasoning_session(*, agent_factory=False):
     assert digest.hexdigest() == profile['model_sha256'], 'Model integrity check failed'
     assert os.getuid() != 0, 'Probe must not run as root'
     assert os.environ.get('HERMES_DISABLE_LAZY_INSTALLS') == '1'
+    from igris.adapters.native_runtime import verify_worker_limits
+    verify_worker_limits() # Actual kernel files, never a claimed CLI flag.
     try:
         with (ROOT/'vendor/hermes-agent/.igris-write-probe').open('x'): pass
     except OSError as exc:

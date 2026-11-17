@@ -149,6 +149,8 @@ class DockerHermesAdapter:
             path = self.root/'vendor/hermes-agent'/name
             if path.is_symlink() or not path.resolve().is_relative_to(self.root/'vendor/hermes-agent') or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
                 raise ContractError('Copied Hermes source requires review.')
+        from .native_runtime import require_daemon_limits
+        require_daemon_limits()
 
     @contextmanager
     def _slot(self):
@@ -185,7 +187,7 @@ class DockerHermesAdapter:
             args = base+['create', '--rm', '--pull=never', '--interactive', '--name', name,
                 '--label', 'com.igris.runtime=hermes-inference', '--label', 'com.igris.owner='+marker, '--network', 'none', '--read-only',
                 '--user', f'{os.getuid()}:{os.getgid()}', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges',
-                '--pids-limit', '128', '--memory', '3g', '--cpus', '2',
+                '--pids-limit', '128', '--memory', '3g', '--memory-swap', '3g', '--cpus', '2',
                 '--tmpfs', '/tmp:rw,noexec,nosuid,size=268435456,mode=1777', '--workdir', '/tmp',
                 '--env', 'HOME=/tmp/igris-home', '--env', 'HERMES_HOME=/tmp/igris-home/hermes',
                 '--env', 'HERMES_DISABLE_LAZY_INSTALLS=1', '--env', 'PYTHONDONTWRITEBYTECODE=1',
