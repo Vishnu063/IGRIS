@@ -61,17 +61,16 @@ class ScopedFactTests(unittest.TestCase):
  def test_index_reference_is_rebound_to_current_sqlite_scope_and_revision(self):
   from igris.integrations.mem0_runtime import Mem0Index
   from unittest.mock import patch
-  import json,shutil,threading
+  import json,threading
   row=self.facts.save('owner',self.first,'project','Current scoped fact.',approved=True)
   foreign=self.facts.save('owner',self.second,'project','Foreign scoped fact.',approved=True)
   scope=self.facts.token('owner',self.first);index=Mem0Index(enabled=True)
   def fixture(worker,image,program,mounts,**kwargs):
    # Protocol fixture only, not real NN inference. Real execution has separate evidence.
    packet=json.loads(kwargs['payload']);return json.dumps({'origin':'real_mem0_local','scope':scope,'snapshot_sha256':packet['snapshot_sha256'],'results':[{'id':foreign['id'],'revision':1,'score':1.0},{'id':row['id'],'revision':0,'score':1.0},{'id':row['id'],'revision':1,'score':.5}],'indexed_facts':1,'embedding_calls':1,'extraction_calls':0,'extraction_probe_denied':False,'telemetry_enabled':False,'elapsed_seconds':.1,'maxrss_kib':1}).encode()
-  try:
-   with patch.object(index,'preflight'),patch('igris.integrations.mem0_runtime.IsolatedWorker.run',fixture):
-    result=index.query(Policy('owner',frozenset({Permission.READ})),self.facts,self.first,'scoped fact',cancel=threading.Event())
-   self.assertEqual([item['id'] for item in result['facts']],[row['id']])
-   self.assertNotIn('Foreign',str(result))
-  finally:
-   shutil.rmtree(Path(__file__).resolve().parents[1]/'runtime/mem0/index'/scope,ignore_errors=True)
+  # Keep the mocked runtime entirely inside this test's disposable directory.
+  (self.root/'runtime/mem0').mkdir(parents=True,mode=0o700)
+  with patch('igris.integrations.mem0_runtime.ROOT',self.root),patch.object(index,'preflight'),patch('igris.integrations.mem0_runtime.IsolatedWorker.run',fixture):
+   result=index.query(Policy('owner',frozenset({Permission.READ})),self.facts,self.first,'scoped fact',cancel=threading.Event())
+  self.assertEqual([item['id'] for item in result['facts']],[row['id']])
+  self.assertNotIn('Foreign',str(result))
