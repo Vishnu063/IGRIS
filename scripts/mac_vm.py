@@ -89,9 +89,17 @@ def install_lima(root,allow_downloads):
     from fetch_hermes_probe_assets import fetch
     pins=json.loads((ROOT/'packaging/macos/assets.json').read_text())['lima']
     with tempfile.TemporaryDirectory(dir=root,prefix='lima-download-') as folder:
+        prepared=Path(folder)/'prepared';prepared.mkdir(mode=0o700)
         for item in pins['artifacts']:
-            archive=fetch(Path(folder),item['name'],item['url'],item['sha256'],item['bytes'])
-            extract_lima(archive,target)
+            try:archive=fetch(Path(folder),item['name'],item['url'],item['sha256'],item['bytes'],native_macos=True)
+            except (ValueError,TimeoutError,OSError) as error:
+                detail=str(error) if isinstance(error,(ValueError,TimeoutError)) else type(error).__name__
+                raise Blocked('Lima not installed: '+detail) from None
+            extract_lima(archive,prepared)
+        # Failed downloads/extraction leave no partial installation to overwrite.
+        # mkdir refuses any concurrently created pre-existing destination.
+        target.mkdir(mode=0o700)
+        for item in prepared.iterdir():item.rename(target/item.name)
     files={str(p.relative_to(target)):digest(p) for p in target.rglob('*') if p.is_file() and not p.is_symlink()}
     links={str(p.relative_to(target)):os.readlink(p) for p in target.rglob('*') if p.is_symlink()}
     (target/'igris-install-manifest.json').write_text(json.dumps({'files':files,'links':links,'directories':[str(p.relative_to(target)) for p in target.rglob('*') if p.is_dir() and not p.is_symlink()],'version':pins['version']},indent=2)+'\n')

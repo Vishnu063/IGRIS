@@ -1,12 +1,28 @@
 """Real disposable archive extraction; no Mac binary or VM execution."""
-import importlib.util,io,json,sys,tarfile,tempfile,unittest
+import importlib.util,io,json,sys,tarfile,tempfile,unittest,types
+from unittest.mock import patch
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 try:
-    from mac_vm import extract_lima,verify_lima,validate_instance
-    from mac_package import Blocked,digest
+    from mac_vm import extract_lima,verify_lima,validate_instance,install_lima
+    from mac_package import Blocked,digest,install
 finally:sys.path.remove(str(ROOT/'scripts'))
 class MacArchiveTests(unittest.TestCase):
+    def test_second_download_failure_preserves_config_without_partial_install(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)/'private';install(root);sentinel=root/'notes.txt';sentinel.write_text('Preserve owner notes.')
+            manifest=(root/'manifest.json').read_bytes();calls=[]
+            def fixture(directory,name,url,sha,maximum,**kwargs):
+                calls.append(name);self.assertIs(kwargs['native_macos'],True)
+                if len(calls)==2:raise ValueError('Synthetic second download failure.')
+                path=directory/name
+                with tarfile.open(path,'w') as archive:
+                    member=tarfile.TarInfo('bin/limactl');member.size=4;archive.addfile(member,io.BytesIO(b'test'))
+                return path
+            with patch.dict(sys.modules,{'fetch_hermes_probe_assets':types.SimpleNamespace(fetch=fixture)}):
+                with self.assertRaisesRegex(Blocked,'Lima not installed'):install_lima(root,True)
+            self.assertEqual(len(calls),2);self.assertFalse((root/'lima').exists());self.assertFalse(list(root.glob('lima-download-*')))
+            self.assertEqual((root/'manifest.json').read_bytes(),manifest);self.assertEqual(sentinel.read_text(),'Preserve owner notes.')
     def instance(self,root):
         return {'name':'igris','arch':'aarch64','vmType':'vz','cpus':2,'memory':4*1024**3,'disk':24*1024**3,'dir':str(Path(root)/'vm-state/igris'),'config':{'mounts':[],'rosetta':{'enabled':False,'binfmt':False},'ssh':{'forwardAgent':False,'forwardX11':False},'containerd':{'system':False,'user':False},'portForwards':[{'guestIP':'127.0.0.1','guestPort':8765,'hostIP':'127.0.0.1','hostPort':8765},{'ignore':True,'guestPortRange':[1,65535]}]}}
     def test_actual_instance_schema_requires_native_limits_and_no_sharing(self):
