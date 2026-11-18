@@ -1,6 +1,10 @@
 """Future authorized Mac preparation only; no cloud-to-Mac installation pathway."""
 import argparse,hashlib,json,os,platform,shutil,stat,subprocess,sys
 from pathlib import Path
+# Keep one exception/config module when this file is the CLI entry point.
+# Helpers import mac_package; a second module would create a different Blocked
+# class and bypass the CLI's concise error handler (without granting authority).
+if __name__=='__main__':sys.modules['mac_package']=sys.modules[__name__]
 ROOT=Path(__file__).resolve().parents[1];PACKAGE=ROOT/'packaging/macos';NAME='igris';LIMA_VERSION='2.3.0'
 class Blocked(RuntimeError):pass
 

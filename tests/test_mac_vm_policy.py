@@ -25,6 +25,26 @@ import test_mac_archive as archive_fixtures
 
 
 class MacVMPolicyTests(unittest.TestCase):
+    def test_cli_catches_helper_denial_without_second_exception_class(self):
+        # Simulated platform/helper only; actual subprocess and CLI handler.
+        code = '''import platform,runpy,sys,types
+platform.system=lambda:'Darwin'
+platform.machine=lambda:'arm64'
+helper=types.ModuleType('mac_vm')
+def perform(*args):
+    from mac_package import Blocked
+    raise Blocked('Synthetic reviewed-helper denial.')
+helper.perform=perform
+sys.modules['mac_vm']=helper
+sys.argv=[sys.argv[1],'inspect-vm']
+runpy.run_path(sys.argv[0],run_name='__main__')
+'''
+        result = subprocess.run([sys.executable, '-c', code, str(ROOT/'scripts/mac_package.py')],
+                                capture_output=True, text=True, timeout=5)
+        self.assertEqual(result.returncode, 2)
+        self.assertEqual(result.stdout, '')
+        self.assertEqual(result.stderr, 'BLOCKED: Synthetic reviewed-helper denial.\n')
+
     def setup_original(self, folder):
         root = Path(folder)/'private'
         install(root)
