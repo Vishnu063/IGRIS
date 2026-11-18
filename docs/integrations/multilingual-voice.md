@@ -1,3 +1,5 @@
+Current 2026-11-18 IST native implementation and unresolved gates: [readiness report](../execution/mac-readiness.md) and [Mac operator guide](../delivery/native-mac-guide.md). The original results below remain historical, with no Mac/human acceptance inferred.
+
 # Manual multilingual voice: tested scope and gaps
 
 Handy v0.9.8 exposes text and timings but no language metadata. Its multilingual

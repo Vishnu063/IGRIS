@@ -7,6 +7,10 @@ planning and DevOps work with a restricted independent execution broker.
 
 The new [single-task architecture](docs/architecture/single-task.md) is the default: one foreground reservation across chat, specialists and Guardian profiles, including approval waits; lazy integrations and verified owned cleanup. [Ops lifecycle modes](docs/integrations/ops-lifecycle.md) default to Manual. The original Mac/voice and n8n release blockers remain.
 
+## Native Mac work — current verification gate (2026-11-18 IST)
+
+The [native Mac guide](docs/delivery/native-mac-guide.md) and [fresh readiness report](docs/execution/mac-readiness.md) cover ARM64 Guardian/runtime preparation, private Lima setup and a manual native voice bridge. **Actual Mac installation, native guest execution and human English/Hindi/Marathi acceptance remain BLOCKED.** Fresh Linux functional diagnostics passed before resource hardening; the final runtime now correctly refuses this cloud daemon because CPU/memory/swap/PID cgroups are unsupported. Historical live results below are not proof that the current environment can activate inference. n8n remains optional and quarantined. [Current pending work](docs/execution/mac-readiness-progress.json).
+
 ## Actual implementation state
 
 Tested local libraries provide mission control, Guardian permissions and exact

@@ -54,14 +54,17 @@ def main():
             observed.append({'prompt': prompt, 'response': payload['reply'], 'mission': payload['mission'],
                              'inference': dict(row), 'elapsed_seconds': round(time.monotonic()-started, 4),
                              'separate_cli_process': True, 'fresh_offline_worker': True})
+            record({'status':'RUNNING','origin':'not_yet_verified','turns':observed})
             return payload
 
-        codeword = 'MAPLE'+uuid4().hex[:8].upper()
-        first = turn('Remember this codeword for our conversation: '+codeword+'. Reply only NOTED.')
-        second_prompt = 'What codeword did I ask you to remember? Reply only with that codeword.'
-        assert codeword not in second_prompt
-        second = turn(second_prompt, first['conversation_id'])
-        assert codeword in second['reply'], 'Cross-process recall failed.'
+        # Several fresh randomized conversations, not retries until one passes.
+        for sample in range(3):
+            codeword = 'MAPLE'+uuid4().hex[:8].upper()
+            first = turn('Remember this codeword for our conversation: '+codeword+'. Reply only NOTED.')
+            second_prompt = 'What codeword did I ask you to remember? Reply only with that codeword.'
+            assert codeword not in second_prompt
+            second = turn(second_prompt, first['conversation_id'])
+            assert codeword in second['reply'], 'Cross-process recall failed in sample '+str(sample)
         third = turn('What codeword did I ask you to remember in this conversation? If none was provided, reply only UNKNOWN.')
         assert third['conversation_id'] != first['conversation_id']
         assert codeword not in third['reply'] and 'UNKNOWN' in third['reply'].upper(), 'Conversation isolation acceptance failed.'
@@ -109,7 +112,7 @@ def main():
              'scripts/hermes_inference_worker.py', 'scripts/hermes_chat_worker.py', 'scripts/test_chat_live.py',
              'integrations/hermes-inference/profile.json']
     evidence = {'status': 'PASS', 'origin': 'real_local_inference', 'verified_at_utc': datetime.now(timezone.utc).isoformat(),
-        'model_sha256': model_sha, 'turns': observed, 'cross_process_recall': True, 'conversation_isolation': True,
+        'model_sha256': model_sha, 'turns': observed, 'cross_process_recall': True, 'randomized_recall_cases':3, 'conversation_isolation': True,
         'persisted_owner_denial': True, 'sqlite_backup_restore': True, 'explicit_forget': True,
         'real_sigint_exit': 130, 'cancelled_turn_excluded_from_history': True, 'all_containers_removed': True,
         'native_tools_enabled': False, 'spend_inr': 0, 'mac_tested': False,
@@ -122,5 +125,6 @@ def main():
 if __name__ == '__main__':
     try: main()
     except BaseException as exc:
-        record({'status': 'STOPPED' if isinstance(exc, KeyboardInterrupt) else 'FAIL', 'origin': 'not_verified', 'error_class': type(exc).__name__})
+        previous=json.loads((ROOT/'runtime/chat-live-evidence.json').read_text())
+        record(dict(previous,status='STOPPED' if isinstance(exc,KeyboardInterrupt) else 'FAIL',origin='not_verified',error_class=type(exc).__name__))
         raise

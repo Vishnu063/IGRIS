@@ -1,5 +1,5 @@
 """Real Hermes context restored as data; genuine old Guardian approval cannot resume."""
-import hashlib,json,sys,tempfile
+import argparse,hashlib,json,sys,tempfile
 from pathlib import Path
 from uuid import uuid4
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'src'))
@@ -10,6 +10,8 @@ from igris.scoped_memory import ScopedFacts
 from igris.guardian.tools import GuardianTools
 from igris.guardian.review import ApprovalReviews
 from igris.adapters.hermes_chat import DockerHermesAdapter
+from igris.memory import private_file
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,default=ROOT/'runtime/chat-backup-live-evidence.json');args=parser.parse_args()
 with tempfile.TemporaryDirectory(dir=ROOT/'runtime',prefix='backup-live-') as folder:
  root=Path(folder);source=root/'source';source.mkdir(mode=0o700);memory=ConversationMemory(source/'chat.sqlite3','owner',initialize=True);conversation=memory.create('owner',approved=True);facts=ScopedFacts(source/'facts.sqlite3','owner',memory,initialize=True);chat=ChatService('owner',memory,DockerHermesAdapter())
  first=chat.ask('owner',conversation,'My project codename is CedarLynx. Reply only OK.');assert first['saved'];chat.close()
@@ -23,4 +25,5 @@ with tempfile.TemporaryDirectory(dir=ROOT/'runtime',prefix='backup-live-') as fo
  with restored_tools.store._db() as db:assert db.execute('SELECT COUNT(*) FROM approvals').fetchone()[0]==0
  recovered=ChatService('owner',imported,DockerHermesAdapter());answer=recovered.ask('owner',conversation,'What is my project codename? Reply with only the name.');assert answer['saved'] and 'cedarlynx' in answer['reply'].casefold();recovered.close();reviews.finish('owner',mission)
  artifact={'status':'PASS','actual_real_chat_before_backup':first['reply'],'actual_real_recall_after_restore':answer['reply'],'data_restored':result,'old_approved_unused_action_denied':not denial['ok'],'snapshot_sha256':proof['sha256'],'facts_preserved':True,'approvals_restored':0,'mocked':False,'owner_inputs':'Explicit synthetic owner fixture data and decisions.','source_sha256':{n:hashlib.sha256((ROOT/n).read_bytes()).hexdigest() for n in ['src/igris/chat_backup.py','scripts/test_chat_backup_live.py']}}
-(ROOT/'docs/validation/chat-backup-live.json').write_text(json.dumps(artifact,indent=2)+'\n');print(json.dumps(artifact))
+args.output.parent.mkdir(mode=0o700,parents=True,exist_ok=True)
+private_file(args.output,create=not args.output.exists()).write_text(json.dumps(artifact,indent=2)+'\n');print(json.dumps(artifact))

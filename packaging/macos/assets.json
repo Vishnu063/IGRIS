@@ -1,8 +1,23 @@
 {
   "status": "PINNED_NOT_EXECUTED",
   "lima": {
-    "version": "v2.2.1",
-    "license": "Apache-2.0"
+    "version": "v2.3.0",
+    "license": "Apache-2.0",
+    "installation_reference": "https://github.com/lima-vm/lima/blob/v2.3.0/website/content/en/docs/installation/_index.md",
+    "artifacts": [
+      {
+        "name": "lima-2.3.0-Darwin-arm64.tar.gz",
+        "url": "https://github.com/lima-vm/lima/releases/download/v2.3.0/lima-2.3.0-Darwin-arm64.tar.gz",
+        "sha256": "b7af444bd8f91d3c307477e562f2cf3bd7595d62b9429185e4fa841563578cfc",
+        "bytes": 50317981
+      },
+      {
+        "name": "lima-additional-guestagents-2.3.0-Darwin-arm64.tar.gz",
+        "url": "https://github.com/lima-vm/lima/releases/download/v2.3.0/lima-additional-guestagents-2.3.0-Darwin-arm64.tar.gz",
+        "sha256": "f43a1523a3a0a45692ca9cb3e5c61ae11b69ef04ca80081e8e05fe4df816a35a",
+        "bytes": 39669571
+      }
+    ]
   },
   "engine": [
     {

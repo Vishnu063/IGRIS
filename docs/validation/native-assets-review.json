@@ -1,0 +1,518 @@
+{
+  "status": "PASS_ARTIFACT_REVIEW_ONLY",
+  "native_arm64_execution": "BLOCKED: hardware/guest unavailable",
+  "hash_pinned_arm64_wheels_downloaded": 53,
+  "assets": [
+    {
+      "file": "lima-2.3.0-Darwin-arm64.tar.gz",
+      "bytes": 50317981,
+      "sha256": "b7af444bd8f91d3c307477e562f2cf3bd7595d62b9429185e4fa841563578cfc",
+      "expanded_bytes": 112607601,
+      "binaries": [
+        {
+          "path": "./bin/limactl",
+          "format": "Mach-O",
+          "cpu_type": "0x0100000c (ARM64)"
+        }
+      ],
+      "bundled_license_paths": [
+        "./share/doc/lima/LICENSE"
+      ]
+    },
+    {
+      "file": "lima-additional-guestagents-2.3.0-Darwin-arm64.tar.gz",
+      "bytes": 39669571,
+      "sha256": "f43a1523a3a0a45692ca9cb3e5c61ae11b69ef04ca80081e8e05fe4df816a35a",
+      "expanded_bytes": 39733006,
+      "binaries": [],
+      "bundled_license_paths": []
+    },
+    {
+      "file": "llama-b11960-bin-ubuntu-arm64.tar.gz",
+      "bytes": 18411465,
+      "sha256": "0065ecfbffe8a790bb0d28059a3320cdc8f723b7f3f248cdc8bfc04790927715",
+      "expanded_bytes": 42942358,
+      "binaries": [
+        {
+          "path": "llama-b11960/llama-server",
+          "format": "ELF",
+          "elf_machine": 183,
+          "mach_cpu": null
+        }
+      ],
+      "bundled_license_paths": [
+        "llama-b11960/LICENSE"
+      ]
+    },
+    {
+      "file": "python-arm64.tar.gz",
+      "bytes": 58711403,
+      "sha256": "847895ba727440b012207bb0192282d7e182eb991ae5c7bb5c35c6a12a99e732",
+      "expanded_bytes": 177125768,
+      "binaries": [
+        {
+          "path": "python/bin/python3.14",
+          "format": "ELF",
+          "elf_machine": 183,
+          "mach_cpu": null
+        }
+      ],
+      "bundled_license_paths": [
+        "python/lib/python3.14/LICENSE.txt",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/AUTHORS.txt",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/LICENSE.txt",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/cachecontrol/LICENSE.txt",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/certifi/LICENSE",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/distlib/LICENSE.txt",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/distro/LICENSE",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/idna/LICENSE.md",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/msgpack/COPYING",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/packaging/LICENSE",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/packaging/LICENSE.APACHE",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/packaging/LICENSE.BSD",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/pkg_resources/LICENSE",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/platformdirs/LICENSE",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/pygments/LICENSE",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/pyproject_hooks/LICENSE",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/requests/LICENSE",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/resolvelib/LICENSE",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/rich/LICENSE",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/tomli/LICENSE",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/tomli_w/LICENSE",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/truststore/LICENSE",
+        "python/lib/python3.14/site-packages/pip-26.2.2.dist-info/licenses/src/pip/_vendor/urllib3/LICENSE.txt",
+        "python/lib/python3.14/site-packages/pip/_vendor/cachecontrol/LICENSE.txt",
+        "python/lib/python3.14/site-packages/pip/_vendor/certifi/LICENSE"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "annotated-types",
+      "version": "0.8.0",
+      "wheel": "annotated_types-0.8.0-py3-none-any.whl",
+      "sha256": "f072f4d804ea359e4eaf198b1af7a8b0943881a87f31bb764f8bf219bb9419e0",
+      "license_expression": "MIT",
+      "license": ""
+    },
+    {
+      "name": "anyio",
+      "version": "4.15.1",
+      "wheel": "anyio-4.15.1-py3-none-any.whl",
+      "sha256": "6152fdbbf9a77fdec97731721bebf7c4c44f7c29b424b0065826173efc7ed101",
+      "license_expression": "MIT",
+      "license": ""
+    },
+    {
+      "name": "certifi",
+      "version": "2026.10.19",
+      "wheel": "certifi-2026.10.19-py3-none-any.whl",
+      "sha256": "42d35340cc5b9ba78e818ddbff0c5b1c2b779de448a340fd1b989f5fa8670e1b",
+      "license_expression": null,
+      "license": "MPL-2.0"
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1",
+      "wheel": "cffi-2.1.1-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.whl",
+      "sha256": "58acb8ab8e295e6c5ea12f888cbb13cf21511ef2a3303a23f4325c29d17fe5c1",
+      "license_expression": "MIT-0",
+      "license": ""
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.2",
+      "wheel": "charset_normalizer-3.5.2-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+      "sha256": "8d86d6fc60743dc916eb79e2eb1ec4818e21e427731543af40a3021851174a13",
+      "license_expression": null,
+      "license": "MIT"
+    },
+    {
+      "name": "croniter",
+      "version": "6.2.4",
+      "wheel": "croniter-6.2.4-py3-none-any.whl",
+      "sha256": "8ef3d544107a5c05a150a2d78f8bf5a8eb9c5c4d93405a736b824109574e3f4d",
+      "license_expression": "MIT",
+      "license": ""
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.2",
+      "wheel": "cryptography-50.0.2-cp311-abi3-manylinux_2_28_aarch64.whl",
+      "sha256": "f9f6143a8c75945eb960d9eb98905a441394abfa24afaae239d514ffb2586480",
+      "license_expression": "Apache-2.0 OR BSD-3-Clause",
+      "license": ""
+    },
+    {
+      "name": "distro",
+      "version": "1.9.0",
+      "wheel": "distro-1.9.0-py3-none-any.whl",
+      "sha256": "7bffd925d65168f85027d8da9af6bddab658135b840670a223589bc0c8ef02b2",
+      "license_expression": null,
+      "license": "Apache License, Version 2.0"
+    },
+    {
+      "name": "fire",
+      "version": "0.7.1",
+      "wheel": "fire-0.7.1-py3-none-any.whl",
+      "sha256": "e43fd8a5033a9001e7e2973bab96070694b9f12f2e0ecf96d4683971b5ab1882",
+      "license_expression": null,
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "wheel": "h11-0.16.0-py3-none-any.whl",
+      "sha256": "63cf8bbe7522de3bf65932fda1d9c2772064ffb3dae62d55932da54b31cb6c86",
+      "license_expression": null,
+      "license": "MIT"
+    },
+    {
+      "name": "httpcore",
+      "version": "1.0.9",
+      "wheel": "httpcore-1.0.9-py3-none-any.whl",
+      "sha256": "2d400746a40668fc9dec9810239072b40b4484b640a8c38fd654a024c7a1bf55",
+      "license_expression": "BSD-3-Clause",
+      "license": ""
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1",
+      "wheel": "httpx-0.28.1-py3-none-any.whl",
+      "sha256": "d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad",
+      "license_expression": null,
+      "license": "BSD-3-Clause"
+    },
+    {
+      "name": "idna",
+      "version": "3.20",
+      "wheel": "idna-3.20-py3-none-any.whl",
+      "sha256": "ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c",
+      "license_expression": "BSD-3-Clause",
+      "license": ""
+    },
+    {
+      "name": "Jinja2",
+      "version": "3.1.6",
+      "wheel": "jinja2-3.1.6-py3-none-any.whl",
+      "sha256": "85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67",
+      "license_expression": null,
+      "license": ""
+    },
+    {
+      "name": "jiter",
+      "version": "0.18.0",
+      "wheel": "jiter-0.18.0-cp314-cp314-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+      "sha256": "d8013186f2b9a8c27ededa601050392527aa9d27ffd35d49aae424fbd2062f38",
+      "license_expression": "MIT",
+      "license": ""
+    },
+    {
+      "name": "Markdown",
+      "version": "3.11.2",
+      "wheel": "markdown-3.11.2-py3-none-any.whl",
+      "sha256": "f80390747a2a0ff2ba54da074ce4f862f72a6685f608cd2637b646a6d83993f5",
+      "license_expression": "BSD-3-Clause",
+      "license": ""
+    },
+    {
+      "name": "markdown-it-py",
+      "version": "4.2.0",
+      "wheel": "markdown_it_py-4.2.0-py3-none-any.whl",
+      "sha256": "9f7ebbcd14fe59494226453aed97c1070d83f8d24b6fc3a3bcf9a38092641c4a",
+      "license_expression": null,
+      "license": ""
+    },
+    {
+      "name": "MarkupSafe",
+      "version": "3.0.4",
+      "wheel": "markupsafe-3.0.4-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+      "sha256": "1caa2fa5a6184fb233153b35f654e6687bd555476f6170f29d8ee9be1a8b0af9",
+      "license_expression": "BSD-3-Clause",
+      "license": ""
+    },
+    {
+      "name": "mdurl",
+      "version": "0.1.2",
+      "wheel": "mdurl-0.1.2-py3-none-any.whl",
+      "sha256": "84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8",
+      "license_expression": null,
+      "license": ""
+    },
+    {
+      "name": "nemo-relay",
+      "version": "0.10.4",
+      "wheel": "nemo_relay-0.10.4-cp311-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+      "sha256": "a51a38f31451d0f04675293ca2902ca2772dc12875297494095b8bbc71926909",
+      "license_expression": "Apache-2.0",
+      "license": ""
+    },
+    {
+      "name": "openai",
+      "version": "2.54.0",
+      "wheel": "openai-2.54.0-py3-none-any.whl",
+      "sha256": "89089789197ccdb87f173a03145ed1598d00795220c93e96cf712b1cbf5e5f2b",
+      "license_expression": null,
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3",
+      "wheel": "packaging-26.3-py3-none-any.whl",
+      "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+      "license_expression": "Apache-2.0 OR BSD-2-Clause",
+      "license": ""
+    },
+    {
+      "name": "pathspec",
+      "version": "1.1.1",
+      "wheel": "pathspec-1.1.1-py3-none-any.whl",
+      "sha256": "a00ce642f577bf7f473932318056212bc4f8bfdf53128c78bbd5af0b9b20b189",
+      "license_expression": null,
+      "license": ""
+    },
+    {
+      "name": "pillow",
+      "version": "13.0.0",
+      "wheel": "pillow-13.0.0-cp314-cp314-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+      "sha256": "5933fcea5a5ba64c686f55c886a115cbfd92f2900460784a1e79909fdbafd7b6",
+      "license_expression": "MIT-CMU",
+      "license": ""
+    },
+    {
+      "name": "prompt_toolkit",
+      "version": "3.0.53",
+      "wheel": "prompt_toolkit-3.0.53-py3-none-any.whl",
+      "sha256": "01c0891d7f9237d5e339f7d3e42cdae80b7534abb1c7c0e3352efba6231492f2",
+      "license_expression": null,
+      "license": ""
+    },
+    {
+      "name": "psutil",
+      "version": "7.2.2",
+      "wheel": "psutil-7.2.2-cp36-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+      "sha256": "b0726cecd84f9474419d67252add4ac0cd9811b04d61123054b9fb6f57df6e9e",
+      "license_expression": null,
+      "license": "BSD-3-Clause"
+    },
+    {
+      "name": "ptyprocess",
+      "version": "0.7.0",
+      "wheel": "ptyprocess-0.7.0-py2.py3-none-any.whl",
+      "sha256": "4b41f3967fce3af57cc7e94b888626c18bf37a083e3651ca8feeb66d492fef35",
+      "license_expression": null,
+      "license": "UNKNOWN"
+    },
+    {
+      "name": "pycparser",
+      "version": "3.12",
+      "wheel": "pycparser-3.12-py3-none-any.whl",
+      "sha256": "a076f3f489b39b43ed13563a1dafe42447445bec2e294154ec5c57fcdda4c85e",
+      "license_expression": "BSD-3-Clause",
+      "license": ""
+    },
+    {
+      "name": "pydantic",
+      "version": "2.14.1",
+      "wheel": "pydantic-2.14.1-py3-none-any.whl",
+      "sha256": "9195d967ec791692a04438115466764fb8b9a27b31f14a760437694f40d6b454",
+      "license_expression": "MIT",
+      "license": ""
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.50.1",
+      "wheel": "pydantic_core-2.50.1-cp314-cp314-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+      "sha256": "0036473f5583e6a60e50b8b21651511564277a3f05cc5dab8cf579f552cd5f6c",
+      "license_expression": "MIT",
+      "license": ""
+    },
+    {
+      "name": "Pygments",
+      "version": "2.21.0",
+      "wheel": "pygments-2.21.0-py3-none-any.whl",
+      "sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9",
+      "license_expression": "BSD-2-Clause",
+      "license": ""
+    },
+    {
+      "name": "PyJWT",
+      "version": "2.15.1",
+      "wheel": "pyjwt-2.15.1-py3-none-any.whl",
+      "sha256": "42d59d631f7768a1028a64c7ff581a9bf7519804daf91fc5b6c56e30eec5e193",
+      "license_expression": "MIT",
+      "license": ""
+    },
+    {
+      "name": "python-dateutil",
+      "version": "3.0.0",
+      "wheel": "python_dateutil-3.0.0-py2.py3-none-any.whl",
+      "sha256": "3c79630202e4152c6add678446984236efe4f57e84d8e892aab0637bab82e9fd",
+      "license_expression": null,
+      "license": "Dual License"
+    },
+    {
+      "name": "python-dotenv",
+      "version": "1.2.4",
+      "wheel": "python_dotenv-1.2.4-py3-none-any.whl",
+      "sha256": "42269a8a5b3fd54ffa6f3d84b18abed50064717576b4ecf03dc4a55d8aa04fdc",
+      "license_expression": null,
+      "license": "BSD-3-Clause"
+    },
+    {
+      "name": "requests",
+      "version": "2.34.2",
+      "wheel": "requests-2.34.2-py3-none-any.whl",
+      "sha256": "2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0",
+      "license_expression": null,
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "rich",
+      "version": "14.3.4",
+      "wheel": "rich-14.3.4-py3-none-any.whl",
+      "sha256": "07e7adb4690f68864777b1450859253bed81a99a31ac321ac1817b2313558952",
+      "license_expression": null,
+      "license": "MIT"
+    },
+    {
+      "name": "ruamel.yaml",
+      "version": "0.18.16",
+      "wheel": "ruamel.yaml-0.18.16-py3-none-any.whl",
+      "sha256": "048f26d64245bae57a4f9ef6feb5b552a386830ef7a826f235ffb804c59efbba",
+      "license_expression": "MIT license",
+      "license": ""
+    },
+    {
+      "name": "ruamel.yaml.clib",
+      "version": "0.2.15",
+      "wheel": "ruamel_yaml_clib-0.2.15-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+      "sha256": "bfd309b316228acecfa30670c3887dcedf9b7a44ea39e2101e75d2654522acd4",
+      "license_expression": null,
+      "license": "MIT"
+    },
+    {
+      "name": "six",
+      "version": "1.17.0",
+      "wheel": "six-1.17.0-py2.py3-none-any.whl",
+      "sha256": "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274",
+      "license_expression": null,
+      "license": "MIT"
+    },
+    {
+      "name": "sniffio",
+      "version": "1.3.1",
+      "wheel": "sniffio-1.3.1-py3-none-any.whl",
+      "sha256": "2f6da418d1f1e0fddd844478f41680e794e6051915791a034ff65e5f100525a2",
+      "license_expression": null,
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "snowballstemmer",
+      "version": "3.1.1",
+      "wheel": "snowballstemmer-3.1.1-py3-none-any.whl",
+      "sha256": "7e207fa178741da09cdee59d3ecec3827ad5f92b1fc5c9ff3755b639f71f5752",
+      "license_expression": null,
+      "license": "BSD-3-Clause"
+    },
+    {
+      "name": "socksio",
+      "version": "1.0.0",
+      "wheel": "socksio-1.0.0-py3-none-any.whl",
+      "sha256": "95dc1f15f9b34e8d7b16f06d74b8ccf48f609af32ab33c608d08761c5dcbb1f3",
+      "license_expression": null,
+      "license": "UNKNOWN"
+    },
+    {
+      "name": "tenacity",
+      "version": "9.2.1",
+      "wheel": "tenacity-9.2.1-py3-none-any.whl",
+      "sha256": "9e56f17539296baab7beabb08b92f6ee3d7be92d8be72d763360677c2ad6580e",
+      "license_expression": "Apache-2.0",
+      "license": ""
+    },
+    {
+      "name": "termcolor",
+      "version": "3.3.0",
+      "wheel": "termcolor-3.3.0-py3-none-any.whl",
+      "sha256": "cf642efadaf0a8ebbbf4bc7a31cec2f9b5f21a9f726f4ccbb08192c9c26f43a5",
+      "license_expression": "MIT",
+      "license": ""
+    },
+    {
+      "name": "tomli_w",
+      "version": "1.2.0",
+      "wheel": "tomli_w-1.2.0-py3-none-any.whl",
+      "sha256": "188306098d013b691fcadc011abd66727d3c414c571bb01b1a174ba8c983cf90",
+      "license_expression": null,
+      "license": ""
+    },
+    {
+      "name": "tqdm",
+      "version": "4.70.1",
+      "wheel": "tqdm-4.70.1-py3-none-any.whl",
+      "sha256": "c293e525e6fef9c20e8728fd4612df02a0aa31bb5fe91ecd93e123b1b7bffa73",
+      "license_expression": null,
+      "license": "MPL-2.0 AND MIT"
+    },
+    {
+      "name": "truststore",
+      "version": "0.10.5",
+      "wheel": "truststore-0.10.5-py3-none-any.whl",
+      "sha256": "9aaaedaefaf06d8b206278cf8b5012bc897f485a874503501e12d776df78951c",
+      "license_expression": "MIT",
+      "license": ""
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0",
+      "wheel": "typing_extensions-4.16.0-py3-none-any.whl",
+      "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+      "license_expression": "PSF-2.0",
+      "license": ""
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.4",
+      "wheel": "typing_inspection-0.4.4-py3-none-any.whl",
+      "sha256": "65b8397ba37ccbce054456aaccddfc91e6e3083c92824df348d96ca832f3f147",
+      "license_expression": "MIT",
+      "license": ""
+    },
+    {
+      "name": "tzdata",
+      "version": "2026.6",
+      "wheel": "tzdata-2026.6-py2.py3-none-any.whl",
+      "sha256": "0a10eec6e13ef16b627fabed9a5f2ba61a62b1c67f327305f4e7e412a70b4aec",
+      "license_expression": null,
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "urllib3",
+      "version": "2.8.0",
+      "wheel": "urllib3-2.8.0-py3-none-any.whl",
+      "sha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3",
+      "license_expression": "MIT",
+      "license": ""
+    },
+    {
+      "name": "wcwidth",
+      "version": "0.9.4",
+      "wheel": "wcwidth-0.9.4-cp310-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.whl",
+      "sha256": "093469e01d881bff3db93ff3f56c364dc87c441ea01f9f41c22de0c0bdf5c6ef",
+      "license_expression": null,
+      "license": ""
+    },
+    {
+      "name": "websockets",
+      "version": "15.0.1",
+      "wheel": "websockets-15.0.1-py3-none-any.whl",
+      "sha256": "f7a866fbc1e97b5c617ee4116daaa09b722101d4a3c170c787450ba409f9736f",
+      "license_expression": null,
+      "license": "BSD-3-Clause"
+    }
+  ],
+  "license_scope": "Lima Apache-2.0; llama.cpp MIT; Python PSF plus bundled component notices; model Apache-2.0. Bundled notices retained. Wheel metadata inventory is not a complete redistribution or vulnerability clearance. No ARM64 or Mac binary was executed; no host installation.",
+  "safe_mac_installer_extraction": "PASS: actual Lima archives extracted with reviewed path/link/special-file controls on Linux; no Mac execution",
+  "observed_at_utc": "2026-11-17"
+}

@@ -120,11 +120,18 @@ class DockerHermesAdapter:
         self.cleanup_verified=True
         self.root = Path(root) if root is not None else ROOT
         self.runtime = self.root/'runtime'
-        self.profile = json.loads((self.root/'integrations/hermes-inference/profile.json').read_text())
+        from .native_runtime import profile_path
+        self.profile_path = profile_path(self.root)
+        if not self.profile_path.is_file():raise AdapterUnavailable('Native runtime is not prepared; no architecture fallback.')
+        self.profile = json.loads(self.profile_path.read_text())
 
     def _preflight(self):
-        if platform.system() != 'Linux' or platform.machine() != 'x86_64': raise AdapterUnavailable('Verified cloud Linux x86_64 runtime required.')
+        if platform.system() != 'Linux' or platform.machine() not in ('x86_64','aarch64'): raise AdapterUnavailable('Supported native Linux guest runtime required; no host/emulation fallback.')
         p = self.profile
+        if self.profile_path!=self.root/'integrations/hermes-inference/profile.json':
+            from .native_runtime import validate_native_profile
+            validate_native_profile(self.root,p,platform.machine())
+        elif p.get('platform')!='linux-x86_64':raise ContractError('Native x86_64 profile required.')
         if p['enabled_tools'] != [] or p['authorized_spend_inr'] != 0 or not re.fullmatch('sha256:[a-f0-9]{64}', p['container_image']):
             raise ContractError('Reasoning-only zero-budget pinned profile required.')
         CostGuardian().check(CostEstimate('resource', 0))
@@ -142,6 +149,8 @@ class DockerHermesAdapter:
             path = self.root/'vendor/hermes-agent'/name
             if path.is_symlink() or not path.resolve().is_relative_to(self.root/'vendor/hermes-agent') or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
                 raise ContractError('Copied Hermes source requires review.')
+        from .native_runtime import require_daemon_limits
+        require_daemon_limits()
 
     @contextmanager
     def _slot(self):
@@ -178,7 +187,7 @@ class DockerHermesAdapter:
             args = base+['create', '--rm', '--pull=never', '--interactive', '--name', name,
                 '--label', 'com.igris.runtime=hermes-inference', '--label', 'com.igris.owner='+marker, '--network', 'none', '--read-only',
                 '--user', f'{os.getuid()}:{os.getgid()}', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges',
-                '--pids-limit', '128', '--memory', '3g', '--cpus', '2',
+                '--pids-limit', '128', '--memory', '3g', '--memory-swap', '3g', '--cpus', '2',
                 '--tmpfs', '/tmp:rw,noexec,nosuid,size=268435456,mode=1777', '--workdir', '/tmp',
                 '--env', 'HOME=/tmp/igris-home', '--env', 'HERMES_HOME=/tmp/igris-home/hermes',
                 '--env', 'HERMES_DISABLE_LAZY_INSTALLS=1', '--env', 'PYTHONDONTWRITEBYTECODE=1',
@@ -190,9 +199,10 @@ class DockerHermesAdapter:
             if mode == 'tools': mounts.append('scripts/hermes_tool_worker.py')
             if mode == 'specialist': mounts += ['scripts/hermes_specialist_worker.py', 'integrations/agency-agents']
             for relative in mounts:
-                path = self.root/relative
+                destination=self.root/relative
+                path = self.profile_path if relative=='integrations/hermes-inference/profile.json' else destination
                 if not path.exists() or path.is_symlink(): raise ContractError('Unsafe/missing worker mount.')
-                args += ['--mount', f'type=bind,src={path},dst={path},readonly']
+                args += ['--mount', f'type=bind,src={path},dst={destination},readonly']
             args += [self.profile['container_image'], str(self.root/'runtime/hermes-venv/bin/python'), '-I', str(self.root/'scripts'/worker)]
             encoded = b'' if payload is None else json.dumps(payload, ensure_ascii=False).encode()
             if len(encoded) > MAX_PACKET: raise ContractError('Request too large.')

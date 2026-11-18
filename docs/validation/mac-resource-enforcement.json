@@ -1,0 +1,21 @@
+{
+  "status": "BLOCKED",
+  "inference_activation": "BLOCKED",
+  "reason": "CPU, memory, swap and PID cgroup v2 enforcement unavailable; runtime activation blocked.",
+  "mocked": false,
+  "scope": "Actual daemon flags; model was not started after hardening.",
+  "guard_test": "PASS",
+  "tested_commit": "3d44328df88d31f098023f8f953ddd821bd3ae48",
+  "worker_positive_enforcement": "NOT_TESTED: requires an enforcing native daemon",
+  "native_arm64_execution": "BLOCKED: no target guest access",
+  "daemon_capabilities": {
+    "MemoryLimit": false,
+    "SwapLimit": false,
+    "CpuCfsPeriod": false,
+    "CpuCfsQuota": false,
+    "PidsLimit": false
+  },
+  "cgroup_driver": "none",
+  "cgroup_version": "2",
+  "observed_at_utc": "2026-11-17T20:57:30.224993+00:00"
+}

@@ -19,7 +19,10 @@ class ChatBackupTests(unittest.TestCase):
   proof=self.backup()
   for actor,digest in [('model',proof['sha256']),('owner','b'*64)]:
    with self.assertRaises(Denied):restore_snapshot(self.root/'snapshot.json',self.root/'new',expected_sha256=digest,actor=actor,approved=True)
-  with self.assertRaises(FileExistsError):restore_snapshot(self.root/'snapshot.json',self.root,expected_sha256=proof['sha256'],actor='owner',approved=True)
+  existing=self.root/'existing';existing.mkdir(mode=0o700)
+  sentinel=existing/'preserve.txt';sentinel.write_text('Existing user data.')
+  with self.assertRaises(FileExistsError):restore_snapshot(self.root/'snapshot.json',existing,expected_sha256=proof['sha256'],actor='owner',approved=True)
+  self.assertEqual(sentinel.read_text(),'Existing user data.')
   data=json.loads((self.root/'snapshot.json').read_text());data['approvals']=['forged'];raw=json.dumps(data).encode();(self.root/'snapshot.json').write_bytes(raw)
   with self.assertRaises(Denied):restore_snapshot(self.root/'snapshot.json',self.root/'new',expected_sha256=hashlib.sha256(raw).hexdigest(),actor='owner',approved=True)
  def test_pending_reservation_prevents_backup(self):

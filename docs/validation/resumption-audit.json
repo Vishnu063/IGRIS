@@ -1,0 +1,21 @@
+{
+  "status": "BLOCKED",
+  "source_commit": "24196dad0094b60aec57450d0bd267a30dca4cd0",
+  "audit": "npm audit --package-lock-only --ignore-scripts --omit=dev; reconstructed hash-verified committed lock; no installation",
+  "vulnerabilities": {
+    "info": 0,
+    "low": 3,
+    "moderate": 81,
+    "high": 82,
+    "critical": 6,
+    "total": 172
+  },
+  "raw_sha256": "ff416cc13c72e9de47d14dc194f4e0b5a5aa4b5f52030f85fa28d4befa5d1cea",
+  "n8n_enabled": false,
+  "limitations": [
+    "No Docker executable available in this workspace.",
+    "Unix socket creation denied by execution environment.",
+    "No access to target Mac or physical microphone.",
+    "No live runtime or production acceptance performed."
+  ]
+}
