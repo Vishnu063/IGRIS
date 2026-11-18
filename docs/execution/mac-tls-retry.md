@@ -1,5 +1,7 @@
 # Mac Lima download trust repair
 
+Follow-up: actual owner output at `5b0407d` confirmed both archive checks and successful native Lima installation. A later native VZ guest boot also passed. The earlier retry requirement below is historical; do not install/configure again. Continue with the [VM policy inspection/correction gate](mac-vm-policy.md). Assistant/kernel/inference/voice acceptance is still pending.
+
 Date: 2026-11-18 IST. Tested implementation: `2205149d4f150cc721078eef00b4d98bf7c16601`. Overall native installation remains **BLOCKED pending owner retry**, not complete.
 
 Owner terminal output establishes that the exact `e6ff965` review worktree and private Mac configuration were created successfully. The first Lima download then raised Python `SSLCertVerificationError: unable to get local issuer certificate`. No archive was accepted and no VM/assistant was started by these commands. The underlying Python CA-bundle/proxy configuration has not been independently inspected; no global certificate changes are necessary for this repair.
@@ -19,13 +21,13 @@ Validation:
 Commands:
 
 ```sh
-$ python3 -m unittest discover -s tests -p test_asset_download.py -v
-$ python3 -m unittest discover -s tests -p test_mac_archive.py -v
-$ python3 -m unittest discover -s tests -q
-$ python3 scripts/check_ci.py
-$ python3 scripts/check_delivery.py
-$ PYTHONPATH=src python3 -m igris.guardian.scan
-$ git diff --check
+python3 -m unittest discover -s tests -p test_asset_download.py -v
+python3 -m unittest discover -s tests -p test_mac_archive.py -v
+python3 -m unittest discover -s tests -q
+python3 scripts/check_ci.py
+python3 scripts/check_delivery.py
+PYTHONPATH=src python3 -m igris.guardian.scan
+git diff --check
 ```
 
 Files: `scripts/fetch_hermes_probe_assets.py`, `scripts/mac_vm.py`, `tests/test_asset_download.py`, `tests/test_mac_archive.py`; accompanying operator guide/progress and [transport evidence](../validation/mac-tls-retry.json). Existing asset pins, configured manifest files, Guardian, resource gates and quarantine are unchanged. No model/VM was launched during this repair.

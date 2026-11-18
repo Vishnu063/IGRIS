@@ -1,7 +1,7 @@
 {
   "status": "BLOCKED",
   "goal": "Installed and accepted native Mac assistant",
-  "updated_at_utc": "2026-11-18T07:43:53.848303+00:00",
+  "updated_at_utc": "2026-11-18T08:15:56.650269+00:00",
   "branch": "feat/mac-arm64-native-voice",
   "base_develop": "24196dad0094b60aec57450d0bd267a30dca4cd0",
   "pr_1": {
@@ -9,17 +9,18 @@
     "reused_commit": "58276b6c7bfa4cf714683ae912b40170ebc946e5",
     "duplicated_changes": false
   },
-  "tested_source_commit": "2205149d4f150cc721078eef00b4d98bf7c16601",
+  "tested_source_commit": "a218f618015160ab4f9c6a93e1162dcb0bdd7fb3",
   "functional_diagnostic_commit": "31a9ea482da3ce3a0d8f9c4f9fe93339bc6b80bb",
   "resource_hardening_commit": "3d44328df88d31f098023f8f953ddd821bd3ae48",
   "regression": {
     "status": "PASS",
-    "tests": 320,
+    "tests": 331,
     "failures": 0,
     "skipped": 0,
-    "working_tree_seconds": 25.694,
-    "separate_clean_checkout_seconds": 25.896,
-    "environment": "Linux x86_64, not native Mac; clean worktree has no prepared model/runtime",
+    "working_tree_seconds": 25.745,
+    "separate_clean_checkout_seconds": null,
+    "clean_checkout_this_source": "NOT_TESTED",
+    "environment": "Linux x86_64 Python 3.12.14; not native Mac",
     "contains_synthetic_unit_fixtures": true
   },
   "areas": {
@@ -33,11 +34,16 @@
       "arm64_execution": "BLOCKED"
     },
     "mac_vm": {
-      "implementation": "PREPARED_ARCHIVES_AND_SAFETY_TESTED",
-      "installed_on_mac": false,
+      "implementation": "POLICY_FIX_AND_GUARDED_MIGRATION_SOURCE_UNIT_VERIFIED",
+      "lima_installed_on_mac": true,
+      "vm_booted_on_mac": true,
+      "installed_on_mac": true,
       "vm_verified_on_mac": false,
-      "configuration": "PASS_OWNER_REPORTED",
-      "current_blocker": "Python TLS download failed; system-curl repair tested in Linux, awaiting native owner retry"
+      "configuration": "PASS_OWNER_REPORTED_ORIGINAL",
+      "installation_evidence": "OWNER_TERMINAL_OUTPUT_NOT_REMOTE_ACCESS",
+      "current_blocker": "Original ignore rule missed wildcard guest listeners; corrected policy must be inspected and migrated on the actual Mac before guest bootstrap",
+      "policy_migration": "PENDING_ACTUAL_MAC_INSPECTION",
+      "guest_inference": "NOT_TESTED"
     },
     "native_voice": {
       "implementation": "PREPARED_BRIDGE_UNIT_TESTED",
@@ -68,20 +74,23 @@
   },
   "mac_verified_capabilities": [
     "Owner terminal: exact review checkout created",
-    "Owner terminal: native Mac private configuration command passed"
+    "Owner terminal: native Mac private configuration command passed",
+    "Owner terminal: both pinned native Lima archives verified and private install/version check completed",
+    "Owner terminal: pinned Ubuntu aarch64 image downloaded and dedicated native VZ guest reached READY with all five readiness checks"
   ],
   "owner_observations_only": [
     "ARM64 MacBook Air, 8 GB",
     "reported macOS 27.2.1 build 26B131",
     "Python 3.12.10; Git 2.54.0",
     "virtualization support; about 149 GiB free",
-    "no Homebrew/Lima/Docker/VM installation found"
+    "Initially no Homebrew/Lima/Docker/VM installation found; owner has since installed private Lima and booted the dedicated VM."
   ],
   "remaining_user_actions": [
-    "Update the existing Mac review worktree to the delivered fix and retry install-lima only; do not repeat configure.",
-    "Boot dedicated native VZ guest, bootstrap exact reviewed commit and prepare runtime with explicit download consent.",
+    "Update existing review checkout to the delivered policy fix, run sanitized inspect-vm and stop only the dedicated VM; do not repeat configure/install-lima.",
+    "Review actual policy/configuration identity; apply guarded migration, then verify corrected native boot/forwarding before guest bootstrap.",
+    "Bootstrap the exact reviewed guest source and prepare runtime with explicit download consent only after the policy gate passes.",
     "Run real guest acceptance and host memory/swap/latency/cleanup measurement.",
-    "Compile native voice helper, inspect local on-device/voice availability and run human English/Hindi/Marathi input and actual speaker tests."
+    "Compile native voice helper and run real human English/Hindi/Marathi input and actual speaker acceptance for available on-device locales."
   ],
   "not_authorized_or_not_done": [
     "No remote Mac access",
@@ -139,6 +148,10 @@
     {
       "path": "docs/validation/mac-tls-retry.json",
       "sha256": "c9566cab3753f58eb7e2838e8e6c7b26bcc4949b9f3dc2059a0ebff843663bb7"
+    },
+    {
+      "path": "docs/validation/mac-vm-policy.json",
+      "sha256": "5df149a683f8ed1ef69d4e77157db896a2800470458c74e218e45477d82e95ed"
     }
   ],
   "report": "docs/execution/mac-readiness.md",
@@ -153,5 +166,17 @@
     "environment": "Linux x86_64 Python 3.12.14; real Unix sockets; no prepared runtime in the clean worktree",
     "contains_synthetic_unit_fixtures": true
   },
-  "tls_repair_report": "docs/execution/mac-tls-retry.md"
+  "tls_repair_report": "docs/execution/mac-tls-retry.md",
+  "tls_repair_source_commit": "2205149d4f150cc721078eef00b4d98bf7c16601",
+  "prior_regression_tls": {
+    "status": "PASS",
+    "tests": 320,
+    "failures": 0,
+    "skipped": 0,
+    "working_tree_seconds": 25.694,
+    "separate_clean_checkout_seconds": 25.896,
+    "environment": "Linux x86_64, not native Mac; clean worktree has no prepared model/runtime",
+    "contains_synthetic_unit_fixtures": true
+  },
+  "policy_correction_report": "docs/execution/mac-vm-policy.md"
 }

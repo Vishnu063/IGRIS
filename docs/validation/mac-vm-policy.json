@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "status": "BLOCKED",
+  "scope": "Owner-reported native Lima install/boot; source and Linux fixtures for policy correction; actual migration pending",
+  "observed_at_utc": "2026-11-18T08:11:45Z",
+  "tested_source_commit": "a218f618015160ab4f9c6a93e1162dcb0bdd7fb3",
+  "owner_evidence": {
+    "source": "User-supplied terminal output; no remote Mac access",
+    "review_commit": "5b0407dd8f835a71dd28b97e72fbd0ea4d406b21",
+    "lima_installation": "PASS_OWNER_TERMINAL",
+    "archives_sha256_verified": true,
+    "native_version_check": "PASS implied by installer successful return after exact limactl version 2.3.0 check",
+    "guest_boot": "PASS_OWNER_TERMINAL",
+    "vm_type": "vz",
+    "image_architecture": "aarch64",
+    "image_digest": "sha256:50e24e1fb79e89116e939d90aa7738f7af48c442fa1bc2510131e0b39c50348e",
+    "boot_checks": [
+      "SSH",
+      "user session",
+      "persistent ControlMaster",
+      "guest agent",
+      "boot scripts"
+    ],
+    "guest_disk_gib": 24,
+    "unexpected_forward": {
+      "protocol": "udp",
+      "guest_listeners": [
+        "0.0.0.0:5353",
+        "[::]:5353"
+      ],
+      "host_listener": "127.0.0.1:5353",
+      "public_host_exposure_proven": false
+    },
+    "rosetta_warning": "Both deprecated top-level rosetta and effective vmOpts.vz.rosetta configured. Warning alone is not evidence that emulation ran.",
+    "effective_rosetta_owner_dump": "NOT_TESTED",
+    "assistant_inference": "NOT_TESTED",
+    "guest_packages_bootstrap": "NOT_REPORTED",
+    "human_voice": "NOT_TESTED"
+  },
+  "diagnosis": {
+    "ignore_rule": "Original omitted guestIP defaults to loopback. Upstream matcher skips an ignore rule for a wildcard guest listener when the rule IP is not unspecified; fallback then forwards it.",
+    "protocol_default": "v2.3.0 code defaults omitted proto to any. This is an address-matching bug, not a TCP-only default.",
+    "correction": [
+      "dashboard TCP only",
+      "ignore any protocol across wildcard and specific guest interfaces with guestIP 0.0.0.0 and guestIPMustBeZero false",
+      "use only vmOpts.vz.rosetta and validate effective enabled/binfmt false"
+    ]
+  },
+  "upstream_review": [
+    {
+      "ref": "v2.3.0",
+      "path": "pkg/limatype/lima_yaml.go",
+      "git_blob": "0e56b1257765a871183e9203be80b4c820aeb083",
+      "url": "https://github.com/lima-vm/lima/blob/v2.3.0/pkg/limatype/lima_yaml.go"
+    },
+    {
+      "ref": "v2.3.0",
+      "path": "pkg/limayaml/defaults.go",
+      "git_blob": "0bc7bd4235830c108dee091c0a5707ec766bc39b",
+      "url": "https://github.com/lima-vm/lima/blob/v2.3.0/pkg/limayaml/defaults.go"
+    },
+    {
+      "ref": "v2.3.0",
+      "path": "pkg/portfwd/forward.go",
+      "git_blob": "b37f5488282e0fe12d70ba4d6b9e28176881d612",
+      "url": "https://github.com/lima-vm/lima/blob/v2.3.0/pkg/portfwd/forward.go"
+    },
+    {
+      "ref": "v2.3.0",
+      "path": "cmd/limactl/edit.go",
+      "git_blob": "be3676b40f0b6e0100a4d143d644392e4eaf93c0",
+      "url": "https://github.com/lima-vm/lima/blob/v2.3.0/cmd/limactl/edit.go"
+    }
+  ],
+  "regression": {
+    "status": "PASS",
+    "tests": 331,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 25.745,
+    "environment": "Linux x86_64 Python 3.12.14; not Mac",
+    "focused_mac_package_tests": 19,
+    "focused_tests_seconds": 0.079,
+    "contains_synthetic_fixtures": true,
+    "current_clean_checkout_rerun": "NOT_TESTED"
+  },
+  "checks": {
+    "credential_scan": "PASS_SOURCE_AND_INDEX",
+    "ci_structure": "PASS",
+    "delivery_provenance": "PASS",
+    "diff_whitespace": "PASS"
+  },
+  "migration": {
+    "status": "PENDING_ACTUAL_MAC_INSPECTION",
+    "exact_original_yaml_sha256": "61f3197f6fcd2e4573ba7ec1959b736dccb51c3de9344bc2f32c7bd44416fc8f",
+    "requires_owner_allow_changes": true,
+    "unrecognized_yaml": "BLOCKED_PRESERVED",
+    "failure_or_interruption": "PENDING marker blocks startup; bounded stop attempts only dedicated owned profile; uncertain cleanup explicitly blocked",
+    "automatic_restart": false,
+    "guest_disk_deleted": false,
+    "model_or_service_downloads": false
+  },
+  "failed_attempts": [
+    {
+      "scope": "Additional Linux-only Lima CLI probe, not a Mac prerequisite",
+      "status": "BLOCKED",
+      "detail": "Initial slow public release transfer interrupted; second independently bounded transfer timed out after 30 seconds. Partial task-owned files cleaned; no CLI/VM installed and no live forwarding test claimed."
+    }
+  ],
+  "real_vs_simulated": {
+    "real": [
+      "user terminal native Lima install and VZ guest boot evidence",
+      "Linux temporary files, mode checks, snapshots and preserved disk sentinel",
+      "full current regression and scanner"
+    ],
+    "simulated": [
+      "Lima list/stop/edit results in migration unit tests",
+      "no actual Mac policy migration or socket forwarding acceptance"
+    ]
+  },
+  "next_action": "Update existing Mac review checkout; inspect-vm emits only bounded policy fields. Stop dedicated VM while awaiting review. Do not configure again or bootstrap guest before corrected policy acceptance.",
+  "policy_implementation_commit": "6388f331c3a0dae1e3218924114ba87e15d04664",
+  "source_sha256": {
+    "scripts/mac_package.py": "02748d027c51a6977c9fc48dba895c6f7b25f622844f3ac8817d4b068706df56",
+    "scripts/mac_vm.py": "722c079661ff5272933f851c28363d1c764721704835d6dad19ea30faced4f52",
+    "scripts/mac_vm_policy.py": "d078738c54b87a57fb0f1c1ad9e461697fb6bd03ae57970ca3645bcab648eb59",
+    "packaging/macos/lima.yaml": "5c9042a9a91729be4d949346825a7d31452fe1bb5482cd16e091a91c387320fe",
+    "packaging/macos/migrations/lima-v1.yaml": "61f3197f6fcd2e4573ba7ec1959b736dccb51c3de9344bc2f32c7bd44416fc8f",
+    "tests/test_mac_vm_policy.py": "3c735b4f22fb616755e41540c620a76e8f57c094abb088f989bf18052d04dd88"
+  }
+}

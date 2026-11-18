@@ -1,6 +1,6 @@
 # IGRIS native Mac readiness — execution report
 
-Follow-up: owner-reported Mac configuration now passed; Lima download stopped at Python TLS trust. The [TLS repair report](mac-tls-retry.md) records the newer implementation and 320-test replay. Initial source-bound results below remain historical; native installation/inference/voice acceptance is still pending.
+Current follow-up: owner-reported native Lima installation and ARM64 VZ guest boot passed after the [TLS repair](mac-tls-retry.md). The first boot exposed unrequested loopback UDP forwarding; [the policy correction/migration report](mac-vm-policy.md) records the fix, 331-test replay and next actual-Mac inspection gate. The dedicated VM exists; IGRIS guest runtime/inference/voice acceptance remains pending. Initial source-bound results below remain historical.
 
 Delivery date: 2026-11-18 IST; verification evidence retains its recorded UTC timestamps. **Overall goal: BLOCKED pending actual Mac execution and human voice acceptance.** Repository implementation and available verification were completed; no claim that IGRIS is installed on the Mac, that native speech works, or that the release is production-ready.
 
