@@ -6,6 +6,8 @@ The owner reports an ARM64 MacBook Air with 8 GB RAM, virtualization support, Py
 
 ## 1. Private preparation and Lima
 
+Already configured but Python reports `CERTIFICATE_VERIFY_FAILED` during Lima download? Update the existing review worktree and retry **only install-lima** using the [system-trust repair](../execution/mac-tls-retry.md). Do not recreate the worktree/configuration or disable certificate verification. Native download acceptance remains pending actual output.
+
 Use a separate Git worktree so existing `~/IGRIS` files and branch remain intact. The final delivery supplies its exact reviewed SHA. An existing worktree/preparation directory is preserved; stop and inspect rather than deleting it or forcing replacement.
 
 ```sh

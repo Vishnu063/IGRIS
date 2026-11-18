@@ -1,7 +1,7 @@
 {
   "status": "BLOCKED",
   "goal": "Installed and accepted native Mac assistant",
-  "updated_at_utc": "2026-11-17T21:03:58.828959+00:00",
+  "updated_at_utc": "2026-11-18T07:43:53.848303+00:00",
   "branch": "feat/mac-arm64-native-voice",
   "base_develop": "24196dad0094b60aec57450d0bd267a30dca4cd0",
   "pr_1": {
@@ -9,17 +9,17 @@
     "reused_commit": "58276b6c7bfa4cf714683ae912b40170ebc946e5",
     "duplicated_changes": false
   },
-  "tested_source_commit": "b4e31ab79762ae1015b9f676dfa48e73772c4d1c",
+  "tested_source_commit": "2205149d4f150cc721078eef00b4d98bf7c16601",
   "functional_diagnostic_commit": "31a9ea482da3ce3a0d8f9c4f9fe93339bc6b80bb",
   "resource_hardening_commit": "3d44328df88d31f098023f8f953ddd821bd3ae48",
   "regression": {
     "status": "PASS",
-    "tests": 313,
+    "tests": 320,
     "failures": 0,
     "skipped": 0,
-    "working_tree_seconds": 25.831,
-    "separate_clean_checkout_seconds": 26.51,
-    "environment": "Linux x86_64 Python 3.12.14; real Unix sockets; no prepared runtime in the clean worktree",
+    "working_tree_seconds": 25.694,
+    "separate_clean_checkout_seconds": 25.896,
+    "environment": "Linux x86_64, not native Mac; clean worktree has no prepared model/runtime",
     "contains_synthetic_unit_fixtures": true
   },
   "areas": {
@@ -35,7 +35,9 @@
     "mac_vm": {
       "implementation": "PREPARED_ARCHIVES_AND_SAFETY_TESTED",
       "installed_on_mac": false,
-      "vm_verified_on_mac": false
+      "vm_verified_on_mac": false,
+      "configuration": "PASS_OWNER_REPORTED",
+      "current_blocker": "Python TLS download failed; system-curl repair tested in Linux, awaiting native owner retry"
     },
     "native_voice": {
       "implementation": "PREPARED_BRIDGE_UNIT_TESTED",
@@ -64,7 +66,10 @@
       "native_arm64": "NOT_TESTED"
     }
   },
-  "mac_verified_capabilities": [],
+  "mac_verified_capabilities": [
+    "Owner terminal: exact review checkout created",
+    "Owner terminal: native Mac private configuration command passed"
+  ],
   "owner_observations_only": [
     "ARM64 MacBook Air, 8 GB",
     "reported macOS 27.2.1 build 26B131",
@@ -73,7 +78,7 @@
     "no Homebrew/Lima/Docker/VM installation found"
   ],
   "remaining_user_actions": [
-    "Review the draft PR and run private configure/install-lima commands on the Mac; return non-secret output.",
+    "Update the existing Mac review worktree to the delivered fix and retry install-lima only; do not repeat configure.",
     "Boot dedicated native VZ guest, bootstrap exact reviewed commit and prepare runtime with explicit download consent.",
     "Run real guest acceptance and host memory/swap/latency/cleanup measurement.",
     "Compile native voice helper, inspect local on-device/voice availability and run human English/Hindi/Marathi input and actual speaker tests."
@@ -130,8 +135,23 @@
     {
       "path": "docs/validation/native-assets-review.json",
       "sha256": "5671e39ece7d4bd8a6334b7a8d90dd27adc23d5b97258ec4370b797108fe8467"
+    },
+    {
+      "path": "docs/validation/mac-tls-retry.json",
+      "sha256": "c9566cab3753f58eb7e2838e8e6c7b26bcc4949b9f3dc2059a0ebff843663bb7"
     }
   ],
   "report": "docs/execution/mac-readiness.md",
-  "operator_guide": "docs/delivery/native-mac-guide.md"
+  "operator_guide": "docs/delivery/native-mac-guide.md",
+  "prior_regression": {
+    "status": "PASS",
+    "tests": 313,
+    "failures": 0,
+    "skipped": 0,
+    "working_tree_seconds": 25.831,
+    "separate_clean_checkout_seconds": 26.51,
+    "environment": "Linux x86_64 Python 3.12.14; real Unix sockets; no prepared runtime in the clean worktree",
+    "contains_synthetic_unit_fixtures": true
+  },
+  "tls_repair_report": "docs/execution/mac-tls-retry.md"
 }

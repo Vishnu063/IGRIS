@@ -1,5 +1,7 @@
 # IGRIS native Mac readiness — execution report
 
+Follow-up: owner-reported Mac configuration now passed; Lima download stopped at Python TLS trust. The [TLS repair report](mac-tls-retry.md) records the newer implementation and 320-test replay. Initial source-bound results below remain historical; native installation/inference/voice acceptance is still pending.
+
 Delivery date: 2026-11-18 IST; verification evidence retains its recorded UTC timestamps. **Overall goal: BLOCKED pending actual Mac execution and human voice acceptance.** Repository implementation and available verification were completed; no claim that IGRIS is installed on the Mac, that native speech works, or that the release is production-ready.
 
 Repository: `Vishnu063/IGRIS`. Feature branch: `feat/mac-arm64-native-voice`, based on current develop `24196dad0094b60aec57450d0bd267a30dca4cd0`. Draft PR #1 remained open and unmerged; its exact commit `58276b6c7bfa4cf714683ae912b40170ebc946e5` is reused unchanged in this branch, not recreated/cherry-picked. Existing history and unrelated files are preserved. No main/develop ref was changed, production deployed, paid service activated or external account connected.

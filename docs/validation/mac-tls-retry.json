@@ -1,0 +1,45 @@
+{
+  "status": "BLOCKED",
+  "scope": "Real Linux system-curl HTTPS and checksum; not native Mac trust acceptance",
+  "observed_at_utc": "2026-11-18T07:39:31.524034+00:00",
+  "bytes": 31792,
+  "sha256": "3e926f0eb23613d1293a8cae1db5a58dcdd575304e9ac75e5b492a8bf205c13f",
+  "elapsed_seconds": 0.4049724500000593,
+  "mac_verification": "PENDING_OWNER_RETRY",
+  "tls_verification_disabled": false,
+  "earlier_release_archive_probe": {
+    "status": "BLOCKED",
+    "error": "TimeoutError",
+    "configured_deadline_seconds": 180,
+    "successful_transfer": false
+  },
+  "source_sha256": {
+    "scripts/fetch_hermes_probe_assets.py": "b33b99245c4a687b763f8f48d965f36b1053696e52dbe026444504fc64b1ee66",
+    "scripts/mac_vm.py": "40310a3d35d65431caee80e9fff64e23f619cf6891d4f893ff0f65c6bb44c0e8"
+  },
+  "small_release_redirect_probe": {
+    "status": "PASS",
+    "sha256": "5f9eaa93d2b58986273347d0f139b95f8fb87f117d98897760dee8d5b9d45ca6",
+    "elapsed_seconds": 4.145706133000203
+  },
+  "implementation_validation": "PASS",
+  "tested_source_commit": "2205149d4f150cc721078eef00b4d98bf7c16601",
+  "linux_https_validation": "PASS",
+  "mac_owner_observation": {
+    "review_checkout": "e6ff9657e126fb5b9774475f2f3bd81f0163c502",
+    "configuration": "PASS_OWNER_TERMINAL_OUTPUT",
+    "lima_installation": "BLOCKED_PYTHON_CERTIFICATE_VERIFICATION",
+    "mac_binary_execution_verified": false,
+    "vm_or_assistant_started": false
+  },
+  "regression": {
+    "tests": 320,
+    "failures": 0,
+    "skipped": 0,
+    "working_seconds": 25.694,
+    "clean_checkout_seconds": 25.896,
+    "native_mac_tests": false
+  },
+  "configured_manifest_files_changed": false,
+  "global_python_or_keychain_modified": false
+}
