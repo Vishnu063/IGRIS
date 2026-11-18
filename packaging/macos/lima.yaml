@@ -18,12 +18,18 @@ portForwards:
   guestPort: 8765
   hostIP: 127.0.0.1
   hostPort: 8765
+  proto: tcp
 - guestPortRange: [1, 65535]
+  guestIP: 0.0.0.0
+  guestIPMustBeZero: false
+  proto: any
   ignore: true
 provision: []
 ssh:
   forwardAgent: false
   forwardX11: false
-rosetta:
-  enabled: false
-  binfmt: false
+vmOpts:
+  vz:
+    rosetta:
+      enabled: false
+      binfmt: false

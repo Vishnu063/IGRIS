@@ -3,27 +3,35 @@ import hashlib,json,os,re,subprocess,tarfile,tempfile,shutil,stat
 from pathlib import Path,PurePosixPath
 from mac_package import Blocked,ROOT,check,vm_command,digest
 
-def validate_instance(instance,root):
+def validate_instance(instance,root, *, legacy=False):
     """Lima v2.3.0 pkg/limatype/lima_instance.go and lima_yaml.go schemas."""
     config=instance.get('config',{})
     expected={'name':'igris','arch':'aarch64','vmType':'vz','cpus':2,'memory':4*1024**3,'disk':24*1024**3,'dir':str(Path(root)/'vm-state/igris')}
     if any(instance.get(k)!=v for k,v in expected.items()) or instance.get('errors') or instance.get('autoStartedIdentifier'):raise Blocked('Dedicated native VZ instance/resource identity differs; no emulation or autostart accepted.')
-    if config.get('mounts') or config.get('provision') or config.get('copyToHost') or config.get('additionalDisks'):raise Blocked('Host sharing or unreviewed provisioning denied.')
-    if config.get('rosetta',{}).get('enabled') is not False or config.get('rosetta',{}).get('binfmt') is not False:raise Blocked('Rosetta/emulation must be explicitly disabled.')
+    if any(config.get(key) for key in ('mounts','provision','copyToHost','additionalDisks','blockDevices')):raise Blocked('Host sharing or unreviewed provisioning denied.')
+    rosetta=config.get('vmOpts',{}).get('vz',{}).get('rosetta',{})
+    if any(rosetta.get(key) is not False for key in ('enabled','binfmt')):raise Blocked('Effective vmOpts.vz Rosetta/emulation must be explicitly disabled.')
+    if any(value is not False and value is not None for value in config.get('rosetta',{}).values()):raise Blocked('Conflicting deprecated Rosetta settings denied.')
     if config.get('ssh',{}).get('forwardAgent') is not False or config.get('ssh',{}).get('forwardX11') is not False:raise Blocked('Agent/X11 forwarding denied.')
     if config.get('containerd',{}).get('system') is not False or config.get('containerd',{}).get('user') is not False:raise Blocked('Unrequested containerd services denied.')
     forwards=config.get('portForwards',[])
     if len(forwards)!=2:raise Blocked('Exact loopback-only forwarding policy required.')
     first,last=forwards
-    if any(row.get(key) for row in forwards for key in ('hostSocket','guestSocket')):raise Blocked('Socket forwarding denied.')
+    if any(row.get(key) for row in forwards for key in ('hostSocket','guestSocket','reverse','static')):raise Blocked('Socket/reverse/static forwarding denied.')
     if any(first.get(k)!=v for k,v in {'guestIP':'127.0.0.1','guestPort':8765,'hostIP':'127.0.0.1','hostPort':8765}.items()) or last.get('ignore') is not True or last.get('guestPortRange')!=[1,65535]:raise Blocked('Public or unreviewed port forwarding denied.')
+    if not legacy:
+        if first.get('proto')!='tcp' or first.get('ignore',False) is not False or first.get('guestPortRange')!=[8765,8765] or first.get('hostPortRange')!=[8765,8765]:raise Blocked('Exact TCP-only dashboard forwarding required.')
+        if last.get('proto')!='any' or last.get('guestIP')!='0.0.0.0' or last.get('guestIPMustBeZero') is not False:raise Blocked('Catch-all TCP/UDP ignore policy required for all guest interfaces.')
     return instance
 
-def inspect_instance(binary,env,root):
+def read_instance(binary,env):
     raw=subprocess.check_output([binary,'list','--json','igris'],env=env,text=True,timeout=10)
     rows=[json.loads(line) for line in raw.splitlines() if line.strip()]
     if len(rows)!=1 or type(rows[0]) is not dict:raise Blocked('Exactly one dedicated Lima instance required.')
-    return validate_instance(rows[0],root)
+    return rows[0]
+
+def inspect_instance(binary,env,root):
+    return validate_instance(read_instance(binary,env),root)
 
 def measure_host(instance):
     # Read only pid/ppid/rss, never unrelated argv/environment/credentials.
@@ -110,11 +118,15 @@ def install_lima(root,allow_downloads):
     return 0
 
 def perform(args,root):
-    root=Path(root);check(root)
+    root=Path(root);check(root,allow_legacy=args.action in ('inspect-vm','migrate-vm'))
     if args.action=='install-lima':return install_lima(root,args.allow_downloads)
     # Reuse exact pinned binary, isolated LIMA_HOME, and override checks.
     command,env=vm_command(root,'stop-vm');binary=command[0]
     shell=[binary,'shell','igris']
+    if args.action in ('inspect-vm','migrate-vm'):
+        from mac_vm_policy import inspect_policy,migrate_policy
+        result=inspect_policy(binary,env,root) if args.action=='inspect-vm' else migrate_policy(binary,env,root)
+        print(json.dumps(result,indent=2));return 0
     if args.action=='uninstall-lima':
         target=root/'lima';record=verify_lima(target)
         result=subprocess.check_output([binary,'list','--json'],env=env,text=True,timeout=10)

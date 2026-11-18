@@ -24,7 +24,7 @@ class MacArchiveTests(unittest.TestCase):
             self.assertEqual(len(calls),2);self.assertFalse((root/'lima').exists());self.assertFalse(list(root.glob('lima-download-*')))
             self.assertEqual((root/'manifest.json').read_bytes(),manifest);self.assertEqual(sentinel.read_text(),'Preserve owner notes.')
     def instance(self,root):
-        return {'name':'igris','arch':'aarch64','vmType':'vz','cpus':2,'memory':4*1024**3,'disk':24*1024**3,'dir':str(Path(root)/'vm-state/igris'),'config':{'mounts':[],'rosetta':{'enabled':False,'binfmt':False},'ssh':{'forwardAgent':False,'forwardX11':False},'containerd':{'system':False,'user':False},'portForwards':[{'guestIP':'127.0.0.1','guestPort':8765,'hostIP':'127.0.0.1','hostPort':8765},{'ignore':True,'guestPortRange':[1,65535]}]}}
+        return {'name':'igris','arch':'aarch64','vmType':'vz','cpus':2,'memory':4*1024**3,'disk':24*1024**3,'dir':str(Path(root)/'vm-state/igris'),'config':{'mounts':[],'vmOpts':{'vz':{'rosetta':{'enabled':False,'binfmt':False}}},'ssh':{'forwardAgent':False,'forwardX11':False},'containerd':{'system':False,'user':False},'portForwards':[{'guestIP':'127.0.0.1','guestPort':8765,'hostIP':'127.0.0.1','hostPort':8765,'proto':'tcp','guestPortRange':[8765,8765],'hostPortRange':[8765,8765]},{'ignore':True,'guestPortRange':[1,65535],'guestIP':'0.0.0.0','guestIPMustBeZero':False,'proto':'any'}]}}
     def test_actual_instance_schema_requires_native_limits_and_no_sharing(self):
         with tempfile.TemporaryDirectory() as folder:
             data=self.instance(folder);validate_instance(data,folder)
@@ -35,7 +35,7 @@ class MacArchiveTests(unittest.TestCase):
                 bad=json.loads(json.dumps(data))
                 if change=='home':bad['config']['mounts']=[{'location':'~'}]
                 if change=='socket':bad['config']['portForwards'][0]['hostSocket']='/var/run/docker.sock'
-                if change=='rosetta':bad['config']['rosetta']['enabled']=True
+                if change=='rosetta':bad['config']['vmOpts']['vz']['rosetta']['enabled']=True
                 with self.assertRaises(Blocked):validate_instance(bad,folder)
     def archive(self,folder,name,*,link=None,hard=False):
         path=Path(folder)/'input.tar'

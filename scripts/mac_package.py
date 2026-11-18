@@ -26,7 +26,7 @@ def install(root):
  with os.fdopen(fd,'w') as stream:json.dump(manifest,stream,indent=2);stream.write('\n')
  return manifest
 
-def check(root):
+def check(root, *, allow_legacy=False):
  root=Path(root).absolute();info=root.lstat()
  if root.resolve(strict=True)!=root or not stat.S_ISDIR(info.st_mode) or info.st_uid!=os.getuid() or stat.S_IMODE(info.st_mode)!=0o700:raise Blocked('Private canonical preparation directory required.')
  for name in ('manifest.json','lima.yaml','assets.json','guardian-arm64-candidate.json'):
@@ -35,7 +35,14 @@ def check(root):
  manifest=json.loads((root/'manifest.json').read_text())
  if set(manifest)!={'schema_version','installation_id','files','vm_name','assistant_verified','autostart'} or manifest['schema_version']!=1 or manifest['installation_id']!='igris-mac-preparation' or manifest['vm_name']!=NAME or manifest['assistant_verified'] is not False or manifest['autostart'] is not False or set(manifest['files'])!={'lima.yaml','assets.json','guardian-arm64-candidate.json'}:raise Blocked('Unknown preparation manifest; preserved.')
  for name,want in manifest['files'].items():
-  if digest(root/name)!=want or digest(root/name)!=digest(PACKAGE/name):raise Blocked('Modified configuration preserved; review before continuing.')
+  allowed={digest(PACKAGE/name)}
+  if allow_legacy and name=='lima.yaml':allowed.add(digest(PACKAGE/'migrations/lima-v1.yaml'))
+  if digest(root/name)!=want or want not in allowed:raise Blocked('Modified or older configuration preserved; use the reviewed migrate-vm gate before continuing.')
+ if not allow_legacy and (root/'vm-policy-migration.json').exists():
+  info=(root/'vm-policy-migration.json').lstat()
+  if not stat.S_ISREG(info.st_mode) or info.st_nlink!=1 or info.st_uid!=os.getuid() or stat.S_IMODE(info.st_mode)!=0o600:raise Blocked('Unexpected migration marker; preserved.')
+  record=json.loads((root/'vm-policy-migration.json').read_text())
+  if record.get('status')!='PASS':raise Blocked('Incomplete VM policy migration; inspect before continuing. VM data preserved.')
  return manifest
 
 def uninstall(root):
@@ -47,7 +54,7 @@ def uninstall(root):
  return {'removed':'unchanged manifest-listed preparation files only','retained':retained,'vm_deleted':False,'user_data_deleted':False}
 
 def vm_command(root,action):
- check(root)
+ check(root,allow_legacy=action=='stop-vm')
  for name in ('default.yaml','override.yaml'):
   if (Path(root)/'vm-state/_config'/name).exists():raise Blocked('Unreviewed Lima defaults/overrides could change isolation; preserved and blocked.')
  candidate=Path(root)/'lima/bin/limactl'
@@ -70,15 +77,15 @@ def vm_command(root,action):
 
 def main():
  parser=argparse.ArgumentParser(description='Read-only plan by default; no actual Mac installation is authorized by this package.')
- parser.add_argument('action',choices=('plan','preflight','configure','start-vm','stop-vm','start','uninstall','install-lima','uninstall-lima','bootstrap-guest','prepare-runtime','verify-guest','export-accounts','measure'));parser.add_argument('--allow-changes',action='store_true',help='Use only after separate owner authorization on the actual Mac.')
+ parser.add_argument('action',choices=('plan','preflight','configure','start-vm','stop-vm','start','uninstall','install-lima','uninstall-lima','bootstrap-guest','prepare-runtime','verify-guest','export-accounts','measure','inspect-vm','migrate-vm'));parser.add_argument('--allow-changes',action='store_true',help='Use only after separate owner authorization on the actual Mac.')
  parser.add_argument('--allow-downloads',action='store_true');parser.add_argument('--commit',help='Exact reviewed source SHA for a fresh guest clone.')
  args=parser.parse_args()
  if args.action=='plan':print(json.dumps(inventory(),indent=2));return 0
  native_gate()
  if args.action=='preflight':print(json.dumps(inventory(),indent=2));return 2
- if not args.allow_changes and args.action!='measure':raise Blocked('Later explicit Mac authorization and --allow-changes required.')
+ if not args.allow_changes and args.action not in ('measure','inspect-vm'):raise Blocked('Later explicit Mac authorization and --allow-changes required.')
  root=Path.home()/'Library'/'Application Support'/'IGRIS'
- if args.action in ('install-lima','uninstall-lima','bootstrap-guest','prepare-runtime','verify-guest','export-accounts','start','measure'):
+ if args.action in ('install-lima','uninstall-lima','bootstrap-guest','prepare-runtime','verify-guest','export-accounts','start','measure','inspect-vm','migrate-vm'):
   from mac_vm import perform
   return perform(args,root)
  if args.action in ('configure','start-vm'):
