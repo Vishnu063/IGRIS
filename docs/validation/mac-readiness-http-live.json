@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "resource_enforcement": "BLOCKED",
+  "daemon_resource_capabilities": {
+    "MemoryLimit": false,
+    "SwapLimit": false,
+    "CpuCfsPeriod": false,
+    "CpuCfsQuota": false,
+    "PidsLimit": false
+  },
+  "inference": "real_Hermes",
+  "reply": "12",
+  "authenticated_chat_seconds": 36.32184394600017,
+  "cancel_and_verified_cleanup_seconds": 0.8620227450001039,
+  "logout_cached_credential_revoked": true,
+  "owner_viewer_csrf_origin_denials": true,
+  "emergency_stop_no_restart": true,
+  "native_browser_ui": "NOT_TESTED",
+  "mac_hardware": "NOT_TESTED",
+  "owner_inputs": "Automated trusted HTTP fixtures, not model approval.",
+  "sampled_model_peak_rss_bytes": null,
+  "sampled_owned_process_aggregate_peak_rss_bytes": null,
+  "sampled_model_container_cgroup_usage_peak_bytes": 3781988352,
+  "controller_peak_rss_bytes": 24543232,
+  "memory_method": "Daemon raw cgroup memory usage includes cache, not RSS. Local /proc VmRSS is unavailable when Docker PIDs are outside this PID namespace (null, never zero-memory success). Controller getrusage peak at chat completion. Not Mac measurements.",
+  "source_sha256": {
+    "scripts/verify_dashboard_http.py": "bd5834bc1e147794c63d1f79f4dd75a81a003ef58b568d09a3383e54e91a2f53",
+    "src/igris/mission_control.py": "0d8ea812af29cb33e2b8adf1d02e5c9c66b48d8815436e0956cc16dcd7495f4b",
+    "src/igris/adapters/hermes_chat.py": "6ac415f8195b4d22ce9af91573f5982f060ff341896ad353e5ac85e29696b0c5",
+    "src/igris/adapters/native_runtime.py": "dcc1a19bd337d5347e825a6abcf3ad3fc2d5d8990cc6c355bcb8a1895091be45",
+    "src/igris/guardian/kernel.py": "7dfbda6731823cbd667b8e492139e8effb57a757413c04feee4e505a6c85bc53",
+    "scripts/hermes_chat_worker.py": "905a4fdbc48e518b13d4209ab2dab9d20086886304a57b5300f5c985332f64f1"
+  }
+}

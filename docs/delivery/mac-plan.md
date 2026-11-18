@@ -1,3 +1,5 @@
+Current 2026-11-18 IST native implementation and unresolved gates: [readiness report](../execution/mac-readiness.md) and [Mac operator guide](../delivery/native-mac-guide.md). The original results below remain historical, with no Mac/human acceptance inferred.
+
 # Later Mac M1 installation and verification plan — not executed
 
 Target: Apple M1, 8 GB shared RAM, about 50 GB free disk, initial spending INR 0.

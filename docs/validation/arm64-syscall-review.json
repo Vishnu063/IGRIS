@@ -1,0 +1,49 @@
+{
+  "status": "PASS_SOURCE_REVIEW_ONLY",
+  "linux_reference": "v6.17",
+  "architecture": "aarch64",
+  "target_execution": "BLOCKED: actual ARM64 guest unavailable",
+  "audit_arch": "0xc00000b7",
+  "constants": {
+    "socket": 198,
+    "connect": 203,
+    "accept": 202,
+    "sendto": 206,
+    "recvfrom": 207,
+    "sendmsg": 211,
+    "recvmsg": 212,
+    "shutdown": 210,
+    "bind": 200,
+    "listen": 201,
+    "getsockname": 204,
+    "getpeername": 205,
+    "socketpair": 199,
+    "setsockopt": 208,
+    "getsockopt": 209,
+    "accept4": 242,
+    "recvmmsg": 243,
+    "sendmmsg": 269,
+    "clone": 220,
+    "execve": 221,
+    "execveat": 281,
+    "io_uring_setup": 425,
+    "io_uring_enter": 426,
+    "io_uring_register": 427,
+    "clone3": 435
+  },
+  "references": [
+    {
+      "url": "https://github.com/torvalds/linux/blob/v6.17/include/uapi/asm-generic/unistd.h",
+      "sha256": "3e926f0eb23613d1293a8cae1db5a58dcdd575304e9ac75e5b492a8bf205c13f",
+      "license": "GPL-2.0 WITH Linux-syscall-note",
+      "github_blob_sha": "04e0077fb4c97a4d565da86d3d0d1d243f32336e"
+    },
+    {
+      "url": "https://github.com/torvalds/linux/blob/v6.17/include/uapi/linux/audit.h",
+      "sha256": "945113c30f6ed9e8e1bdfda0bf635e5772f77f03a5f84ad1f704c6dc17bcee83",
+      "license": "GPL-2.0+ WITH Linux-syscall-note",
+      "github_blob_sha": "9a4ecc9f6dc5b19e536dffc299f699f2ce090b78"
+    }
+  ],
+  "method": "Reviewed numeric generic ABI definitions; AUDIT_ARCH_AARCH64 = EM_AARCH64(183) | __AUDIT_ARCH_64BIT | __AUDIT_ARCH_LE. Actual native guest headers must additionally match via compiled C and all restricted syscalls must return EPERM."
+}

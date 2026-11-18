@@ -1,3 +1,5 @@
+Current 2026-11-18 IST native implementation and unresolved gates: [readiness report](../execution/mac-readiness.md) and [Mac operator guide](../delivery/native-mac-guide.md). The original results below remain historical, with no Mac/human acceptance inferred.
+
 # Apple M1 preparation package — hardware acceptance BLOCKED
 
 No Mac was accessed, modified or installed. This is a reviewed **preparation package**, not a working ARM64 IGRIS release. Existing live evidence is Linux x86_64. The current Guardian kernel filter and worker preflight intentionally reject ARM64; changing platform strings or using x86 emulation would not verify the required security boundary.

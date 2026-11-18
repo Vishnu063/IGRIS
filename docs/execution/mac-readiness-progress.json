@@ -1,0 +1,137 @@
+{
+  "status": "BLOCKED",
+  "goal": "Installed and accepted native Mac assistant",
+  "updated_at_utc": "2026-11-17T21:03:58.828959+00:00",
+  "branch": "feat/mac-arm64-native-voice",
+  "base_develop": "24196dad0094b60aec57450d0bd267a30dca4cd0",
+  "pr_1": {
+    "state": "open_draft_unmerged",
+    "reused_commit": "58276b6c7bfa4cf714683ae912b40170ebc946e5",
+    "duplicated_changes": false
+  },
+  "tested_source_commit": "b4e31ab79762ae1015b9f676dfa48e73772c4d1c",
+  "functional_diagnostic_commit": "31a9ea482da3ce3a0d8f9c4f9fe93339bc6b80bb",
+  "resource_hardening_commit": "3d44328df88d31f098023f8f953ddd821bd3ae48",
+  "regression": {
+    "status": "PASS",
+    "tests": 313,
+    "failures": 0,
+    "skipped": 0,
+    "working_tree_seconds": 25.831,
+    "separate_clean_checkout_seconds": 26.51,
+    "environment": "Linux x86_64 Python 3.12.14; real Unix sockets; no prepared runtime in the clean worktree",
+    "contains_synthetic_unit_fixtures": true
+  },
+  "areas": {
+    "arm64_guardian": {
+      "implementation": "PASS_SOURCE_AND_UNIT_REVIEW",
+      "native_execution": "BLOCKED"
+    },
+    "native_runtime": {
+      "implementation": "TESTED_PARTIAL",
+      "current_cloud_activation": "BLOCKED_MISSING_CGROUP_ENFORCEMENT",
+      "arm64_execution": "BLOCKED"
+    },
+    "mac_vm": {
+      "implementation": "PREPARED_ARCHIVES_AND_SAFETY_TESTED",
+      "installed_on_mac": false,
+      "vm_verified_on_mac": false
+    },
+    "native_voice": {
+      "implementation": "PREPARED_BRIDGE_UNIT_TESTED",
+      "sdk_compilation": "BLOCKED_NO_MAC_SDK_IN_CLOUD_TARGET_NOT_ACCESSED",
+      "human_en_hi_mr": "BLOCKED",
+      "speaker_playback": "BLOCKED",
+      "automatic_language_detection": "NOT_IMPLEMENTED"
+    },
+    "guardian_memory_dashboard": {
+      "regression": "PASS",
+      "real_functional_diagnostics": "PASS_AT_RECORDED_PRE_HARDENING_COMMIT",
+      "current_resource_guard_denial": "PASS",
+      "mac_acceptance": "BLOCKED"
+    },
+    "n8n": {
+      "status": "BLOCKED_QUARANTINED_OPTIONAL",
+      "current_critical": 6,
+      "current_high": 82,
+      "patched_candidate_critical": 1,
+      "patched_candidate_high": 80,
+      "runtime_installed_or_started": false
+    },
+    "ops_pilot": {
+      "source": "PRESERVED",
+      "live_this_turn": "NOT_TESTED",
+      "native_arm64": "NOT_TESTED"
+    }
+  },
+  "mac_verified_capabilities": [],
+  "owner_observations_only": [
+    "ARM64 MacBook Air, 8 GB",
+    "reported macOS 27.2.1 build 26B131",
+    "Python 3.12.10; Git 2.54.0",
+    "virtualization support; about 149 GiB free",
+    "no Homebrew/Lima/Docker/VM installation found"
+  ],
+  "remaining_user_actions": [
+    "Review the draft PR and run private configure/install-lima commands on the Mac; return non-secret output.",
+    "Boot dedicated native VZ guest, bootstrap exact reviewed commit and prepare runtime with explicit download consent.",
+    "Run real guest acceptance and host memory/swap/latency/cleanup measurement.",
+    "Compile native voice helper, inspect local on-device/voice availability and run human English/Hindi/Marathi input and actual speaker tests."
+  ],
+  "not_authorized_or_not_done": [
+    "No remote Mac access",
+    "No Mac installation by this agent",
+    "No paid service/API",
+    "No external account connections or messaging",
+    "No production/merge/main/develop changes",
+    "No quarantine bypass"
+  ],
+  "evidence": [
+    {
+      "path": "docs/validation/mac-core-python-audit.json",
+      "sha256": "0871bc96cd75e782d9b680f0c28c1514a7d3e3c8c7e1f861eb323fac47ab7d69"
+    },
+    {
+      "path": "docs/validation/mac-n8n-audit.json",
+      "sha256": "be58d4f3b06b7e09949609fb76d18d2edd9b4d2f14a5e2b790033fd8f9a9f498"
+    },
+    {
+      "path": "docs/validation/mac-package-cloud.json",
+      "sha256": "3444e7f885bb0e5fa9234c9f7245a74063e61e8d5098cd0c352c772358c05206"
+    },
+    {
+      "path": "docs/validation/mac-readiness-backup-live.json",
+      "sha256": "3cea94d813a07a7e3306db562ccb9cc076d14ec845d9dcf4d73a94153e152683"
+    },
+    {
+      "path": "docs/validation/mac-readiness-chat-live.json",
+      "sha256": "8c920ddc7312f2a75c55691eaf22ea4e5f4e4072447b8588ea128c900f3af2db"
+    },
+    {
+      "path": "docs/validation/mac-readiness-guardian-live.json",
+      "sha256": "2605b777238123fd6fa492e49ba3a3d72b72ea5650d1544f163f385a05758774"
+    },
+    {
+      "path": "docs/validation/mac-readiness-http-live.json",
+      "sha256": "7cd552ff4d1606189f4e5db389d1b16d754b788d23ab226ec2564d0d2d3cfb45"
+    },
+    {
+      "path": "docs/validation/mac-readiness-kernel-x86.json",
+      "sha256": "ff189592fac8f74147f886c1776bd9b45d2d09b8c6fc1c692c8db9c86162cf51"
+    },
+    {
+      "path": "docs/validation/mac-resource-enforcement.json",
+      "sha256": "c7a3cc058476d1a5d25c665e4eb72dacf91174822fcac5ae7259cf3e753e2e78"
+    },
+    {
+      "path": "docs/validation/arm64-syscall-review.json",
+      "sha256": "d604b08a96b59cc0913f4c0c4064b454401563672ab5489c5843402ad42bce67"
+    },
+    {
+      "path": "docs/validation/native-assets-review.json",
+      "sha256": "5671e39ece7d4bd8a6334b7a8d90dd27adc23d5b97258ec4370b797108fe8467"
+    }
+  ],
+  "report": "docs/execution/mac-readiness.md",
+  "operator_guide": "docs/delivery/native-mac-guide.md"
+}

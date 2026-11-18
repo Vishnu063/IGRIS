@@ -1,3 +1,5 @@
+Current 2026-11-18 IST native implementation and unresolved gates: [readiness report](../execution/mac-readiness.md) and [Mac operator guide](../delivery/native-mac-guide.md). The original results below remain historical, with no Mac/human acceptance inferred.
+
 # IGRIS completion progress
 
 | Task | Title | Acceptance | Implementation | External verification | Commit |

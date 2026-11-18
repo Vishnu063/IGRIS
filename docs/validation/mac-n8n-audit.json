@@ -1,0 +1,295 @@
+{
+  "status": "BLOCKED",
+  "quarantine_cleared": false,
+  "runtime_installed_or_started": false,
+  "command": "$ npm audit --package-lock-only --ignore-scripts --omit=dev --json",
+  "npm_version": "11.9.0",
+  "node_version": "v24.22.1",
+  "source_develop": "24196dad0094b60aec57450d0bd267a30dca4cd0",
+  "reused_pr_1_commit": "58276b6c7bfa4cf714683ae912b40170ebc946e5",
+  "candidates": {
+    "current_quarantined": {
+      "counts": {
+        "info": 0,
+        "low": 3,
+        "moderate": 81,
+        "high": 82,
+        "critical": 6,
+        "total": 172
+      },
+      "raw_audit_sha256": "a92fd277ecfddc9ad0b9f7dedfc0bb3e711d094b4105ddd91e481d05889b7cce",
+      "lock_sha256": "03e0727a67d34a2e8961e5ed62d6f126d0041108a55879336491d04c2072b94d",
+      "critical_entries": [
+        {
+          "package": "@getzep/zep-cloud",
+          "affected_range": "<=4.0.1",
+          "fix_available": {
+            "name": "n8n",
+            "version": "1.17.0",
+            "isSemVerMajor": true
+          },
+          "advisories": []
+        },
+        {
+          "package": "@getzep/zep-js",
+          "affected_range": ">=2.0.0-b.0",
+          "fix_available": {
+            "name": "n8n",
+            "version": "1.17.0",
+            "isSemVerMajor": true
+          },
+          "advisories": []
+        },
+        {
+          "package": "@langchain/community",
+          "affected_range": "*",
+          "fix_available": {
+            "name": "n8n",
+            "version": "1.17.0",
+            "isSemVerMajor": true
+          },
+          "advisories": []
+        },
+        {
+          "package": "fast-xml-parser",
+          "affected_range": "<=5.11.2",
+          "fix_available": {
+            "name": "n8n",
+            "version": "1.17.0",
+            "isSemVerMajor": true
+          },
+          "advisories": [
+            "https://github.com/advisories/GHSA-37qj-frw5-hhjh",
+            "https://github.com/advisories/GHSA-m7jm-9gc2-mpf2",
+            "https://github.com/advisories/GHSA-m7jm-9gc2-mpf2",
+            "https://github.com/advisories/GHSA-jmr7-xgp7-cmfj",
+            "https://github.com/advisories/GHSA-jmr7-xgp7-cmfj",
+            "https://github.com/advisories/GHSA-fj3w-jwp8-x2g3",
+            "https://github.com/advisories/GHSA-fj3w-jwp8-x2g3",
+            "https://github.com/advisories/GHSA-8gc5-j5rx-235r",
+            "https://github.com/advisories/GHSA-8gc5-j5rx-235r",
+            "https://github.com/advisories/GHSA-jp2q-39xq-3w4g",
+            "https://github.com/advisories/GHSA-jp2q-39xq-3w4g",
+            "https://github.com/advisories/GHSA-gh4j-gqv2-49f6",
+            "https://github.com/advisories/GHSA-474x-hrwr-fgx4"
+          ]
+        },
+        {
+          "package": "form-data",
+          "affected_range": "4.0.0 - 4.0.5",
+          "fix_available": {
+            "name": "n8n",
+            "version": "1.17.0",
+            "isSemVerMajor": true
+          },
+          "advisories": [
+            "https://github.com/advisories/GHSA-fjxv-7rqg-78g4",
+            "https://github.com/advisories/GHSA-hmw2-7cc7-3qxx"
+          ]
+        },
+        {
+          "package": "tar",
+          "affected_range": "<=7.5.20",
+          "fix_available": {
+            "name": "n8n",
+            "version": "1.17.0",
+            "isSemVerMajor": true
+          },
+          "advisories": [
+            "https://github.com/advisories/GHSA-34x7-hfp2-rc4v",
+            "https://github.com/advisories/GHSA-8qq5-rm4j-mr97",
+            "https://github.com/advisories/GHSA-83g3-92jg-28cx",
+            "https://github.com/advisories/GHSA-qffp-2rhf-9h96",
+            "https://github.com/advisories/GHSA-9ppj-qmqm-q256",
+            "https://github.com/advisories/GHSA-r6q2-hw4h-h46w",
+            "https://github.com/advisories/GHSA-vmf3-w455-68vh",
+            "https://github.com/advisories/GHSA-w8wr-v893-vjvp",
+            "https://github.com/advisories/GHSA-23hp-3jrh-7fpw",
+            "https://github.com/advisories/GHSA-8x88-c5mf-7j5w",
+            "https://github.com/advisories/GHSA-gvwx-54wh-qm9j",
+            "https://github.com/advisories/GHSA-r292-9mhp-454m"
+          ]
+        }
+      ]
+    },
+    "maintained_stock_2_48_4": {
+      "counts": {
+        "info": 0,
+        "low": 2,
+        "moderate": 66,
+        "high": 77,
+        "critical": 7,
+        "total": 152
+      },
+      "raw_audit_sha256": "157c7b05607b3d3940e4c868f934d42b52517f569d2eb30a33456a4e50ccb4c3",
+      "lock_sha256": "9ebf99e8a10843fc3ea497cf2cc259506371c595cf8fa58c285a6cd69a2b92c0",
+      "critical_entries": [
+        {
+          "package": "@getzep/zep-cloud",
+          "affected_range": "<=4.0.1",
+          "fix_available": {
+            "name": "n8n",
+            "version": "1.17.0",
+            "isSemVerMajor": true
+          },
+          "advisories": []
+        },
+        {
+          "package": "@getzep/zep-js",
+          "affected_range": ">=2.0.0-b.0",
+          "fix_available": {
+            "name": "n8n",
+            "version": "1.17.0",
+            "isSemVerMajor": true
+          },
+          "advisories": []
+        },
+        {
+          "package": "@langchain/community",
+          "affected_range": "*",
+          "fix_available": true,
+          "advisories": []
+        },
+        {
+          "package": "@n8n/n8n-nodes-langchain",
+          "affected_range": "*",
+          "fix_available": {
+            "name": "n8n",
+            "version": "1.17.0",
+            "isSemVerMajor": true
+          },
+          "advisories": []
+        },
+        {
+          "package": "fast-xml-parser",
+          "affected_range": "<=5.11.2",
+          "fix_available": {
+            "name": "n8n",
+            "version": "1.17.0",
+            "isSemVerMajor": true
+          },
+          "advisories": [
+            "https://github.com/advisories/GHSA-37qj-frw5-hhjh",
+            "https://github.com/advisories/GHSA-m7jm-9gc2-mpf2",
+            "https://github.com/advisories/GHSA-m7jm-9gc2-mpf2",
+            "https://github.com/advisories/GHSA-jmr7-xgp7-cmfj",
+            "https://github.com/advisories/GHSA-jmr7-xgp7-cmfj",
+            "https://github.com/advisories/GHSA-fj3w-jwp8-x2g3",
+            "https://github.com/advisories/GHSA-fj3w-jwp8-x2g3",
+            "https://github.com/advisories/GHSA-8gc5-j5rx-235r",
+            "https://github.com/advisories/GHSA-8gc5-j5rx-235r",
+            "https://github.com/advisories/GHSA-jp2q-39xq-3w4g",
+            "https://github.com/advisories/GHSA-jp2q-39xq-3w4g",
+            "https://github.com/advisories/GHSA-gh4j-gqv2-49f6",
+            "https://github.com/advisories/GHSA-474x-hrwr-fgx4"
+          ]
+        },
+        {
+          "package": "form-data",
+          "affected_range": "4.0.0 - 4.0.5",
+          "fix_available": {
+            "name": "n8n",
+            "version": "1.17.0",
+            "isSemVerMajor": true
+          },
+          "advisories": [
+            "https://github.com/advisories/GHSA-fjxv-7rqg-78g4",
+            "https://github.com/advisories/GHSA-hmw2-7cc7-3qxx"
+          ]
+        },
+        {
+          "package": "tar",
+          "affected_range": "<=7.5.20",
+          "fix_available": {
+            "name": "n8n",
+            "version": "1.17.0",
+            "isSemVerMajor": true
+          },
+          "advisories": [
+            "https://github.com/advisories/GHSA-34x7-hfp2-rc4v",
+            "https://github.com/advisories/GHSA-8qq5-rm4j-mr97",
+            "https://github.com/advisories/GHSA-83g3-92jg-28cx",
+            "https://github.com/advisories/GHSA-qffp-2rhf-9h96",
+            "https://github.com/advisories/GHSA-9ppj-qmqm-q256",
+            "https://github.com/advisories/GHSA-r6q2-hw4h-h46w",
+            "https://github.com/advisories/GHSA-vmf3-w455-68vh",
+            "https://github.com/advisories/GHSA-w8wr-v893-vjvp",
+            "https://github.com/advisories/GHSA-23hp-3jrh-7fpw",
+            "https://github.com/advisories/GHSA-8x88-c5mf-7j5w",
+            "https://github.com/advisories/GHSA-gvwx-54wh-qm9j",
+            "https://github.com/advisories/GHSA-r292-9mhp-454m"
+          ]
+        }
+      ]
+    },
+    "same_major_patch_candidate": {
+      "counts": {
+        "info": 0,
+        "low": 2,
+        "moderate": 65,
+        "high": 80,
+        "critical": 1,
+        "total": 148
+      },
+      "raw_audit_sha256": "4d21e69a522205d3c8c269ea071a696e5f8b376a2e0681190436854c3aee21fa",
+      "lock_sha256": "f94faba6bcd2e623befe0bba1ce83b0ab00cf3a99e7da6627f1e4e27ec6b3ce4",
+      "critical_entries": [
+        {
+          "package": "tar",
+          "affected_range": "<=7.5.20",
+          "fix_available": {
+            "name": "n8n",
+            "version": "1.17.0",
+            "isSemVerMajor": true
+          },
+          "advisories": [
+            "https://github.com/advisories/GHSA-34x7-hfp2-rc4v",
+            "https://github.com/advisories/GHSA-8qq5-rm4j-mr97",
+            "https://github.com/advisories/GHSA-83g3-92jg-28cx",
+            "https://github.com/advisories/GHSA-qffp-2rhf-9h96",
+            "https://github.com/advisories/GHSA-9ppj-qmqm-q256",
+            "https://github.com/advisories/GHSA-r6q2-hw4h-h46w",
+            "https://github.com/advisories/GHSA-vmf3-w455-68vh",
+            "https://github.com/advisories/GHSA-w8wr-v893-vjvp",
+            "https://github.com/advisories/GHSA-23hp-3jrh-7fpw",
+            "https://github.com/advisories/GHSA-8x88-c5mf-7j5w",
+            "https://github.com/advisories/GHSA-gvwx-54wh-qm9j",
+            "https://github.com/advisories/GHSA-r292-9mhp-454m"
+          ]
+        }
+      ],
+      "overrides": {
+        "form-data@^4.0.0": "4.0.6",
+        "fast-xml-parser@^5.0.0": "5.12.1",
+        "tar@^7.0.0": "7.5.23",
+        "fast-xml-parser@^4.0.0": "4.5.5"
+      },
+      "affected_tar_installations": [
+        {
+          "path": "node_modules/cacache/node_modules/tar",
+          "version": "6.2.1"
+        },
+        {
+          "path": "node_modules/node-gyp/node_modules/tar",
+          "version": "6.2.1"
+        },
+        {
+          "path": "node_modules/sqlite3/node_modules/tar",
+          "version": "6.2.1"
+        }
+      ]
+    }
+  },
+  "not_used": [
+    "npm audit fix --force",
+    "major downgrade to n8n 1.17.0",
+    "quarantine bypass",
+    "native or npm runtime installation"
+  ],
+  "limitations": [
+    "Candidate resolution/audit is metadata-only; no compatibility or isolated workflow acceptance is claimed.",
+    "Current quarantine remains bound to the original runtime. Candidate locks and raw audit outputs are private task-owned artifacts; hashes preserve the exact observed results.",
+    "Core assistant remains independent of n8n."
+  ],
+  "observed_at_utc": "2026-11-17"
+}

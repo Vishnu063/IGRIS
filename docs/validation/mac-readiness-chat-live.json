@@ -1,0 +1,242 @@
+{
+  "all_containers_removed": true,
+  "cancelled_turn_excluded_from_history": true,
+  "conversation_isolation": true,
+  "cross_process_recall": true,
+  "explicit_forget": true,
+  "mac_tested": false,
+  "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+  "native_tools_enabled": false,
+  "origin": "real_local_inference",
+  "persisted_owner_denial": true,
+  "randomized_recall_cases": 3,
+  "real_sigint_exit": 130,
+  "source_sha256": {
+    "integrations/hermes-inference/profile.json": "d02f0a549a125a4e6ca759affd156670670285a74e7842a2e983b51166163195",
+    "scripts/hermes_chat_worker.py": "905a4fdbc48e518b13d4209ab2dab9d20086886304a57b5300f5c985332f64f1",
+    "scripts/hermes_inference_worker.py": "b02a028665e39df08c08d89b55b6f3c7013c82cbb11cd27e6315bc5410c717ab",
+    "scripts/test_chat_live.py": "a49ad6d73b6397e133999a9926a314a3037d2408bfeb56da8f05b29eb86a5133",
+    "src/igris/adapters/hermes_chat.py": "6ac415f8195b4d22ce9af91573f5982f060ff341896ad353e5ac85e29696b0c5",
+    "src/igris/chat.py": "803dfad012d40c3494da2137efb2adc77779167112a2076866db1e0671478e76",
+    "src/igris/controller.py": "134bda2e79c6cbff6b618dfafc98247ac79da87ae9c6d19857040c178265a64b",
+    "src/igris/conversations.py": "12e19352a6556dfa40c155f73a2d6f4c5a32535bd1751970307d901f22e2096c",
+    "src/igris/guardian/policy.py": "1137fdca084a8a2fe4a32dc46bc833fe286a775f04e632b81321bb11ff81d2cf",
+    "src/igris/memory.py": "b8c393ced0194e69bf6c09b29d80522fb6bc97535ac02cdd60ea4df4eb28aff0"
+  },
+  "spend_inr": 0,
+  "sqlite_backup_restore": true,
+  "status": "PASS",
+  "turns": [
+    {
+      "elapsed_seconds": 29.7143,
+      "fresh_offline_worker": true,
+      "inference": {
+        "api_calls": 1,
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "state": "completed"
+      },
+      "mission": {
+        "actor": "owner",
+        "approval_request_id": null,
+        "evidence_origin": "real",
+        "history": [
+          "requested",
+          "planned",
+          "ready",
+          "running",
+          "verifying",
+          "succeeded"
+        ],
+        "id": "885a36426e684dbd84c3d4768dd03218",
+        "message": "NOTED",
+        "route": "chat",
+        "state": "succeeded"
+      },
+      "prompt": "Remember this codeword for our conversation: MAPLEA86DF050. Reply only NOTED.",
+      "response": "NOTED",
+      "separate_cli_process": true
+    },
+    {
+      "elapsed_seconds": 25.8035,
+      "fresh_offline_worker": true,
+      "inference": {
+        "api_calls": 1,
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "state": "completed"
+      },
+      "mission": {
+        "actor": "owner",
+        "approval_request_id": null,
+        "evidence_origin": "real",
+        "history": [
+          "requested",
+          "planned",
+          "ready",
+          "running",
+          "verifying",
+          "succeeded"
+        ],
+        "id": "9c998f091eef44b1a6ff1c0ba99d6e45",
+        "message": "MAPLEA86DF050",
+        "route": "chat",
+        "state": "succeeded"
+      },
+      "prompt": "What codeword did I ask you to remember? Reply only with that codeword.",
+      "response": "MAPLEA86DF050",
+      "separate_cli_process": true
+    },
+    {
+      "elapsed_seconds": 26.1933,
+      "fresh_offline_worker": true,
+      "inference": {
+        "api_calls": 1,
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "state": "completed"
+      },
+      "mission": {
+        "actor": "owner",
+        "approval_request_id": null,
+        "evidence_origin": "real",
+        "history": [
+          "requested",
+          "planned",
+          "ready",
+          "running",
+          "verifying",
+          "succeeded"
+        ],
+        "id": "59ee8ec13a65469aa9b0cc59c8c4900d",
+        "message": "NOTED",
+        "route": "chat",
+        "state": "succeeded"
+      },
+      "prompt": "Remember this codeword for our conversation: MAPLEB7787B51. Reply only NOTED.",
+      "response": "NOTED",
+      "separate_cli_process": true
+    },
+    {
+      "elapsed_seconds": 30.7891,
+      "fresh_offline_worker": true,
+      "inference": {
+        "api_calls": 1,
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "state": "completed"
+      },
+      "mission": {
+        "actor": "owner",
+        "approval_request_id": null,
+        "evidence_origin": "real",
+        "history": [
+          "requested",
+          "planned",
+          "ready",
+          "running",
+          "verifying",
+          "succeeded"
+        ],
+        "id": "db54c8671ae24286831bf1203a4f467e",
+        "message": "MAPLEB7787B51",
+        "route": "chat",
+        "state": "succeeded"
+      },
+      "prompt": "What codeword did I ask you to remember? Reply only with that codeword.",
+      "response": "MAPLEB7787B51",
+      "separate_cli_process": true
+    },
+    {
+      "elapsed_seconds": 31.6428,
+      "fresh_offline_worker": true,
+      "inference": {
+        "api_calls": 1,
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "state": "completed"
+      },
+      "mission": {
+        "actor": "owner",
+        "approval_request_id": null,
+        "evidence_origin": "real",
+        "history": [
+          "requested",
+          "planned",
+          "ready",
+          "running",
+          "verifying",
+          "succeeded"
+        ],
+        "id": "30cdd160ec554d13b854d2506fb88294",
+        "message": "NOTED",
+        "route": "chat",
+        "state": "succeeded"
+      },
+      "prompt": "Remember this codeword for our conversation: MAPLEDCA40285. Reply only NOTED.",
+      "response": "NOTED",
+      "separate_cli_process": true
+    },
+    {
+      "elapsed_seconds": 37.5267,
+      "fresh_offline_worker": true,
+      "inference": {
+        "api_calls": 1,
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "state": "completed"
+      },
+      "mission": {
+        "actor": "owner",
+        "approval_request_id": null,
+        "evidence_origin": "real",
+        "history": [
+          "requested",
+          "planned",
+          "ready",
+          "running",
+          "verifying",
+          "succeeded"
+        ],
+        "id": "38351e8f517f495488c0df1eccd6422f",
+        "message": "MAPLEDCA40285",
+        "route": "chat",
+        "state": "succeeded"
+      },
+      "prompt": "What codeword did I ask you to remember? Reply only with that codeword.",
+      "response": "MAPLEDCA40285",
+      "separate_cli_process": true
+    },
+    {
+      "elapsed_seconds": 33.4572,
+      "fresh_offline_worker": true,
+      "inference": {
+        "api_calls": 1,
+        "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "origin": "real_local_inference",
+        "state": "completed"
+      },
+      "mission": {
+        "actor": "owner",
+        "approval_request_id": null,
+        "evidence_origin": "real",
+        "history": [
+          "requested",
+          "planned",
+          "ready",
+          "running",
+          "verifying",
+          "succeeded"
+        ],
+        "id": "216f8bd331404736add8017ac768d92c",
+        "message": "UNKNOWN",
+        "route": "chat",
+        "state": "succeeded"
+      },
+      "prompt": "What codeword did I ask you to remember in this conversation? If none was provided, reply only UNKNOWN.",
+      "response": "UNKNOWN",
+      "separate_cli_process": true
+    }
+  ],
+  "verified_at_utc": "2026-11-17T20:15:03.822016+00:00"
+}
